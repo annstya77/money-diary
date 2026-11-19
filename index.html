@@ -586,9 +586,10 @@ const TODAY=()=>iso(new Date());
 const N0=new Date();
 let D=null,S={tab:'home',view:'bulan',y:N0.getFullYear(),m:N0.getMonth(),sub:'tab',q:'',fk:'',fa:'',fb:'',f:{},sf:null,calc:'',kp:0,cl:{}};
 
-/* ---------- infrastruktur ---------- */
+/* ---------- infrastruktur (Optimistic UI) ---------- */
 const ls={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
 const cfg=()=>ls.get('cfg',null),getQ=()=>ls.get('q',[]),uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+
 async function call(fn,...args){
  const c=cfg();if(!c)throw new Error('Belum tersambung');
  let r;
@@ -596,28 +597,142 @@ async function call(fn,...args){
  let j;try{j=await r.json()}catch(e){throw new Error('Jawaban server tidak dikenali. Periksa alamat sambungan dan pengaturan deployment.')}
  if(!j.ok)throw new Error(j.error);return j.data;
 }
+
 const busy=v=>{$('#load').hidden=!v};
 function toast(m,ok=1){const t=$('#toast');t.textContent=m;t.className='show '+(ok?'ok':'er');clearTimeout(toast.t);toast.t=setTimeout(()=>t.className='',3000)}
-function overlay(){getQ().forEach(it=>{const o=it.o;D.tx.push({type:o.type,row:-1,date:o.date,akun:o.akun,kat:o.kat,sub:o.sub||'',nilai:o.nilai,cat:o.cat||'',pos:o.pos||'',sig:'',pending:1})})}
-async function refresh(){
- try{const d=await call('load');ls.set('cache',d);S.off=0;setD(d)}
- catch(e){if(!e.net)throw e;const c=ls.get('cache',null);if(!c)throw e;setD(c);S.off=1}
- render();
+
+function saveCache(){
+ if(!D)return;
+ const clean={...D,tx:D.tx.filter(t=>!t.pending)};
+ ls.set('cache',clean);
 }
-async function sync(){
- if(S.syncing)return;const q=getQ();if(!q.length)return;S.syncing=1;let fail=0;
- for(const it of q){try{await call('saveTx',it.o);ls.set('q',getQ().filter(x=>x.cid!=it.cid))}catch(e){if(e.net)break;ls.set('q',getQ().filter(x=>x.cid!=it.cid));fail++}}
- S.syncing=0;try{await refresh()}catch(e){}
- if(fail)toast(fail+' transaksi ditolak server dan dibuang',0);else if(!getQ().length)toast('Semua transaksi sudah terkirim ke spreadsheet');
+
+function overlay(){
+ const q=getQ();
+ // Hapus duplikat pending lama sebelum overlay ulang
+ D.tx=D.tx.filter(t=>!t.pending);
+ q.forEach(it=>{
+  const o=it.o;
+  D.tx.push({type:o.type,row:-1,cid:it.cid,date:o.date,akun:o.akun,kat:o.kat,sub:o.sub||'',nilai:o.nilai,cat:o.cat||'',pos:o.pos||'',sig:'',pending:1});
+ });
 }
-async function act(fn,args,msg){
- busy(1);const nw=fn=='saveTx'&&!args[0].row;
- try{if(nw)args[0].cid=args[0].cid||uid();await call(fn,...args);await refresh();closeS();toast(msg)}
- catch(e){
-  if(e.net&&nw){const q=getQ();q.push({cid:args[0].cid,o:args[0]});ls.set('q',q);try{await refresh()}catch(x){}closeS();toast('Tersimpan di HP. Dikirim otomatis saat online.')}
-  else toast(e.net?'Aksi ini butuh internet':e.message,0)
+
+async function refresh(silent=0){
+ try{
+  const d=await call('load');
+  ls.set('cache',d);
+  S.off=0;
+  setD(d);
+  render();
+ }catch(e){
+  if(!e.net){if(!silent)throw e;return;}
+  const c=ls.get('cache',null);
+  if(!c){if(!silent)throw e;return;}
+  setD(c);
+  S.off=1;
+  render();
  }
- busy(0);
+}
+
+async function sync(){
+ if(S.syncing)return;
+ const q=getQ();if(!q.length)return;
+ S.syncing=1;render();
+ let fail=0;
+ for(const it of q){
+  try{
+   await call('saveTx',it.o);
+   ls.set('q',getQ().filter(x=>x.cid!=it.cid));
+  }catch(e){
+   if(e.net)break;
+   ls.set('q',getQ().filter(x=>x.cid!=it.cid));
+   fail++;
+  }
+ }
+ S.syncing=0;
+ try{await refresh(1)}catch(e){}
+ if(fail)toast(fail+' transaksi ditolak server dan dibuang',0);
+ else if(!getQ().length)toast('Semua transaksi sudah tersinkron ke spreadsheet');
+}
+
+// Terapkan perubahan langsung ke state lokal (Layar + localStorage) seketika
+function applyOptimistic(fn,args){
+ const a=args[0];
+ if(fn=='saveTx'){
+  if(a.row){
+   const i=D.tx.findIndex(x=>x.type==a.type&&x.row==a.row);
+   if(i>-1)D.tx[i]={...D.tx[i],date:a.date,akun:a.akun,kat:a.kat,sub:a.sub||'',nilai:a.nilai,cat:a.cat||'',pos:a.pos||''};
+  }else{
+   D.tx.push({type:a.type,row:-1,cid:a.cid,date:a.date,akun:a.akun,kat:a.kat,sub:a.sub||'',nilai:a.nilai,cat:a.cat||'',pos:a.pos||'',sig:'',pending:1});
+  }
+ }else if(fn=='deleteTx'){
+  const [ty,rw]=args;
+  D.tx=D.tx.filter(x=>!(x.type==ty&&x.row==rw));
+ }else if(fn=='setBudget'){
+  D.budget=a;
+ }else if(fn=='upsert'){
+  const [kind,obj]=args;
+  const map={Akun:'akun',Pos:'pos',Transfer:'trf',Hutang:'hutang',Berulang:'rep'};
+  const list=D[map[kind]];
+  if(list){
+   if(obj.id){
+    const i=list.findIndex(x=>x.id==obj.id);
+    if(i>-1)list[i]={...list[i],...obj};
+   }else{
+    list.push({...obj,id:'tmp_'+uid()});
+   }
+  }
+ }else if(fn=='remove'){
+  const [kind,id]=args;
+  const map={Akun:'akun',Pos:'pos',Transfer:'trf',Target:'target',Hutang:'hutang',Berulang:'rep',Kategori:'kat'};
+  if(D[map[kind]])D[map[kind]]=D[map[kind]].filter(x=>x.id!=id);
+ }else if(fn=='payHutang'){
+  const [id,akun,nilai,tgl]=args;
+  const h=D.hutang.find(x=>x.id==id);
+  if(h){
+   h.sisa=r2((+h.sisa)-nilai);
+   D.tx.push({type:h.jenis=='Piutang'?'in':'out',row:-1,date:tgl,akun,kat:'Lainnya',sub:'',nilai,cat:(h.jenis=='Piutang'?'Terima dari ':'Bayar ke ')+h.pihak,pos:'',sig:'',pending:1});
+  }
+ }
+ saveCache();
+ prep();
+}
+
+async function act(fn,args,msg){
+ const isNewTx=(fn=='saveTx'&&!args[0].row);
+ if(isNewTx)args[0].cid=args[0].cid||uid();
+
+ // Simpan snapshot sebelum diubah untuk berjaga-jaga jika gagal
+ const snap=JSON.parse(JSON.stringify(D));
+
+ // 1. Update layar & cache INSTAN tanpa loading
+ applyOptimistic(fn,args);
+ closeS();
+ render();
+ toast(msg+' ⚡');
+
+ // 2. Kirim ke Google Sheets di latar belakang
+ try{
+  await call(fn,...args);
+  // Sinkronkan diam-diam di background untuk dapat nomor baris (row) resmi dari Sheet
+  refresh(1);
+ }catch(e){
+  if(e.net&&isNewTx){
+   // Masuk antrean offline otomatis
+   const q=getQ();
+   q.push({cid:args[0].cid,o:args[0]});
+   ls.set('q',q);
+   render();
+   toast('Offline: tersimpan di HP, dikirim otomatis saat online');
+  }else{
+   // Kembalikan data jika edit/hapus gagal di server
+   D=snap;
+   saveCache();
+   prep();
+   render();
+   toast(e.net?'Aksi ini butuh internet':e.message,0);
+  }
+ }
 }
 function openS(fn){S.sf=fn;sh();$('#sbg').hidden=false;$('#sheet').hidden=false}
 function sh(){const sc=$('#sheet').scrollTop;$('#sbody').innerHTML=S.sf();$('#sheet').scrollTop=sc}
