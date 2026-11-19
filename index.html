@@ -609,7 +609,6 @@ function saveCache(){
 
 function overlay(){
  const q=getQ();
- // Hapus duplikat pending lama sebelum overlay ulang
  D.tx=D.tx.filter(t=>!t.pending);
  q.forEach(it=>{
   const o=it.o;
@@ -655,7 +654,6 @@ async function sync(){
  else if(!getQ().length)toast('Semua transaksi sudah tersinkron ke spreadsheet');
 }
 
-// Terapkan perubahan langsung ke state lokal (Layar + localStorage) seketika
 function applyOptimistic(fn,args){
  const a=args[0];
  if(fn=='saveTx'){
@@ -693,6 +691,38 @@ function applyOptimistic(fn,args){
    h.sisa=r2((+h.sisa)-nilai);
    D.tx.push({type:h.jenis=='Piutang'?'in':'out',row:-1,date:tgl,akun,kat:'Lainnya',sub:'',nilai,cat:(h.jenis=='Piutang'?'Terima dari ':'Bayar ke ')+h.pihak,pos:'',sig:'',pending:1});
   }
+ }else if(fn=='saveTarget'){
+  if(a.id){
+   const i=D.target.findIndex(x=>x.id==a.id);
+   if(i>-1)D.target[i]={...D.target[i],...a};
+  }else{
+   let pid=a.pos;
+   if(pid=='__new'){
+    pid='tmp_'+uid();
+    D.pos.push({id:pid,akun:a.akun,nama:a.nama,saldo:0,urut:999});
+   }
+   D.target.push({...a,id:'tmp_'+uid(),pos:pid});
+  }
+ }else if(fn=='saveKategori'){
+  const subsStr=(a.subs||[]).join('|');
+  if(a.id){
+   const i=D.kat.findIndex(x=>x.id==a.id);
+   if(i>-1){
+    const oldName=D.kat[i].nama;
+    D.kat[i]={...D.kat[i],nama:a.nama,grup:a.grup,subs:subsStr};
+    D.tx.forEach(t=>{
+     if(t.type==a.type&&t.kat==oldName){
+      t.kat=a.nama;
+      const rn=(a.renames||[]).find(r=>r.o==t.sub);
+      if(rn)t.sub=rn.n;
+     }
+    });
+   }
+  }else{
+   D.kat.push({id:'tmp_'+uid(),type:a.type,nama:a.nama,grup:a.grup,subs:subsStr,urut:999});
+  }
+ }else if(fn=='restore'){
+  D={...D,...a};
  }
  saveCache();
  prep();
@@ -701,31 +731,24 @@ function applyOptimistic(fn,args){
 async function act(fn,args,msg){
  const isNewTx=(fn=='saveTx'&&!args[0].row);
  if(isNewTx)args[0].cid=args[0].cid||uid();
-
- // Simpan snapshot sebelum diubah untuk berjaga-jaga jika gagal
  const snap=JSON.parse(JSON.stringify(D));
 
- // 1. Update layar & cache INSTAN tanpa loading
  applyOptimistic(fn,args);
  closeS();
  render();
  toast(msg+' ⚡');
 
- // 2. Kirim ke Google Sheets di latar belakang
  try{
   await call(fn,...args);
-  // Sinkronkan diam-diam di background untuk dapat nomor baris (row) resmi dari Sheet
   refresh(1);
  }catch(e){
   if(e.net&&isNewTx){
-   // Masuk antrean offline otomatis
    const q=getQ();
    q.push({cid:args[0].cid,o:args[0]});
    ls.set('q',q);
    render();
    toast('Offline: tersimpan di HP, dikirim otomatis saat online');
   }else{
-   // Kembalikan data jika edit/hapus gagal di server
    D=snap;
    saveCache();
    prep();
@@ -734,6 +757,7 @@ async function act(fn,args,msg){
   }
  }
 }
+
 function openS(fn){S.sf=fn;sh();$('#sbg').hidden=false;$('#sheet').hidden=false}
 function sh(){const sc=$('#sheet').scrollTop;$('#sbody').innerHTML=S.sf();$('#sheet').scrollTop=sc}
 function closeS(){$('#sbg').hidden=true;$('#sheet').hidden=true;S.kp=0;S.calc=''}
@@ -800,10 +824,21 @@ function mv(kind,id,dir){
  const i=list.findIndex(x=>x.id==id),j=i+dir;if(j<0||j>=list.length)return;
  const ids=list.map(x=>x.id);[ids[i],ids[j]]=[ids[j],ids[i]];
  ids.forEach((x,n)=>{src.find(y=>y.id==x).urut=n+1});
- prep();render();ls.set('cache',{...D,tx:D.tx.filter(t=>!t.pending)});
+ prep();render();saveCache();
  call('reorder',[kind,ids]).catch(e=>toast(e.net?'Urutan belum tersimpan, butuh internet':e.message,0));
 }
-async function actSeq(list,msg){busy(1);try{for(const [fn,args] of list)await call(fn,...args);await refresh();closeS();toast(msg)}catch(e){toast(e.net?'Aksi ini butuh internet':e.message,0)}busy(0)}
+async function actSeq(list,msg){
+ const snap=JSON.parse(JSON.stringify(D));
+ for(const [fn,args] of list)applyOptimistic(fn,args);
+ closeS();render();toast(msg+' ⚡');
+ try{
+  for(const [fn,args] of list)await call(fn,...args);
+  refresh(1);
+ }catch(e){
+  D=snap;saveCache();prep();render();
+  toast(e.net?'Aksi ini butuh internet':e.message,0);
+ }
+}
 const adj=(d,akun,pos)=>({cur:curOf(akun),type:d>0?'in':'out',date:TODAY(),akun,kat:'Adjust',sub:'',nilai:Math.abs(d),cat:'Penyesuaian saldo',pos:pos||'',cid:uid()});
 
 /* ---------- perhitungan ---------- */
