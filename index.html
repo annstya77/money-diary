@@ -920,9 +920,12 @@ function applyOptimistic(fn,args){
      if(t.type==a.type&&t.kat==oldName){
       t.kat=a.nama;
       const rn=(a.renames||[]).find(r=>r.o==t.sub);
-      if(rn)t.sub=rn.n;
+          if(rn)t.sub=rn.n;
      }
     });
+    const mb=getMonthBudgets();
+    Object.keys(mb).forEach(m=>{const c=mb[m][oldName];if(!c)return;delete mb[m][oldName];(a.renames||[]).forEach(r=>{if(c.subs&&r.o in c.subs){c.subs[r.n]=c.subs[r.o];delete c.subs[r.o]}});mb[m][a.nama]=c});
+    setMonthBudgets(mb);
    }
   }else{
    D.kat.push({id:'tmp_'+uid(),type:a.type,nama:a.nama,grup:a.grup,subs:subsStr,urut:999});
@@ -1603,7 +1606,7 @@ function ksave(){const f=S.f,n=f.nama.trim();
  if(!n)return toast('Nama kategori wajib diisi',0);
  const subs=f.subs.map(s=>({n:s.n.trim(),o:s.o})).filter(s=>s.n),low=subs.map(s=>s.n.toLowerCase());
  if(new Set(low).size!=low.length)return toast('Ada sub-kategori dengan nama yang sama',0);
- act('saveKategori',[{id:f.id||'',type:f.type,nama:n,grup:(f.grup||'').trim()||'Lainnya',subs:subs.map(s=>s.n),renames:subs.filter(s=>s.o&&s.o!=s.n).map(s=>({o:s.o,n:s.n})}],'Kategori tersimpan')}
+ act('saveKategori',[{id:f.id||'',type:f.type,nama:n,grup:(f.grup||'').trim()||'Lainnya',subs:subs.map(s=>s.n),renames:subs.filter(s=>s.o&&s.o!=s.n).map(s=>({o:s.o,n:s.n}))}],'Kategori tersimpan')}
 async function kdel(){if(await ask('Hapus kategori “'+S.f.nama+'”?','Transaksi lama tetap tersimpan dengan nama kategori ini, tetapi kategorinya tidak muncul lagi di pilihan.'))act('remove',['Kategori',S.f.id],'Kategori dihapus')}
 
 /* ---------- Evaluasi Anggaran per Kategori & Sub-kategori (Accordion + Status Hijau/Merah) ---------- */
