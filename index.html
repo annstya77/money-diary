@@ -1597,22 +1597,9 @@ const kSheet=()=>{const f=S.f;return form(f.id?'Ubah kategori':'Kategori baru',
  (f.id?'':seg([[f.type=='out','',"sv('type','out',1)",'Pengeluaran'],[f.type=='in','inc',"sv('type','in',1)",'Pemasukan']]))+
  inp('nama','Nama kategori')+inp('grup','Kelompok (untuk pengelompokan warna)','Misal: Rumah','list="gl"')+
  `<datalist id="gl">${[...new Set(GRP[f.type].map(g=>g[0]))].map(g=>`<option value="${esc(g)}">`).join('')}</datalist>`+
- F('Sub-kategori',f.subs.map((s,i)=>`<div style="margin-bottom:8px"><div class="row" style="flex-wrap:nowrap"><input value="${esc(s.n)}" placeholder="Nama sub-kategori" oninput="S.f.subs[${i}].n=this.value" style="margin:0"><button type="button" class="ghost dangerbtn" style="flex:0 0 52px" onclick="S.f.subs.splice(${i},1);sh()" aria-label="Hapus sub-kategori">✕</button></div></div>`).join('')+'<button type="button" class="ghost" onclick="S.f.subs.push({n:\'\',o:\'\'});sh()">+ Sub-kategori</button>')+
- (f.id?'<div class="chartnote">Mengganti nama kategori atau sub-kategori ikut mengubah semua transaksi lama dengan nama itu di spreadsheet. Menghapus sub-kategori tidak mengubah transaksi lama.</div>':'')+btns('ksave()',f.id&&'kdel()'))};
-function ksave(){const f=S.f,n=f.nama.trim();
- if(!n)return toast('Nama kategori wajib diisi',0);
- const subs=f.subs.map(s=>({n:s.n.trim(),o:s.o})).filter(s=>s.n),low=subs.map(s=>s.n.toLowerCase());
- if(new Set(low).size!=low.length)return toast('Ada sub-kategori dengan nama yang sama',0);
- act('saveKategori',[{id:f.id||'',type:f.type,nama:n,grup:(f.grup||'').trim()||'Lainnya',subs:subs.map(s=>s.n),renames:subs.filter(s=>s.o&&s.o!=s.n).map(s=>({o:s.o,n:s.n})}],'Kategori tersimpan')}
-async function kdel(){if(await ask('Hapus kategori “'+S.f.nama+'”?','Transaksi lama tetap tersimpan dengan nama kategori ini, tetapi kategorinya tidak muncul lagi di pilihan.'))act('remove',['Kategori',S.f.id],'Kategori dihapus')}
+ F('Sub-kategori',f.subs.map((s,i)=>`<div style="margin-bottom:8px"><div class="row" style="flex-wrap:nowrap"><input value="${esc(s.n)}" placeholder="Nama sub-kategori" oninput="S.f.subs[${i}].n=this.value" style="margin:0"><button type="button" class="ghost dangerbtn" style="flex:0 0 52px" onclick="S.f.subs.splice(${i},1);sh()" aria-label="Hapus sub-kategori">✕</button></div></div>`).join('')+`<button type="button" class="ghost" onclick="S.f.subs.push({n:'',o:''});sh()">+ Sub-kategori</button>`)+
 
-/* ---------- Evaluasi Anggaran per Kategori & Sub-kategori (Accordion + Status Hijau/Merah) ---------- */
-function toggleEvalKat(k){
- S.expEval[k]=!S.expEval[k];
- render();
-}
-function evalPanel(ex,ymStr=ym()){
- const info=evalBudgetsForMonth(ymStr);
+                                
  const rows=info.rows.map(r=>{
   const sp=sum(ex.filter(t=>t.kat==r.kat),t=>t.idr);
   const subsDetail=r.subs.map(sb=>{
