@@ -26,26 +26,40 @@
             sans: ['Nunito', 'sans-serif']
           },
           colors: {
+            // Primary Colors
+            skyBlue: '#B9D5F5',
+            cottonPink: '#F5B9D0',
+            mintGreen: '#B8DFC3',
+            // Supporting Colors
+            butterYellow: '#FFE19B',
+            lavender: '#C9B8EB',
+            peach: '#FFB99F',
+            // Neutral Colors
+            cloudWhite: '#F8FAFF',
+            softCream: '#FFF7F0',
+            softGrey: '#E6ECF2',
+            // Text Colors
+            deepSlate: '#49647D',
+            mutedBlue: '#8094A6',
+            softBrown: '#6A5B4D',
+            // Status Colors
+            freshGreen: '#83B9A9',
+            freshGreenLight: '#E9F5F1',
+            sweetPink: '#F6A7B7',
+            sweetPinkLight: '#FDECEF',
+            dreamPurple: '#C9B8E8',
+            // Other Accents
+            skyMint: '#AEE0C6',
+            softOrange: '#FFD3A5',
+            // Alias kompatibilitas komponen
             cream: '#F8FAFF',
             creamCard: '#FFF7F0',
             creamSoft: '#EEF3F9',
-            butter: '#B9D5F5',
-            butterYellow: '#FFE19B',
-            cottonPink: '#F5B9D0',
-            mintGreen: '#B8DFC3',
-            lavender: '#C9B8EB',
-            peach: '#FFB99F',
-            skyMint: '#AEE0C6',
-            softOrange: '#FFD3A5',
-            peanut: '#8094A6',
-            peanutDark: '#49647D',
-            sage: '#4D8E7A',
-            sageLight: '#E5F5EE',
-            coral: '#C95A72',
-            coralLight: '#FCE7EC',
             ink: '#49647D',
-            slateMuted: '#8094A6',
-            softBrown: '#6A5B4D',
+            sage: '#83B9A9',
+            sageLight: '#E9F5F1',
+            coral: '#F6A7B7',
+            coralLight: '#FDECEF',
             divider: '#E6ECF2'
           }
         }
@@ -56,19 +70,23 @@
   <style>
     * {
       font-family: 'Nunito', sans-serif !important;
-      font-weight: 400;
       -webkit-tap-highlight-color: transparent;
       box-sizing: border-box;
     }
 
-    strong, b, .font-medium, .font-semibold, .font-bold {
+    body {
+      background-color: #F8FAFF;
+      color: #49647D;
+      font-weight: 400;
+      overscroll-behavior-y: none;
+    }
+
+    strong, b, .font-bold {
       font-weight: 700 !important;
     }
 
-    body {
-      background-color: #EDF2FA;
-      color: #49647D;
-      overscroll-behavior-y: none;
+    .font-semibold, .font-medium {
+      font-weight: 600 !important;
     }
 
     .no-scrollbar::-webkit-scrollbar {
@@ -88,29 +106,29 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex justify-center bg-[#EDF2FA]">
+<body class="min-h-screen flex justify-center bg-cloudWhite text-deepSlate">
 
-  <div id="app-shell" class="w-full max-w-md min-h-screen bg-cream relative flex flex-col shadow-xl">
+  <div id="app-shell" class="w-full max-w-md min-h-screen bg-cloudWhite relative flex flex-col shadow-xl">
 
     <!-- Toast Notification -->
-    <div id="toast-banner" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-medium tracking-wide bg-ink text-[#F8FAFF] max-w-[90vw] text-center"></div>
+    <div id="toast-banner" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-semibold tracking-wide bg-deepSlate text-cloudWhite max-w-[90vw] text-center"></div>
 
     <!-- Lock Screen Overlay -->
-    <div id="lock-screen" class="hidden fixed inset-0 z-[80] bg-cream flex flex-col items-center justify-center p-6">
-      <div class="w-full max-w-xs bg-creamCard rounded-3xl p-6 shadow-md border border-[#E6ECF2] text-center space-y-5">
-        <div class="w-16 h-16 mx-auto rounded-2xl bg-[#B9D5F5] flex items-center justify-center shadow-inner">
-          <svg class="w-8 h-8 text-[#49647D]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <div id="lock-screen" class="hidden fixed inset-0 z-[80] bg-cloudWhite flex flex-col items-center justify-center p-6">
+      <div class="w-full max-w-xs bg-softCream rounded-3xl p-6 shadow-md border border-softGrey text-center space-y-5">
+        <div class="w-16 h-16 mx-auto rounded-2xl bg-skyBlue flex items-center justify-center shadow-inner">
+          <svg class="w-8 h-8 text-deepSlate" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
         </div>
         <div>
-          <h2 class="text-base font-medium uppercase tracking-wider text-ink">KUNCI APLIKASI</h2>
-          <p class="text-xs text-[#8094A6] mt-1">Masukkan 4–6 digit PIN untuk membuka sesi (48 jam)</p>
+          <h2 class="text-base font-bold uppercase tracking-wider text-deepSlate">KUNCI APLIKASI</h2>
+          <p class="text-xs text-mutedBlue mt-1">Masukkan 4–6 digit PIN untuk membuka sesi (48 jam)</p>
         </div>
         <input id="pin-unlock-input" type="password" inputmode="numeric" maxlength="6" placeholder="••••"
           onkeydown="if(event.key==='Enter') unlockWithPin()"
-          class="w-full text-center tracking-[0.5em] text-lg py-3 rounded-2xl bg-creamSoft border border-[#E6ECF2] focus:outline-none focus:border-[#B9D5F5]" />
-        <button onclick="unlockWithPin()" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium uppercase tracking-wider shadow-sm active:scale-95 transition-all">
+          class="w-full text-center tracking-[0.5em] text-lg py-3 rounded-2xl bg-creamSoft border border-softGrey text-deepSlate focus:outline-none focus:border-skyBlue" />
+        <button onclick="unlockWithPin()" class="w-full py-3 rounded-2xl bg-deepSlate text-cloudWhite text-xs font-semibold uppercase tracking-wider shadow-sm active:scale-95 transition-all">
           Buka Aplikasi
         </button>
       </div>
@@ -121,22 +139,22 @@
 
     <!-- Floating Action Button (+ Catat) -->
     <button id="fab-add-tx" onclick="handleFabCatatClick()"
-      class="fixed bottom-24 right-5 z-40 flex items-center gap-2 px-4 py-3.5 rounded-full bg-ink text-[#F8FAFF] shadow-lg hover:opacity-95 active:scale-95 transition-all">
+      class="fixed bottom-24 right-5 z-40 flex items-center gap-2 px-4 py-3.5 rounded-full bg-deepSlate text-cloudWhite shadow-lg hover:opacity-95 active:scale-95 transition-all">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
       </svg>
-      <span class="text-xs font-medium tracking-wide">Catat</span>
+      <span class="text-xs font-semibold tracking-wide">Catat</span>
     </button>
 
     <!-- Bottom Navigation -->
-    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-40 bg-creamCard/95 backdrop-blur-md border-t border-[#E6ECF2] px-1.5 py-2">
+    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-40 bg-softCream/95 backdrop-blur-md border-t border-softGrey px-1.5 py-2">
       <div id="bottom-nav-items" class="grid grid-cols-6 gap-0.5 text-center"></div>
     </nav>
 
     <!-- Reusable Modal Overlay -->
     <div id="modal-backdrop" onclick="closeModalOnBackdrop(event)"
-      class="hidden fixed inset-0 z-50 bg-[#49647D]/35 backdrop-blur-[2px] items-end sm:items-center justify-center p-0 sm:p-4">
-      <div id="modal-box" class="w-full max-w-md bg-creamCard rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl border border-[#E6ECF2] max-h-[90vh] overflow-y-auto animate-pop"></div>
+      class="hidden fixed inset-0 z-50 bg-deepSlate/35 backdrop-blur-[2px] items-end sm:items-center justify-center p-0 sm:p-4">
+      <div id="modal-box" class="w-full max-w-md bg-softCream rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl border border-softGrey max-h-[90vh] overflow-y-auto animate-pop"></div>
     </div>
   </div>
 
@@ -147,7 +165,6 @@
     const STORAGE_KEY = 'catatan_keuangan_pwa_v1';
     const PIN_SESSION_KEY = 'catatan_keuangan_pin_session_until';
     const MONTH_NAMES_ID = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-    const MONTH_FULL_NAMES_ID = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
     const CURRENCY_META = {
       IDR: { symbol: 'Rp', name: 'Rupiah', decimals: 0 },
@@ -160,17 +177,12 @@
     };
 
     const ACCOUNT_COLORS = [
-      { id: 'emerald', hex: '#83B9A9', bg: '#EBF7F2', border: '#B8DFC3' }, // Mint Green / Fresh Green
-      { id: 'teal',    hex: '#7BA8DB', bg: '#EDF4FD', border: '#B9D5F5' }, // Sky Blue
-      { id: 'amber',   hex: '#E4B85A', bg: '#FFF9E8', border: '#FFE19B' }, // Butter Yellow
-      { id: 'coral',   hex: '#E88B9F', bg: '#FDF0F3', border: '#F5B9D0' }, // Cotton Pink / Sweet Pink
-      { id: 'plum',    hex: '#A690D4', bg: '#F4F0FC', border: '#C9B8EB' }, // Lavender / Dream Purple
-      { id: 'slate',   hex: '#E89B7C', bg: '#FFF3EC', border: '#FFB99F' }  // Peach / Soft Orange
-    ];
-
-    const PIE_PALETTE = [
-      '#83B9A9', '#F6A7B7', '#B9D5F5', '#C9B8EB', '#FFE19B',
-      '#FFB99F', '#AEE0C6', '#F5B9D0', '#FFD3A5', '#8094A6'
+      { id: 'emerald', hex: '#83B9A9', bg: '#E9F5F1', border: '#B8DFC3' },
+      { id: 'teal',    hex: '#B9D5F5', bg: '#EDF4FD', border: '#B9D5F5' },
+      { id: 'amber',   hex: '#FFE19B', bg: '#FFF9E8', border: '#FFE19B' },
+      { id: 'coral',   hex: '#F6A7B7', bg: '#FDECEF', border: '#F5B9D0' },
+      { id: 'plum',    hex: '#C9B8E8', bg: '#F4F0FC', border: '#C9B8EB' },
+      { id: 'slate',   hex: '#FFB99F', bg: '#FFF3EC', border: '#FFD3A5' }
     ];
 
     const ICONS = {
@@ -184,178 +196,64 @@
       home: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9z" /></svg>`
     };
 
-    const ICON_LABELS = {
-      wallet: 'Dompet',
-      bank: 'Bank',
-      card: 'Kartu',
-      celengan: 'Kucing',
-      coin: 'Koin',
-      shield: 'Darurat',
-      plane: 'Liburan',
-      home: 'Rumah'
-    };
-
     // =========================================================================
     // 2. DATA DEFAULT & STATE PERSISTENCE (LOCALSTORAGE)
     // =========================================================================
     function getDefaultData() {
       const today = new Date().toISOString().slice(0, 10);
       return {
-        exchangeRates: {
-          IDR: 1,
-          THB: 475,
-          USD: 15850,
-          SGD: 11800,
-          MYR: 3550,
-          JPY: 105,
-          EUR: 17100
-        },
-        exchangeRateMeta: {
-          lastUpdated: '',
-          source: 'Default'
-        },
-        gasConfig: {
-          url: '',
-          key: '',
-          lastSyncAt: '',
-          status: 'offline'
-        },
-        security: {
-          enabled: false,
-          pinHash: ''
-        },
+        exchangeRates: { IDR: 1, THB: 475, USD: 15850, SGD: 11800, MYR: 3550, JPY: 105, EUR: 17100 },
+        exchangeRateMeta: { lastUpdated: '', source: 'Default' },
+        gasConfig: { url: '', key: '', lastSyncAt: '', status: 'offline' },
+        security: { enabled: false, pinHash: '' },
         accounts: [
           {
-            id: 'acc_bca',
-            name: 'Bank BCA',
-            jenis: 'Bank',
-            currency: 'IDR',
-            colorId: 'emerald',
-            icon: 'bank',
-            urut: 1,
+            id: 'acc_bca', name: 'Bank BCA', jenis: 'Bank', currency: 'IDR', colorId: 'emerald', icon: 'bank', urut: 1,
             pockets: [
               { id: 'pkt_bca_main', name: 'Pocket Utama', balance: 4500000, urut: 1 },
               { id: 'pkt_bca_darurat', name: 'Dana Darurat', balance: 3000000, urut: 2 }
             ]
           },
           {
-            id: 'acc_cash',
-            name: 'Dompet Tunai',
-            jenis: 'Cash',
-            currency: 'IDR',
-            colorId: 'amber',
-            icon: 'wallet',
-            urut: 2,
-            pockets: [
-              { id: 'pkt_cash_harian', name: 'Kas Harian', balance: 650000, urut: 1 }
-            ]
+            id: 'acc_cash', name: 'Dompet Tunai', jenis: 'Cash', currency: 'IDR', colorId: 'amber', icon: 'wallet', urut: 2,
+            pockets: [{ id: 'pkt_cash_harian', name: 'Kas Harian', balance: 650000, urut: 1 }]
           },
           {
-            id: 'acc_thb',
-            name: 'Dompet Baht',
-            jenis: 'Cash',
-            currency: 'THB',
-            colorId: 'teal',
-            icon: 'wallet',
-            urut: 3,
-            pockets: [
-              { id: 'pkt_thb_travel', name: 'Travel Thailand', balance: 4200, urut: 1 }
-            ]
+            id: 'acc_thb', name: 'Dompet Baht', jenis: 'Cash', currency: 'THB', colorId: 'teal', icon: 'wallet', urut: 3,
+            pockets: [{ id: 'pkt_thb_travel', name: 'Travel Thailand', balance: 4200, urut: 1 }]
           }
         ],
         categories: [
           {
-            id: 'cat_makan',
-            name: 'Makan & Minum',
-            type: 'expense',
-            colorId: 'amber',
-            directLimit: 1500000,
+            id: 'cat_makan', name: 'Makan & Minum', type: 'expense', colorId: 'amber', directLimit: 1500000,
             subcategories: [
               { id: 'sub_makan_harian', name: 'Makan Harian', limit: 1000000 },
               { id: 'sub_kopi', name: 'Kopi & Jajan', limit: 500000 }
             ]
           },
+          { id: 'cat_transport', name: 'Transportasi', type: 'expense', colorId: 'teal', directLimit: 600000, subcategories: [] },
           {
-            id: 'cat_transport',
-            name: 'Transportasi',
-            type: 'expense',
-            colorId: 'teal',
-            directLimit: 600000,
-            subcategories: []
-          },
-          {
-            id: 'cat_tagihan',
-            name: 'Tagihan',
-            type: 'expense',
-            colorId: 'coral',
-            directLimit: 650000,
+            id: 'cat_tagihan', name: 'Tagihan', type: 'expense', colorId: 'coral', directLimit: 650000,
             subcategories: [
               { id: 'sub_hp_wifi', name: 'Hp dan Wifi', limit: 350000 },
               { id: 'sub_listrik', name: 'Listrik', limit: 300000 }
             ]
           },
-          {
-            id: 'cat_gaji',
-            name: 'Gaji & Bonus',
-            type: 'income',
-            colorId: 'emerald',
-            directLimit: 0,
-            subcategories: []
-          }
+          { id: 'cat_gaji', name: 'Gaji & Bonus', type: 'income', colorId: 'emerald', directLimit: 0, subcategories: [] }
         ],
         monthlyBudgets: {},
         transactions: [
-          {
-            id: 'tx_init_1',
-            type: 'expense',
-            date: today,
-            amount: 320000,
-            categoryId: 'cat_tagihan',
-            subcategoryId: 'sub_hp_wifi',
-            title: 'Paket Internet & Wifi',
-            accountId: 'acc_bca',
-            pocketId: 'pkt_bca_main'
-          },
-          {
-            id: 'tx_init_2',
-            type: 'expense',
-            date: today,
-            amount: 45000,
-            categoryId: 'cat_makan',
-            subcategoryId: 'sub_makan_harian',
-            title: 'Makan Siang',
-            accountId: 'acc_cash',
-            pocketId: 'pkt_cash_harian'
-          },
-          {
-            id: 'tx_init_3',
-            type: 'income',
-            date: today,
-            amount: 5000000,
-            categoryId: 'cat_gaji',
-            subcategoryId: '',
-            title: 'Gaji Bulanan',
-            accountId: 'acc_bca',
-            pocketId: 'pkt_bca_main'
-          }
+          { id: 'tx_init_1', type: 'expense', date: today, amount: 320000, categoryId: 'cat_tagihan', subcategoryId: 'sub_hp_wifi', title: 'Paket Internet & Wifi', accountId: 'acc_bca', pocketId: 'pkt_bca_main' },
+          { id: 'tx_init_2', type: 'expense', date: today, amount: 45000, categoryId: 'cat_makan', subcategoryId: 'sub_makan_harian', title: 'Makan Siang', accountId: 'acc_cash', pocketId: 'pkt_cash_harian' },
+          { id: 'tx_init_3', type: 'income', date: today, amount: 5000000, categoryId: 'cat_gaji', subcategoryId: '', title: 'Gaji Bulanan', accountId: 'acc_bca', pocketId: 'pkt_bca_main' }
         ],
         recurringTransactions: [],
         savingsGoals: [
           {
-            id: 'sav_darurat',
-            name: 'Dana Darurat',
-            targetAmount: 10000000,
-            currentAmount: 3000000,
-            accountId: 'acc_bca',
-            pocketId: 'pkt_bca_darurat',
-            deadline: '',
-            colorId: 'emerald',
-            icon: 'shield',
-            note: 'Cadangan 6 bulan biaya hidup',
-            urut: 1,
-            history: [
-              { id: 'sh_1', type: 'deposit', amount: 3000000, date: today, note: 'Saldo awal pocket Dana Darurat' }
-            ]
+            id: 'sav_darurat', name: 'Dana Darurat', targetAmount: 10000000, currentAmount: 3000000,
+            accountId: 'acc_bca', pocketId: 'pkt_bca_darurat', deadline: '', colorId: 'emerald', icon: 'shield',
+            note: 'Cadangan 6 bulan biaya hidup', urut: 1,
+            history: [{ id: 'sh_1', type: 'deposit', amount: 3000000, date: today, note: 'Saldo awal pocket Dana Darurat' }]
           }
         ],
         debts: [],
@@ -385,7 +283,6 @@
     }
 
     let db = loadData();
-    let isFetchingRates = false;
 
     const nowInit = new Date();
     const ui = {
@@ -422,13 +319,6 @@
     // =========================================================================
     // 3. FORMAT ANGKA (###.###.###) & KONVERSI MATA UANG
     // =========================================================================
-    function formatNumberID(num) {
-      const val = Math.round(Number(num) || 0);
-      const sign = val < 0 ? '-' : '';
-      const absStr = Math.abs(val).toString();
-      return sign + absStr.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    }
-
     function formatCurrency(amount, currency = 'IDR') {
       const meta = CURRENCY_META[currency] || { symbol: currency + ' ', decimals: 0 };
       const num = Number(amount) || 0;
@@ -465,52 +355,76 @@
       return (acc.pockets || []).reduce((sum, p) => sum + (Number(p.balance) || 0), 0);
     }
 
-    function getTotalNetWorthIDR() {
-      return db.accounts.reduce((sum, acc) => sum + toIDR(getAccountTotalBalance(acc), acc.currency), 0);
+    // =========================================================================
+    // 4. HELPER MODAL, FORMAT INPUT RIBUAN & TOMBOL CEPAT "00" / "000"
+    // =========================================================================
+    function openModal(html) {
+      const backdrop = document.getElementById('modal-backdrop');
+      const box = document.getElementById('modal-box');
+      if (!backdrop || !box) return;
+      box.innerHTML = html;
+      backdrop.classList.remove('hidden');
+      backdrop.classList.add('flex');
     }
 
-    function getSavingGoalBalanceIDR(goal) {
-      const acc = db.accounts.find(a => a.id === goal.accountId);
-      const pkt = acc?.pockets?.find(p => p.id === goal.pocketId);
-      if (acc && pkt) {
-        return toIDR(Number(pkt.balance) || 0, acc.currency);
-      }
-      return Number(goal.currentAmount) || 0;
+    function closeModal() {
+      const backdrop = document.getElementById('modal-backdrop');
+      const box = document.getElementById('modal-box');
+      if (!backdrop || !box) return;
+      backdrop.classList.add('hidden');
+      backdrop.classList.remove('flex');
+      box.innerHTML = '';
     }
 
-    async function fetchLiveExchangeRates(silent = false) {
-      if (isFetchingRates) return;
-      isFetchingRates = true;
-      if (!silent) render();
-      try {
-        const res = await fetch('https://open.er-api.com/v6/latest/IDR');
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        if (data && data.rates) {
-          Object.keys(CURRENCY_META).forEach(code => {
-            if (code === 'IDR') {
-              db.exchangeRates.IDR = 1;
-            } else if (data.rates[code]) {
-              db.exchangeRates[code] = Number((1 / data.rates[code]).toFixed(2));
-            }
-          });
-          db.exchangeRateMeta = {
-            lastUpdated: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
-            source: 'Live API'
-          };
-          saveData();
-          if (!silent) showToast('Kurs mata uang diperbarui');
-        }
-      } catch (e) {
-        if (!silent) showToast('Gagal memperbarui kurs (pakai kurs tersimpan)', 'error');
-      } finally {
-        isFetchingRates = false;
-        render();
+    function closeModalOnBackdrop(e) {
+      if (e.target && e.target.id === 'modal-backdrop') {
+        closeModal();
       }
+    }
+
+    function parseFormattedNumber(str) {
+      if (typeof str === 'number') return str;
+      const cleaned = String(str || '').replace(/[^\d]/g, '');
+      return Number(cleaned) || 0;
+    }
+
+    function formatDigitsWithDots(digitsStr) {
+      const cleaned = String(digitsStr || '').replace(/[^\d]/g, '').replace(/^0+(?=\d)/, '');
+      if (!cleaned) return '';
+      return cleaned.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    function handleMoneyInput(inputEl) {
+      if (!inputEl) return;
+      inputEl.value = formatDigitsWithDots(inputEl.value);
+    }
+
+    function appendQuickZeros(inputId, zerosStr) {
+      const el = document.getElementById(inputId);
+      if (!el) return;
+      const currentDigits = String(el.value || '').replace(/[^\d]/g, '');
+      if (!currentDigits) return;
+      el.value = formatDigitsWithDots(currentDigits + zerosStr);
+      el.focus();
+    }
+
+    function buildQuickZeroButtons(inputId) {
+      return `
+        <div class="flex items-center gap-1.5 mt-1.5">
+          <button type="button" onclick="appendQuickZeros('${inputId}', '00')"
+            class="px-2.5 py-1 rounded-xl bg-creamSoft border border-softGrey text-[11px] font-semibold text-deepSlate active:scale-95 transition-all">
+            +00
+          </button>
+          <button type="button" onclick="appendQuickZeros('${inputId}', '000')"
+            class="px-2.5 py-1 rounded-xl bg-creamSoft border border-softGrey text-[11px] font-semibold text-deepSlate active:scale-95 transition-all">
+            +000
+          </button>
+        </div>
+      `;
     }
 
     // =========================================================================
-    // 4. PWA MANIFEST & SERVICE WORKER
+    // 5. PWA MANIFEST & SERVICE WORKER
     // =========================================================================
     function initPWAAssets() {
       const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="32" fill="#B9D5F5"/><circle cx="64" cy="68" r="34" fill="#FFF7F0"/><path d="M40 44 L48 26 L60 40 Z" fill="#FFF7F0"/><path d="M88 44 L80 26 L68 40 Z" fill="#FFF7F0"/><circle cx="53" cy="66" r="4" fill="#49647D"/><circle cx="75" cy="66" r="4" fill="#49647D"/><path d="M59 75 Q64 80 69 75" stroke="#49647D" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
@@ -537,62 +451,8 @@
       }
     }
 
-    let deferredPrompt = null;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-    });
-
-    function triggerInstallApp() {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.finally(() => { deferredPrompt = null; });
-      } else {
-        showToast('Gunakan menu browser "Add to Home Screen" untuk install');
-      }
-    }
-
     // =========================================================================
-    // 5. GOOGLE SHEETS SYNC (APPS SCRIPT)
-    // =========================================================================
-    async function syncPullFromSheets(silent = false) {
-      const url = db.gasConfig?.url;
-      const key = db.gasConfig?.key;
-      if (!url || !key) {
-        if (!silent) showToast('Isi URL & Kunci Google Apps Script di Pengaturan', 'error');
-        return;
-      }
-
-      db.gasConfig.status = 'syncing';
-      if (!silent) render();
-
-      try {
-        const res = await fetch(`${url}?key=${encodeURIComponent(key)}&action=pull`);
-        const json = await res.json();
-        if (json && json.status === 'ok' && json.data) {
-          const remote = json.data;
-          if (Array.isArray(remote.accounts) && remote.accounts.length) db.accounts = remote.accounts;
-          if (Array.isArray(remote.categories) && remote.categories.length) db.categories = remote.categories;
-          if (Array.isArray(remote.transactions)) db.transactions = remote.transactions;
-          if (Array.isArray(remote.savingsGoals)) db.savingsGoals = remote.savingsGoals;
-          if (Array.isArray(remote.debts)) db.debts = remote.debts;
-          if (remote.monthlyBudgets) db.monthlyBudgets = remote.monthlyBudgets;
-          if (Array.isArray(remote.recurringTransactions)) db.recurringTransactions = remote.recurringTransactions;
-        }
-        db.gasConfig.status = 'ok';
-        db.gasConfig.lastSyncAt = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-        saveData();
-        if (!silent) showToast('Sinkronisasi Sheets berhasil');
-      } catch (e) {
-        db.gasConfig.status = 'error';
-        saveData();
-        if (!silent) showToast('Gagal terhubung ke Google Sheets', 'error');
-      }
-      render();
-    }
-
-    // =========================================================================
-    // 6. KEAMANAN PIN & TOAST
+    // 6. KEAMANAN PIN, TOAST & NAVIGASI
     // =========================================================================
     function simpleHashPin(pin) {
       let h = 2166136261;
@@ -612,11 +472,7 @@
     function updateLockScreenVisibility() {
       const lockEl = document.getElementById('lock-screen');
       if (!lockEl) return;
-      if (isAppLocked()) {
-        lockEl.classList.remove('hidden');
-      } else {
-        lockEl.classList.add('hidden');
-      }
+      lockEl.classList.toggle('hidden', !isAppLocked());
     }
 
     function unlockWithPin() {
@@ -632,72 +488,19 @@
       }
     }
 
-    function lockAppNow() {
-      localStorage.removeItem(PIN_SESSION_KEY);
-      updateLockScreenVisibility();
-    }
-
-    function openPinSetupModal() {
-      const active = Boolean(db.security?.enabled && db.security?.pinHash);
-      openModal(`
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="text-base font-medium uppercase text-ink">${active ? 'UBAH / NONAKTIFKAN PIN' : 'ATUR PIN KEAMANAN'}</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
-          </div>
-          <form onsubmit="submitPinSetup(event)" class="space-y-3">
-            <div>
-              <label class="block text-[11px] text-[#6A5B4D] mb-1">PIN Baru (4–6 digit angka)</label>
-              <input type="password" name="newPin" inputmode="numeric" maxlength="6" placeholder="••••"
-                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-sm tracking-widest text-ink" />
-            </div>
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">Simpan PIN</button>
-            ${active ? `<button type="button" onclick="disablePinSecurity()" class="w-full py-2.5 rounded-2xl bg-coralLight text-coral text-xs font-medium">Nonaktifkan PIN</button>` : ''}
-          </form>
-        </div>
-      `);
-    }
-
-    function submitPinSetup(e) {
-      e.preventDefault();
-      const pin = String(new FormData(e.target).get('newPin') || '').trim();
-      if (!/^\d{4,6}$/.test(pin)) {
-        showToast('PIN harus 4–6 digit angka', 'error');
-        return;
-      }
-      db.security = { enabled: true, pinHash: simpleHashPin(pin) };
-      localStorage.setItem(PIN_SESSION_KEY, String(Date.now() + 48 * 3600 * 1000));
-      saveData();
-      closeModal();
-      showToast('PIN keamanan diaktifkan');
-      render();
-    }
-
-    function disablePinSecurity() {
-      db.security = { enabled: false, pinHash: '' };
-      localStorage.removeItem(PIN_SESSION_KEY);
-      saveData();
-      closeModal();
-      showToast('PIN dinonaktifkan');
-      render();
-    }
-
     let toastTimer = null;
     function showToast(msg, type = 'ok') {
       const el = document.getElementById('toast-banner');
       if (!el) return;
       el.textContent = msg;
-      el.className = `fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-medium tracking-wide max-w-[90vw] text-center ${
-        type === 'error' ? 'bg-[#F6A7B7] text-[#49647D]' : 'bg-ink text-[#F8FAFF]'
+      el.className = `fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-semibold tracking-wide max-w-[90vw] text-center ${
+        type === 'error' ? 'bg-sweetPink text-deepSlate' : 'bg-deepSlate text-cloudWhite'
       }`;
       el.classList.remove('hidden');
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => el.classList.add('hidden'), 2600);
     }
 
-    // =========================================================================
-    // 7. NAVIGASI, PERIOD FILTER & FAB CONTEXT-AWARE
-    // =========================================================================
     function switchTab(tabId) {
       ui.activeTab = tabId;
       if (tabId !== 'akun') ui.selectedPocketDetail = null;
@@ -717,11 +520,7 @@
       const fab = document.getElementById('fab-add-tx');
       if (!fab) return;
       const hideOn = ['pengaturan', 'hutang', 'tabungan'];
-      if (hideOn.includes(ui.activeTab)) {
-        fab.classList.add('hidden');
-      } else {
-        fab.classList.remove('hidden');
-      }
+      fab.classList.toggle('hidden', hideOn.includes(ui.activeTab));
     }
 
     function renderBottomNav() {
@@ -740,7 +539,7 @@
         const active = ui.activeTab === it.id;
         return `
           <button onclick="switchTab('${it.id}')"
-            class="py-1.5 px-1 rounded-2xl transition-all ${active ? 'bg-[#B9D5F5] text-ink font-medium' : 'text-[#8094A6] hover:text-ink'}">
+            class="py-1.5 px-1 rounded-2xl transition-all ${active ? 'bg-skyBlue text-deepSlate font-semibold' : 'text-mutedBlue hover:text-deepSlate'}">
             ${it.icon}
             <span class="block text-[10px] mt-0.5 truncate">${it.label}</span>
           </button>
@@ -776,18 +575,10 @@
           if (ui.statMonth < 0) { ui.statMonth = 11; ui.statYear--; }
           if (ui.statMonth > 11) { ui.statMonth = 0; ui.statYear++; }
         }
-      } else if (scope === 'akun') {
-        if (ui.akunPeriodMode === 'yearly') {
-          ui.akunYear += delta;
-        } else {
-          ui.akunMonth += delta;
-          if (ui.akunMonth < 0) { ui.akunMonth = 11; ui.akunYear--; }
-          if (ui.akunMonth > 11) { ui.akunMonth = 0; ui.akunYear++; }
-        }
       } else if (scope === 'pocket') {
         if (ui.pocketDetailTab === 'monthly') {
           ui.pocketDetailYear += delta;
-        } else if (ui.pocketDetailTab === 'daily') {
+        } else {
           ui.pocketDetailMonth += delta;
           if (ui.pocketDetailMonth < 0) { ui.pocketDetailMonth = 11; ui.pocketDetailYear--; }
           if (ui.pocketDetailMonth > 11) { ui.pocketDetailMonth = 0; ui.pocketDetailYear++; }
@@ -797,532 +588,377 @@
     }
 
     // =========================================================================
-    // 8. VIEW 1: TRANSAKSI
+    // 7. TRANSFER ANTAR-POCKET & MODAL TAMBAH TRANSAKSI
     // =========================================================================
-    function setTxPeriodMode(m) { ui.txPeriodMode = m; render(); }
-    function setTxTypeFilter(f) { ui.txTypeFilter = f; render(); }
-
-    function handleTxSearchInput(val) {
-      ui.txSearchQuery = val;
-      render();
-      requestAnimationFrame(() => {
-        const inp = document.getElementById('tx-search-input');
-        if (inp && document.activeElement !== inp) {
-          inp.focus();
-          const len = inp.value.length;
-          inp.setSelectionRange(len, len);
-        }
+    function getAllPocketOptions() {
+      const list = [];
+      db.accounts.forEach(acc => {
+        (acc.pockets || []).forEach(pkt => {
+          list.push({
+            accId: acc.id,
+            accName: acc.name,
+            currency: acc.currency || 'IDR',
+            pktId: pkt.id,
+            pktName: pkt.name,
+            balance: Number(pkt.balance) || 0,
+            key: `${acc.id}::${pkt.id}`
+          });
+        });
       });
+      return list;
     }
 
-    function clearTxSearch() {
-      ui.txSearchQuery = '';
-      render();
-    }
-
-    function renderTransaksiView() {
-      const periodTxs = filterTransactionsByPeriod(db.transactions, ui.txPeriodMode, ui.txYear, ui.txMonth);
-      const periodLabel = ui.txPeriodMode === 'yearly' ? `${ui.txYear}` : `${MONTH_NAMES_ID[ui.txMonth]} ${ui.txYear}`;
-
-      let totalIn = 0;
-      let totalOut = 0;
-      periodTxs.forEach(t => {
-        const val = toIDR(t.amount, getTxCurrency(t));
-        if (t.type === 'income') totalIn += val;
-        if (t.type === 'expense') totalOut += val;
-      });
-      const totalNet = totalIn - totalOut;
-
-      const q = (ui.txSearchQuery || '').trim().toLowerCase();
-
-      const filteredList = periodTxs
-        .filter(t => ui.txTypeFilter === 'ALL' ? true : t.type === ui.txTypeFilter)
-        .filter(t => {
-          if (!q) return true;
-          const acc = db.accounts.find(a => a.id === t.accountId);
-          const pkt = acc?.pockets?.find(p => p.id === t.pocketId);
-          const dstAcc = t.type === 'transfer' ? db.accounts.find(a => a.id === t.toAccountId) : null;
-          const dstPkt = dstAcc?.pockets?.find(p => p.id === t.toPocketId);
-          const cat = db.categories.find(c => c.id === t.categoryId);
-          const sub = cat?.subcategories?.find(s => s.id === t.subcategoryId);
-
-          const haystack = [
-            t.title || '',
-            t.date || '',
-            cat?.name || '',
-            sub?.name || '',
-            acc?.name || '',
-            pkt?.name || '',
-            dstAcc?.name || '',
-            dstPkt?.name || ''
-          ].join(' ').toLowerCase();
-
-          return haystack.includes(q);
-        })
-        .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-
-      return `
-        <div class="p-4 space-y-3.5">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #A2C4EC;">
-            <div class="flex items-center justify-between gap-2">
-              <div class="inline-flex rounded-2xl bg-creamCard p-1">
-                <button onclick="setTxPeriodMode('monthly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'monthly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
-                  Bulanan
-                </button>
-                <button onclick="setTxPeriodMode('yearly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'yearly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
-                  Tahunan
-                </button>
-              </div>
-
-              <div class="flex items-center gap-1.5 bg-creamCard rounded-2xl px-2 py-1">
-                <button onclick="shiftPeriod('tx', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">‹</button>
-                <span class="text-xs font-medium text-ink px-1">${periodLabel}</span>
-                <button onclick="shiftPeriod('tx', 1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">›</button>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-3 gap-2">
-              <div class="bg-creamCard rounded-2xl p-2.5">
-                <span class="text-[10px] text-[#6A5B4D] block">Pemasukan</span>
-                <span class="text-xs font-medium text-sage">+${formatCurrency(totalIn)}</span>
-              </div>
-              <div class="bg-creamCard rounded-2xl p-2.5">
-                <span class="text-[10px] text-[#6A5B4D] block">Pengeluaran</span>
-                <span class="text-xs font-medium text-coral">-${formatCurrency(totalOut)}</span>
-              </div>
-              <div class="bg-creamCard rounded-2xl p-2.5">
-                <span class="text-[10px] text-[#6A5B4D] block">Selisih</span>
-                <span class="text-xs font-medium ${totalNet >= 0 ? 'text-ink' : 'text-coral'}">${totalNet >= 0 ? '+' : '-'}${formatCurrency(Math.abs(totalNet))}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Kolom Pencarian Transaksi -->
-          <div class="relative flex items-center">
-            <svg class="w-4 h-4 text-[#8094A6] absolute left-3.5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <input id="tx-search-input" type="text" value="${ui.txSearchQuery.replace(/"/g, '&quot;')}"
-              oninput="handleTxSearchInput(this.value)"
-              placeholder="Cari catatan, kategori, akun, atau pocket..."
-              class="w-full pl-9 pr-8 py-2.5 rounded-2xl bg-creamCard border border-[#E6ECF2] text-xs text-ink placeholder:text-[#8094A6] focus:outline-none focus:border-[#B9D5F5]" />
-            ${ui.txSearchQuery ? `
-              <button onclick="clearTxSearch()" title="Hapus pencarian"
-                class="w-6 h-6 rounded-full bg-creamSoft text-[#8094A6] hover:text-ink text-xs flex items-center justify-center absolute right-2.5">
-                ✕
-              </button>
-            ` : ''}
-          </div>
-
-          <!-- Filter Jenis -->
-          <div class="flex gap-1.5 overflow-x-auto no-scrollbar">
-            ${[
-              { id: 'ALL', label: 'Semua' },
-              { id: 'expense', label: 'Pengeluaran' },
-              { id: 'income', label: 'Pemasukan' },
-              { id: 'transfer', label: 'Transfer' }
-            ].map(f => `
-              <button onclick="setTxTypeFilter('${f.id}')"
-                class="px-3.5 py-1.5 rounded-2xl text-xs font-medium border transition-all shrink-0 ${
-                  ui.txTypeFilter === f.id
-                    ? 'bg-ink text-[#F8FAFF] border-ink'
-                    : 'bg-creamCard text-ink border-[#E6ECF2]'
-                }">
-                ${f.label}
-              </button>
-            `).join('')}
-          </div>
-
-          <!-- Daftar Transaksi -->
-          <div class="space-y-2.5">
-            ${filteredList.length === 0 ? `
-              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-[#8094A6] border border-[#E6ECF2]">
-                ${q ? `Tidak ada transaksi yang cocok dengan "${ui.txSearchQuery}".` : `Belum ada transaksi pada periode ${periodLabel}.`}
-              </div>
-            ` : filteredList.map(tx => {
-              const acc = db.accounts.find(a => a.id === tx.accountId);
-              const pkt = acc?.pockets?.find(p => p.id === tx.pocketId);
-              const dstAcc = tx.type === 'transfer' ? db.accounts.find(a => a.id === tx.toAccountId) : null;
-              const dstPkt = dstAcc?.pockets?.find(p => p.id === tx.toPocketId);
-              const cat = db.categories.find(c => c.id === tx.categoryId);
-              const sub = cat?.subcategories?.find(s => s.id === tx.subcategoryId);
-              const cur = getTxCurrency(tx);
-
-              const badgeClass = tx.type === 'income'
-                ? 'bg-[#B8DFC3]/45 text-[#3B7361]'
-                : tx.type === 'transfer'
-                  ? 'bg-[#B9D5F5]/45 text-[#49647D]'
-                  : 'bg-[#F5B9D0]/45 text-[#B44A64]';
-              const amountColor = tx.type === 'income'
-                ? 'text-sage'
-                : tx.type === 'transfer'
-                  ? 'text-ink'
-                  : 'text-coral';
-              const signPrefix = tx.type === 'income' ? '+' : tx.type === 'transfer' ? '⇄ ' : '-';
-
-              return `
-                <div class="bg-creamCard rounded-3xl p-3.5 shadow-sm border border-[#E6ECF2] flex items-center justify-between gap-2.5">
-                  <div class="min-w-0 flex-1">
-                    <div class="flex items-center gap-1.5">
-                      <span class="px-2 py-0.5 rounded-lg text-[10px] font-medium ${badgeClass}">
-                        ${tx.type === 'income' ? 'Masuk' : tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Keluar')}
-                      </span>
-                      ${sub ? `<span class="text-[10px] text-[#8094A6] truncate">• ${sub.name}</span>` : ''}
-                    </div>
-                    <div class="text-xs font-medium text-ink truncate mt-1">
-                      ${tx.title || (tx.type === 'transfer' ? `${pkt?.name || 'Asal'} → ${dstPkt?.name || 'Tujuan'}` : (cat?.name || 'Transaksi'))}
-                    </div>
-                    <div class="text-[11px] text-[#8094A6] truncate mt-0.5">
-                      ${tx.date} • ${acc?.name || '-'} (${pkt?.name || '-'})
-                      ${tx.type === 'transfer' && dstPkt ? ` → ${dstAcc?.name || ''} (${dstPkt.name})` : ''}
-                    </div>
-                  </div>
-
-                  <div class="text-right shrink-0 flex items-center gap-2">
-                    <div>
-                      <div class="text-xs font-medium ${amountColor}">${signPrefix}${formatCurrency(tx.amount, cur)}</div>
-                      ${cur !== 'IDR' ? `<div class="text-[10px] text-[#8094A6]">≈ ${formatCurrency(toIDR(tx.amount, cur))}</div>` : ''}
-                    </div>
-                    <button onclick="deleteTransaction('${tx.id}')" title="Hapus transaksi"
-                      class="w-7 h-7 rounded-xl bg-creamSoft text-[#8094A6] hover:text-coral flex items-center justify-center text-xs">
-                      ✕
-                    </button>
-                  </div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-        </div>
-      `;
-    }
-
-    // =========================================================================
-    // 9. VIEW 2: STATISTIK (PIE CHART DULU + EVALUASI ANGGARAN)
-    // =========================================================================
-    function setStatPeriodMode(m) { ui.statPeriodMode = m; render(); }
-    function setStatPieMode(m) { ui.statPieMode = m; render(); }
-
-    function toggleBudgetCatExpand(catId) {
-      ui.expandedBudgetCats[catId] = !ui.expandedBudgetCats[catId];
-      render();
-    }
-
-    function getMonthBudgetKey(year, month) {
-      return `${year}-${String(month + 1).padStart(2, '0')}`;
-    }
-
-    function ensureMonthBudget(year, month) {
-      db.monthlyBudgets = db.monthlyBudgets || {};
-      const key = getMonthBudgetKey(year, month);
-      if (db.monthlyBudgets[key]) return db.monthlyBudgets[key];
-
-      const snapshot = {};
-      db.categories.forEach(cat => {
-        if (cat.type !== 'expense') return;
-        const subsMap = {};
-        (cat.subcategories || []).forEach(s => { subsMap[s.id] = Number(s.limit) || 0; });
-        snapshot[cat.id] = {
-          directLimit: Number(cat.directLimit) || 0,
-          subs: subsMap
-        };
-      });
-      db.monthlyBudgets[key] = snapshot;
-      return snapshot;
-    }
-
-    function polarToCartesian(cx, cy, r, angleInDegrees) {
-      const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
-      return {
-        x: cx + r * Math.cos(angleInRadians),
-        y: cy + r * Math.sin(angleInRadians)
-      };
-    }
-
-    function describePieSlice(cx, cy, r, startAngle, endAngle) {
-      if (endAngle - startAngle >= 359.99) {
-        return `M ${cx} ${cy - r} A ${r} ${r} 0 1 0 ${cx - 0.01} ${cy - r} Z`;
+    function openTransferPocketModal(prefillAccId = '', prefillPktId = '') {
+      const opts = getAllPocketOptions();
+      if (opts.length < 2) {
+        showToast('Butuh minimal 2 pocket untuk transfer', 'error');
+        return;
       }
-      const start = polarToCartesian(cx, cy, r, endAngle);
-      const end = polarToCartesian(cx, cy, r, startAngle);
-      const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
-      return [
-        'M', cx, cy,
-        'L', start.x.toFixed(2), start.y.toFixed(2),
-        'A', r, r, 0, largeArcFlag, 0, end.x.toFixed(2), end.y.toFixed(2),
-        'Z'
-      ].join(' ');
+
+      const today = new Date().toISOString().slice(0, 10);
+      const srcDefault = opts.find(o => o.accId === prefillAccId && o.pktId === prefillPktId) || opts[0];
+      const dstDefault = opts.find(o => o.key !== srcDefault.key) || opts[1];
+
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold uppercase text-deepSlate">TRANSFER ANTAR-POCKET</h3>
+            <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-creamSoft text-mutedBlue text-xs flex items-center justify-center">✕</button>
+          </div>
+
+          <form onsubmit="submitTransferPocket(event)" class="space-y-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-softBrown mb-1">Tanggal</label>
+              <input type="date" name="date" value="${today}" required
+                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-softGrey text-xs text-deepSlate focus:outline-none focus:border-skyBlue" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-softBrown mb-1">Pocket Asal</label>
+              <select id="tf-source" name="sourceKey" onchange="updateTransferTargetHint()"
+                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-softGrey text-xs text-deepSlate focus:outline-none focus:border-skyBlue">
+                ${opts.map(o => `
+                  <option value="${o.key}" ${o.key === srcDefault.key ? 'selected' : ''}>
+                    ${o.accName} — ${o.pktName} (${formatCurrency(o.balance, o.currency)})
+                  </option>
+                `).join('')}
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-softBrown mb-1">Pocket Tujuan</label>
+              <select id="tf-target" name="targetKey" onchange="updateTransferTargetHint()"
+                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-softGrey text-xs text-deepSlate focus:outline-none focus:border-skyBlue">
+                ${opts.map(o => `
+                  <option value="${o.key}" ${o.key === dstDefault.key ? 'selected' : ''}>
+                    ${o.accName} — ${o.pktName} (${formatCurrency(o.balance, o.currency)})
+                  </option>
+                `).join('')}
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-softBrown mb-1">Nominal Transfer (Asal)</label>
+              <input id="tf-amount-input" type="text" inputmode="numeric" name="amount" required
+                oninput="handleMoneyInput(this); updateTransferTargetHint();" placeholder="0"
+                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-softGrey text-sm font-bold text-deepSlate focus:outline-none focus:border-skyBlue" />
+              ${buildQuickZeroButtons('tf-amount-input')}
+              <p id="tf-conversion-hint" class="text-[11px] text-mutedBlue mt-1.5"></p>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-softBrown mb-1">Catatan (Opsional)</label>
+              <input type="text" name="title" placeholder="Contoh: Alokasi pocket mingguan"
+                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-softGrey text-xs text-deepSlate focus:outline-none focus:border-skyBlue" />
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-2xl bg-deepSlate text-cloudWhite text-xs font-semibold uppercase tracking-wider shadow-sm active:scale-95 transition-all">
+              Proses Transfer
+            </button>
+          </form>
+        </div>
+      `);
+
+      updateTransferTargetHint();
     }
 
-    function renderPieChartSection(periodTxs) {
-      const pieMode = ui.statPieMode === 'income' ? 'income' : 'expense';
-      const matchingTxs = periodTxs.filter(t => t.type === pieMode);
+    function updateTransferTargetHint() {
+      const srcKey = document.getElementById('tf-source')?.value || '';
+      const dstKey = document.getElementById('tf-target')?.value || '';
+      const amt = parseFormattedNumber(document.getElementById('tf-amount-input')?.value || '0');
+      const hintEl = document.getElementById('tf-conversion-hint');
+      if (!hintEl) return;
 
-      const totalsByCat = {};
-      matchingTxs.forEach(t => {
-        const val = toIDR(t.amount, getTxCurrency(t));
-        if (val <= 0) return;
-        const cat = db.categories.find(c => c.id === t.categoryId);
-        const label = cat?.name || (pieMode === 'income' ? 'Pemasukan Lainnya' : 'Pengeluaran Lainnya');
-        totalsByCat[label] = (totalsByCat[label] || 0) + val;
-      });
+      const opts = getAllPocketOptions();
+      const src = opts.find(o => o.key === srcKey);
+      const dst = opts.find(o => o.key === dstKey);
+      if (!src || !dst) {
+        hintEl.textContent = '';
+        return;
+      }
 
-      const entries = Object.entries(totalsByCat)
-        .map(([name, amount]) => ({ name, amount }))
-        .sort((a, b) => b.amount - a.amount);
-
-      const totalAmount = entries.reduce((s, e) => s + e.amount, 0);
-      const coloredEntries = entries.map((e, idx) => ({
-        ...e,
-        color: PIE_PALETTE[idx % PIE_PALETTE.length],
-        pct: totalAmount > 0 ? (e.amount / totalAmount) * 100 : 0
-      }));
-
-      let svgHtml = '';
-      if (totalAmount <= 0 || coloredEntries.length === 0) {
-        svgHtml = `
-          <div class="py-10 text-center text-xs text-[#8094A6]">
-            Belum ada data ${pieMode === 'income' ? 'pendapatan' : 'pengeluaran'} pada periode ini.
-          </div>
-        `;
+      if (src.currency === dst.currency) {
+        hintEl.textContent = `Saldo asal: ${formatCurrency(src.balance, src.currency)} • Mata uang sama (${src.currency})`;
       } else {
-        const cx = 200;
-        const cy = 128;
-        const r = 74;
-        let currentAngle = 0;
-
-        const slicesAndCallouts = coloredEntries.map((item, idx) => {
-          const sweep = (item.amount / totalAmount) * 360;
-          const startAngle = currentAngle;
-          const endAngle = idx === coloredEntries.length - 1 ? 360 : currentAngle + sweep;
-          const midAngle = startAngle + (endAngle - startAngle) / 2;
-          currentAngle = endAngle;
-
-          const pathD = describePieSlice(cx, cy, r, startAngle, endAngle);
-          const edgePt = polarToCartesian(cx, cy, r + 3, midAngle);
-          const isRight = Math.cos(((midAngle - 90) * Math.PI) / 180) >= 0;
-          const elbowPt = {
-            x: edgePt.x + (isRight ? 12 : -12),
-            y: edgePt.y
-          };
-          const tipPt = {
-            x: isRight ? 305 : 95,
-            y: elbowPt.y
-          };
-
-          const showCallout = coloredEntries.length <= 8 || item.pct >= 2.5;
-          if (!showCallout) {
-            return `<path d="${pathD}" fill="${item.color}" stroke="#FFF7F0" stroke-width="1.5" />`;
-          }
-
-          const shortName = item.name.length > 14 ? item.name.slice(0, 13) + '…' : item.name;
-          const textAnchor = isRight ? 'start' : 'end';
-          const textX = isRight ? tipPt.x + 4 : tipPt.x - 4;
-
-          return `
-            <path d="${pathD}" fill="${item.color}" stroke="#FFF7F0" stroke-width="1.5" />
-            <polyline points="${edgePt.x.toFixed(1)},${edgePt.y.toFixed(1)} ${elbowPt.x.toFixed(1)},${elbowPt.y.toFixed(1)} ${tipPt.x.toFixed(1)},${tipPt.y.toFixed(1)}"
-              fill="none" stroke="${item.color}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-            <text x="${textX}" y="${(tipPt.y - 2).toFixed(1)}" text-anchor="${textAnchor}" fill="#49647D" font-size="10.5" font-weight="700">${shortName}</text>
-            <text x="${textX}" y="${(tipPt.y + 10).toFixed(1)}" text-anchor="${textAnchor}" fill="#8094A6" font-size="9.5">${item.pct.toFixed(1)}%</text>
-          `;
-        }).join('');
-
-        svgHtml = `
-          <svg viewBox="0 0 400 256" class="w-full h-auto overflow-visible">
-            ${slicesAndCallouts}
-          </svg>
-        `;
+        const idrVal = toIDR(amt, src.currency);
+        const dstRate = Number(db.exchangeRates?.[dst.currency]) || 1;
+        const converted = dstRate > 0 ? (idrVal / dstRate) : amt;
+        hintEl.textContent = `Estimasi diterima di tujuan: ≈ ${formatCurrency(converted, dst.currency)}`;
       }
-
-      const legendRowsHtml = coloredEntries.length === 0 ? '' : `
-        <div class="divide-y divide-[#E6ECF2] pt-2 border-t border-[#E6ECF2]">
-          ${coloredEntries.map(item => `
-            <div class="py-2.5 flex items-center justify-between gap-2.5">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <span class="px-2 py-0.5 rounded-lg text-[11px] font-medium text-[#49647D] shrink-0" style="background-color: ${item.color};">
-                  ${Math.round(item.pct)}%
-                </span>
-                <span class="text-xs font-medium text-ink truncate">${item.name}</span>
-              </div>
-              <span class="text-xs font-medium text-ink shrink-0">${formatCurrency(item.amount)}</span>
-            </div>
-          `).join('')}
-        </div>
-      `;
-
-      return `
-        <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2">
-          ${svgHtml}
-          ${legendRowsHtml}
-        </div>
-      `;
     }
 
-    function renderStatistikView() {
-      const periodTxs = filterTransactionsByPeriod(db.transactions, ui.statPeriodMode, ui.statYear, ui.statMonth);
-      const periodLabel = ui.statPeriodMode === 'yearly' ? `${ui.statYear}` : `${MONTH_NAMES_ID[ui.statMonth]} ${ui.statYear}`;
-      const mBud = ensureMonthBudget(ui.statYear, ui.statMonth);
-      const multiplier = ui.statPeriodMode === 'yearly' ? 12 : 1;
+    function submitTransferPocket(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const date = String(fd.get('date') || '').trim();
+      const sourceKey = String(fd.get('sourceKey') || '');
+      const targetKey = String(fd.get('targetKey') || '');
+      const amount = parseFormattedNumber(fd.get('amount'));
+      const title = String(fd.get('title') || '').trim();
 
-      let totalIncome = 0;
-      let totalExpense = 0;
-      periodTxs.forEach(t => {
-        const val = toIDR(t.amount, getTxCurrency(t));
-        if (t.type === 'income') totalIncome += val;
-        if (t.type === 'expense') totalExpense += val;
+      if (!date || amount <= 0) {
+        showToast('Isi tanggal dan nominal transfer dengan benar', 'error');
+        return;
+      }
+      if (!sourceKey || sourceKey === targetKey) {
+        showToast('Pilih pocket asal dan tujuan yang berbeda', 'error');
+        return;
+      }
+
+      const [srcAccId, srcPktId] = sourceKey.split('::');
+      const [dstAccId, dstPktId] = targetKey.split('::');
+      const srcAcc = db.accounts.find(a => a.id === srcAccId);
+      const srcPkt = srcAcc?.pockets?.find(p => p.id === srcPktId);
+      const dstAcc = db.accounts.find(a => a.id === dstAccId);
+      const dstPkt = dstAcc?.pockets?.find(p => p.id === dstPktId);
+
+      if (!srcAcc || !srcPkt || !dstAcc || !dstPkt) {
+        showToast('Pocket tidak ditemukan', 'error');
+        return;
+      }
+
+      const srcCur = srcAcc.currency || 'IDR';
+      const dstCur = dstAcc.currency || 'IDR';
+      let nilaiKe = amount;
+      if (srcCur !== dstCur) {
+        const idrVal = toIDR(amount, srcCur);
+        const dstRate = Number(db.exchangeRates?.[dstCur]) || 1;
+        nilaiKe = dstRate > 0 ? Number((idrVal / dstRate).toFixed(2)) : amount;
+      }
+
+      srcPkt.balance = (Number(srcPkt.balance) || 0) - amount;
+      dstPkt.balance = (Number(dstPkt.balance) || 0) + nilaiKe;
+
+      db.transactions.push({
+        id: 'tx_tf_' + Date.now(),
+        type: 'transfer',
+        date,
+        amount,
+        nilaiKe,
+        currency: srcCur,
+        toCurrency: dstCur,
+        accountId: srcAcc.id,
+        pocketId: srcPkt.id,
+        toAccountId: dstAcc.id,
+        toPocketId: dstPkt.id,
+        categoryId: '',
+        subcategoryId: '',
+        title: title || `${srcPkt.name} → ${dstPkt.name}`
       });
 
-      const pieMode = ui.statPieMode === 'income' ? 'income' : 'expense';
-      const pieSectionHtml = renderPieChartSection(periodTxs);
+      saveData();
+      closeModal();
+      showToast('Transfer antar-pocket berhasil');
+      render();
+    }
 
-      const expCats = db.categories.filter(c => c.type === 'expense');
-      const budgetCards = expCats.map(cat => {
-        const hasSubs = Array.isArray(cat.subcategories) && cat.subcategories.length > 0;
-        const entry = mBud[cat.id] || { directLimit: cat.directLimit || 0, subs: {} };
+    function openTxModal(initialType = 'expense', prefillAccId = '', prefillPktId = '') {
+      if (initialType === 'transfer') {
+        openTransferPocketModal(prefillAccId, prefillPktId);
+        return;
+      }
 
-        let catSpent = 0;
-        let catLimit = 0;
-        let subRowsHtml = '';
+      const today = new Date().toISOString().slice(0, 10);
+      const opts = getAllPocketOptions();
+      const defaultOpt = opts.find(o => o.accId === prefillAccId && o.pktId === prefillPktId) || opts[0];
+      const filteredCats = db.categories.filter(c => c.type === initialType);
+      const firstCat = filteredCats[0] || null;
 
-        if (hasSubs) {
-          subRowsHtml = cat.subcategories.map(sub => {
-            const subLimit = ((entry.subs && entry.subs[sub.id] !== undefined) ? Number(entry.subs[sub.id]) : (Number(sub.limit) || 0)) * multiplier;
-            const subSpent = periodTxs
-              .filter(t => t.type === 'expense' && t.categoryId === cat.id && t.subcategoryId === sub.id)
-              .reduce((s, t) => s + toIDR(t.amount, getTxCurrency(t)), 0);
-
-            catLimit += subLimit;
-            catSpent += subSpent;
-
-            const subPct = subLimit > 0 ? Math.min(100, (subSpent / subLimit) * 100) : (subSpent > 0 ? 100 : 0);
-            const subOverLimit = subLimit > 0 ? subSpent > subLimit : subSpent > 0;
-            const subBarColor = subOverLimit ? '#F6A7B7' : '#C9B8EB';
-
-            return `
-              <div class="pl-3 border-l-2 border-[#E6ECF2] space-y-1">
-                <div class="flex items-center justify-between text-xs">
-                  <span class="text-ink">${sub.name}</span>
-                  <div>
-                    <span class="font-medium ${subOverLimit ? 'text-coral' : 'text-ink'}">${formatCurrency(subSpent)}</span>
-                    <span class="text-[#8094A6]"> / ${formatCurrency(subLimit)}</span>
-                  </div>
-                </div>
-                <div class="w-full h-2 rounded-full bg-creamSoft overflow-hidden">
-                  <div class="h-full rounded-full transition-all" style="width: ${subPct}%; background-color: ${subBarColor};"></div>
-                </div>
-              </div>
-            `;
-          }).join('');
-        } else {
-          catLimit = (entry.directLimit !== undefined ? Number(entry.directLimit) : (Number(cat.directLimit) || 0)) * multiplier;
-          catSpent = periodTxs
-            .filter(t => t.type === 'expense' && t.categoryId === cat.id)
-            .reduce((s, t) => s + toIDR(t.amount, getTxCurrency(t)), 0);
-        }
-
-        const catPct = catLimit > 0 ? Math.min(100, (catSpent / catLimit) * 100) : (catSpent > 0 ? 100 : 0);
-        const catOverLimit = catLimit > 0 ? catSpent > catLimit : catSpent > 0;
-        const catBarColor = catOverLimit ? '#F6A7B7' : '#83B9A9';
-        const sisaBudget = catLimit - catSpent;
-        const isExpanded = ui.expandedBudgetCats[cat.id] !== false;
-
-        return `
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2.5">
-            <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2 min-w-0">
-                <span class="text-sm font-medium text-ink truncate">${cat.name}</span>
-                ${hasSubs ? `
-                  <button onclick="toggleBudgetCatExpand('${cat.id}')"
-                    class="px-2 py-0.5 rounded-lg bg-creamSoft text-[10px] font-medium text-[#6A5B4D] shrink-0">
-                    ${isExpanded ? '▲ Sub' : '▼ Sub'}
-                  </button>
-                ` : ''}
-              </div>
-              <div class="text-xs shrink-0">
-                <span class="font-medium ${catOverLimit ? 'text-coral' : 'text-ink'}">${formatCurrency(catSpent)}</span>
-                <span class="text-[#8094A6]"> / ${formatCurrency(catLimit)}</span>
-              </div>
-            </div>
-
-            <div class="w-full h-2.5 rounded-full bg-creamSoft overflow-hidden">
-              <div class="h-full rounded-full transition-all" style="width: ${catPct}%; background-color: ${catBarColor};"></div>
-            </div>
-
-            <div class="flex items-center justify-between text-[11px]">
-              <span class="${sisaBudget < 0 ? 'text-coral font-medium' : 'text-[#8094A6]'}">
-                ${sisaBudget < 0 ? `Melebihi limit ${formatCurrency(Math.abs(sisaBudget))}` : `Sisa budget ${formatCurrency(sisaBudget)}`}
-              </span>
-              <span class="font-medium ${catOverLimit ? 'text-coral' : 'text-sage'}">
-                ${catLimit > 0 ? ((catSpent / catLimit) * 100).toFixed(0) + '%' : '-'}
-              </span>
-            </div>
-
-            ${hasSubs && isExpanded ? `<div class="pt-2 space-y-2.5">${subRowsHtml}</div>` : ''}
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold uppercase text-deepSlate">CATAT TRANSAKSI</h3>
+            <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-creamSoft text-mutedBlue text-xs flex items-center justify-center">✕</button>
           </div>
-        `;
-      }).join('');
 
-      return `
-        <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #A2C4EC;">
-            <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center gap-1.5 bg-creamCard rounded-2xl px-2 py-1">
-                <button onclick="shiftPeriod('stat', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">‹</button>
-                <span class="text-xs font-medium text-ink px-1">${periodLabel}</span>
-                <button onclick="shiftPeriod('stat', 1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">›</button>
-              </div>
+          <div class="grid grid-cols-3 gap-1.5 bg-creamSoft p-1 rounded-2xl border border-softGrey">
+            <button type="button" id="tx-tab-expense" onclick="switchTxModalType('expense')"
+              class="py-2 rounded-xl text-xs font-semibold transition-all ${initialType === 'expense' ? 'bg-sweetPink text-deepSlate' : 'text-mutedBlue'}">
+              Pengeluaran
+            </button>
+            <button type="button" id="tx-tab-income" onclick="switchTxModalType('income')"
+              class="py-2 rounded-xl text-xs font-semibold transition-all ${initialType === 'income' ? 'bg-mintGreen text-deepSlate' : 'text-mutedBlue'}">
+              Pemasukan
+            </button>
+            <button type="button" onclick="closeModal(); openTransferPocketModal('${defaultOpt?.accId || ''}', '${defaultOpt?.pktId || ''}')"
+              class="py-2 rounded-xl text-xs font-semibold text-mutedBlue hover:text-deepSlate transition-all">
+              Transfer
+            </button>
+          </div>
 
-              <div class="inline-flex rounded-2xl bg-creamCard p-1">
-                <button onclick="setStatPeriodMode('monthly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'monthly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
-                  Bulanan
-                </button>
-                <button onclick="setStatPeriodMode('yearly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'yearly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
-                  Tahunan
-                </button>
+          <form onsubmit="submitTxForm(event)" class="space-y-3">
+            <input type="hidden" id="tx-type-field" name="type" value="${initialType}" />
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] font-semibold text-softBrown mb-1">Tanggal</label>
+                <input type="date" name="date" value="${today}" required
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-softGrey text-xs text-deepSlate focus:outline-none focus:border-skyBlue" />
               </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-softBrown mb-1">Akun & Pocket</label>
+                <select name="pocketKey" required
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-softGrey text-xs text-deepSlate focus:outline-none focus:border-skyBlue">
+                  ${opts.map(o => `
+                    <option value="${o.key}" ${defaultOpt && o.key === defaultOpt.key ? 'selected' : ''}>
+                      ${o.accName} (${o.pktName})
+                    </option>
+                  `).join('')}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-softBrown mb-1">Nominal</label>
+              <input id="tx-amount-input" type="text" inputmode="numeric" name="amount" required
+                oninput="handleMoneyInput(this)" placeholder="0"
+                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-softGrey text-sm font-bold text-deepSlate focus:outline-none focus:border-skyBlue" />
+              ${buildQuickZeroButtons('tx-amount-input')}
             </div>
 
             <div class="grid grid-cols-2 gap-2.5">
-              <button onclick="setStatPieMode('income')"
-                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'income' ? 'ring-2 ring-[#49647D]' : 'border-transparent'}"
-                style="background-color: #B8DFC3;">
-                <span class="text-[11px] font-medium block text-[#2D584B]">Pendapatan</span>
-                <span class="text-sm font-medium text-[#24473C] mt-0.5 block">${formatCurrency(totalIncome)}</span>
-              </button>
-
-              <button onclick="setStatPieMode('expense')"
-                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'expense' ? 'ring-2 ring-[#49647D]' : 'border-transparent'}"
-                style="background-color: #F6A7B7;">
-                <span class="text-[11px] font-medium block text-[#6E2A3B]">Pengeluaran</span>
-                <span class="text-sm font-medium text-[#571D2C] mt-0.5 block">${formatCurrency(totalExpense)}</span>
-              </button>
+              <div>
+                <label class="block text-[11px] font-semibold text-softBrown mb-1">Kategori</label>
+                <select id="tx-category-select" name="categoryId" onchange="refreshTxSubcategories()"
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-softGrey text-xs text-deepSlate focus:outline-none focus:border-skyBlue">
+                  ${filteredCats.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-softBrown mb-1">Sub-Kategori</label>
+                <select id="tx-subcategory-select" name="subcategoryId"
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-softGrey text-xs text-deepSlate focus:outline-none focus:border-skyBlue">
+                  ${renderSubcategoryOptions(firstCat?.id)}
+                </select>
+              </div>
             </div>
-          </div>
 
-          ${pieSectionHtml}
-
-          <div class="space-y-3 pt-1">
-            <div class="flex items-center justify-between px-1">
-              <span class="text-xs font-medium uppercase tracking-wider text-ink">Evaluasi Anggaran</span>
-              <button onclick="openBudgetSettingsModal()" class="px-3 py-1.5 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs font-medium text-ink">
-                Atur Limit
-              </button>
+            <div>
+              <label class="block text-[11px] font-semibold text-softBrown mb-1">Catatan</label>
+              <input type="text" name="title" placeholder="Contoh: Makan siang / Kopi susu"
+                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-softGrey text-xs text-deepSlate focus:outline-none focus:border-skyBlue" />
             </div>
-            ${budgetCards}
-          </div>
+
+            <button type="submit" class="w-full py-3 rounded-2xl bg-deepSlate text-cloudWhite text-xs font-semibold uppercase tracking-wider shadow-sm active:scale-95 transition-all">
+              Simpan Transaksi
+            </button>
+          </form>
         </div>
-      `;
+      `);
+    }
+
+    function renderSubcategoryOptions(catId) {
+      const cat = db.categories.find(c => c.id === catId);
+      const subs = Array.isArray(cat?.subcategories) ? cat.subcategories : [];
+      if (subs.length === 0) {
+        return `<option value="">— Tanpa Sub-Kategori —</option>`;
+      }
+      return `<option value="">— Pilih Sub-Kategori —</option>` + subs.map(s => `
+        <option value="${s.id}">${s.name}</option>
+      `).join('');
+    }
+
+    function refreshTxSubcategories() {
+      const catSel = document.getElementById('tx-category-select');
+      const subSel = document.getElementById('tx-subcategory-select');
+      if (!catSel || !subSel) return;
+      subSel.innerHTML = renderSubcategoryOptions(catSel.value);
+    }
+
+    function switchTxModalType(newType) {
+      const typeField = document.getElementById('tx-type-field');
+      const catSel = document.getElementById('tx-category-select');
+      const expBtn = document.getElementById('tx-tab-expense');
+      const incBtn = document.getElementById('tx-tab-income');
+      if (typeField) typeField.value = newType;
+
+      if (expBtn && incBtn) {
+        expBtn.className = `py-2 rounded-xl text-xs font-semibold transition-all ${newType === 'expense' ? 'bg-sweetPink text-deepSlate' : 'text-mutedBlue'}`;
+        incBtn.className = `py-2 rounded-xl text-xs font-semibold transition-all ${newType === 'income' ? 'bg-mintGreen text-deepSlate' : 'text-mutedBlue'}`;
+      }
+
+      if (catSel) {
+        const cats = db.categories.filter(c => c.type === newType);
+        catSel.innerHTML = cats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+        refreshTxSubcategories();
+      }
+    }
+
+    function submitTxForm(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const type = String(fd.get('type') || 'expense');
+      const date = String(fd.get('date') || '').trim();
+      const pocketKey = String(fd.get('pocketKey') || '');
+      const amount = parseFormattedNumber(fd.get('amount'));
+      const categoryId = String(fd.get('categoryId') || '');
+      const subcategoryId = String(fd.get('subcategoryId') || '');
+      const title = String(fd.get('title') || '').trim();
+
+      if (!date || amount <= 0 || !pocketKey.includes('::')) {
+        showToast('Lengkapi tanggal, pocket, dan nominal transaksi', 'error');
+        return;
+      }
+
+      const [accId, pktId] = pocketKey.split('::');
+      const acc = db.accounts.find(a => a.id === accId);
+      const pkt = acc?.pockets?.find(p => p.id === pktId);
+      if (!acc || !pkt) {
+        showToast('Akun atau pocket tidak ditemukan', 'error');
+        return;
+      }
+
+      if (type === 'income') {
+        pkt.balance = (Number(pkt.balance) || 0) + amount;
+      } else {
+        pkt.balance = (Number(pkt.balance) || 0) - amount;
+      }
+
+      const cat = db.categories.find(c => c.id === categoryId);
+      const sub = cat?.subcategories?.find(s => s.id === subcategoryId);
+
+      db.transactions.push({
+        id: 'tx_' + Date.now(),
+        type,
+        date,
+        amount,
+        currency: acc.currency || 'IDR',
+        accountId: acc.id,
+        pocketId: pkt.id,
+        categoryId,
+        subcategoryId,
+        title: title || sub?.name || cat?.name || (type === 'income' ? 'Pemasukan' : 'Pengeluaran')
+      });
+
+      saveData();
+      closeModal();
+      showToast(type === 'income' ? 'Pemasukan tersimpan' : 'Pengeluaran tersimpan');
+      render();
     }
 
     // =========================================================================
-    // 10. VIEW 3: AKUN, DETAIL POCKET & TRANSFER POCKET
+    // 8. DETAIL POCKET (MUTASI HARIAN & BULANAN)
     // =========================================================================
-    function setAkunPeriodMode(m) { ui.akunPeriodMode = m; render(); }
-
     function openPocketDetail(accId, pktId) {
       ui.selectedPocketDetail = { accId, pktId };
       ui.pocketDetailTab = 'daily';
@@ -1370,6 +1006,7 @@
       }
 
       const cur = acc.currency || 'IDR';
+      const clr = getColorObj(acc.colorId);
       const currentBal = Number(pkt.balance) || 0;
       const tab = ui.pocketDetailTab || 'daily';
       const yr = ui.pocketDetailYear;
@@ -1415,10 +1052,10 @@
         periodTotal = periodDeposit - periodWithdraw;
 
         if (monthRows.length === 0) {
-          rowsHtml = `<div class="py-10 text-center text-xs text-[#8094A6]">Belum ada mutasi pada pocket ini di ${periodLabel}.</div>`;
+          rowsHtml = `<div class="py-10 text-center text-xs text-mutedBlue">Belum ada mutasi pada pocket ini di ${periodLabel}.</div>`;
         } else {
           rowsHtml = `
-            <div class="divide-y divide-[#E6ECF2]">
+            <div class="divide-y divide-softGrey">
               ${monthRows.map(r => {
                 const parts = r.date.split('-');
                 const dayNum = parts[2] || '';
@@ -1433,20 +1070,20 @@
                   <div class="py-3 flex items-center justify-between gap-2.5">
                     <div class="flex items-center gap-3 min-w-0">
                       <div class="w-10 text-center shrink-0">
-                        <div class="text-sm font-medium text-ink leading-none">${dayNum}</div>
-                        <span class="inline-block mt-1 px-1.5 py-0.5 rounded bg-creamSoft text-[10px] text-[#8094A6]">${dayName}</span>
+                        <div class="text-sm font-bold text-deepSlate leading-none">${dayNum}</div>
+                        <span class="inline-block mt-1 px-1.5 py-0.5 rounded bg-creamSoft text-[10px] text-mutedBlue">${dayName}</span>
                       </div>
                       <div class="min-w-0">
-                        <div class="text-xs font-medium text-ink truncate">${titleText}</div>
-                        <div class="text-[11px] text-[#8094A6] truncate">${r.date} • ${r.tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Umum')}</div>
+                        <div class="text-xs font-semibold text-deepSlate truncate">${titleText}</div>
+                        <div class="text-[11px] text-mutedBlue truncate">${r.date} • ${r.tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Umum')}</div>
                       </div>
                     </div>
 
                     <div class="text-right shrink-0">
-                      <div class="text-xs font-medium ${r.flow >= 0 ? 'text-sage' : 'text-coral'}">
+                      <div class="text-xs font-semibold ${r.flow >= 0 ? 'text-freshGreen' : 'text-sweetPink'}">
                         ${r.flow >= 0 ? '+' : '-'}${formatCurrency(Math.abs(r.flow), cur)}
                       </div>
-                      <div class="text-[10px] text-[#8094A6]">Saldo: ${formatCurrency(r.runningBalance, cur)}</div>
+                      <div class="text-[10px] text-mutedBlue">Saldo: ${formatCurrency(r.runningBalance, cur)}</div>
                     </div>
                   </div>
                 `;
@@ -1454,7 +1091,7 @@
             </div>
           `;
         }
-      } else if (tab === 'monthly') {
+      } else {
         periodLabel = `${yr}`;
         const allSorted = [...pocketEvents].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
         const monthBuckets = Array.from({ length: 12 }, (_, mIdx) => ({
@@ -1481,5 +1118,472 @@
           const eYr = parseInt(ev.date.split('-')[0], 10);
           if (eYr < yr) accBeforeYr += ev.flow;
         });
+
         let runYr = accBeforeYr;
-        for (let m = 0; m
+        for (let m = 0; m < 12; m++) {
+          runYr += monthBuckets[m].net;
+          monthBuckets[m].endBalance = runYr;
+        }
+
+        periodDeposit = monthBuckets.reduce((s, b) => s + b.deposit, 0);
+        periodWithdraw = monthBuckets.reduce((s, b) => s + b.withdraw, 0);
+        periodTotal = periodDeposit - periodWithdraw;
+
+        rowsHtml = `
+          <div class="divide-y divide-softGrey">
+            ${monthBuckets.map(b => `
+              <div class="py-2.5 flex items-center justify-between gap-2 text-xs">
+                <div class="w-16 font-semibold text-deepSlate">${MONTH_NAMES_ID[b.mIdx]}</div>
+                <div class="text-right text-freshGreen font-semibold">+${formatCurrency(b.deposit, cur)}</div>
+                <div class="text-right text-sweetPink font-semibold">-${formatCurrency(b.withdraw, cur)}</div>
+                <div class="text-right font-semibold text-deepSlate">${formatCurrency(b.endBalance, cur)}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      return `
+        <div class="p-4 space-y-3.5">
+          <div class="flex items-center justify-between gap-2">
+            <button onclick="closePocketDetail()" class="px-3 py-1.5 rounded-2xl bg-softCream border border-softGrey text-xs font-semibold text-deepSlate">
+              ← Kembali
+            </button>
+            <div class="flex items-center gap-1.5">
+              <button onclick="openTransferPocketModal('${acc.id}', '${pkt.id}')"
+                class="px-3 py-1.5 rounded-2xl bg-butterYellow border border-softOrange text-xs font-semibold text-deepSlate">
+                ⇄ Transfer
+              </button>
+              <button onclick="openTxModal('expense', '${acc.id}', '${pkt.id}')"
+                class="px-3 py-1.5 rounded-2xl bg-deepSlate text-cloudWhite text-xs font-semibold">
+                + Catat
+              </button>
+            </div>
+          </div>
+
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: ${clr.bg}; border-color: ${clr.border};">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <span class="text-[11px] font-semibold text-softBrown block">${acc.name} • ${cur}</span>
+                <h2 class="text-base font-bold text-deepSlate mt-0.5">${pkt.name}</h2>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] text-softBrown block">Saldo Saat Ini</span>
+                <div class="text-base font-bold text-deepSlate">${formatCurrency(currentBal, cur)}</div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-2 pt-1">
+              <div class="inline-flex rounded-2xl bg-softCream p-1">
+                <button onclick="setPocketDetailTab('daily')"
+                  class="px-3 py-1 rounded-xl text-xs font-semibold ${tab === 'daily' ? 'bg-deepSlate text-cloudWhite' : 'text-deepSlate'}">
+                  Harian
+                </button>
+                <button onclick="setPocketDetailTab('monthly')"
+                  class="px-3 py-1 rounded-xl text-xs font-semibold ${tab === 'monthly' ? 'bg-deepSlate text-cloudWhite' : 'text-deepSlate'}">
+                  Bulanan
+                </button>
+              </div>
+
+              <div class="flex items-center gap-1.5 bg-softCream rounded-2xl px-2 py-1">
+                <button onclick="shiftPeriod('pocket', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-deepSlate">‹</button>
+                <span class="text-xs font-semibold text-deepSlate px-1">${periodLabel}</span>
+                <button onclick="shiftPeriod('pocket', 1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-deepSlate">›</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2">
+              <div class="bg-softCream rounded-2xl p-2">
+                <span class="text-[10px] text-softBrown block">Masuk</span>
+                <span class="text-xs font-semibold text-freshGreen">+${formatCurrency(periodDeposit, cur)}</span>
+              </div>
+              <div class="bg-softCream rounded-2xl p-2">
+                <span class="text-[10px] text-softBrown block">Keluar</span>
+                <span class="text-xs font-semibold text-sweetPink">-${formatCurrency(periodWithdraw, cur)}</span>
+              </div>
+              <div class="bg-softCream rounded-2xl p-2">
+                <span class="text-[10px] text-softBrown block">Selisih</span>
+                <span class="text-xs font-semibold text-deepSlate">${periodTotal >= 0 ? '+' : '-'}${formatCurrency(Math.abs(periodTotal), cur)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-softCream rounded-3xl p-4 shadow-sm border border-softGrey">
+            ${rowsHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 9. VIEW TRANSAKSI, STATISTIK, AKUN, TABUNGAN, HUTANG & PENGATURAN
+    // =========================================================================
+    function setTxPeriodMode(m) { ui.txPeriodMode = m; render(); }
+    function setTxTypeFilter(f) { ui.txTypeFilter = f; render(); }
+    function handleTxSearchInput(val) { ui.txSearchQuery = val; render(); }
+    function clearTxSearch() { ui.txSearchQuery = ''; render(); }
+
+    function renderTransaksiView() {
+      const periodTxs = filterTransactionsByPeriod(db.transactions, ui.txPeriodMode, ui.txYear, ui.txMonth);
+      const periodLabel = ui.txPeriodMode === 'yearly' ? `${ui.txYear}` : `${MONTH_NAMES_ID[ui.txMonth]} ${ui.txYear}`;
+
+      let totalIn = 0;
+      let totalOut = 0;
+      periodTxs.forEach(t => {
+        const val = toIDR(t.amount, getTxCurrency(t));
+        if (t.type === 'income') totalIn += val;
+        if (t.type === 'expense') totalOut += val;
+      });
+      const totalNet = totalIn - totalOut;
+
+      const q = (ui.txSearchQuery || '').trim().toLowerCase();
+      const filteredList = periodTxs
+        .filter(t => ui.txTypeFilter === 'ALL' ? true : t.type === ui.txTypeFilter)
+        .filter(t => {
+          if (!q) return true;
+          const acc = db.accounts.find(a => a.id === t.accountId);
+          const pkt = acc?.pockets?.find(p => p.id === t.pocketId);
+          const cat = db.categories.find(c => c.id === t.categoryId);
+          return [t.title || '', t.date || '', cat?.name || '', acc?.name || '', pkt?.name || ''].join(' ').toLowerCase().includes(q);
+        })
+        .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+      return `
+        <div class="p-4 space-y-3.5">
+          <div class="rounded-3xl p-4 shadow-sm border border-skyBlue space-y-3 bg-skyBlue">
+            <div class="flex items-center justify-between gap-2">
+              <div class="inline-flex rounded-2xl bg-softCream p-1">
+                <button onclick="setTxPeriodMode('monthly')"
+                  class="px-3 py-1 rounded-xl text-xs font-semibold ${ui.txPeriodMode === 'monthly' ? 'bg-deepSlate text-cloudWhite' : 'text-deepSlate'}">
+                  Bulanan
+                </button>
+                <button onclick="setTxPeriodMode('yearly')"
+                  class="px-3 py-1 rounded-xl text-xs font-semibold ${ui.txPeriodMode === 'yearly' ? 'bg-deepSlate text-cloudWhite' : 'text-deepSlate'}">
+                  Tahunan
+                </button>
+              </div>
+
+              <div class="flex items-center gap-1.5 bg-softCream rounded-2xl px-2 py-1">
+                <button onclick="shiftPeriod('tx', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-deepSlate">‹</button>
+                <span class="text-xs font-semibold text-deepSlate px-1">${periodLabel}</span>
+                <button onclick="shiftPeriod('tx', 1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-deepSlate">›</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2">
+              <div class="bg-softCream rounded-2xl p-2.5">
+                <span class="text-[10px] text-softBrown block">Pemasukan</span>
+                <span class="text-xs font-semibold text-freshGreen">+${formatCurrency(totalIn)}</span>
+              </div>
+              <div class="bg-softCream rounded-2xl p-2.5">
+                <span class="text-[10px] text-softBrown block">Pengeluaran</span>
+                <span class="text-xs font-semibold text-sweetPink">-${formatCurrency(totalOut)}</span>
+              </div>
+              <div class="bg-softCream rounded-2xl p-2.5">
+                <span class="text-[10px] text-softBrown block">Selisih</span>
+                <span class="text-xs font-semibold ${totalNet >= 0 ? 'text-deepSlate' : 'text-sweetPink'}">${totalNet >= 0 ? '+' : '-'}${formatCurrency(Math.abs(totalNet))}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative flex items-center">
+            <input id="tx-search-input" type="text" value="${ui.txSearchQuery.replace(/"/g, '&quot;')}"
+              oninput="handleTxSearchInput(this.value)"
+              placeholder="Cari catatan, kategori, akun, atau pocket..."
+              class="w-full px-4 py-2.5 rounded-2xl bg-softCream border border-softGrey text-xs text-deepSlate placeholder:text-mutedBlue focus:outline-none focus:border-skyBlue" />
+            ${ui.txSearchQuery ? `
+              <button onclick="clearTxSearch()" class="w-6 h-6 rounded-full bg-creamSoft text-mutedBlue text-xs flex items-center justify-center absolute right-2.5">✕</button>
+            ` : ''}
+          </div>
+
+          <div class="flex gap-1.5 overflow-x-auto no-scrollbar">
+            ${[
+              { id: 'ALL', label: 'Semua' },
+              { id: 'expense', label: 'Pengeluaran' },
+              { id: 'income', label: 'Pemasukan' },
+              { id: 'transfer', label: 'Transfer' }
+            ].map(f => `
+              <button onclick="setTxTypeFilter('${f.id}')"
+                class="px-3.5 py-1.5 rounded-2xl text-xs font-semibold border transition-all shrink-0 ${
+                  ui.txTypeFilter === f.id
+                    ? 'bg-deepSlate text-cloudWhite border-deepSlate'
+                    : 'bg-softCream text-deepSlate border-softGrey'
+                }">
+                ${f.label}
+              </button>
+            `).join('')}
+          </div>
+
+          <div class="space-y-2.5">
+            ${filteredList.length === 0 ? `
+              <div class="bg-softCream rounded-3xl p-8 text-center text-xs text-mutedBlue border border-softGrey">
+                Belum ada transaksi pada periode ${periodLabel}.
+              </div>
+            ` : filteredList.map(tx => {
+              const acc = db.accounts.find(a => a.id === tx.accountId);
+              const pkt = acc?.pockets?.find(p => p.id === tx.pocketId);
+              const cat = db.categories.find(c => c.id === tx.categoryId);
+              const cur = getTxCurrency(tx);
+              const badgeClass = tx.type === 'income'
+                ? 'bg-mintGreen/50 text-deepSlate'
+                : tx.type === 'transfer'
+                  ? 'bg-skyBlue/50 text-deepSlate'
+                  : 'bg-cottonPink/50 text-deepSlate';
+              const amountColor = tx.type === 'income' ? 'text-freshGreen' : tx.type === 'transfer' ? 'text-deepSlate' : 'text-sweetPink';
+              const signPrefix = tx.type === 'income' ? '+' : tx.type === 'transfer' ? '⇄ ' : '-';
+
+              return `
+                <div class="bg-softCream rounded-3xl p-3.5 shadow-sm border border-softGrey flex items-center justify-between gap-2.5">
+                  <div class="min-w-0 flex-1">
+                    <span class="px-2 py-0.5 rounded-lg text-[10px] font-semibold ${badgeClass}">
+                      ${tx.type === 'income' ? 'Masuk' : tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Keluar')}
+                    </span>
+                    <div class="text-xs font-semibold text-deepSlate truncate mt-1">${tx.title || cat?.name || 'Transaksi'}</div>
+                    <div class="text-[11px] text-mutedBlue truncate mt-0.5">${tx.date} • ${acc?.name || '-'} (${pkt?.name || '-'})</div>
+                  </div>
+                  <div class="text-right shrink-0">
+                    <div class="text-xs font-semibold ${amountColor}">${signPrefix}${formatCurrency(tx.amount, cur)}</div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function setStatPeriodMode(m) { ui.statPeriodMode = m; render(); }
+    function setStatPieMode(m) { ui.statPieMode = m; render(); }
+
+    function renderStatistikView() {
+      const periodTxs = filterTransactionsByPeriod(db.transactions, ui.statPeriodMode, ui.statYear, ui.statMonth);
+      const periodLabel = ui.statPeriodMode === 'yearly' ? `${ui.statYear}` : `${MONTH_NAMES_ID[ui.statMonth]} ${ui.statYear}`;
+      const multiplier = ui.statPeriodMode === 'yearly' ? 12 : 1;
+
+      let totalIncome = 0;
+      let totalExpense = 0;
+      periodTxs.forEach(t => {
+        const val = toIDR(t.amount, getTxCurrency(t));
+        if (t.type === 'income') totalIncome += val;
+        if (t.type === 'expense') totalExpense += val;
+      });
+
+      const pieMode = ui.statPieMode === 'income' ? 'income' : 'expense';
+      const expCats = db.categories.filter(c => c.type === 'expense');
+
+      const budgetCards = expCats.map(cat => {
+        const catLimit = (Number(cat.directLimit) || 0) * multiplier;
+        const catSpent = periodTxs
+          .filter(t => t.type === 'expense' && t.categoryId === cat.id)
+          .reduce((s, t) => s + toIDR(t.amount, getTxCurrency(t)), 0);
+        const catPct = catLimit > 0 ? Math.min(100, (catSpent / catLimit) * 100) : (catSpent > 0 ? 100 : 0);
+        const overLimit = catLimit > 0 ? catSpent > catLimit : catSpent > 0;
+        const barColor = overLimit ? '#F6A7B7' : '#83B9A9';
+
+        return `
+          <div class="bg-softCream rounded-3xl p-4 shadow-sm border border-softGrey space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-semibold text-deepSlate">${cat.name}</span>
+              <div>
+                <span class="font-semibold ${overLimit ? 'text-sweetPink' : 'text-deepSlate'}">${formatCurrency(catSpent)}</span>
+                <span class="text-mutedBlue"> / ${formatCurrency(catLimit)}</span>
+              </div>
+            </div>
+            <div class="w-full h-2.5 rounded-full bg-creamSoft overflow-hidden">
+              <div class="h-full rounded-full transition-all" style="width: ${catPct}%; background-color: ${barColor};"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      return `
+        <div class="p-4 space-y-4">
+          <div class="rounded-3xl p-4 shadow-sm border border-skyBlue space-y-3 bg-skyBlue">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-1.5 bg-softCream rounded-2xl px-2 py-1">
+                <button onclick="shiftPeriod('stat', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-deepSlate">‹</button>
+                <span class="text-xs font-semibold text-deepSlate px-1">${periodLabel}</span>
+                <button onclick="shiftPeriod('stat', 1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-deepSlate">›</button>
+              </div>
+              <div class="inline-flex rounded-2xl bg-softCream p-1">
+                <button onclick="setStatPeriodMode('monthly')" class="px-3 py-1 rounded-xl text-xs font-semibold ${ui.statPeriodMode === 'monthly' ? 'bg-deepSlate text-cloudWhite' : 'text-deepSlate'}">Bulanan</button>
+                <button onclick="setStatPeriodMode('yearly')" class="px-3 py-1 rounded-xl text-xs font-semibold ${ui.statPeriodMode === 'yearly' ? 'bg-deepSlate text-cloudWhite' : 'text-deepSlate'}">Tahunan</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <button onclick="setStatPieMode('income')" class="text-left rounded-2xl p-3 bg-mintGreen border ${pieMode === 'income' ? 'ring-2 ring-deepSlate' : 'border-transparent'}">
+                <span class="text-[11px] font-semibold block text-deepSlate">Pendapatan</span>
+                <span class="text-sm font-semibold text-deepSlate mt-0.5 block">${formatCurrency(totalIncome)}</span>
+              </button>
+              <button onclick="setStatPieMode('expense')" class="text-left rounded-2xl p-3 bg-sweetPink border ${pieMode === 'expense' ? 'ring-2 ring-deepSlate' : 'border-transparent'}">
+                <span class="text-[11px] font-semibold block text-deepSlate">Pengeluaran</span>
+                <span class="text-sm font-semibold text-deepSlate mt-0.5 block">${formatCurrency(totalExpense)}</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-2.5">
+            <div class="text-xs font-semibold uppercase tracking-wider text-deepSlate px-1">Evaluasi Anggaran</div>
+            ${budgetCards}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAkunView() {
+      if (ui.selectedPocketDetail) {
+        return renderPocketDetailView();
+      }
+
+      const totalIDR = db.accounts.reduce((sum, acc) => sum + toIDR(getAccountTotalBalance(acc), acc.currency), 0);
+
+      return `
+        <div class="p-4 space-y-4">
+          <div class="rounded-3xl p-4 shadow-sm border border-skyBlue bg-skyBlue flex items-center justify-between gap-2">
+            <div>
+              <span class="text-xs text-softBrown block">Total Kekayaan Bersih (IDR)</span>
+              <div class="text-xl font-bold text-deepSlate">${formatCurrency(totalIDR)}</div>
+            </div>
+            <button onclick="openTransferPocketModal()"
+              class="px-3.5 py-2 rounded-2xl bg-softCream border border-softGrey text-xs font-semibold text-deepSlate active:scale-95 transition-all">
+              ⇄ Transfer
+            </button>
+          </div>
+
+          <div class="space-y-3">
+            ${db.accounts.map(acc => {
+              const clr = getColorObj(acc.colorId);
+              const totalAcc = getAccountTotalBalance(acc);
+              return `
+                <div class="bg-softCream rounded-3xl p-4 shadow-sm border border-softGrey space-y-3">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-9 h-9 rounded-2xl flex items-center justify-center text-deepSlate" style="background-color: ${clr.bg}; border: 1px solid ${clr.border};">
+                        ${ICONS[acc.icon] || ICONS.wallet}
+                      </div>
+                      <div>
+                        <div class="text-sm font-semibold text-deepSlate">${acc.name}</div>
+                        <div class="text-[11px] text-mutedBlue">${acc.jenis} • ${acc.currency}</div>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <div class="text-sm font-semibold text-deepSlate">${formatCurrency(totalAcc, acc.currency)}</div>
+                      ${acc.currency !== 'IDR' ? `<div class="text-[10px] text-mutedBlue">≈ ${formatCurrency(toIDR(totalAcc, acc.currency))}</div>` : ''}
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-2 pt-1">
+                    ${(acc.pockets || []).map(p => `
+                      <button type="button" onclick="openPocketDetail('${acc.id}', '${p.id}')"
+                        class="text-left rounded-2xl p-2.5 border transition-all active:scale-98" style="background-color: ${clr.bg}; border-color: ${clr.border};">
+                        <div class="text-[11px] font-semibold text-deepSlate truncate">${p.name}</div>
+                        <div class="text-xs font-semibold text-deepSlate mt-0.5">${formatCurrency(p.balance, acc.currency)}</div>
+                      </button>
+                    `).join('')}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTabunganView() {
+      return `
+        <div class="p-4 space-y-3">
+          <div class="rounded-3xl p-4 bg-mintGreen border border-freshGreen/40 space-y-1">
+            <div class="text-xs text-softBrown">Target Tabungan</div>
+            <div class="text-lg font-bold text-deepSlate">Pantau Progres & Pocket</div>
+          </div>
+          ${db.savingsGoals.map(g => {
+            const pct = g.targetAmount > 0 ? Math.min(100, (g.currentAmount / g.targetAmount) * 100) : 0;
+            return `
+              <div class="bg-softCream rounded-3xl p-4 border border-softGrey space-y-2">
+                <div class="flex justify-between text-xs font-semibold text-deepSlate">
+                  <span>${g.name}</span>
+                  <span>${formatCurrency(g.currentAmount)} / ${formatCurrency(g.targetAmount)}</span>
+                </div>
+                <div class="w-full h-2.5 rounded-full bg-creamSoft overflow-hidden">
+                  <div class="h-full rounded-full bg-freshGreen" style="width: ${pct}%;"></div>
+                </div>
+                <p class="text-[11px] text-mutedBlue">${g.note || ''}</p>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function renderHutangView() {
+      return `
+        <div class="p-4 space-y-3">
+          <div class="rounded-3xl p-4 bg-butterYellow border border-peach/40 space-y-1">
+            <div class="text-xs text-softBrown">Hutang & Piutang</div>
+            <div class="text-lg font-bold text-deepSlate">${db.debts.length} Catatan Aktif</div>
+          </div>
+          <div class="bg-softCream rounded-3xl p-6 text-center text-xs text-mutedBlue border border-softGrey">
+            ${db.debts.length === 0 ? 'Belum ada catatan hutang atau piutang.' : db.debts.map(d => `${d.person}: ${formatCurrency(d.amount)}`).join('<br>')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPengaturanView() {
+      const palettePreview = [
+        { name: 'Sky Blue', hex: '#B9D5F5', role: 'Header, Accent' },
+        { name: 'Cotton Pink', hex: '#F5B9D0', role: 'Highlight' },
+        { name: 'Mint Green', hex: '#B8DFC3', role: 'Success' },
+        { name: 'Butter Yellow', hex: '#FFE19B', role: 'Reminder' },
+        { name: 'Lavender', hex: '#C9B8EB', role: 'Category' },
+        { name: 'Peach', hex: '#FFB99F', role: 'Alert' },
+        { name: 'Fresh Green', hex: '#83B9A9', role: 'Income/Success' },
+        { name: 'Sweet Pink', hex: '#F6A7B7', role: 'Expense/Alert' },
+        { name: 'Dream Purple', hex: '#C9B8E8', role: 'Budget/Info' },
+        { name: 'Sky Mint', hex: '#AEE0C6', role: 'Decorative' },
+        { name: 'Soft Orange', hex: '#FFD3A5', role: 'Highlight' }
+      ];
+
+      return `
+        <div class="p-4 space-y-4">
+          <div class="bg-softCream rounded-3xl p-4 border border-softGrey space-y-3">
+            <div class="text-xs font-semibold uppercase tracking-wider text-deepSlate">Tipografi & Palet Aktif</div>
+            <div class="text-xs text-softBrown">Font: <strong class="text-deepSlate">Nunito</strong> (400, 600, 700) • Background: <strong class="text-deepSlate">#F8FAFF</strong> • Card: <strong class="text-deepSlate">#FFF7F0</strong></div>
+            <div class="grid grid-cols-2 gap-2 pt-1">
+              ${palettePreview.map(p => `
+                <div class="flex items-center gap-2 p-2 rounded-2xl bg-cloudWhite border border-softGrey">
+                  <span class="w-5 h-5 rounded-full shrink-0 border border-softGrey" style="background-color: ${p.hex};"></span>
+                  <div class="min-w-0">
+                    <div class="text-[11px] font-semibold text-deepSlate truncate">${p.name}</div>
+                    <div class="text-[10px] text-mutedBlue truncate">${p.hex} • ${p.role}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function render() {
+      updateLockScreenVisibility();
+      updateFabVisibility();
+      renderBottomNav();
+
+      const mainEl = document.getElementById('main-content');
+      if (!mainEl) return;
+
+      if (ui.activeTab === 'transaksi') mainEl.innerHTML = renderTransaksiView();
+      else if (ui.activeTab === 'statistik') mainEl.innerHTML = renderStatistikView();
+      else if (ui.activeTab === 'tabungan') mainEl.innerHTML = renderTabunganView();
+      else if (ui.activeTab === 'hutang') mainEl.innerHTML = renderHutangView();
+      else if (ui.activeTab === 'pengaturan') mainEl.innerHTML = renderPengaturanView();
+      else mainEl.innerHTML = renderAkunView();
+    }
+
+    initPWAAssets();
+    render();
+  </script>
+</body>
+</html>
