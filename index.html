@@ -15,7 +15,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -23,20 +23,20 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Fredoka', 'sans-serif']
+            sans: ['Nunito', 'sans-serif']
           },
           colors: {
-            cream: '#FBF6EA',
-            creamCard: '#FFFDF7',
-            creamSoft: '#F5ECDA',
-            butter: '#F6E299',
-            peanut: '#D8A25E',
-            peanutDark: '#B97E3B',
-            sage: '#3E8A75',
-            sageLight: '#E5F2ED',
-            coral: '#E05A5A',
-            coralLight: '#FCE8E8',
-            ink: '#3C3226'
+            cream: '#F8FAFF',
+            creamCard: '#FFF7F0',
+            creamSoft: '#EEF3F9',
+            butter: '#B9D5F5',
+            peanut: '#8094A6',
+            peanutDark: '#49647D',
+            sage: '#83B9A9',
+            sageLight: '#E9F5F1',
+            coral: '#F6A7B7',
+            coralLight: '#FDECEF',
+            ink: '#49647D'
           }
         }
       }
@@ -45,19 +45,19 @@
 
   <style>
     * {
-      font-family: 'Fredoka', sans-serif !important;
+      font-family: 'Nunito', sans-serif !important;
       font-weight: 400;
       -webkit-tap-highlight-color: transparent;
       box-sizing: border-box;
     }
 
     strong, b, .font-medium, .font-semibold, .font-bold {
-      font-weight: 500 !important;
+      font-weight: 600 !important;
     }
 
     body {
-      background-color: #F3EAD8;
-      color: #3C3226;
+      background-color: #F8FAFF;
+      color: #49647D;
       overscroll-behavior-y: none;
     }
 
@@ -78,16 +78,16 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex justify-center bg-[#F3EAD8]">
+<body class="min-h-screen flex justify-center bg-cream">
 
   <div id="app-shell" class="w-full max-w-md min-h-screen bg-cream relative flex flex-col shadow-xl">
 
     <!-- Toast Notification -->
-    <div id="toast-banner" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-medium tracking-wide bg-ink text-[#FBF6EA] max-w-[90vw] text-center"></div>
+    <div id="toast-banner" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-medium tracking-wide bg-ink text-[#F8FAFF] max-w-[90vw] text-center"></div>
 
     <!-- Lock Screen Overlay -->
     <div id="lock-screen" class="hidden fixed inset-0 z-[80] bg-cream flex flex-col items-center justify-center p-6">
-      <div class="w-full max-w-xs bg-creamCard rounded-3xl p-6 shadow-md border border-[#E8DEC5] text-center space-y-5">
+      <div class="w-full max-w-xs bg-creamCard rounded-3xl p-6 shadow-md border border-[#E6ECF2] text-center space-y-5">
         <div class="w-16 h-16 mx-auto rounded-2xl bg-butter flex items-center justify-center shadow-inner">
           <svg class="w-8 h-8 text-peanutDark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -95,12 +95,12 @@
         </div>
         <div>
           <h2 class="text-base font-medium uppercase tracking-wider text-ink">KUNCI APLIKASI</h2>
-          <p class="text-xs text-slate-500 mt-1">Masukkan 4–6 digit PIN untuk membuka sesi (48 jam)</p>
+          <p class="text-xs text-[#8094A6] mt-1">Masukkan 4–6 digit PIN untuk membuka sesi (48 jam)</p>
         </div>
         <input id="pin-unlock-input" type="password" inputmode="numeric" maxlength="6" placeholder="••••"
           onkeydown="if(event.key==='Enter') unlockWithPin()"
-          class="w-full text-center tracking-[0.5em] text-lg py-3 rounded-2xl bg-creamSoft border border-[#E2D4B7] focus:outline-none focus:border-peanut" />
-        <button onclick="unlockWithPin()" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium uppercase tracking-wider shadow-sm active:scale-95 transition-all">
+          class="w-full text-center tracking-[0.5em] text-lg py-3 rounded-2xl bg-creamSoft border border-[#E6ECF2] focus:outline-none focus:border-peanut" />
+        <button onclick="unlockWithPin()" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium uppercase tracking-wider shadow-sm active:scale-95 transition-all">
           Buka Aplikasi
         </button>
       </div>
@@ -111,7 +111,7 @@
 
     <!-- Floating Action Button (+ Catat) -->
     <button id="fab-add-tx" onclick="handleFabCatatClick()"
-      class="fixed bottom-24 right-5 z-40 flex items-center gap-2 px-4 py-3.5 rounded-full bg-ink text-[#FBF6EA] shadow-lg hover:opacity-95 active:scale-95 transition-all">
+      class="fixed bottom-24 right-5 z-40 flex items-center gap-2 px-4 py-3.5 rounded-full bg-ink text-[#F8FAFF] shadow-lg hover:opacity-95 active:scale-95 transition-all">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
       </svg>
@@ -119,14 +119,14 @@
     </button>
 
     <!-- Bottom Navigation -->
-    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-40 bg-creamCard/95 backdrop-blur-md border-t border-[#E8DEC5] px-1.5 py-2">
+    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-40 bg-creamCard/95 backdrop-blur-md border-t border-[#E6ECF2] px-1.5 py-2">
       <div id="bottom-nav-items" class="grid grid-cols-6 gap-0.5 text-center"></div>
     </nav>
 
     <!-- Reusable Modal Overlay -->
     <div id="modal-backdrop" onclick="closeModalOnBackdrop(event)"
-      class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] items-end sm:items-center justify-center p-0 sm:p-4">
-      <div id="modal-box" class="w-full max-w-md bg-creamCard rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl border border-[#E8DEC5] max-h-[90vh] overflow-y-auto animate-pop"></div>
+      class="hidden fixed inset-0 z-50 bg-[#49647D]/30 backdrop-blur-[2px] items-end sm:items-center justify-center p-0 sm:p-4">
+      <div id="modal-box" class="w-full max-w-md bg-creamCard rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl border border-[#E6ECF2] max-h-[90vh] overflow-y-auto animate-pop"></div>
     </div>
   </div>
 
@@ -150,17 +150,17 @@
     };
 
     const ACCOUNT_COLORS = [
-      { id: 'emerald', hex: '#2B937B', bg: '#E6F4F0', border: '#BDE3D8' },
-      { id: 'teal',    hex: '#318B9E', bg: '#E7F3F6', border: '#BEE0E8' },
-      { id: 'amber',   hex: '#D48A2A', bg: '#FDF3E3', border: '#F4DCB5' },
-      { id: 'coral',   hex: '#DC6363', bg: '#FDEAEA', border: '#F5C4C4' },
-      { id: 'plum',    hex: '#8966B8', bg: '#F2ECFA', border: '#D9C9F0' },
-      { id: 'slate',   hex: '#596E85', bg: '#ECEFF3', border: '#CBD4DF' }
+      { id: 'emerald', hex: '#83B9A9', bg: '#E9F5F1', border: '#B8DFC3' },
+      { id: 'teal',    hex: '#8FAED6', bg: '#EAF2FC', border: '#B9D5F5' },
+      { id: 'amber',   hex: '#E5B85C', bg: '#FFF8E6', border: '#FFE19B' },
+      { id: 'coral',   hex: '#F6A7B7', bg: '#FDECEF', border: '#F5B9D0' },
+      { id: 'plum',    hex: '#B39EDB', bg: '#F3EFFC', border: '#C9B8EB' },
+      { id: 'slate',   hex: '#8094A6', bg: '#EDF2F7', border: '#E6ECF2' }
     ];
 
     const PIE_PALETTE = [
-      '#FF6B6B', '#FF9F43', '#FFC837', '#C6DA77', '#58C4A8',
-      '#77BCDA', '#6C8EEF', '#A478E8', '#F278B6', '#8E9AAF'
+      '#F6A7B7', '#FFB99F', '#FFE19B', '#B8DFC3', '#83B9A9',
+      '#B9D5F5', '#8FAED6', '#C9B8E8', '#F5B9D0', '#8094A6'
     ];
 
     const ICONS = {
@@ -503,7 +503,7 @@
     // 4. PWA MANIFEST & SERVICE WORKER
     // =========================================================================
     function initPWAAssets() {
-      const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="32" fill="#B9D5F5"/><circle cx="64" cy="68" r="34" fill="#FFFDF7"/><path d="M40 44 L48 26 L60 40 Z" fill="#FFFDF7"/><path d="M88 44 L80 26 L68 40 Z" fill="#FFFDF7"/><circle cx="53" cy="66" r="4" fill="#3C3226"/><circle cx="75" cy="66" r="4" fill="#3C3226"/><path d="M59 75 Q64 80 69 75" stroke="#3C3226" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+      const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="32" fill="#B9D5F5"/><circle cx="64" cy="68" r="34" fill="#FFF7F0"/><path d="M40 44 L48 26 L60 40 Z" fill="#FFF7F0"/><path d="M88 44 L80 26 L68 40 Z" fill="#FFF7F0"/><circle cx="53" cy="66" r="4" fill="#49647D"/><circle cx="75" cy="66" r="4" fill="#49647D"/><path d="M59 75 Q64 80 69 75" stroke="#49647D" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
       const iconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(iconSvg);
       const appleIcon = document.getElementById('apple-touch-icon');
       if (appleIcon) appleIcon.href = iconUrl;
@@ -513,7 +513,7 @@
         short_name: 'Keuangan',
         start_url: './',
         display: 'standalone',
-        background_color: '#FBF6EA',
+        background_color: '#F8FAFF',
         theme_color: '#B9D5F5',
         icons: [{ src: iconUrl, sizes: '192x192', type: 'image/svg+xml' }]
       };
@@ -633,15 +633,15 @@
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-medium uppercase text-ink">${active ? 'UBAH / NONAKTIFKAN PIN' : 'ATUR PIN KEAMANAN'}</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
           <form onsubmit="submitPinSetup(event)" class="space-y-3">
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">PIN Baru (4–6 digit angka)</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">PIN Baru (4–6 digit angka)</label>
               <input type="password" name="newPin" inputmode="numeric" maxlength="6" placeholder="••••"
-                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-sm tracking-widest text-ink" />
+                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-sm tracking-widest text-ink" />
             </div>
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan PIN</button>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">Simpan PIN</button>
             ${active ? `<button type="button" onclick="disablePinSecurity()" class="w-full py-2.5 rounded-2xl bg-coralLight text-coral text-xs font-medium">Nonaktifkan PIN</button>` : ''}
           </form>
         </div>
@@ -678,7 +678,7 @@
       if (!el) return;
       el.textContent = msg;
       el.className = `fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-medium tracking-wide max-w-[90vw] text-center ${
-        type === 'error' ? 'bg-coral text-white' : 'bg-ink text-[#FBF6EA]'
+        type === 'error' ? 'bg-coral text-white' : 'bg-ink text-[#F8FAFF]'
       }`;
       el.classList.remove('hidden');
       clearTimeout(toastTimer);
@@ -730,7 +730,7 @@
         const active = ui.activeTab === it.id;
         return `
           <button onclick="switchTab('${it.id}')"
-            class="py-1.5 px-1 rounded-2xl transition-all ${active ? 'bg-butter text-ink font-medium' : 'text-slate-500 hover:text-ink'}">
+            class="py-1.5 px-1 rounded-2xl transition-all ${active ? 'bg-butter text-ink font-medium' : 'text-[#8094A6] hover:text-ink'}">
             ${it.icon}
             <span class="block text-[10px] mt-0.5 truncate">${it.label}</span>
           </button>
@@ -787,7 +787,7 @@
     }
 
     // =========================================================================
-    // 8. VIEW 1: TRANSAKSI (TANPA JUDUL & TOMBOL BERULANG + PENCARIAN)
+    // 8. VIEW 1: TRANSAKSI
     // =========================================================================
     function setTxPeriodMode(m) { ui.txPeriodMode = m; render(); }
     function setTxTypeFilter(f) { ui.txTypeFilter = f; render(); }
@@ -853,15 +853,15 @@
 
       return `
         <div class="p-4 space-y-3.5">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background: linear-gradient(135deg, #B9D5F5 0%, #D9E8FA 65%, #F5B9D0 135%); border-color: #A6C6EE;">
             <div class="flex items-center justify-between gap-2">
               <div class="inline-flex rounded-2xl bg-creamCard p-1">
                 <button onclick="setTxPeriodMode('monthly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'monthly' ? 'bg-ink text-[#F8FAFF]' : 'text-ink'}">
                   Bulanan
                 </button>
                 <button onclick="setTxPeriodMode('yearly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'yearly' ? 'bg-ink text-[#F8FAFF]' : 'text-ink'}">
                   Tahunan
                 </button>
               </div>
@@ -875,38 +875,36 @@
 
             <div class="grid grid-cols-3 gap-2">
               <div class="bg-creamCard rounded-2xl p-2.5">
-                <span class="text-[10px] text-slate-500 block">Pemasukan</span>
+                <span class="text-[10px] text-[#6A5B4D] block">Pemasukan</span>
                 <span class="text-xs font-medium text-sage">+${formatCurrency(totalIn)}</span>
               </div>
               <div class="bg-creamCard rounded-2xl p-2.5">
-                <span class="text-[10px] text-slate-500 block">Pengeluaran</span>
+                <span class="text-[10px] text-[#6A5B4D] block">Pengeluaran</span>
                 <span class="text-xs font-medium text-coral">-${formatCurrency(totalOut)}</span>
               </div>
               <div class="bg-creamCard rounded-2xl p-2.5">
-                <span class="text-[10px] text-slate-500 block">Selisih</span>
+                <span class="text-[10px] text-[#6A5B4D] block">Selisih</span>
                 <span class="text-xs font-medium ${totalNet >= 0 ? 'text-ink' : 'text-coral'}">${totalNet >= 0 ? '+' : '-'}${formatCurrency(Math.abs(totalNet))}</span>
               </div>
             </div>
           </div>
 
-          <!-- Kolom Pencarian Transaksi -->
           <div class="relative flex items-center">
-            <svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-[#8094A6] absolute left-3.5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input id="tx-search-input" type="text" value="${ui.txSearchQuery.replace(/"/g, '&quot;')}"
               oninput="handleTxSearchInput(this.value)"
               placeholder="Cari catatan, kategori, akun, atau pocket..."
-              class="w-full pl-9 pr-8 py-2.5 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink placeholder:text-slate-400 focus:outline-none focus:border-peanut" />
+              class="w-full pl-9 pr-8 py-2.5 rounded-2xl bg-creamCard border border-[#E6ECF2] text-xs text-ink placeholder:text-[#8094A6] focus:outline-none focus:border-peanut" />
             ${ui.txSearchQuery ? `
               <button onclick="clearTxSearch()" title="Hapus pencarian"
-                class="w-6 h-6 rounded-full bg-creamSoft text-slate-500 hover:text-ink text-xs flex items-center justify-center absolute right-2.5">
+                class="w-6 h-6 rounded-full bg-creamSoft text-[#8094A6] hover:text-ink text-xs flex items-center justify-center absolute right-2.5">
                 ✕
               </button>
             ` : ''}
           </div>
 
-          <!-- Filter Jenis -->
           <div class="flex gap-1.5 overflow-x-auto no-scrollbar">
             ${[
               { id: 'ALL', label: 'Semua' },
@@ -917,18 +915,17 @@
               <button onclick="setTxTypeFilter('${f.id}')"
                 class="px-3.5 py-1.5 rounded-2xl text-xs font-medium border transition-all shrink-0 ${
                   ui.txTypeFilter === f.id
-                    ? 'bg-ink text-[#FBF6EA] border-ink'
-                    : 'bg-creamCard text-ink border-[#E8DEC5]'
+                    ? 'bg-ink text-[#F8FAFF] border-ink'
+                    : 'bg-creamCard text-ink border-[#E6ECF2]'
                 }">
                 ${f.label}
               </button>
             `).join('')}
           </div>
 
-          <!-- Daftar Transaksi -->
           <div class="space-y-2.5">
             ${filteredList.length === 0 ? `
-              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-slate-400 border border-[#E8DEC5]">
+              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-[#8094A6] border border-[#E6ECF2]">
                 ${q ? `Tidak ada transaksi yang cocok dengan "${ui.txSearchQuery}".` : `Belum ada transaksi pada periode ${periodLabel}.`}
               </div>
             ` : filteredList.map(tx => {
@@ -941,30 +938,30 @@
               const cur = getTxCurrency(tx);
 
               const badgeClass = tx.type === 'income'
-                ? 'bg-sageLight text-sage'
+                ? 'bg-sageLight text-[#3E7867]'
                 : tx.type === 'transfer'
-                  ? 'bg-[#E7F3F6] text-[#2B5B67]'
-                  : 'bg-coralLight text-coral';
+                  ? 'bg-[#EAF2FC] text-[#49647D]'
+                  : 'bg-coralLight text-[#B8576D]';
               const amountColor = tx.type === 'income'
-                ? 'text-sage'
+                ? 'text-[#3E7867]'
                 : tx.type === 'transfer'
-                  ? 'text-[#2B5B67]'
-                  : 'text-coral';
+                  ? 'text-ink'
+                  : 'text-[#B8576D]';
               const signPrefix = tx.type === 'income' ? '+' : tx.type === 'transfer' ? '⇄ ' : '-';
 
               return `
-                <div class="bg-creamCard rounded-3xl p-3.5 shadow-sm border border-[#E8DEC5] flex items-center justify-between gap-2.5">
+                <div class="bg-creamCard rounded-3xl p-3.5 shadow-sm border border-[#E6ECF2] flex items-center justify-between gap-2.5">
                   <div class="min-w-0 flex-1">
                     <div class="flex items-center gap-1.5">
                       <span class="px-2 py-0.5 rounded-lg text-[10px] font-medium ${badgeClass}">
                         ${tx.type === 'income' ? 'Masuk' : tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Keluar')}
                       </span>
-                      ${sub ? `<span class="text-[10px] text-slate-400 truncate">• ${sub.name}</span>` : ''}
+                      ${sub ? `<span class="text-[10px] text-[#8094A6] truncate">• ${sub.name}</span>` : ''}
                     </div>
                     <div class="text-xs font-medium text-ink truncate mt-1">
                       ${tx.title || (tx.type === 'transfer' ? `${pkt?.name || 'Asal'} → ${dstPkt?.name || 'Tujuan'}` : (cat?.name || 'Transaksi'))}
                     </div>
-                    <div class="text-[11px] text-slate-400 truncate mt-0.5">
+                    <div class="text-[11px] text-[#8094A6] truncate mt-0.5">
                       ${tx.date} • ${acc?.name || '-'} (${pkt?.name || '-'})
                       ${tx.type === 'transfer' && dstPkt ? ` → ${dstAcc?.name || ''} (${dstPkt.name})` : ''}
                     </div>
@@ -973,10 +970,10 @@
                   <div class="text-right shrink-0 flex items-center gap-2">
                     <div>
                       <div class="text-xs font-medium ${amountColor}">${signPrefix}${formatCurrency(tx.amount, cur)}</div>
-                      ${cur !== 'IDR' ? `<div class="text-[10px] text-slate-400">≈ ${formatCurrency(toIDR(tx.amount, cur))}</div>` : ''}
+                      ${cur !== 'IDR' ? `<div class="text-[10px] text-[#8094A6]">≈ ${formatCurrency(toIDR(tx.amount, cur))}</div>` : ''}
                     </div>
                     <button onclick="deleteTransaction('${tx.id}')" title="Hapus transaksi"
-                      class="w-7 h-7 rounded-xl bg-creamSoft text-slate-400 hover:text-coral flex items-center justify-center text-xs">
+                      class="w-7 h-7 rounded-xl bg-creamSoft text-[#8094A6] hover:text-coral flex items-center justify-center text-xs">
                       ✕
                     </button>
                   </div>
@@ -989,7 +986,7 @@
     }
 
     // =========================================================================
-    // 9. VIEW 2: STATISTIK (PIE CHART DULU + EVALUASI ANGGARAN)
+    // 9. VIEW 2: STATISTIK
     // =========================================================================
     function setStatPeriodMode(m) { ui.statPeriodMode = m; render(); }
     function setStatPieMode(m) { ui.statPieMode = m; render(); }
@@ -1072,7 +1069,7 @@
       let svgHtml = '';
       if (totalAmount <= 0 || coloredEntries.length === 0) {
         svgHtml = `
-          <div class="py-10 text-center text-xs text-slate-400">
+          <div class="py-10 text-center text-xs text-[#8094A6]">
             Belum ada data ${pieMode === 'income' ? 'pendapatan' : 'pengeluaran'} pada periode ini.
           </div>
         `;
@@ -1103,7 +1100,7 @@
 
           const showCallout = coloredEntries.length <= 8 || item.pct >= 2.5;
           if (!showCallout) {
-            return `<path d="${pathD}" fill="${item.color}" stroke="#FFFDF7" stroke-width="1.5" />`;
+            return `<path d="${pathD}" fill="${item.color}" stroke="#FFF7F0" stroke-width="1.5" />`;
           }
 
           const shortName = item.name.length > 14 ? item.name.slice(0, 13) + '…' : item.name;
@@ -1111,11 +1108,11 @@
           const textX = isRight ? tipPt.x + 4 : tipPt.x - 4;
 
           return `
-            <path d="${pathD}" fill="${item.color}" stroke="#FFFDF7" stroke-width="1.5" />
+            <path d="${pathD}" fill="${item.color}" stroke="#FFF7F0" stroke-width="1.5" />
             <polyline points="${edgePt.x.toFixed(1)},${edgePt.y.toFixed(1)} ${elbowPt.x.toFixed(1)},${elbowPt.y.toFixed(1)} ${tipPt.x.toFixed(1)},${tipPt.y.toFixed(1)}"
               fill="none" stroke="${item.color}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-            <text x="${textX}" y="${(tipPt.y - 2).toFixed(1)}" text-anchor="${textAnchor}" fill="#3C3226" font-size="10.5" font-weight="500">${shortName}</text>
-            <text x="${textX}" y="${(tipPt.y + 10).toFixed(1)}" text-anchor="${textAnchor}" fill="#64748B" font-size="9.5">${item.pct.toFixed(1)}%</text>
+            <text x="${textX}" y="${(tipPt.y - 2).toFixed(1)}" text-anchor="${textAnchor}" fill="#49647D" font-size="10.5" font-weight="600">${shortName}</text>
+            <text x="${textX}" y="${(tipPt.y + 10).toFixed(1)}" text-anchor="${textAnchor}" fill="#8094A6" font-size="9.5">${item.pct.toFixed(1)}%</text>
           `;
         }).join('');
 
@@ -1127,11 +1124,11 @@
       }
 
       const legendRowsHtml = coloredEntries.length === 0 ? '' : `
-        <div class="divide-y divide-stone-100 pt-2 border-t border-[#E8DEC5]">
+        <div class="divide-y divide-[#E6ECF2] pt-2 border-t border-[#E6ECF2]">
           ${coloredEntries.map(item => `
             <div class="py-2.5 flex items-center justify-between gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0">
-                <span class="px-2 py-0.5 rounded-lg text-[11px] font-medium text-white shrink-0" style="background-color: ${item.color};">
+                <span class="px-2 py-0.5 rounded-lg text-[11px] font-medium text-[#49647D] shrink-0" style="background-color: ${item.color};">
                   ${Math.round(item.pct)}%
                 </span>
                 <span class="text-xs font-medium text-ink truncate">${item.name}</span>
@@ -1143,7 +1140,7 @@
       `;
 
       return `
-        <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2">
+        <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2">
           ${svgHtml}
           ${legendRowsHtml}
         </div>
@@ -1188,15 +1185,15 @@
 
             const subPct = subLimit > 0 ? Math.min(100, (subSpent / subLimit) * 100) : (subSpent > 0 ? 100 : 0);
             const subOverLimit = subLimit > 0 ? subSpent > subLimit : subSpent > 0;
-            const subBarColor = subOverLimit ? '#E05A5A' : '#77bcda';
+            const subBarColor = subOverLimit ? '#F6A7B7' : '#C9B8E8';
 
             return `
-              <div class="pl-3 border-l-2 border-[#E8DEC5] space-y-1">
+              <div class="pl-3 border-l-2 border-[#E6ECF2] space-y-1">
                 <div class="flex items-center justify-between text-xs">
                   <span class="text-ink">${sub.name}</span>
                   <div>
-                    <span class="font-medium ${subOverLimit ? 'text-coral' : 'text-ink'}">${formatCurrency(subSpent)}</span>
-                    <span class="text-slate-400"> / ${formatCurrency(subLimit)}</span>
+                    <span class="font-medium ${subOverLimit ? 'text-[#B8576D]' : 'text-ink'}">${formatCurrency(subSpent)}</span>
+                    <span class="text-[#8094A6]"> / ${formatCurrency(subLimit)}</span>
                   </div>
                 </div>
                 <div class="w-full h-2 rounded-full bg-creamSoft overflow-hidden">
@@ -1214,25 +1211,25 @@
 
         const catPct = catLimit > 0 ? Math.min(100, (catSpent / catLimit) * 100) : (catSpent > 0 ? 100 : 0);
         const catOverLimit = catLimit > 0 ? catSpent > catLimit : catSpent > 0;
-        const catBarColor = catOverLimit ? '#E05A5A' : '#c6da77';
+        const catBarColor = catOverLimit ? '#F6A7B7' : '#83B9A9';
         const sisaBudget = catLimit - catSpent;
         const isExpanded = ui.expandedBudgetCats[cat.id] !== false;
 
         return `
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2.5">
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2.5">
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0">
                 <span class="text-sm font-medium text-ink truncate">${cat.name}</span>
                 ${hasSubs ? `
                   <button onclick="toggleBudgetCatExpand('${cat.id}')"
-                    class="px-2 py-0.5 rounded-lg bg-creamSoft text-[10px] font-medium text-slate-600 shrink-0">
+                    class="px-2 py-0.5 rounded-lg bg-creamSoft text-[10px] font-medium text-[#6A5B4D] shrink-0">
                     ${isExpanded ? '▲ Sub' : '▼ Sub'}
                   </button>
                 ` : ''}
               </div>
               <div class="text-xs shrink-0">
-                <span class="font-medium ${catOverLimit ? 'text-coral' : 'text-ink'}">${formatCurrency(catSpent)}</span>
-                <span class="text-slate-400"> / ${formatCurrency(catLimit)}</span>
+                <span class="font-medium ${catOverLimit ? 'text-[#B8576D]' : 'text-ink'}">${formatCurrency(catSpent)}</span>
+                <span class="text-[#8094A6]"> / ${formatCurrency(catLimit)}</span>
               </div>
             </div>
 
@@ -1241,10 +1238,10 @@
             </div>
 
             <div class="flex items-center justify-between text-[11px]">
-              <span class="${sisaBudget < 0 ? 'text-coral font-medium' : 'text-slate-500'}">
+              <span class="${sisaBudget < 0 ? 'text-[#B8576D] font-medium' : 'text-[#8094A6]'}">
                 ${sisaBudget < 0 ? `Melebihi limit ${formatCurrency(Math.abs(sisaBudget))}` : `Sisa budget ${formatCurrency(sisaBudget)}`}
               </span>
-              <span class="font-medium ${catOverLimit ? 'text-coral' : 'text-sage'}">
+              <span class="font-medium ${catOverLimit ? 'text-[#B8576D]' : 'text-[#3E7867]'}">
                 ${catLimit > 0 ? ((catSpent / catLimit) * 100).toFixed(0) + '%' : '-'}
               </span>
             </div>
@@ -1256,7 +1253,7 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background: linear-gradient(135deg, #B9D5F5 0%, #D9E8FA 65%, #F5B9D0 135%); border-color: #A6C6EE;">
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-1.5 bg-creamCard rounded-2xl px-2 py-1">
                 <button onclick="shiftPeriod('stat', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">‹</button>
@@ -1266,11 +1263,11 @@
 
               <div class="inline-flex rounded-2xl bg-creamCard p-1">
                 <button onclick="setStatPeriodMode('monthly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'monthly' ? 'bg-ink text-[#F8FAFF]' : 'text-ink'}">
                   Bulanan
                 </button>
                 <button onclick="setStatPeriodMode('yearly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'yearly' ? 'bg-ink text-[#F8FAFF]' : 'text-ink'}">
                   Tahunan
                 </button>
               </div>
@@ -1278,17 +1275,17 @@
 
             <div class="grid grid-cols-2 gap-2.5">
               <button onclick="setStatPieMode('income')"
-                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'income' ? 'ring-2 ring-[#422F0E]' : 'border-transparent'}"
-                style="background-color: #c6da77;">
-                <span class="text-[11px] font-medium block text-[#2E3809]">Pendapatan</span>
-                <span class="text-sm font-medium text-[#1F2605] mt-0.5 block">${formatCurrency(totalIncome)}</span>
+                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'income' ? 'ring-2 ring-ink' : 'border-transparent'}"
+                style="background-color: #B8DFC3;">
+                <span class="text-[11px] font-medium block text-[#355A43]">Pendapatan</span>
+                <span class="text-sm font-medium text-[#244230] mt-0.5 block">${formatCurrency(totalIncome)}</span>
               </button>
 
               <button onclick="setStatPieMode('expense')"
-                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'expense' ? 'ring-2 ring-[#422F0E]' : 'border-transparent'}"
-                style="background-color: #da7977;">
-                <span class="text-[11px] font-medium block text-[#3D1211]">Pengeluaran</span>
-                <span class="text-sm font-medium text-[#2A0B0A] mt-0.5 block">${formatCurrency(totalExpense)}</span>
+                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'expense' ? 'ring-2 ring-ink' : 'border-transparent'}"
+                style="background-color: #F5B9D0;">
+                <span class="text-[11px] font-medium block text-[#6E344B]">Pengeluaran</span>
+                <span class="text-sm font-medium text-[#4D2032] mt-0.5 block">${formatCurrency(totalExpense)}</span>
               </button>
             </div>
           </div>
@@ -1298,7 +1295,7 @@
           <div class="space-y-3 pt-1">
             <div class="flex items-center justify-between px-1">
               <span class="text-xs font-medium uppercase tracking-wider text-ink">Evaluasi Anggaran</span>
-              <button onclick="openBudgetSettingsModal()" class="px-3 py-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink">
+              <button onclick="openBudgetSettingsModal()" class="px-3 py-1.5 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs font-medium text-ink">
                 Atur Limit
               </button>
             </div>
@@ -1405,10 +1402,10 @@
         periodTotal = periodDeposit - periodWithdraw;
 
         if (monthRows.length === 0) {
-          rowsHtml = `<div class="py-10 text-center text-xs text-slate-400">Belum ada mutasi pada pocket ini di ${periodLabel}.</div>`;
+          rowsHtml = `<div class="py-10 text-center text-xs text-[#8094A6]">Belum ada mutasi pada pocket ini di ${periodLabel}.</div>`;
         } else {
           rowsHtml = `
-            <div class="divide-y divide-stone-100">
+            <div class="divide-y divide-[#E6ECF2]">
               ${monthRows.map(r => {
                 const parts = r.date.split('-');
                 const dayNum = parts[2] || '';
@@ -1424,19 +1421,19 @@
                     <div class="flex items-center gap-3 min-w-0">
                       <div class="w-10 text-center shrink-0">
                         <div class="text-sm font-medium text-ink leading-none">${dayNum}</div>
-                        <span class="inline-block mt-1 px-1.5 py-0.5 rounded bg-creamSoft text-[10px] text-slate-500">${dayName}</span>
+                        <span class="inline-block mt-1 px-1.5 py-0.5 rounded bg-creamSoft text-[10px] text-[#8094A6]">${dayName}</span>
                       </div>
                       <div class="min-w-0">
                         <div class="text-xs font-medium text-ink truncate">${titleText}</div>
-                        <div class="text-[11px] text-slate-400 truncate">${r.date} • ${r.tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Umum')}</div>
+                        <div class="text-[11px] text-[#8094A6] truncate">${r.date} • ${r.tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Umum')}</div>
                       </div>
                     </div>
 
                     <div class="text-right shrink-0">
-                      <div class="text-xs font-medium ${r.flow >= 0 ? 'text-sage' : 'text-coral'}">
+                      <div class="text-xs font-medium ${r.flow >= 0 ? 'text-[#3E7867]' : 'text-[#B8576D]'}">
                         ${r.flow >= 0 ? '+' : '-'}${formatCurrency(Math.abs(r.flow), cur)}
                       </div>
-                      <div class="text-[10px] text-slate-400">Saldo: ${formatCurrency(r.runningBalance, cur)}</div>
+                      <div class="text-[10px] text-[#8094A6]">Saldo: ${formatCurrency(r.runningBalance, cur)}</div>
                     </div>
                   </div>
                 `;
@@ -1482,7 +1479,7 @@
         periodTotal = periodDeposit - periodWithdraw;
 
         rowsHtml = `
-          <div class="divide-y divide-stone-100">
+          <div class="divide-y divide-[#E6ECF2]">
             ${[...monthBuckets].reverse().map(b => {
               const lastDay = new Date(yr, b.mIdx + 1, 0).getDate();
               const mm = String(b.mIdx + 1).padStart(2, '0');
@@ -1490,15 +1487,15 @@
                 <div class="py-3 flex items-center justify-between gap-2">
                   <div>
                     <div class="text-xs font-medium text-ink">${MONTH_NAMES_ID[b.mIdx]} ${yr}</div>
-                    <div class="text-[10px] text-slate-400">01.${mm} ~ ${String(lastDay).padStart(2, '0')}.${mm}</div>
+                    <div class="text-[10px] text-[#8094A6]">01.${mm} ~ ${String(lastDay).padStart(2, '0')}.${mm}</div>
                   </div>
                   <div class="text-right">
-                    <div class="text-xs font-medium text-sage">+${formatCurrency(b.deposit, cur)}</div>
-                    <div class="text-[11px] text-coral">-${formatCurrency(b.withdraw, cur)}</div>
+                    <div class="text-xs font-medium text-[#3E7867]">+${formatCurrency(b.deposit, cur)}</div>
+                    <div class="text-[11px] text-[#B8576D]">-${formatCurrency(b.withdraw, cur)}</div>
                   </div>
                   <div class="text-right shrink-0">
-                    <div class="text-xs font-medium ${b.net >= 0 ? 'text-ink' : 'text-coral'}">${b.net >= 0 ? '+' : '-'}${formatCurrency(Math.abs(b.net), cur)}</div>
-                    <div class="text-[10px] text-slate-400">Saldo ${formatCurrency(b.endBalance, cur)}</div>
+                    <div class="text-xs font-medium ${b.net >= 0 ? 'text-ink' : 'text-[#B8576D]'}">${b.net >= 0 ? '+' : '-'}${formatCurrency(Math.abs(b.net), cur)}</div>
+                    <div class="text-[10px] text-[#8094A6]">Saldo ${formatCurrency(b.endBalance, cur)}</div>
                   </div>
                 </div>
               `;
@@ -1537,22 +1534,22 @@
         periodTotal = periodDeposit - periodWithdraw;
 
         rowsHtml = `
-          <div class="divide-y divide-stone-100">
+          <div class="divide-y divide-[#E6ECF2]">
             ${sortedYears.reverse().map(y => {
               const item = yearMap[y];
               return `
                 <div class="py-3 flex items-center justify-between gap-2">
                   <div>
                     <div class="text-xs font-medium text-ink">${y}</div>
-                    <div class="text-[10px] text-slate-400">01.01.${String(y).slice(-2)} ~ 31.12.${String(y).slice(-2)}</div>
+                    <div class="text-[10px] text-[#8094A6]">01.01.${String(y).slice(-2)} ~ 31.12.${String(y).slice(-2)}</div>
                   </div>
                   <div class="text-right">
-                    <div class="text-xs font-medium text-sage">+${formatCurrency(item.deposit, cur)}</div>
-                    <div class="text-[11px] text-coral">-${formatCurrency(item.withdraw, cur)}</div>
+                    <div class="text-xs font-medium text-[#3E7867]">+${formatCurrency(item.deposit, cur)}</div>
+                    <div class="text-[11px] text-[#B8576D]">-${formatCurrency(item.withdraw, cur)}</div>
                   </div>
                   <div class="text-right shrink-0">
-                    <div class="text-xs font-medium ${item.net >= 0 ? 'text-ink' : 'text-coral'}">${item.net >= 0 ? '+' : '-'}${formatCurrency(Math.abs(item.net), cur)}</div>
-                    <div class="text-[10px] text-slate-400">Saldo ${formatCurrency(item.endBalance, cur)}</div>
+                    <div class="text-xs font-medium ${item.net >= 0 ? 'text-ink' : 'text-[#B8576D]'}">${item.net >= 0 ? '+' : '-'}${formatCurrency(Math.abs(item.net), cur)}</div>
+                    <div class="text-[10px] text-[#8094A6]">Saldo ${formatCurrency(item.endBalance, cur)}</div>
                   </div>
                 </div>
               `;
@@ -1563,7 +1560,7 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background: linear-gradient(135deg, #B9D5F5 0%, #D9E8FA 65%, #F5B9D0 135%); border-color: #A6C6EE;">
             <div class="flex items-center justify-between gap-2">
               <button onclick="closePocketDetail()" class="px-3 py-1.5 rounded-xl bg-creamCard text-ink text-xs font-medium">
                 ← Kembali
@@ -1580,8 +1577,8 @@
 
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium text-[#422F0E]">${pkt.name}</h2>
-                <p class="text-xs" style="color: #422F0E;">${acc.name} • Saldo Saat Ini: <strong>${formatCurrency(currentBal, cur)}</strong></p>
+                <h2 class="text-base font-medium text-ink">${pkt.name}</h2>
+                <p class="text-xs text-[#6A5B4D]">${acc.name} • Saldo Saat Ini: <strong>${formatCurrency(currentBal, cur)}</strong></p>
               </div>
               ${tab !== 'yearly' ? `
                 <div class="flex items-center gap-1 bg-creamCard rounded-2xl px-2 py-1">
@@ -1594,33 +1591,33 @@
 
             <div class="grid grid-cols-3 gap-1 bg-creamCard p-1 rounded-2xl">
               <button onclick="setPocketDetailTab('daily')"
-                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'daily' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'daily' ? 'bg-ink text-[#F8FAFF]' : 'text-ink'}">
                 Harian
               </button>
               <button onclick="setPocketDetailTab('monthly')"
-                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'monthly' ? 'bg-ink text-[#F8FAFF]' : 'text-ink'}">
                 Bulanan
               </button>
               <button onclick="setPocketDetailTab('yearly')"
-                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'yearly' ? 'bg-ink text-[#F8FAFF]' : 'text-ink'}">
                 Setiap tahun
               </button>
             </div>
           </div>
 
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-3">
             <div class="grid grid-cols-3 gap-2 text-center">
               <div class="bg-creamSoft rounded-2xl p-2.5">
-                <span class="text-[10px] text-slate-500 block">Masuk</span>
-                <span class="text-xs font-medium text-sage">+${formatCurrency(periodDeposit, cur)}</span>
+                <span class="text-[10px] text-[#8094A6] block">Masuk</span>
+                <span class="text-xs font-medium text-[#3E7867]">+${formatCurrency(periodDeposit, cur)}</span>
               </div>
               <div class="bg-creamSoft rounded-2xl p-2.5">
-                <span class="text-[10px] text-slate-500 block">Keluar</span>
-                <span class="text-xs font-medium text-coral">-${formatCurrency(periodWithdraw, cur)}</span>
+                <span class="text-[10px] text-[#8094A6] block">Keluar</span>
+                <span class="text-xs font-medium text-[#B8576D]">-${formatCurrency(periodWithdraw, cur)}</span>
               </div>
               <div class="bg-creamSoft rounded-2xl p-2.5">
-                <span class="text-[10px] text-slate-500 block">Total</span>
-                <span class="text-xs font-medium ${periodTotal >= 0 ? 'text-ink' : 'text-coral'}">${periodTotal >= 0 ? '+' : '-'}${formatCurrency(Math.abs(periodTotal), cur)}</span>
+                <span class="text-[10px] text-[#8094A6] block">Total</span>
+                <span class="text-xs font-medium ${periodTotal >= 0 ? 'text-ink' : 'text-[#B8576D]'}">${periodTotal >= 0 ? '+' : '-'}${formatCurrency(Math.abs(periodTotal), cur)}</span>
               </div>
             </div>
 
@@ -1666,22 +1663,22 @@
           <div class="flex items-center justify-between gap-2">
             <div>
               <h3 class="text-base font-medium uppercase text-ink">DETAIL KEKAYAAN (${year})</h3>
-              <p class="text-[11px] text-slate-400">Rincian Januari – Desember • Mode ${ui.akunPeriodMode === 'yearly' ? 'Tahunan' : 'Bulanan'}</p>
+              <p class="text-[11px] text-[#8094A6]">Rincian Januari – Desember • Mode ${ui.akunPeriodMode === 'yearly' ? 'Tahunan' : 'Bulanan'}</p>
             </div>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
 
-          <div class="bg-creamSoft rounded-2xl p-3.5 border border-[#E8DEC5] flex items-center justify-between">
+          <div class="bg-creamSoft rounded-2xl p-3.5 border border-[#E6ECF2] flex items-center justify-between">
             <div>
-              <span class="text-[11px] text-slate-500 block">Total Kekayaan Saat Ini</span>
+              <span class="text-[11px] text-[#8094A6] block">Total Kekayaan Saat Ini</span>
               <span class="text-base font-medium text-ink">${formatCurrency(currentNetWorthIDR)}</span>
             </div>
-            <span class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E8DEC5] text-[11px] font-medium text-ink">
+            <span class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E6ECF2] text-[11px] font-medium text-ink">
               ${ui.akunPeriodMode === 'yearly' ? `Tahunan ${year}` : `Bulanan ${MONTH_NAMES_ID[ui.akunMonth]} ${year}`}
             </span>
           </div>
 
-          <div class="max-h-72 overflow-y-auto divide-y divide-stone-100 border border-[#E8DEC5] rounded-2xl bg-creamCard px-3">
+          <div class="max-h-72 overflow-y-auto divide-y divide-[#E6ECF2] border border-[#E6ECF2] rounded-2xl bg-creamCard px-3">
             ${monthlyNetFlow.map((row, idx) => {
               const estWealth = monthBalances[idx];
               const netSign = row.net >= 0 ? '+' : '-';
@@ -1689,13 +1686,13 @@
                 <div class="py-2.5 flex items-center justify-between gap-2">
                   <div>
                     <div class="text-xs font-medium text-ink">${MONTH_FULL_NAMES_ID[idx]} ${year}</div>
-                    <div class="text-[10px] text-slate-400">
+                    <div class="text-[10px] text-[#8094A6]">
                       Masuk: +${formatCurrency(row.inc)} • Keluar: -${formatCurrency(row.exp)}
                     </div>
                   </div>
                   <div class="text-right">
                     <div class="text-xs font-medium text-ink">${formatCurrency(estWealth)}</div>
-                    <div class="text-[10px] font-medium ${row.net >= 0 ? 'text-sage' : 'text-coral'}">
+                    <div class="text-[10px] font-medium ${row.net >= 0 ? 'text-[#3E7867]' : 'text-[#B8576D]'}">
                       Selisih: ${netSign}${formatCurrency(Math.abs(row.net))}
                     </div>
                   </div>
@@ -1704,22 +1701,22 @@
             }).join('')}
           </div>
 
-          <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] grid grid-cols-3 gap-2 text-center">
+          <div class="bg-creamSoft rounded-2xl p-3 border border-[#E6ECF2] grid grid-cols-3 gap-2 text-center">
             <div>
-              <span class="text-[10px] text-slate-400 block">Masuk ${year}</span>
-              <span class="text-xs font-medium text-sage">+${formatCurrency(totalYearInc)}</span>
+              <span class="text-[10px] text-[#8094A6] block">Masuk ${year}</span>
+              <span class="text-xs font-medium text-[#3E7867]">+${formatCurrency(totalYearInc)}</span>
             </div>
             <div>
-              <span class="text-[10px] text-slate-400 block">Keluar ${year}</span>
-              <span class="text-xs font-medium text-coral">-${formatCurrency(totalYearExp)}</span>
+              <span class="text-[10px] text-[#8094A6] block">Keluar ${year}</span>
+              <span class="text-xs font-medium text-[#B8576D]">-${formatCurrency(totalYearExp)}</span>
             </div>
             <div>
-              <span class="text-[10px] text-slate-400 block">Selisih ${year}</span>
+              <span class="text-[10px] text-[#8094A6] block">Selisih ${year}</span>
               <span class="text-xs font-medium text-ink">${totalYearNet >= 0 ? '+' : '-'}${formatCurrency(Math.abs(totalYearNet))}</span>
             </div>
           </div>
 
-          <button onclick="closeModal()" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Tutup</button>
+          <button onclick="closeModal()" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">Tutup</button>
         </div>
       `);
     }
@@ -1745,7 +1742,7 @@
       const totalNetWorthIDR = getTotalNetWorthIDR();
 
       const syncStatus = db.gasConfig?.status || 'offline';
-      const syncDotColor = syncStatus === 'ok' ? 'bg-emerald-400' : syncStatus === 'syncing' ? 'bg-amber-500' : syncStatus === 'error' ? 'bg-red-500' : 'bg-[#422F0E]';
+      const syncDotColor = syncStatus === 'ok' ? 'bg-[#83B9A9]' : syncStatus === 'syncing' ? 'bg-[#E5B85C]' : syncStatus === 'error' ? 'bg-[#F6A7B7]' : 'bg-ink';
       const syncText = syncStatus === 'ok'
         ? `Sheets Sync ${db.gasConfig.lastSyncAt || ''}`
         : syncStatus === 'syncing'
@@ -1756,11 +1753,11 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3.5" style="background-color: #B9D5F5; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3.5" style="background: linear-gradient(135deg, #B9D5F5 0%, #D9E8FA 65%, #F5B9D0 135%); border-color: #A6C6EE;">
             <div class="flex items-center justify-between gap-2">
               <div class="min-w-0">
-                <h1 class="text-base font-medium uppercase tracking-wider text-[#422F0E] truncate">AKUN</h1>
-                <button onclick="syncPullFromSheets(false)" class="inline-flex items-center gap-1.5 text-[11px] mt-0.5" style="color: #422F0E;">
+                <h1 class="text-base font-medium uppercase tracking-wider text-ink truncate">AKUN</h1>
+                <button onclick="syncPullFromSheets(false)" class="inline-flex items-center gap-1.5 text-[11px] mt-0.5 text-ink">
                   <span class="w-2 h-2 rounded-full ${syncDotColor}"></span>
                   <span>${syncText}</span>
                   <span>↻</span>
@@ -1771,20 +1768,20 @@
                 <button onclick="openTransferPocketModal()" class="px-3 py-2 rounded-2xl bg-creamCard text-ink text-xs font-medium shadow-sm active:scale-95 transition-all">
                   ⇄ Transfer
                 </button>
-                <button onclick="openAccountModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all" style="background-color: #422F0E; color: #FFF9EB;">
+                <button onclick="openAccountModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all bg-ink text-[#F8FAFF]">
                   + Akun
                 </button>
               </div>
             </div>
 
-            <div class="flex items-center justify-between gap-2 pt-2 border-t" style="border-color: rgba(66, 47, 14, 0.14);">
+            <div class="flex items-center justify-between gap-2 pt-2 border-t border-[#49647D]/15">
               <div class="inline-flex rounded-2xl bg-creamCard p-1">
                 <button onclick="setAkunPeriodMode('monthly')"
-                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'monthly' ? 'bg-ink text-[#F8FAFF]' : 'text-ink'}">
                   Bulanan
                 </button>
                 <button onclick="setAkunPeriodMode('yearly')"
-                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'yearly' ? 'bg-ink text-[#F8FAFF]' : 'text-ink'}">
                   Tahunan
                 </button>
               </div>
@@ -1797,16 +1794,16 @@
             </div>
           </div>
 
-          <div class="rounded-3xl p-4 shadow-sm border border-[#EED9A5] space-y-3" style="background-color: #FFF4D4;">
+          <div class="rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-3 bg-creamCard">
             <div class="flex items-center justify-between gap-2">
-              <span class="text-[11px] font-medium uppercase tracking-wider text-[#6B4C1E]">TOTAL KEKAYAAN (KONVERSI IDR)</span>
+              <span class="text-[11px] font-medium uppercase tracking-wider text-[#6A5B4D]">TOTAL KEKAYAAN (KONVERSI IDR)</span>
               <div class="flex items-center gap-1.5">
                 <button onclick="fetchLiveExchangeRates(false)"
-                  class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E5D3A3] text-[11px] font-medium text-ink hover:bg-creamSoft">
+                  class="px-2.5 py-1 rounded-xl bg-creamSoft border border-[#E6ECF2] text-[11px] font-medium text-ink hover:opacity-90">
                   ${isFetchingRates ? '↻ ...' : '↻ Kurs'}
                 </button>
                 <button onclick="openWealthDetailModal()"
-                  class="px-3 py-1 rounded-xl bg-ink text-[#FBF6EA] text-[11px] font-medium hover:opacity-95 active:scale-95 transition-all">
+                  class="px-3 py-1 rounded-xl bg-ink text-[#F8FAFF] text-[11px] font-medium hover:opacity-95 active:scale-95 transition-all">
                   Detail
                 </button>
               </div>
@@ -1816,18 +1813,18 @@
               ${formatCurrency(totalNetWorthIDR)}
             </div>
 
-            <div class="grid grid-cols-3 gap-2 pt-2.5 border-t border-[#E6D29E]">
+            <div class="grid grid-cols-3 gap-2 pt-2.5 border-t border-[#E6ECF2]">
               <div>
-                <span class="text-[11px] text-slate-500 block">Masuk (${periodLabel})</span>
-                <span class="text-xs font-medium text-sage">+${formatCurrency(periodIn)}</span>
+                <span class="text-[11px] text-[#8094A6] block">Masuk (${periodLabel})</span>
+                <span class="text-xs font-medium text-[#3E7867]">+${formatCurrency(periodIn)}</span>
               </div>
               <div>
-                <span class="text-[11px] text-slate-500 block">Keluar (${periodLabel})</span>
-                <span class="text-xs font-medium text-coral">-${formatCurrency(periodOut)}</span>
+                <span class="text-[11px] text-[#8094A6] block">Keluar (${periodLabel})</span>
+                <span class="text-xs font-medium text-[#B8576D]">-${formatCurrency(periodOut)}</span>
               </div>
               <div>
-                <span class="text-[11px] text-slate-500 block">Selisih</span>
-                <span class="text-xs font-medium ${periodDiff >= 0 ? 'text-ink' : 'text-coral'}">${periodDiff >= 0 ? '+' : '-'}${formatCurrency(Math.abs(periodDiff))}</span>
+                <span class="text-[11px] text-[#8094A6] block">Selisih</span>
+                <span class="text-xs font-medium ${periodDiff >= 0 ? 'text-ink' : 'text-[#B8576D]'}">${periodDiff >= 0 ? '+' : '-'}${formatCurrency(Math.abs(periodDiff))}</span>
               </div>
             </div>
           </div>
@@ -1843,22 +1840,22 @@
                 <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: ${col.bg}; border-color: ${col.border};">
                   <div class="flex items-start justify-between gap-2">
                     <div class="flex items-center gap-3 min-w-0">
-                      <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-sm" style="background-color: ${col.hex};">
+                      <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-[#49647D] shrink-0 shadow-sm" style="background-color: ${col.hex};">
                         ${ICONS[acc.icon] || ICONS.wallet}
                       </div>
                       <div class="min-w-0">
                         <div class="text-sm font-medium text-ink truncate">${acc.name}</div>
-                        <div class="text-[11px] text-slate-500">${acc.jenis} • ${acc.currency} • ${pockets.length} Pocket</div>
+                        <div class="text-[11px] text-[#8094A6]">${acc.jenis} • ${acc.currency} • ${pockets.length} Pocket</div>
                       </div>
                     </div>
 
                     <div class="flex items-center gap-1 shrink-0">
                       <button onclick="moveAccountOrder('${acc.id}', -1)" ${accIdx === 0 ? 'disabled' : ''} title="Naikkan urutan"
-                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↑</button>
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↑</button>
                       <button onclick="moveAccountOrder('${acc.id}', 1)" ${accIdx === sortedAccs.length - 1 ? 'disabled' : ''} title="Turunkan urutan"
-                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↓</button>
-                      <button onclick="openPocketModal('${acc.id}')" class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E8DEC5] text-[11px] font-medium text-ink">+ Pocket</button>
-                      <button onclick="openAccountModal('${acc.id}')" class="p-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-slate-600 hover:text-ink" title="Edit Akun">
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↓</button>
+                      <button onclick="openPocketModal('${acc.id}')" class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E6ECF2] text-[11px] font-medium text-ink">+ Pocket</button>
+                      <button onclick="openAccountModal('${acc.id}')" class="p-1.5 rounded-xl bg-creamCard border border-[#E6ECF2] text-ink hover:opacity-85" title="Edit Akun">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                       </button>
                     </div>
@@ -1866,23 +1863,23 @@
 
                   <div class="flex items-baseline justify-between gap-2">
                     <div class="text-base font-medium text-ink">${formatCurrency(totalBal, acc.currency)}</div>
-                    ${acc.currency !== 'IDR' ? `<div class="text-[11px] text-slate-500">≈ ${formatCurrency(idrEquivalent, 'IDR')}</div>` : ''}
+                    ${acc.currency !== 'IDR' ? `<div class="text-[11px] text-[#8094A6]">≈ ${formatCurrency(idrEquivalent, 'IDR')}</div>` : ''}
                   </div>
 
                   <div class="space-y-1.5 pt-1">
                     ${pockets.map(pkt => `
                       <div onclick="openPocketDetail('${acc.id}', '${pkt.id}')" role="button" tabindex="0"
-                        class="bg-creamCard/90 hover:bg-creamCard rounded-2xl px-3 py-2 flex items-center justify-between gap-2 border border-[#E8DEC5]/70 cursor-pointer transition-all">
+                        class="bg-creamCard/95 hover:bg-creamCard rounded-2xl px-3 py-2 flex items-center justify-between gap-2 border border-[#E6ECF2] cursor-pointer transition-all">
                         <div class="min-w-0 flex-1">
                           <div class="text-xs font-medium text-ink truncate">${pkt.name}</div>
-                          <div class="text-xs text-slate-600">${formatCurrency(pkt.balance, acc.currency)}</div>
+                          <div class="text-xs text-[#6A5B4D]">${formatCurrency(pkt.balance, acc.currency)}</div>
                         </div>
                         <div class="flex items-center gap-1 shrink-0" onclick="event.stopPropagation()">
                           <button onclick="openTransferPocketModal('${acc.id}', '${pkt.id}')" title="Transfer Pocket"
-                            class="px-2 py-1 rounded-xl bg-creamSoft text-[11px] font-medium text-ink hover:bg-butter/40">
+                            class="px-2 py-1 rounded-xl bg-creamSoft text-[11px] font-medium text-ink hover:bg-[#B9D5F5]/40">
                             ⇄
                           </button>
-                          <button onclick="openEditPocketModal('${acc.id}', '${pkt.id}')" class="px-2.5 py-1 rounded-xl bg-creamSoft text-[11px] font-medium text-ink hover:bg-butter/40">
+                          <button onclick="openEditPocketModal('${acc.id}', '${pkt.id}')" class="px-2.5 py-1 rounded-xl bg-creamSoft text-[11px] font-medium text-ink hover:bg-[#B9D5F5]/40">
                             Edit
                           </button>
                         </div>
@@ -1898,10 +1895,86 @@
     }
 
     // =========================================================================
-    // 11. VIEW 4: TABUNGAN TERHUBUNG POCKET (HEADER BIRU #B9D5F5)
+    // 11. VIEW 4: TABUNGAN TERHUBUNG POCKET (HEADER GAYA KARTU GAMBAR KETIGA)
     // =========================================================================
     function openSavingGoalDetail(goalId) { ui.selectedSavingGoalId = goalId; render(); }
     function closeSavingGoalDetail() { ui.selectedSavingGoalId = null; render(); }
+
+    function renderSavingHeaderCard({ title, subtitle, currentIDR, targetIDR, badgeText, actionHtml, bottomHtml }) {
+      const pct = targetIDR > 0 ? Math.min(100, (currentIDR / targetIDR) * 100) : 0;
+      return `
+        <div class="rounded-3xl p-4 shadow-sm border space-y-3.5 relative overflow-hidden" style="background: linear-gradient(180deg, #D9E9FC 0%, #EDF4FE 55%, #F8FAFF 100%); border-color: #C7DDF7;">
+          <div class="flex items-start justify-between gap-2">
+            <div class="min-w-0">
+              <div class="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#5A7896]">
+                <span class="text-[#F6A7B7]">✿</span>
+                <span>My Happy Finance ♡</span>
+              </div>
+              <h2 class="text-lg font-semibold text-[#3C5875] leading-snug mt-0.5">${title}</h2>
+              <p class="text-[11px] text-[#7D94AC] mt-0.5">${subtitle}</p>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0">
+              <svg class="w-14 h-11 shrink-0" viewBox="0 0 64 52" fill="none">
+                <path d="M16 20 L20 7 L28 17 Z" fill="#FFF7F0" stroke="#7D94AC" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M48 20 L44 7 L36 17 Z" fill="#B9D5F5" stroke="#7D94AC" stroke-width="2" stroke-linejoin="round"/>
+                <ellipse cx="32" cy="27" rx="18" ry="14" fill="#FFF7F0" stroke="#7D94AC" stroke-width="2"/>
+                <path d="M42 18 C46 18 49 22 48 27 C45 27 42 23 42 18 Z" fill="#B9D5F5"/>
+                <path d="M25 27 Q27.5 29 30 27" stroke="#49647D" stroke-width="2" stroke-linecap="round"/>
+                <path d="M34 27 Q36.5 29 39 27" stroke="#49647D" stroke-width="2" stroke-linecap="round"/>
+                <path d="M30.5 31 Q32 33 33.5 31" stroke="#49647D" stroke-width="1.8" stroke-linecap="round"/>
+                <circle cx="23" cy="30" r="2.2" fill="#F5B9D0"/>
+                <circle cx="41" cy="30" r="2.2" fill="#F5B9D0"/>
+                <path d="M44 5 C47 3 50 5 52 8 C54 5 57 3 60 5 C59 8 56 10 52 10 C48 10 45 8 44 5 Z" fill="#F5B9D0"/>
+                <ellipse cx="21" cy="40" rx="5.5" ry="3.5" fill="#FFF7F0" stroke="#7D94AC" stroke-width="1.8"/>
+                <ellipse cx="43" cy="40" rx="5.5" ry="3.5" fill="#FFF7F0" stroke="#7D94AC" stroke-width="1.8"/>
+              </svg>
+              ${actionHtml}
+            </div>
+          </div>
+
+          <div class="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#DCE8F7] shadow-xs space-y-2.5">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-[#EEF5FE] border border-[#CFE0F5] flex flex-col items-center justify-center shrink-0">
+                <span class="w-6 h-1 rounded-full bg-[#9BBCE3] mb-0.5"></span>
+                <span class="text-sm leading-none text-[#F5B9D0]">★</span>
+              </div>
+
+              <div class="flex-1 grid grid-cols-2 gap-2 divide-x divide-[#DCE8F7]">
+                <div class="pr-1">
+                  <span class="text-[11px] text-[#7D94AC] flex items-center gap-1">
+                    <span class="text-[#83B9A9]">♥</span> Terkumpul
+                  </span>
+                  <div class="text-xs font-semibold text-[#3C5875] mt-0.5 truncate">${formatCurrency(currentIDR)}</div>
+                </div>
+                <div class="pl-2.5">
+                  <span class="text-[11px] text-[#7D94AC] flex items-center gap-1">
+                    <span class="text-[#F6A7B7]">⚑</span> Total target
+                  </span>
+                  <div class="text-xs font-semibold text-[#3C5875] mt-0.5 truncate">${formatCurrency(targetIDR)}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <div class="flex-1 h-3 rounded-full bg-[#EEF3F9] overflow-hidden p-0.5">
+                <div class="h-full rounded-full transition-all" style="width: ${pct}%; background: linear-gradient(90deg, #B9D5F5 0%, #83B9A9 100%);"></div>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full bg-[#EEF5FE] border border-[#CBE0F7] text-[11px] font-semibold text-[#4B749F] shrink-0">
+                ${badgeText || `${pct.toFixed(0)}%`}
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between text-[11px] text-[#7D94AC]">
+              <span>You're doing great! Keep going ✨</span>
+              <span class="text-[#F5B9D0]">✿</span>
+            </div>
+          </div>
+
+          ${bottomHtml || ''}
+        </div>
+      `;
+    }
 
     function renderTabunganView() {
       if (ui.selectedSavingGoalId) {
@@ -1909,48 +1982,43 @@
         if (goal) {
           const curBalIDR = getSavingGoalBalanceIDR(goal);
           const pct = goal.targetAmount > 0 ? Math.min(100, (curBalIDR / goal.targetAmount) * 100) : 0;
-          const col = getColorObj(goal.colorId);
           const acc = db.accounts.find(a => a.id === goal.accountId);
           const pkt = acc?.pockets?.find(p => p.id === goal.pocketId);
           const hist = [...(goal.history || [])].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
           return `
             <div class="p-4 space-y-4">
-              <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
-                <div class="flex items-center justify-between">
-                  <button onclick="closeSavingGoalDetail()" class="px-3 py-1.5 rounded-xl bg-creamCard text-xs font-medium text-ink">← Kembali</button>
-                  <button onclick="openSavingGoalModal('${goal.id}')" class="px-3 py-1.5 rounded-xl bg-creamCard text-xs font-medium text-ink">Edit Target</button>
-                </div>
-                <div>
-                  <h2 class="text-base font-medium text-[#422F0E]">${goal.name}</h2>
-                  <p class="text-xs" style="color: #422F0E;">Pocket: ${acc?.name || '-'} (${pkt?.name || '-'})</p>
-                </div>
-                <div class="rounded-2xl p-3 space-y-1.5 border" style="background-color: ${col.bg}; border-color: ${col.border};">
-                  <div class="flex justify-between text-xs">
-                    <span class="font-medium text-ink">${formatCurrency(curBalIDR)}</span>
-                    <span class="text-slate-500">Target ${formatCurrency(goal.targetAmount)} (<span class="font-medium" style="color: ${col.hex};">${pct.toFixed(1)}%</span>)</span>
+              ${renderSavingHeaderCard({
+                title: goal.name,
+                subtitle: `Pocket: ${acc?.name || '-'} (${pkt?.name || '-'})`,
+                currentIDR: curBalIDR,
+                targetIDR: goal.targetAmount,
+                badgeText: `${pct.toFixed(0)}%`,
+                actionHtml: `
+                  <div class="flex flex-col gap-1">
+                    <button onclick="closeSavingGoalDetail()" class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#D4E3F5] text-[11px] font-medium text-ink">← Kembali</button>
+                    <button onclick="openSavingGoalModal('${goal.id}')" class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#D4E3F5] text-[11px] font-medium text-ink">Edit</button>
                   </div>
-                  <div class="w-full h-2.5 rounded-full overflow-hidden" style="background-color: ${col.hex}24;">
-                    <div class="h-full rounded-full transition-all" style="width: ${pct}%; background-color: ${col.hex};"></div>
+                `,
+                bottomHtml: `
+                  <div class="grid grid-cols-2 gap-2 pt-0.5">
+                    <button onclick="openSavingFundModal('${goal.id}', 'deposit')" class="py-2.5 rounded-2xl text-xs font-medium shadow-xs" style="background-color: #B8DFC3; color: #2B4C38;">+ Setor Dana</button>
+                    <button onclick="openSavingFundModal('${goal.id}', 'withdraw')" class="py-2.5 rounded-2xl bg-creamCard border border-[#D4E3F5] text-ink text-xs font-medium">- Tarik Dana</button>
                   </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2 pt-0.5">
-                  <button onclick="openSavingFundModal('${goal.id}', 'deposit')" class="py-2.5 rounded-2xl text-xs font-medium shadow-sm" style="background-color: #422F0E; color: #FFF9EB;">+ Setor Dana</button>
-                  <button onclick="openSavingFundModal('${goal.id}', 'withdraw')" class="py-2.5 rounded-2xl bg-creamCard text-ink text-xs font-medium">- Tarik Dana</button>
-                </div>
-              </div>
+                `
+              })}
 
-              <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2">
+              <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2">
                 <h3 class="text-xs font-medium uppercase tracking-wider text-ink">RIWAYAT TABUNGAN</h3>
-                ${hist.length === 0 ? `<p class="text-xs text-slate-400 py-4 text-center">Belum ada riwayat mutasi tabungan.</p>` : `
-                  <div class="divide-y divide-stone-100">
+                ${hist.length === 0 ? `<p class="text-xs text-[#8094A6] py-4 text-center">Belum ada riwayat mutasi tabungan.</p>` : `
+                  <div class="divide-y divide-[#E6ECF2]">
                     ${hist.map(h => `
                       <div class="py-2.5 flex items-center justify-between text-xs">
                         <div>
                           <div class="font-medium text-ink">${h.type === 'deposit' ? 'Setoran' : 'Penarikan'} • ${h.note || 'Mutasi'}</div>
-                          <div class="text-[10px] text-slate-400">${h.date || '-'}</div>
+                          <div class="text-[10px] text-[#8094A6]">${h.date || '-'}</div>
                         </div>
-                        <span class="font-medium ${h.type === 'deposit' ? 'text-sage' : 'text-coral'}">
+                        <span class="font-medium ${h.type === 'deposit' ? 'text-[#3E7867]' : 'text-[#B8576D]'}">
                           ${h.type === 'deposit' ? '+' : '-'}${formatCurrency(h.amount)}
                         </span>
                       </div>
@@ -1965,32 +2033,28 @@
 
       const totalSavedIDR = db.savingsGoals.reduce((s, g) => s + getSavingGoalBalanceIDR(g), 0);
       const totalTargetIDR = db.savingsGoals.reduce((s, g) => s + (Number(g.targetAmount) || 0), 0);
+      const totalPct = totalTargetIDR > 0 ? Math.min(100, (totalSavedIDR / totalTargetIDR) * 100) : 0;
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
-            <div class="flex items-center justify-between gap-2">
-              <div>
-                <h2 class="text-base font-medium text-[#422F0E]">Target tabungan</h2>
-                <p class="text-xs mt-0.5" style="color: #422F0E;">Wujudkan rencana finansialmu ✨</p>
-              </div>
-              <button onclick="openSavingGoalModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">+ Target</button>
-            </div>
-            <div class="bg-creamCard rounded-2xl p-3 flex items-center justify-between">
-              <div>
-                <span class="text-[11px] text-sage block">Terkumpul</span>
-                <span class="text-sm font-medium text-ink">${formatCurrency(totalSavedIDR)}</span>
-              </div>
-              <div class="text-right">
-                <span class="text-[11px] text-slate-500 block">Total Target</span>
-                <span class="text-sm font-medium text-ink">${formatCurrency(totalTargetIDR)}</span>
-              </div>
-            </div>
-          </div>
+          ${renderSavingHeaderCard({
+            title: 'Target tabungan',
+            subtitle: 'Little savings, big dreams ✨',
+            currentIDR: totalSavedIDR,
+            targetIDR: totalTargetIDR,
+            badgeText: `${totalPct.toFixed(0)}%`,
+            actionHtml: `
+              <button onclick="openSavingGoalModal()" title="Tambah Target"
+                class="w-10 h-10 rounded-full flex items-center justify-center text-white text-lg font-medium shadow-sm active:scale-95 transition-all shrink-0"
+                style="background-color: #F6A7B7; border: 2px solid #FFF7F0;">
+                +
+              </button>
+            `
+          })}
 
           <div class="space-y-3">
             ${db.savingsGoals.length === 0 ? `
-              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-slate-400 border border-[#E8DEC5]">Belum ada target tabungan.</div>
+              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-[#8094A6] border border-[#E6ECF2]">Belum ada target tabungan.</div>
             ` : [...db.savingsGoals].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0)).map((goal, gIdx, sortedGoals) => {
               const curIDR = getSavingGoalBalanceIDR(goal);
               const pct = goal.targetAmount > 0 ? Math.min(100, (curIDR / goal.targetAmount) * 100) : 0;
@@ -2003,31 +2067,31 @@
                   class="w-full text-left rounded-3xl p-4 shadow-sm border space-y-2.5 transition-all hover:opacity-95 cursor-pointer">
                   <div class="flex items-center justify-between gap-2">
                     <div class="flex items-center gap-2.5 min-w-0">
-                      <div class="w-9 h-9 rounded-2xl flex items-center justify-center text-white shrink-0" style="background-color: ${col.hex};">
+                      <div class="w-9 h-9 rounded-2xl flex items-center justify-center text-[#49647D] shrink-0" style="background-color: ${col.hex};">
                         ${ICONS[goal.icon] || ICONS.celengan}
                       </div>
                       <div class="min-w-0">
                         <div class="text-sm font-medium text-ink truncate">${goal.name}</div>
-                        <div class="text-[11px] text-slate-500 truncate">${acc?.name || '-'} (${pkt?.name || '-'}) • ${goal.deadline ? `Target: ${goal.deadline}` : 'Tanpa tenggat'}</div>
+                        <div class="text-[11px] text-[#8094A6] truncate">${acc?.name || '-'} (${pkt?.name || '-'}) • ${goal.deadline ? `Target: ${goal.deadline}` : 'Tanpa tenggat'}</div>
                       </div>
                     </div>
                     <div class="flex items-center gap-1 shrink-0" onclick="event.stopPropagation()">
                       <button onclick="moveSavingGoalOrder('${goal.id}', -1)" ${gIdx === 0 ? 'disabled' : ''} title="Naikkan urutan"
-                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↑</button>
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↑</button>
                       <button onclick="moveSavingGoalOrder('${goal.id}', 1)" ${gIdx === sortedGoals.length - 1 ? 'disabled' : ''} title="Turunkan urutan"
-                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↓</button>
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↓</button>
                       <button onclick="openSavingGoalModal('${goal.id}')" title="Edit Target"
-                        class="p-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-slate-600 hover:text-ink">
+                        class="p-1.5 rounded-xl bg-creamCard border border-[#E6ECF2] text-ink hover:opacity-85">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                       </button>
                     </div>
                   </div>
-                  <div class="w-full h-2 rounded-full overflow-hidden" style="background-color: ${col.hex}24;">
+                  <div class="w-full h-2 rounded-full overflow-hidden bg-creamCard/80">
                     <div class="h-full rounded-full transition-all" style="width: ${pct}%; background-color: ${col.hex};"></div>
                   </div>
                   <div class="flex justify-between text-xs">
-                    <span class="font-medium text-ink">${formatCurrency(curIDR)} <span class="font-normal text-[11px]" style="color: ${col.hex};">(${pct.toFixed(0)}%)</span></span>
-                    <span class="text-slate-500">/ ${formatCurrency(goal.targetAmount)}</span>
+                    <span class="font-medium text-ink">${formatCurrency(curIDR)} <span class="font-normal text-[11px] text-[#6A5B4D]">(${pct.toFixed(0)}%)</span></span>
+                    <span class="text-[#8094A6]">/ ${formatCurrency(goal.targetAmount)}</span>
                   </div>
                 </div>
               `;
@@ -2038,7 +2102,7 @@
     }
 
     // =========================================================================
-    // 12. VIEW 5: HUTANG & PIUTANG (HEADER BIRU #B9D5F5)
+    // 12. VIEW 5: HUTANG & PIUTANG
     // =========================================================================
     function setDebtFilter(f) { ui.debtFilter = f; render(); }
 
@@ -2053,13 +2117,13 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background: linear-gradient(135deg, #B9D5F5 0%, #D9E8FA 65%, #F5B9D0 135%); border-color: #A6C6EE;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">HUTANG &amp; PIUTANG</h2>
-                <p class="text-xs mt-0.5" style="color: #422F0E;">Catat pinjaman, talangan &amp; pelunasan</p>
+                <h2 class="text-base font-medium uppercase tracking-wider text-ink">HUTANG &amp; PIUTANG</h2>
+                <p class="text-xs mt-0.5 text-[#6A5B4D]">Catat pinjaman, talangan &amp; pelunasan</p>
               </div>
-              <button onclick="openDebtModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">+ Catat</button>
+              <button onclick="openDebtModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0 bg-ink text-[#F8FAFF]">+ Catat</button>
             </div>
 
             <div class="flex gap-1.5">
@@ -2069,19 +2133,19 @@
                 { id: 'receivable', label: 'Piutang' }
               ].map(tab => `
                 <button onclick="setDebtFilter('${tab.id}')"
-                  class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.debtFilter === tab.id ? 'bg-[#422F0E] text-[#FFF9EB]' : 'bg-creamCard text-ink'}">
+                  class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.debtFilter === tab.id ? 'bg-ink text-[#F8FAFF]' : 'bg-creamCard text-ink'}">
                   ${tab.label}
                 </button>
               `).join('')}
             </div>
 
-            <div class="grid grid-cols-2 gap-2.5 pt-1 border-t" style="border-color: rgba(66, 47, 14, 0.14);">
+            <div class="grid grid-cols-2 gap-2.5 pt-1 border-t border-[#49647D]/15">
               <div class="bg-creamCard rounded-2xl p-3">
-                <span class="text-[11px] text-coral block">Sisa Hutang</span>
+                <span class="text-[11px] text-[#B8576D] block">Sisa Hutang</span>
                 <span class="text-sm font-medium text-ink">${formatCurrency(totalHutang)}</span>
               </div>
               <div class="bg-creamCard rounded-2xl p-3">
-                <span class="text-[11px] text-sage block">Sisa Piutang</span>
+                <span class="text-[11px] text-[#3E7867] block">Sisa Piutang</span>
                 <span class="text-sm font-medium text-ink">${formatCurrency(totalPiutang)}</span>
               </div>
             </div>
@@ -2089,36 +2153,36 @@
 
           <div class="space-y-3">
             ${list.length === 0 ? `
-              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-slate-400 border border-[#E8DEC5]">Belum ada catatan hutang/piutang.</div>
+              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-[#8094A6] border border-[#E6ECF2]">Belum ada catatan hutang/piutang.</div>
             ` : list.map(d => {
               const total = Number(d.totalAmount) || 0;
               const paid = Number(d.paidAmount) || 0;
               const sisa = Math.max(0, total - paid);
               const isPiutang = d.type === 'receivable';
               return `
-                <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2.5">
+                <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2.5">
                   <div class="flex items-start justify-between gap-2">
                     <div>
-                      <span class="px-2 py-0.5 rounded-lg text-[10px] font-medium ${isPiutang ? 'bg-sageLight text-sage' : 'bg-coralLight text-coral'}">
+                      <span class="px-2 py-0.5 rounded-lg text-[10px] font-medium ${isPiutang ? 'bg-sageLight text-[#3E7867]' : 'bg-coralLight text-[#B8576D]'}">
                         ${isPiutang ? 'Piutang' : 'Hutang'}
                       </span>
                       <div class="text-sm font-medium text-ink mt-1">${d.person}</div>
-                      <div class="text-[11px] text-slate-400">${d.note || 'Tanpa catatan'}${d.dueDate ? ` • Tempo: ${d.dueDate}` : ''}</div>
+                      <div class="text-[11px] text-[#8094A6]">${d.note || 'Tanpa catatan'}${d.dueDate ? ` • Tempo: ${d.dueDate}` : ''}</div>
                     </div>
-                    <button onclick="deleteDebt('${d.id}')" class="text-xs text-slate-300 hover:text-coral">✕</button>
+                    <button onclick="deleteDebt('${d.id}')" class="text-xs text-[#8094A6] hover:text-coral">✕</button>
                   </div>
 
-                  <div class="flex items-center justify-between text-xs pt-1 border-t border-stone-100">
+                  <div class="flex items-center justify-between text-xs pt-1 border-t border-[#E6ECF2]">
                     <div>
-                      <span class="text-slate-400">Sisa: </span>
+                      <span class="text-[#8094A6]">Sisa: </span>
                       <span class="font-medium text-ink">${formatCurrency(sisa)}</span>
-                      <span class="text-[11px] text-slate-400"> / ${formatCurrency(total)}</span>
+                      <span class="text-[11px] text-[#8094A6]"> / ${formatCurrency(total)}</span>
                     </div>
                     ${sisa > 0 ? `
-                      <button onclick="openPayDebtModal('${d.id}')" class="px-3 py-1 rounded-xl bg-ink text-[#FBF6EA] text-[11px] font-medium">
+                      <button onclick="openPayDebtModal('${d.id}')" class="px-3 py-1 rounded-xl bg-ink text-[#F8FAFF] text-[11px] font-medium">
                         Catat Bayar
                       </button>
-                    ` : `<span class="text-[11px] font-medium text-sage">Lunas</span>`}
+                    ` : `<span class="text-[11px] font-medium text-[#3E7867]">Lunas</span>`}
                   </div>
                 </div>
               `;
@@ -2129,70 +2193,70 @@
     }
 
     // =========================================================================
-    // 13. VIEW 6: PENGATURAN (HEADER BIRU #B9D5F5)
+    // 13. VIEW 6: PENGATURAN
     // =========================================================================
     function renderPengaturanView() {
       const pinActive = Boolean(db.security?.enabled && db.security?.pinHash);
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-1.5" style="background-color: #B9D5F5; border-color: #E2C06B;">
-            <h2 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">PENGATURAN</h2>
-            <p class="text-xs" style="color: #422F0E;">Sinkronisasi Google Sheets, kurs mata uang, keamanan PIN &amp; cadangan data</p>
+          <div class="rounded-3xl p-4 shadow-sm border space-y-1.5" style="background: linear-gradient(135deg, #B9D5F5 0%, #D9E8FA 65%, #F5B9D0 135%); border-color: #A6C6EE;">
+            <h2 class="text-base font-medium uppercase tracking-wider text-ink">PENGATURAN</h2>
+            <p class="text-xs text-[#6A5B4D]">Sinkronisasi Google Sheets, kurs mata uang, keamanan PIN &amp; cadangan data</p>
           </div>
 
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-3">
             <div class="flex items-center justify-between">
               <h3 class="text-xs font-medium uppercase tracking-wider text-ink">GOOGLE SHEETS (APPS SCRIPT)</h3>
-              <button onclick="syncPullFromSheets(false)" class="px-3 py-1.5 rounded-xl bg-sage text-white text-xs font-medium">
+              <button onclick="syncPullFromSheets(false)" class="px-3 py-1.5 rounded-xl bg-[#B8DFC3] text-[#244230] text-xs font-medium">
                 Sync Sekarang
               </button>
             </div>
             <div class="space-y-2.5">
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Web App URL</label>
+                <label class="block text-[11px] text-[#8094A6] mb-1">Web App URL</label>
                 <input type="url" id="gas-url-input" value="${db.gasConfig?.url || ''}" placeholder="https://script.google.com/macros/s/.../exec"
-                  class="w-full px-3.5 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                  class="w-full px-3.5 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
               </div>
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Kunci Rahasia (Key)</label>
+                <label class="block text-[11px] text-[#8094A6] mb-1">Kunci Rahasia (Key)</label>
                 <input type="text" id="gas-key-input" value="${db.gasConfig?.key || ''}" placeholder="Kunci rahasia..."
-                  class="w-full px-3.5 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                  class="w-full px-3.5 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
               </div>
-              <button onclick="saveGasSettings()" class="w-full py-2.5 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">
+              <button onclick="saveGasSettings()" class="w-full py-2.5 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">
                 Simpan Konfigurasi Sheets
               </button>
             </div>
           </div>
 
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-3">
             <h3 class="text-xs font-medium uppercase tracking-wider text-ink">KURS &amp; KEAMANAN</h3>
             <div class="flex items-center justify-between py-1">
               <div>
                 <div class="text-xs font-medium text-ink">Perbarui Kurs Mata Uang</div>
-                <div class="text-[11px] text-slate-400">Terakhir: ${db.exchangeRateMeta?.lastUpdated || 'Default Lokal'}</div>
+                <div class="text-[11px] text-[#8094A6]">Terakhir: ${db.exchangeRateMeta?.lastUpdated || 'Default Lokal'}</div>
               </div>
-              <button onclick="fetchLiveExchangeRates(false)" class="px-3 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">
+              <button onclick="fetchLiveExchangeRates(false)" class="px-3 py-1.5 rounded-xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">
                 ↻ Update Kurs
               </button>
             </div>
 
-            <div class="flex items-center justify-between py-2 border-t border-stone-100">
+            <div class="flex items-center justify-between py-2 border-t border-[#E6ECF2]">
               <div>
                 <div class="text-xs font-medium text-ink">Kunci PIN (Sesi 48 Jam)</div>
-                <div class="text-[11px] text-slate-400">Status: ${pinActive ? 'Aktif' : 'Nonaktif'}</div>
+                <div class="text-[11px] text-[#8094A6]">Status: ${pinActive ? 'Aktif' : 'Nonaktif'}</div>
               </div>
               <div class="flex gap-1.5">
-                ${pinActive ? `<button onclick="lockAppNow()" class="px-3 py-1.5 rounded-xl bg-coralLight text-coral text-xs font-medium">Kunci</button>` : ''}
-                <button onclick="openPinSetupModal()" class="px-3 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">
+                ${pinActive ? `<button onclick="lockAppNow()" class="px-3 py-1.5 rounded-xl bg-coralLight text-[#B8576D] text-xs font-medium">Kunci</button>` : ''}
+                <button onclick="openPinSetupModal()" class="px-3 py-1.5 rounded-xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">
                   ${pinActive ? 'Ubah PIN' : 'Atur PIN'}
                 </button>
               </div>
             </div>
 
-            <div class="flex items-center justify-between py-2 border-t border-stone-100">
+            <div class="flex items-center justify-between py-2 border-t border-[#E6ECF2]">
               <div>
                 <div class="text-xs font-medium text-ink">Install ke Layar Utama</div>
-                <div class="text-[11px] text-slate-400">Mode aplikasi PWA</div>
+                <div class="text-[11px] text-[#8094A6]">Mode aplikasi PWA</div>
               </div>
               <button onclick="triggerInstallApp()" class="px-3 py-1.5 rounded-xl bg-butter text-ink text-xs font-medium">
                 Install App
@@ -2200,13 +2264,13 @@
             </div>
           </div>
 
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2.5">
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2.5">
             <h3 class="text-xs font-medium uppercase tracking-wider text-ink">CADANGAN &amp; PULIHKAN DATA</h3>
             <div class="grid grid-cols-2 gap-2">
-              <button onclick="exportBackupJSON()" class="py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">
+              <button onclick="exportBackupJSON()" class="py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">
                 Export JSON
               </button>
-              <label class="py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink text-center cursor-pointer">
+              <label class="py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink text-center cursor-pointer">
                 Import JSON
                 <input type="file" accept=".json,application/json" onchange="handleImportJSON(event)" class="hidden" />
               </label>
@@ -2395,14 +2459,14 @@
           <div class="flex items-center justify-between">
             <div>
               <h3 class="text-base font-medium uppercase text-ink">TRANSAKSI BERULANG</h3>
-              <p class="text-[11px] text-slate-400">Otomatis tercatat setiap bulan sesuai tanggal pilihan</p>
+              <p class="text-[11px] text-[#8094A6]">Otomatis tercatat setiap bulan sesuai tanggal pilihan</p>
             </div>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
 
           <div class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
             ${recs.length === 0 ? `
-              <div class="bg-creamSoft rounded-2xl p-6 text-center text-xs text-slate-400 border border-[#E8DEC5]">
+              <div class="bg-creamSoft rounded-2xl p-6 text-center text-xs text-[#8094A6] border border-[#E6ECF2]">
                 Belum ada jadwal transaksi berulang. Aktifkan opsi <strong>"Transaksi Berulang (Bulanan)"</strong> saat menambah transaksi.
               </div>
             ` : recs.map(r => {
@@ -2410,22 +2474,22 @@
               const pkt = acc?.pockets?.find(p => p.id === r.pocketId);
               const cur = acc?.currency || 'IDR';
               return `
-                <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] flex items-center justify-between gap-2">
+                <div class="bg-creamSoft rounded-2xl p-3 border border-[#E6ECF2] flex items-center justify-between gap-2">
                   <div class="min-w-0">
                     <div class="flex items-center gap-1.5">
-                      <span class="px-2 py-0.5 rounded-md text-[10px] font-medium ${r.type === 'income' ? 'bg-sageLight text-sage' : r.type === 'transfer' ? 'bg-[#EFF7F8] text-[#2B5B67]' : 'bg-coralLight text-coral'}">
+                      <span class="px-2 py-0.5 rounded-md text-[10px] font-medium ${r.type === 'income' ? 'bg-sageLight text-[#3E7867]' : r.type === 'transfer' ? 'bg-[#EAF2FC] text-ink' : 'bg-coralLight text-[#B8576D]'}">
                         ${r.type === 'income' ? 'Masuk' : r.type === 'transfer' ? 'Transfer' : 'Keluar'}
                       </span>
                       <span class="text-xs font-medium text-ink truncate">${r.title || 'Transaksi Berulang'}</span>
                     </div>
-                    <div class="text-[11px] text-slate-500 mt-0.5">
+                    <div class="text-[11px] text-[#6A5B4D] mt-0.5">
                       Setiap tanggal <strong>${r.dayOfMonth}</strong> • ${formatCurrency(r.amount, cur)} • ${acc?.name || '-'} (${pkt?.name || '-'})
                     </div>
-                    <div class="text-[10px] text-slate-400">
+                    <div class="text-[10px] text-[#8094A6]">
                       Mulai: ${r.startDate || '-'}${r.lastRunDate ? ` • Terakhir jalan: ${r.lastRunDate}` : ''}
                     </div>
                   </div>
-                  <button onclick="deleteRecurringRule('${r.id}')" class="px-2.5 py-1.5 rounded-xl bg-coralLight text-coral text-[11px] font-medium shrink-0">
+                  <button onclick="deleteRecurringRule('${r.id}')" class="px-2.5 py-1.5 rounded-xl bg-coralLight text-[#B8576D] text-[11px] font-medium shrink-0">
                     Hapus
                   </button>
                 </div>
@@ -2434,8 +2498,8 @@
           </div>
 
           <div class="grid grid-cols-2 gap-2">
-            <button onclick="closeModal(); openTxModal('expense');" class="py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+ Buat Jadwal</button>
-            <button onclick="closeModal()" class="py-2.5 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Tutup</button>
+            <button onclick="closeModal(); openTxModal('expense');" class="py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">+ Buat Jadwal</button>
+            <button onclick="closeModal()" class="py-2.5 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">Tutup</button>
           </div>
         </div>
       `);
@@ -2508,57 +2572,57 @@
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-medium uppercase text-ink">TRANSFER ANTAR-POCKET</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
           <form onsubmit="submitTransferPocketForm(event)" class="space-y-3">
             <div class="grid grid-cols-2 gap-2.5">
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Tanggal</label>
-                <input type="date" name="trfDate" value="${today}" required class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                <label class="block text-[11px] text-[#8094A6] mb-1">Tanggal</label>
+                <input type="date" name="trfDate" value="${today}" required class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
               </div>
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Nominal Transfer</label>
+                <label class="block text-[11px] text-[#8094A6] mb-1">Nominal Transfer</label>
                 <input type="text" id="trf-amount-input" name="trfAmount" inputmode="numeric" required oninput="formatAmountInput(this)" placeholder="0"
-                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink" />
               </div>
             </div>
 
             <div class="flex gap-2">
-              <button type="button" onclick="appendQuickZeros('trf-amount-input', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+00</button>
-              <button type="button" onclick="appendQuickZeros('trf-amount-input', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+000</button>
+              <button type="button" onclick="appendQuickZeros('trf-amount-input', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">+00</button>
+              <button type="button" onclick="appendQuickZeros('trf-amount-input', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">+000</button>
             </div>
 
-            <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl p-3 space-y-2">
+            <div class="bg-creamSoft border border-[#E6ECF2] rounded-2xl p-3 space-y-2">
               <div class="text-[11px] font-medium text-ink">Dari Akun &amp; Pocket</div>
               <div class="grid grid-cols-2 gap-2">
-                <select id="trf-from-acc" name="fromAccountId" onchange="onTrfFromAccChange()" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                <select id="trf-from-acc" name="fromAccountId" onchange="onTrfFromAccChange()" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs text-ink">
                   ${db.accounts.map(a => `<option value="${a.id}" ${a.id === fromAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
                 </select>
-                <select id="trf-from-pkt" name="fromPocketId" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                <select id="trf-from-pkt" name="fromPocketId" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs text-ink">
                   ${(fromAcc?.pockets || []).map(p => `<option value="${p.id}" ${p.id === fromPkt?.id ? 'selected' : ''}>${p.name} (${formatCurrency(p.balance, fromAcc.currency)})</option>`).join('')}
                 </select>
               </div>
             </div>
 
-            <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl p-3 space-y-2">
+            <div class="bg-creamSoft border border-[#E6ECF2] rounded-2xl p-3 space-y-2">
               <div class="text-[11px] font-medium text-ink">Ke Akun &amp; Pocket</div>
               <div class="grid grid-cols-2 gap-2">
-                <select id="trf-to-acc" name="toAccountId" onchange="onTrfToAccChange()" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                <select id="trf-to-acc" name="toAccountId" onchange="onTrfToAccChange()" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs text-ink">
                   ${db.accounts.map(a => `<option value="${a.id}" ${a.id === toAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
                 </select>
-                <select id="trf-to-pkt" name="toPocketId" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                <select id="trf-to-pkt" name="toPocketId" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs text-ink">
                   ${(toAcc?.pockets || []).map(p => `<option value="${p.id}" ${p.id === toPkt?.id ? 'selected' : ''}>${p.name} (${formatCurrency(p.balance, toAcc.currency)})</option>`).join('')}
                 </select>
               </div>
             </div>
 
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Catatan (Opsional)</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">Catatan (Opsional)</label>
               <input type="text" name="trfNote" placeholder="Contoh: Alokasi dana darurat / pindah pocket"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
             </div>
 
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md">
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium shadow-md">
               Kirim Transfer Pocket
             </button>
           </form>
@@ -2655,11 +2719,11 @@
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-medium uppercase text-ink">CATAT TRANSAKSI</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
 
           <form onsubmit="submitTxForm(event)" class="space-y-3">
-            <div class="grid grid-cols-3 gap-1.5 bg-creamSoft p-1 rounded-2xl border border-[#E8DEC5]">
+            <div class="grid grid-cols-3 gap-1.5 bg-creamSoft p-1 rounded-2xl border border-[#E6ECF2]">
               ${[
                 { id: 'expense', label: 'Pengeluaran' },
                 { id: 'income', label: 'Pemasukan' },
@@ -2667,32 +2731,32 @@
               ].map(t => `
                 <label class="cursor-pointer">
                   <input type="radio" name="txType" value="${t.id}" ${t.id === defaultType ? 'checked' : ''} onchange="onTxTypeChange(this.value)" class="sr-only peer" />
-                  <span class="block text-center py-1.5 rounded-xl text-xs font-medium text-slate-600 peer-checked:bg-ink peer-checked:text-[#FBF6EA]">${t.label}</span>
+                  <span class="block text-center py-1.5 rounded-xl text-xs font-medium text-[#6A5B4D] peer-checked:bg-ink peer-checked:text-[#F8FAFF]">${t.label}</span>
                 </label>
               `).join('')}
             </div>
 
             <div class="grid grid-cols-2 gap-2.5">
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Tanggal</label>
-                <input id="tx-date-input" type="date" name="txDate" value="${today}" onchange="onTxStartDateChange()" required class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                <label class="block text-[11px] text-[#8094A6] mb-1">Tanggal</label>
+                <input id="tx-date-input" type="date" name="txDate" value="${today}" onchange="onTxStartDateChange()" required class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
               </div>
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Nominal</label>
+                <label class="block text-[11px] text-[#8094A6] mb-1">Nominal</label>
                 <input type="text" id="tx-amount-input" name="txAmount" inputmode="numeric" required oninput="formatAmountInput(this)" placeholder="0"
-                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink" />
               </div>
             </div>
 
             <div class="flex gap-2">
-              <button type="button" onclick="appendQuickZeros('tx-amount-input', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+00</button>
-              <button type="button" onclick="appendQuickZeros('tx-amount-input', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+000</button>
+              <button type="button" onclick="appendQuickZeros('tx-amount-input', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">+00</button>
+              <button type="button" onclick="appendQuickZeros('tx-amount-input', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">+000</button>
             </div>
 
             <div id="tx-category-group" class="space-y-2.5">
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Kategori</label>
-                <select id="tx-cat-select" name="txCategoryId" onchange="onTxCategoryChange()" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                <label class="block text-[11px] text-[#8094A6] mb-1">Kategori</label>
+                <select id="tx-cat-select" name="txCategoryId" onchange="onTxCategoryChange()" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink">
                   ${(defaultType === 'income' ? incCats : expCats).map(c => `<option value="${c.id}">${c.name}</option>`).join('')}
                 </select>
               </div>
@@ -2701,14 +2765,14 @@
 
             <div class="grid grid-cols-2 gap-2.5">
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Akun</label>
-                <select id="tx-acc-select" name="txAccountId" onchange="onTxAccountChange()" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                <label class="block text-[11px] text-[#8094A6] mb-1">Akun</label>
+                <select id="tx-acc-select" name="txAccountId" onchange="onTxAccountChange()" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink">
                   ${db.accounts.map(a => `<option value="${a.id}" ${a.id === firstAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
                 </select>
               </div>
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Pocket</label>
-                <select id="tx-pkt-select" name="txPocketId" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                <label class="block text-[11px] text-[#8094A6] mb-1">Pocket</label>
+                <select id="tx-pkt-select" name="txPocketId" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink">
                   ${(firstAcc?.pockets || []).map(p => `<option value="${p.id}" ${p.id === firstPkt?.id ? 'selected' : ''}>${p.name}</option>`).join('')}
                 </select>
               </div>
@@ -2716,53 +2780,53 @@
 
             <div id="tx-transfer-target" class="hidden grid grid-cols-2 gap-2.5">
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Ke Akun</label>
-                <select id="tx-to-acc-select" name="txToAccountId" onchange="onTxToAccountChange()" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                <label class="block text-[11px] text-[#8094A6] mb-1">Ke Akun</label>
+                <select id="tx-to-acc-select" name="txToAccountId" onchange="onTxToAccountChange()" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink">
                   ${db.accounts.map(a => `<option value="${a.id}">${a.name} (${a.currency})</option>`).join('')}
                 </select>
               </div>
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Ke Pocket</label>
-                <select id="tx-to-pkt-select" name="txToPocketId" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                <label class="block text-[11px] text-[#8094A6] mb-1">Ke Pocket</label>
+                <select id="tx-to-pkt-select" name="txToPocketId" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink">
                   ${(firstAcc?.pockets || []).map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
                 </select>
               </div>
             </div>
 
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Catatan / Keterangan</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">Catatan / Keterangan</label>
               <input type="text" name="txTitle" placeholder="Contoh: Makan siang, Gaji, dll."
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
             </div>
 
-            <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl p-3 space-y-2.5">
+            <div class="bg-creamSoft border border-[#E6ECF2] rounded-2xl p-3 space-y-2.5">
               <div class="flex items-center justify-between gap-2">
                 <label class="inline-flex items-center gap-2 cursor-pointer">
                   <input id="tx-is-recurring" type="checkbox" name="txIsRecurring" onchange="toggleRecurringScheduleFields()" class="rounded accent-ink w-4 h-4" />
                   <span class="text-xs font-medium text-ink">Transaksi Berulang (Bulanan)</span>
                 </label>
-                <button type="button" onclick="openRecurringListModal()" class="text-[11px] font-medium text-sage hover:underline">
+                <button type="button" onclick="openRecurringListModal()" class="text-[11px] font-medium text-[#3E7867] hover:underline">
                   Jadwal (${(db.recurringTransactions || []).length})
                 </button>
               </div>
-              <div id="tx-recurring-fields" class="hidden pt-1 border-t border-[#E8DEC5] space-y-2">
+              <div id="tx-recurring-fields" class="hidden pt-1 border-t border-[#E6ECF2] space-y-2">
                 <div class="grid grid-cols-2 gap-2.5">
                   <div>
-                    <label class="block text-[10px] text-slate-500 mb-1">Tanggal Tiap Bulan (1–31)</label>
-                    <select id="tx-rec-day" name="txRecDay" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                    <label class="block text-[10px] text-[#8094A6] mb-1">Tanggal Tiap Bulan (1–31)</label>
+                    <select id="tx-rec-day" name="txRecDay" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E6ECF2] text-xs text-ink">
                       ${Array.from({ length: 31 }, (_, i) => i + 1).map(d => `<option value="${d}" ${d === new Date().getDate() ? 'selected' : ''}>Tanggal ${d}</option>`).join('')}
                     </select>
                   </div>
                   <div>
-                    <label class="block text-[10px] text-slate-500 mb-1">Mulai Berlaku</label>
-                    <input type="date" name="txRecStartDate" value="${today}" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink" />
+                    <label class="block text-[10px] text-[#8094A6] mb-1">Mulai Berlaku</label>
+                    <input type="date" name="txRecStartDate" value="${today}" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E6ECF2] text-xs text-ink" />
                   </div>
                 </div>
-                <p class="text-[10px] text-slate-400">Jika bulan tidak punya tanggal tersebut (mis. 31), otomatis memakai akhir bulan.</p>
+                <p class="text-[10px] text-[#8094A6]">Jika bulan tidak punya tanggal tersebut (mis. 31), otomatis memakai akhir bulan.</p>
               </div>
             </div>
 
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md">
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium shadow-md">
               Simpan Transaksi
             </button>
           </form>
@@ -2801,8 +2865,8 @@
 
       if (cat && Array.isArray(cat.subcategories) && cat.subcategories.length > 0) {
         subWrap.innerHTML = `
-          <label class="block text-[11px] text-slate-500 mb-1">Sub-Kategori</label>
-          <select name="txSubcategoryId" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+          <label class="block text-[11px] text-[#8094A6] mb-1">Sub-Kategori</label>
+          <select name="txSubcategoryId" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink">
             ${cat.subcategories.map(s => `<option value="${s.id}">${s.name}</option>`).join('')}
           </select>
         `;
@@ -3027,38 +3091,38 @@
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-medium uppercase text-ink">${acc ? 'EDIT AKUN' : 'TAMBAH AKUN BARU'}</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
           <form onsubmit="submitAccountForm(event, '${acc ? acc.id : ''}')" class="space-y-3">
             <div class="grid grid-cols-3 gap-2.5">
               <div class="col-span-2">
-                <label class="block text-[11px] text-slate-500 mb-1">Nama Akun</label>
+                <label class="block text-[11px] text-[#8094A6] mb-1">Nama Akun</label>
                 <input type="text" name="accName" value="${acc ? acc.name : ''}" required placeholder="Contoh: Bank BCA / Dompet Baht"
-                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
               </div>
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Urutan</label>
-                <select name="accOrder" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                <label class="block text-[11px] text-[#8094A6] mb-1">Urutan</label>
+                <select name="accOrder" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink">
                   ${Array.from({ length: maxOrder }, (_, i) => i + 1).map(n => `<option value="${n}" ${n === currentOrder ? 'selected' : ''}>Ke-${n}</option>`).join('')}
                 </select>
               </div>
             </div>
             <div class="grid grid-cols-2 gap-2.5">
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Jenis</label>
-                <select name="accJenis" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                <label class="block text-[11px] text-[#8094A6] mb-1">Jenis</label>
+                <select name="accJenis" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink">
                   ${['Bank', 'Cash', 'E-Wallet', 'Investasi'].map(j => `<option value="${j}" ${acc?.jenis === j ? 'selected' : ''}>${j}</option>`).join('')}
                 </select>
               </div>
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Mata Uang</label>
-                <select name="accCurrency" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                <label class="block text-[11px] text-[#8094A6] mb-1">Mata Uang</label>
+                <select name="accCurrency" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink">
                   ${Object.keys(CURRENCY_META).map(c => `<option value="${c}" ${acc?.currency === c ? 'selected' : ''}>${c} (${CURRENCY_META[c].symbol})</option>`).join('')}
                 </select>
               </div>
             </div>
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1.5">Warna Kartu</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1.5">Warna Kartu</label>
               <div class="flex flex-wrap gap-2.5 py-1">
                 ${ACCOUNT_COLORS.map(col => `
                   <label class="cursor-pointer">
@@ -3069,12 +3133,12 @@
               </div>
             </div>
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1.5">Ikon Akun</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1.5">Ikon Akun</label>
               <div class="grid grid-cols-4 gap-2">
                 ${Object.keys(ICONS).map(icKey => `
                   <label class="cursor-pointer">
                     <input type="radio" name="accIcon" value="${icKey}" ${defaultIcon === icKey ? 'checked' : ''} class="sr-only peer" />
-                    <div class="py-2 px-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-ink peer-checked:bg-ink peer-checked:text-[#FBF6EA] flex flex-col items-center gap-1 transition-all">
+                    <div class="py-2 px-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-ink peer-checked:bg-ink peer-checked:text-[#F8FAFF] flex flex-col items-center gap-1 transition-all">
                       ${ICONS[icKey]}
                       <span class="text-[10px]">${ICON_LABELS[icKey] || icKey}</span>
                     </div>
@@ -3084,19 +3148,19 @@
             </div>
             ${!acc ? `
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Saldo Awal Pocket Utama</label>
+                <label class="block text-[11px] text-[#8094A6] mb-1">Saldo Awal Pocket Utama</label>
                 <input type="text" id="acc-init-bal" name="accInitBal" inputmode="numeric" oninput="formatAmountInput(this)" placeholder="0"
-                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
               </div>
             ` : ''}
             <div class="flex gap-2 pt-1">
               ${acc ? `
                 <button type="button" onclick="deleteAccount('${acc.id}')"
-                  class="px-4 py-3 rounded-2xl bg-coralLight text-coral text-xs font-medium shrink-0">
+                  class="px-4 py-3 rounded-2xl bg-coralLight text-[#B8576D] text-xs font-medium shrink-0">
                   Hapus
                 </button>
               ` : ''}
-              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Akun</button>
+              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">Simpan Akun</button>
             </div>
           </form>
         </div>
@@ -3161,20 +3225,20 @@
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-medium uppercase text-ink">TAMBAH POCKET (${acc.name})</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
           <form onsubmit="submitNewPocket(event, '${acc.id}')" class="space-y-3">
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Nama Pocket</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">Nama Pocket</label>
               <input type="text" name="pktName" required placeholder="Contoh: Tabungan Liburan"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
             </div>
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Saldo Awal (${acc.currency})</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">Saldo Awal (${acc.currency})</label>
               <input type="text" name="pktBal" inputmode="numeric" oninput="formatAmountInput(this)" placeholder="0"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
             </div>
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Pocket</button>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">Simpan Pocket</button>
           </form>
         </div>
       `);
@@ -3244,27 +3308,27 @@
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-medium uppercase text-ink">EDIT POCKET</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
           <form onsubmit="submitEditPocket(event, '${acc.id}', '${pkt.id}')" class="space-y-3">
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Nama Pocket</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">Nama Pocket</label>
               <input type="text" name="pktName" value="${pkt.name}" required
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
             </div>
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Saldo (${acc.currency})</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">Saldo (${acc.currency})</label>
               <input type="text" name="pktBal" value="${formatNumberID(pkt.balance)}" inputmode="numeric" oninput="formatAmountInput(this)" required
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink" />
             </div>
             <div class="flex gap-2 pt-1">
               ${canDelete ? `
                 <button type="button" onclick="deletePocket('${acc.id}', '${pkt.id}')"
-                  class="px-4 py-3 rounded-2xl bg-coralLight text-coral text-xs font-medium shrink-0">
+                  class="px-4 py-3 rounded-2xl bg-coralLight text-[#B8576D] text-xs font-medium shrink-0">
                   Hapus
                 </button>
               ` : ''}
-              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Perubahan</button>
+              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">Simpan Perubahan</button>
             </div>
           </form>
         </div>
@@ -3297,9 +3361,9 @@
           <div class="flex items-center justify-between">
             <div>
               <h3 class="text-base font-medium uppercase text-ink">ATUR LIMIT BUDGET</h3>
-              <p class="text-[11px] text-slate-400">Khusus periode ${monthLabel}</p>
+              <p class="text-[11px] text-[#8094A6]">Khusus periode ${monthLabel}</p>
             </div>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
           <form onsubmit="submitBudgetSettings(event)" class="space-y-3 max-h-80 overflow-y-auto pr-1">
             ${expCats.map(cat => {
@@ -3307,16 +3371,16 @@
               const entry = mBud[cat.id] || { directLimit: cat.directLimit || 0, subs: {} };
               if (hasSubs) {
                 return `
-                  <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] space-y-2">
+                  <div class="bg-creamSoft rounded-2xl p-3 border border-[#E6ECF2] space-y-2">
                     <div class="text-xs font-medium text-ink">${cat.name}</div>
                     ${cat.subcategories.map(sub => {
                       const val = entry.subs && entry.subs[sub.id] !== undefined ? entry.subs[sub.id] : (sub.limit || 0);
                       return `
                         <div class="flex items-center justify-between gap-2">
-                          <span class="text-[11px] text-slate-600 truncate">${sub.name}</span>
+                          <span class="text-[11px] text-[#6A5B4D] truncate">${sub.name}</span>
                           <input type="text" name="sub_${cat.id}__${sub.id}" value="${formatNumberID(val)}"
                             inputmode="numeric" oninput="formatAmountInput(this)"
-                            class="w-32 px-2.5 py-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-right text-ink" />
+                            class="w-32 px-2.5 py-1.5 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs text-right text-ink" />
                         </div>
                       `;
                     }).join('')}
@@ -3325,15 +3389,15 @@
               }
               const catVal = entry.directLimit !== undefined ? entry.directLimit : (cat.directLimit || 0);
               return `
-                <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] flex items-center justify-between gap-2">
+                <div class="bg-creamSoft rounded-2xl p-3 border border-[#E6ECF2] flex items-center justify-between gap-2">
                   <span class="text-xs font-medium text-ink truncate">${cat.name}</span>
                   <input type="text" name="cat_${cat.id}" value="${formatNumberID(catVal)}"
                     inputmode="numeric" oninput="formatAmountInput(this)"
-                    class="w-32 px-2.5 py-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-right text-ink" />
+                    class="w-32 px-2.5 py-1.5 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs text-right text-ink" />
                 </div>
               `;
             }).join('')}
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium sticky bottom-0">Simpan Budget (${monthLabel})</button>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium sticky bottom-0">Simpan Budget (${monthLabel})</button>
           </form>
         </div>
       `);
@@ -3411,76 +3475,76 @@
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-medium uppercase text-ink">${goal ? 'EDIT TARGET TABUNGAN' : 'TARGET TABUNGAN BARU'}</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
           <form onsubmit="submitSavingGoal(event, '${goal ? goal.id : ''}')" class="space-y-3">
             <div class="grid grid-cols-3 gap-2.5">
               <div class="col-span-2">
-                <label class="block text-[11px] text-slate-500 mb-1">Nama Target Tabungan</label>
+                <label class="block text-[11px] text-[#8094A6] mb-1">Nama Target Tabungan</label>
                 <input type="text" name="goalName" value="${goal ? goal.name : ''}" required placeholder="Contoh: Dana Darurat / Beli Rumah"
-                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
               </div>
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Urutan</label>
-                <select name="goalOrder" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                <label class="block text-[11px] text-[#8094A6] mb-1">Urutan</label>
+                <select name="goalOrder" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink">
                   ${Array.from({ length: maxOrder }, (_, i) => i + 1).map(n => `<option value="${n}" ${n === currentOrder ? 'selected' : ''}>Ke-${n}</option>`).join('')}
                 </select>
               </div>
             </div>
 
-            <div class="bg-[#EFF9F7] border border-[#CBECE6] rounded-2xl p-3 space-y-2.5">
+            <div class="bg-[#E9F5F1] border border-[#B8DFC3] rounded-2xl p-3 space-y-2.5">
               <div class="flex items-center justify-between">
-                <span class="text-[11px] font-medium text-[#02594F]">Ditaruh di Akun Mana?</span>
-                <span class="text-[10px] font-medium text-sage">Terhitung Total Kekayaan</span>
+                <span class="text-[11px] font-medium text-ink">Ditaruh di Akun Mana?</span>
+                <span class="text-[10px] font-medium text-[#3E7867]">Terhitung Total Kekayaan</span>
               </div>
               <div class="grid grid-cols-2 gap-2.5">
                 <div>
-                  <label class="block text-[10px] text-slate-500 mb-1">Akun Penyimpanan</label>
-                  <select id="goal-acc-select" name="goalAccountId" onchange="onGoalAccChange()" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                  <label class="block text-[10px] text-[#8094A6] mb-1">Akun Penyimpanan</label>
+                  <select id="goal-acc-select" name="goalAccountId" onchange="onGoalAccChange()" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E6ECF2] text-xs text-ink">
                     ${db.accounts.map(a => `<option value="${a.id}" ${a.id === firstAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
                   </select>
                 </div>
                 <div>
-                  <label class="block text-[10px] text-slate-500 mb-1">Pocket Tabungan</label>
-                  <select id="goal-pkt-select" name="goalPocketId" onchange="onGoalPktChange()" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                  <label class="block text-[10px] text-[#8094A6] mb-1">Pocket Tabungan</label>
+                  <select id="goal-pkt-select" name="goalPocketId" onchange="onGoalPktChange()" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E6ECF2] text-xs text-ink">
                     ${((firstAcc?.pockets) || []).map(p => `<option value="${p.id}" ${goal?.pocketId === p.id ? 'selected' : ''}>${p.name}</option>`).join('')}
                     <option value="__NEW__">+ Buat Pocket Baru</option>
                   </select>
                 </div>
               </div>
               <div id="goal-new-pkt-wrap" class="hidden">
-                <label class="block text-[10px] text-slate-500 mb-1">Nama Pocket Baru</label>
+                <label class="block text-[10px] text-[#8094A6] mb-1">Nama Pocket Baru</label>
                 <input type="text" id="goal-new-pkt-name" name="goalNewPocketName" placeholder="Contoh: Celengan Liburan"
-                  class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink" />
+                  class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E6ECF2] text-xs text-ink" />
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-2.5">
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Target Nominal (IDR)</label>
+                <label class="block text-[11px] text-[#8094A6] mb-1">Target Nominal (IDR)</label>
                 <input type="text" name="goalTarget" value="${goal ? formatNumberID(goal.targetAmount) : ''}" inputmode="numeric" oninput="formatAmountInput(this)" required placeholder="5.000.000"
-                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
               </div>
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Tenggat Waktu</label>
-                <input type="date" name="goalDeadline" value="${goal?.deadline || ''}" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                <label class="block text-[11px] text-[#8094A6] mb-1">Tenggat Waktu</label>
+                <input type="date" name="goalDeadline" value="${goal?.deadline || ''}" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
               </div>
             </div>
 
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">${goal ? 'Saldo Pocket Terkumpul (IDR)' : 'Saldo Awal Masuk Pocket (IDR)'}</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">${goal ? 'Saldo Pocket Terkumpul (IDR)' : 'Saldo Awal Masuk Pocket (IDR)'}</label>
               <input type="text" id="goal-init-bal" name="goalInitAmount" value="${goal ? formatNumberID(Math.round(currentPktBalIDR)) : '0'}" inputmode="numeric" oninput="formatAmountInput(this)"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink" />
             </div>
 
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Catatan</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">Catatan</label>
               <input type="text" name="goalNote" value="${goal?.note || ''}" placeholder="Contoh: Sisihkan 15% gaji bulanan"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
             </div>
 
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1.5">Warna Celengan</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1.5">Warna Celengan</label>
               <div class="flex flex-wrap gap-2.5 py-0.5">
                 ${ACCOUNT_COLORS.map(col => `
                   <label class="cursor-pointer">
@@ -3492,12 +3556,12 @@
             </div>
 
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1.5">Ikon Tabungan</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1.5">Ikon Tabungan</label>
               <div class="grid grid-cols-4 gap-2">
                 ${Object.keys(ICONS).map(icKey => `
                   <label class="cursor-pointer">
                     <input type="radio" name="goalIcon" value="${icKey}" ${(goal?.icon || 'celengan') === icKey ? 'checked' : ''} class="sr-only peer" />
-                    <div class="py-2 px-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-ink peer-checked:bg-ink peer-checked:text-[#FBF6EA] flex flex-col items-center gap-1 transition-all">
+                    <div class="py-2 px-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-ink peer-checked:bg-ink peer-checked:text-[#F8FAFF] flex flex-col items-center gap-1 transition-all">
                       ${ICONS[icKey]}
                       <span class="text-[10px]">${ICON_LABELS[icKey] || icKey}</span>
                     </div>
@@ -3509,11 +3573,11 @@
             <div class="flex gap-2 pt-1">
               ${goal ? `
                 <button type="button" onclick="deleteSavingGoal('${goal.id}')"
-                  class="px-4 py-3 rounded-2xl bg-coralLight text-coral text-xs font-medium shrink-0">
+                  class="px-4 py-3 rounded-2xl bg-coralLight text-[#B8576D] text-xs font-medium shrink-0">
                   Hapus
                 </button>
               ` : ''}
-              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md">Simpan Tabungan</button>
+              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium shadow-md">Simpan Tabungan</button>
             </div>
           </form>
         </div>
@@ -3672,51 +3736,51 @@
         <div class="space-y-4">
           <div class="flex items-start justify-between gap-2">
             <div>
-              <div class="text-[11px] font-medium uppercase tracking-wider text-sage">${goal.name}</div>
+              <div class="text-[11px] font-medium uppercase tracking-wider text-[#3E7867]">${goal.name}</div>
               <h3 class="text-base font-medium uppercase text-ink">${isDeposit ? 'SETOR KE TABUNGAN' : 'TARIK DARI TABUNGAN'}</h3>
             </div>
-            <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-creamSoft text-slate-600 flex items-center justify-center text-xs shrink-0">✕</button>
+            <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-creamSoft text-[#6A5B4D] flex items-center justify-center text-xs shrink-0">✕</button>
           </div>
 
-          <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl px-3.5 py-2.5 flex items-center justify-between gap-2">
-            <span class="text-xs text-slate-500">Saldo Tabungan Saat Ini:</span>
+          <div class="bg-creamSoft border border-[#E6ECF2] rounded-2xl px-3.5 py-2.5 flex items-center justify-between gap-2">
+            <span class="text-xs text-[#8094A6]">Saldo Tabungan Saat Ini:</span>
             <div class="text-right">
               <div class="text-xs font-medium text-ink">${formatCurrency(curBalIDR)}</div>
-              <div class="text-[11px] font-medium text-sage">${goalAcc?.name || '-'} (${goalPkt?.name || '-'})</div>
+              <div class="text-[11px] font-medium text-[#3E7867]">${goalAcc?.name || '-'} (${goalPkt?.name || '-'})</div>
             </div>
           </div>
 
           <form onsubmit="submitSavingFund(event, '${goal.id}', '${mode}')" class="space-y-3">
             <div class="grid grid-cols-2 gap-2.5">
               <div>
-                <label class="block text-[11px] text-slate-600 mb-1">Nominal (Rp)</label>
+                <label class="block text-[11px] text-[#6A5B4D] mb-1">Nominal (Rp)</label>
                 <input type="text" id="sav-fund-amt" name="fundAmount" inputmode="numeric" oninput="formatAmountInput(this)" required placeholder="0"
-                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink focus:outline-none focus:border-peanut" />
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink focus:outline-none focus:border-peanut" />
               </div>
               <div>
-                <label class="block text-[11px] text-slate-600 mb-1">Tanggal</label>
+                <label class="block text-[11px] text-[#6A5B4D] mb-1">Tanggal</label>
                 <input type="date" name="fundDate" value="${today}" required
-                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut" />
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink focus:outline-none focus:border-peanut" />
               </div>
             </div>
 
             <div class="flex gap-2">
-              <button type="button" onclick="appendQuickZeros('sav-fund-amt', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+00</button>
-              <button type="button" onclick="appendQuickZeros('sav-fund-amt', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+000</button>
+              <button type="button" onclick="appendQuickZeros('sav-fund-amt', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">+00</button>
+              <button type="button" onclick="appendQuickZeros('sav-fund-amt', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">+000</button>
             </div>
 
             <div class="grid grid-cols-2 gap-2.5">
               <div>
-                <label class="block text-[11px] text-slate-600 mb-1">${isDeposit ? 'Sumber Dana (Akun)' : 'Pindahkan ke Akun'}</label>
+                <label class="block text-[11px] text-[#6A5B4D] mb-1">${isDeposit ? 'Sumber Dana (Akun)' : 'Pindahkan ke Akun'}</label>
                 <select id="sav-counter-acc" name="counterAccountId" onchange="onSavingCounterAccChange('${goal.id}', '${mode}')"
-                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut">
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink focus:outline-none focus:border-peanut">
                   ${db.accounts.map(a => `<option value="${a.id}" ${a.id === defaultAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
                 </select>
               </div>
               <div>
-                <label class="block text-[11px] text-slate-600 mb-1">Pocket</label>
+                <label class="block text-[11px] text-[#6A5B4D] mb-1">Pocket</label>
                 <select id="sav-counter-pkt" name="counterPocketId"
-                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut">
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink focus:outline-none focus:border-peanut">
                   ${(defaultAcc?.pockets || []).map(p => {
                     const disabled = isDeposit && defaultAcc.id === goal.accountId && p.id === goal.pocketId;
                     return `<option value="${p.id}" ${p.id === defaultPkt?.id ? 'selected' : ''} ${disabled ? 'disabled' : ''}>${p.name} (${formatCurrency(p.balance, defaultAcc.currency)})</option>`;
@@ -3726,14 +3790,14 @@
             </div>
 
             <div>
-              <label class="block text-[11px] text-slate-600 mb-1">Catatan</label>
+              <label class="block text-[11px] text-[#6A5B4D] mb-1">Catatan</label>
               <input type="text" name="fundNote" placeholder="${isDeposit ? 'Contoh: Sisihan gaji mingguan' : 'Contoh: Pencairan dana target'}"
-                class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut" />
+                class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink focus:outline-none focus:border-peanut" />
             </div>
 
             <div class="grid grid-cols-2 gap-2.5 pt-1">
-              <button type="button" onclick="closeModal()" class="py-3 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-ink text-xs font-medium">Batal</button>
-              <button type="submit" class="py-3 rounded-2xl text-xs font-medium shadow-sm ${isDeposit ? 'bg-sage text-white' : 'bg-ink text-[#FBF6EA]'}">
+              <button type="button" onclick="closeModal()" class="py-3 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-ink text-xs font-medium">Batal</button>
+              <button type="submit" class="py-3 rounded-2xl text-xs font-medium shadow-sm ${isDeposit ? 'bg-[#83B9A9] text-[#244230]' : 'bg-ink text-[#F8FAFF]'}">
                 ${isDeposit ? 'Setor Sekarang' : 'Tarik Sekarang'}
               </button>
             </div>
@@ -3857,36 +3921,36 @@
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-medium uppercase text-ink">CATAT HUTANG / PIUTANG</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
           <form onsubmit="submitDebtForm(event)" class="space-y-3">
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Jenis</label>
-              <select name="debtType" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+              <label class="block text-[11px] text-[#8094A6] mb-1">Jenis</label>
+              <select name="debtType" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink">
                 <option value="receivable">Piutang (Orang berhutang ke saya)</option>
                 <option value="payable">Hutang (Saya berhutang ke orang)</option>
               </select>
             </div>
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Nama Pihak</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">Nama Pihak</label>
               <input type="text" name="debtPerson" required placeholder="Nama teman / lembaga"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
             </div>
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Total Nominal (IDR)</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">Total Nominal (IDR)</label>
               <input type="text" name="debtTotal" inputmode="numeric" oninput="formatAmountInput(this)" required placeholder="0"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
             </div>
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Jatuh Tempo (Opsional)</label>
-              <input type="date" name="debtDue" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              <label class="block text-[11px] text-[#8094A6] mb-1">Jatuh Tempo (Opsional)</label>
+              <input type="date" name="debtDue" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
             </div>
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Catatan</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">Catatan</label>
               <input type="text" name="debtNote" placeholder="Keterangan"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
             </div>
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan</button>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">Simpan</button>
           </form>
         </div>
       `);
@@ -3925,16 +3989,16 @@
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-medium uppercase text-ink">CATAT PEMBAYARAN (${d.person})</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
           </div>
-          <p class="text-xs text-slate-500">Sisa saat ini: <strong class="text-ink">${formatCurrency(sisa)}</strong></p>
+          <p class="text-xs text-[#8094A6]">Sisa saat ini: <strong class="text-ink">${formatCurrency(sisa)}</strong></p>
           <form onsubmit="submitPayDebt(event, '${d.id}')" class="space-y-3">
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Nominal Bayar (IDR)</label>
+              <label class="block text-[11px] text-[#8094A6] mb-1">Nominal Bayar (IDR)</label>
               <input type="text" name="payAmt" value="${formatNumberID(sisa)}" inputmode="numeric" oninput="formatAmountInput(this)" required
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink" />
             </div>
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Pembayaran</button>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">Simpan Pembayaran</button>
           </form>
         </div>
       `);
