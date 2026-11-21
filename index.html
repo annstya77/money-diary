@@ -1333,8 +1333,8 @@
           <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h1 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8]">RIWAYAT TRANSAKSI</h1>
-                <p class="text-xs mt-1" style="color: #FFF9EB;">Semua pemasukan, pengeluaran &amp; transfer antar-pocket</p>
+                <h1 class="text-base font-medium uppercase tracking-wider text-[#4B2D16]">RIWAYAT TRANSAKSI</h1>
+                <p class="text-xs mt-1" style="color: #4B2D16;">Semua pemasukan, pengeluaran &amp; transfer antar-pocket</p>
               </div>
               <button onclick="openTxModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">
                 + Catat
@@ -1487,11 +1487,11 @@
                   <button onclick="closeCategoryDrilldown()" class="px-3 py-1.5 rounded-xl bg-creamCard text-ink text-xs font-medium">
                     ← Kembali ke Statistik
                   </button>
-                  <span class="text-xs font-medium text-[#FFFDF8]">${periodLabel}</span>
+                  <span class="text-xs font-medium text-[#4B2D16]">${periodLabel}</span>
                 </div>
                 <div>
-                  <h2 class="text-base font-medium text-[#FFFDF8]">${cat.name}</h2>
-                  <p class="text-xs" style="color: #FFF9EB;">Total ${cat.type === 'income' ? 'Pendapatan' : 'Pengeluaran'}: <strong class="text-[#FFFDF8]">${formatCurrency(totalDrillIDR)}</strong></p>
+                  <h2 class="text-base font-medium text-[#4B2D16]">${cat.name}</h2>
+                  <p class="text-xs" style="color: #4B2D16;">Total ${cat.type === 'income' ? 'Pendapatan' : 'Pengeluaran'}: <strong class="text-[#4B2D16]">${formatCurrency(totalDrillIDR)}</strong></p>
                 </div>
 
                 ${cat.subcategories && cat.subcategories.length > 0 ? `
@@ -1565,8 +1565,8 @@
           <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8]">STATISTIK &amp; ANGGARAN</h2>
-                <p class="text-xs mt-0.5" style="color: #FFF9EB;">Pie chart pendapatan &amp; pengeluaran + evaluasi budget</p>
+                <h2 class="text-base font-medium uppercase tracking-wider text-[#4B2D16]">STATISTIK &amp; ANGGARAN</h2>
+                <p class="text-xs mt-0.5" style="color: #4B2D16;">Pie chart pendapatan &amp; pengeluaran + evaluasi budget</p>
               </div>
               <div class="inline-flex rounded-2xl bg-creamCard p-1 shrink-0">
                 <button onclick="setStatPeriodMode('monthly')"
@@ -1862,8 +1862,8 @@
           <div class="rounded-3xl p-4 shadow-sm border space-y-3.5" style="background-color: #FF9B71; border-color: #EB8458;">
             <div class="flex items-center justify-between gap-2">
               <div class="min-w-0">
-                <h1 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8] truncate">AKUN</h1>
-                <button onclick="syncPullFromSheets(false)" class="inline-flex items-center gap-1.5 text-[11px] mt-0.5" style="color: #FFF9EB;">
+                <h1 class="text-base font-medium uppercase tracking-wider text-[#4B2D16] truncate">AKUN</h1>
+                <button onclick="syncPullFromSheets(false)" class="inline-flex items-center gap-1.5 text-[11px] mt-0.5" style="color: #4B2D16;">
                   <span class="w-2 h-2 rounded-full ${syncDotColor}"></span>
                   <span>${syncText}</span>
                   <span>↻</span>
@@ -1933,7 +1933,7 @@
 
           <!-- Daftar Akun & Pocket -->
           <div class="space-y-3">
-            ${db.accounts.map(acc => {
+            ${[...db.accounts].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0)).map((acc, accIdx, sortedAccs) => {
               const col = getColorObj(acc.colorId);
               const totalBal = getAccountTotalBalance(acc);
               const idrEquivalent = toIDR(totalBal, acc.currency);
@@ -1953,6 +1953,10 @@
                     </div>
 
                     <div class="flex items-center gap-1 shrink-0">
+                      <button onclick="moveAccountOrder('${acc.id}', -1)" ${accIdx === 0 ? 'disabled' : ''} title="Naikkan urutan"
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↑</button>
+                      <button onclick="moveAccountOrder('${acc.id}', 1)" ${accIdx === sortedAccs.length - 1 ? 'disabled' : ''} title="Turunkan urutan"
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↓</button>
                       <button onclick="openPocketModal('${acc.id}')" class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E8DEC5] text-[11px] font-medium text-ink">+ Pocket</button>
                       <button onclick="openAccountModal('${acc.id}')" class="p-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-slate-600 hover:text-ink" title="Edit Akun">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
@@ -1998,6 +2002,7 @@
         if (goal) {
           const curBalIDR = getSavingGoalBalanceIDR(goal);
           const pct = goal.targetAmount > 0 ? Math.min(100, (curBalIDR / goal.targetAmount) * 100) : 0;
+          const col = getColorObj(goal.colorId);
           const acc = db.accounts.find(a => a.id === goal.accountId);
           const pkt = acc?.pockets?.find(p => p.id === goal.pocketId);
           const hist = [...(goal.history || [])].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
@@ -2010,16 +2015,16 @@
                   <button onclick="openSavingGoalModal('${goal.id}')" class="px-3 py-1.5 rounded-xl bg-creamCard text-xs font-medium text-ink">Edit Target</button>
                 </div>
                 <div>
-                  <h2 class="text-base font-medium text-[#FFFDF8]">${goal.name}</h2>
-                  <p class="text-xs" style="color: #FFF9EB;">Pocket: ${acc?.name || '-'} (${pkt?.name || '-'})</p>
+                  <h2 class="text-base font-medium text-[#4B2D16]">${goal.name}</h2>
+                  <p class="text-xs" style="color: #4B2D16;">Pocket: ${acc?.name || '-'} (${pkt?.name || '-'})</p>
                 </div>
-                <div class="bg-creamCard rounded-2xl p-3 space-y-1.5">
+                <div class="rounded-2xl p-3 space-y-1.5 border" style="background-color: ${col.bg}; border-color: ${col.border};">
                   <div class="flex justify-between text-xs">
                     <span class="font-medium text-ink">${formatCurrency(curBalIDR)}</span>
-                    <span class="text-slate-400">Target ${formatCurrency(goal.targetAmount)} (${pct.toFixed(1)}%)</span>
+                    <span class="text-slate-500">Target ${formatCurrency(goal.targetAmount)} (<span class="font-medium" style="color: ${col.hex};">${pct.toFixed(1)}%</span>)</span>
                   </div>
-                  <div class="w-full h-2.5 rounded-full bg-creamSoft overflow-hidden">
-                    <div class="h-full rounded-full bg-sage" style="width: ${pct}%;"></div>
+                  <div class="w-full h-2.5 rounded-full overflow-hidden" style="background-color: ${col.hex}24;">
+                    <div class="h-full rounded-full transition-all" style="width: ${pct}%; background-color: ${col.hex};"></div>
                   </div>
                 </div>
                 <div class="grid grid-cols-2 gap-2 pt-0.5">
@@ -2059,8 +2064,8 @@
           <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8]">TARGET TABUNGAN</h2>
-                <p class="text-xs mt-0.5" style="color: #FFF9EB;">Terhubung langsung ke pocket akun &amp; kekayaan</p>
+                <h2 class="text-base font-medium uppercase tracking-wider text-[#4B2D16]">TARGET TABUNGAN</h2>
+                <p class="text-xs mt-0.5" style="color: #4B2D16;">Terhubung langsung ke pocket akun &amp; kekayaan</p>
               </div>
               <button onclick="openSavingGoalModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">+ Target</button>
             </div>
@@ -2079,15 +2084,16 @@
           <div class="space-y-3">
             ${db.savingsGoals.length === 0 ? `
               <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-slate-400 border border-[#E8DEC5]">Belum ada target tabungan.</div>
-            ` : db.savingsGoals.map(goal => {
+            ` : [...db.savingsGoals].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0)).map((goal, gIdx, sortedGoals) => {
               const curIDR = getSavingGoalBalanceIDR(goal);
               const pct = goal.targetAmount > 0 ? Math.min(100, (curIDR / goal.targetAmount) * 100) : 0;
               const col = getColorObj(goal.colorId);
               const acc = db.accounts.find(a => a.id === goal.accountId);
               const pkt = acc?.pockets?.find(p => p.id === goal.pocketId);
               return `
-                <button onclick="openSavingGoalDetail('${goal.id}')"
-                  class="w-full text-left bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2.5 hover:border-peanut transition-colors">
+                <div onclick="openSavingGoalDetail('${goal.id}')" role="button" tabindex="0"
+                  style="background-color: ${col.bg}; border-color: ${col.border};"
+                  class="w-full text-left rounded-3xl p-4 shadow-sm border space-y-2.5 transition-all hover:opacity-95 cursor-pointer">
                   <div class="flex items-center justify-between gap-2">
                     <div class="flex items-center gap-2.5 min-w-0">
                       <div class="w-9 h-9 rounded-2xl flex items-center justify-center text-white shrink-0" style="background-color: ${col.hex};">
@@ -2095,19 +2101,28 @@
                       </div>
                       <div class="min-w-0">
                         <div class="text-sm font-medium text-ink truncate">${goal.name}</div>
-                        <div class="text-[11px] text-slate-400 truncate">${acc?.name || '-'} (${pkt?.name || '-'}) • ${goal.deadline ? `Target: ${goal.deadline}` : 'Tanpa tenggat'}</div>
+                        <div class="text-[11px] text-slate-500 truncate">${acc?.name || '-'} (${pkt?.name || '-'}) • ${goal.deadline ? `Target: ${goal.deadline}` : 'Tanpa tenggat'}</div>
                       </div>
                     </div>
-                    <span class="text-xs font-medium text-sage shrink-0">${pct.toFixed(0)}%</span>
+                    <div class="flex items-center gap-1 shrink-0" onclick="event.stopPropagation()">
+                      <button onclick="moveSavingGoalOrder('${goal.id}', -1)" ${gIdx === 0 ? 'disabled' : ''} title="Naikkan urutan"
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↑</button>
+                      <button onclick="moveSavingGoalOrder('${goal.id}', 1)" ${gIdx === sortedGoals.length - 1 ? 'disabled' : ''} title="Turunkan urutan"
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↓</button>
+                      <button onclick="openSavingGoalModal('${goal.id}')" title="Edit Target"
+                        class="p-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-slate-600 hover:text-ink">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                      </button>
+                    </div>
                   </div>
-                  <div class="w-full h-2 rounded-full bg-creamSoft overflow-hidden">
-                    <div class="h-full rounded-full bg-sage" style="width: ${pct}%;"></div>
+                  <div class="w-full h-2 rounded-full overflow-hidden" style="background-color: ${col.hex}24;">
+                    <div class="h-full rounded-full transition-all" style="width: ${pct}%; background-color: ${col.hex};"></div>
                   </div>
                   <div class="flex justify-between text-xs">
-                    <span class="font-medium text-ink">${formatCurrency(curIDR)}</span>
-                    <span class="text-slate-400">/ ${formatCurrency(goal.targetAmount)}</span>
+                    <span class="font-medium text-ink">${formatCurrency(curIDR)} <span class="font-normal text-[11px]" style="color: ${col.hex};">(${pct.toFixed(0)}%)</span></span>
+                    <span class="text-slate-500">/ ${formatCurrency(goal.targetAmount)}</span>
                   </div>
-                </button>
+                </div>
               `;
             }).join('')}
           </div>
@@ -2134,8 +2149,8 @@
           <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8]">HUTANG &amp; PIUTANG</h2>
-                <p class="text-xs mt-0.5" style="color: #FFF9EB;">Catat pinjaman, talangan &amp; pelunasan</p>
+                <h2 class="text-base font-medium uppercase tracking-wider text-[#4B2D16]">HUTANG &amp; PIUTANG</h2>
+                <p class="text-xs mt-0.5" style="color: #4B2D16;">Catat pinjaman, talangan &amp; pelunasan</p>
               </div>
               <button onclick="openDebtModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">+ Catat</button>
             </div>
@@ -2214,8 +2229,8 @@
       return `
         <div class="p-4 space-y-4">
           <div class="rounded-3xl p-4 shadow-sm border space-y-1.5" style="background-color: #FF9B71; border-color: #EB8458;">
-            <h2 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8]">PENGATURAN</h2>
-            <p class="text-xs" style="color: #FFF9EB;">Sinkronisasi Google Sheets, kurs mata uang, keamanan PIN &amp; cadangan data</p>
+            <h2 class="text-base font-medium uppercase tracking-wider text-[#4B2D16]">PENGATURAN</h2>
+            <p class="text-xs" style="color: #4B2D16;">Sinkronisasi Google Sheets, kurs mata uang, keamanan PIN &amp; cadangan data</p>
           </div>
 
           <!-- Koneksi Google Apps Script -->
@@ -2589,18 +2604,21 @@
         pkt.balance = (Number(pkt.balance) || 0) - amount;
         dstPkt.balance = (Number(dstPkt.balance) || 0) + toAmount;
 
+        const trfId = 'trf_' + Date.now();
+        const trfNote = title || `Transfer ke ${dstPkt.name}`;
         db.transactions.unshift({
-          id: 'trf_' + Date.now(),
+          id: trfId,
           type: 'transfer',
           date,
           amount,
           nilaiKe: toAmount,
-          title: title || `Transfer ke ${dstPkt.name}`,
+          title: trfNote,
           accountId,
           pocketId,
           toAccountId,
           toPocketId
         });
+        recordTransferToLinkedSavingsGoals(toAccountId, toPocketId, fromIDR, date, trfNote, trfId);
       } else {
         const categoryId = fd.get('txCategoryId') || '';
         const subcategoryId = fd.get('txSubcategoryId') || '';
@@ -2647,14 +2665,69 @@
         if (dstPkt) dstPkt.balance = (Number(dstPkt.balance) || 0) - (Number(tx.nilaiKe || tx.amount) || 0);
       }
 
+      if (tx.type === 'transfer' && tx.toAccountId && tx.toPocketId) {
+        db.savingsGoals.forEach(g => {
+          if (g.accountId === tx.toAccountId && g.pocketId === tx.toPocketId && Array.isArray(g.history)) {
+            g.history = g.history.filter(h => h.linkedTxId !== tx.id);
+          }
+        });
+      }
       db.transactions.splice(idx, 1);
+      syncSavingsGoalsWithPockets();
       saveData();
       showToast('Transaksi dihapus');
       render();
     }
 
+    function moveAccountOrder(accId, delta) {
+      const sorted = [...db.accounts].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
+      const idx = sorted.findIndex(a => a.id === accId);
+      const targetIdx = idx + delta;
+      if (idx === -1 || targetIdx < 0 || targetIdx >= sorted.length) return;
+      const tmp = sorted[idx];
+      sorted[idx] = sorted[targetIdx];
+      sorted[targetIdx] = tmp;
+      sorted.forEach((a, i) => { a.urut = i + 1; });
+      db.accounts = sorted;
+      saveData();
+      render();
+    }
+
+    function deleteAccount(accId) {
+      if (db.accounts.length <= 1) {
+        showToast('Minimal harus ada 1 akun tersisa', 'error');
+        return;
+      }
+      const acc = db.accounts.find(a => a.id === accId);
+      if (!acc) return;
+      if (!confirm(`Hapus akun "${acc.name}" beserta seluruh pocket di dalamnya?`)) return;
+
+      db.accounts = db.accounts.filter(a => a.id !== accId);
+      db.accounts.sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0)).forEach((a, i) => { a.urut = i + 1; });
+
+      // Lepas tautan tabungan jika mengarah ke akun yang dihapus
+      const fallbackAcc = db.accounts[0];
+      const fallbackPkt = fallbackAcc?.pockets?.[0];
+      db.savingsGoals.forEach(g => {
+        if (g.accountId === accId) {
+          g.accountId = fallbackAcc ? fallbackAcc.id : '';
+          g.pocketId = fallbackPkt ? fallbackPkt.id : '';
+        }
+      });
+
+      saveData();
+      closeModal();
+      showToast('Akun dihapus');
+      render();
+    }
+
     function openAccountModal(accId = null) {
       const acc = accId ? db.accounts.find(a => a.id === accId) : null;
+      const sortedAccs = [...db.accounts].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
+      const currentOrder = acc ? (sortedAccs.findIndex(a => a.id === acc.id) + 1) : (sortedAccs.length + 1);
+      const maxOrder = acc ? sortedAccs.length : (sortedAccs.length + 1);
+      const defaultIcon = acc?.icon || (acc?.jenis === 'Cash' ? 'wallet' : 'bank');
+
       openModal(`
         <div class="space-y-4">
           <div class="flex items-center justify-between">
@@ -2662,10 +2735,18 @@
             <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
           </div>
           <form onsubmit="submitAccountForm(event, '${acc ? acc.id : ''}')" class="space-y-3">
-            <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Nama Akun</label>
-              <input type="text" name="accName" value="${acc ? acc.name : ''}" required placeholder="Contoh: Bank BCA / Dompet Baht"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            <div class="grid grid-cols-3 gap-2.5">
+              <div class="col-span-2">
+                <label class="block text-[11px] text-slate-500 mb-1">Nama Akun</label>
+                <input type="text" name="accName" value="${acc ? acc.name : ''}" required placeholder="Contoh: Bank BCA / Dompet Baht"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Urutan</label>
+                <select name="accOrder" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                  ${Array.from({ length: maxOrder }, (_, i) => i + 1).map(n => `<option value="${n}" ${n === currentOrder ? 'selected' : ''}>Ke-${n}</option>`).join('')}
+                </select>
+              </div>
             </div>
             <div class="grid grid-cols-2 gap-2.5">
               <div>
@@ -2692,6 +2773,20 @@
                 `).join('')}
               </div>
             </div>
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1.5">Ikon Akun</label>
+              <div class="grid grid-cols-4 gap-2">
+                ${Object.keys(ICONS).map(icKey => `
+                  <label class="cursor-pointer">
+                    <input type="radio" name="accIcon" value="${icKey}" ${defaultIcon === icKey ? 'checked' : ''} class="sr-only peer" />
+                    <div class="py-2 px-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-ink peer-checked:bg-ink peer-checked:text-[#FBF6EA] flex flex-col items-center gap-1 transition-all">
+                      ${ICONS[icKey]}
+                      <span class="text-[10px]">${ICON_LABELS[icKey] || icKey}</span>
+                    </div>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
             ${!acc ? `
               <div>
                 <label class="block text-[11px] text-slate-500 mb-1">Saldo Awal Pocket Utama</label>
@@ -2699,7 +2794,15 @@
                   class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
               </div>
             ` : ''}
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Akun</button>
+            <div class="flex gap-2 pt-1">
+              ${acc ? `
+                <button type="button" onclick="deleteAccount('${acc.id}')"
+                  class="px-4 py-3 rounded-2xl bg-coralLight text-coral text-xs font-medium shrink-0">
+                  Hapus
+                </button>
+              ` : ''}
+              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Akun</button>
+            </div>
           </form>
         </div>
       `);
@@ -2712,31 +2815,43 @@
       const jenis = fd.get('accJenis') || 'Bank';
       const currency = fd.get('accCurrency') || 'IDR';
       const colorId = fd.get('accColor') || 'emerald';
+      const icon = fd.get('accIcon') || (jenis === 'Cash' ? 'wallet' : 'bank');
+      const targetOrder = Math.max(1, parseInt(fd.get('accOrder'), 10) || 1);
       if (!name) return;
 
+      const sorted = [...db.accounts].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
+
       if (accId) {
-        const acc = db.accounts.find(a => a.id === accId);
-        if (acc) {
+        const idx = sorted.findIndex(a => a.id === accId);
+        if (idx !== -1) {
+          const acc = sorted[idx];
           acc.name = name;
           acc.jenis = jenis;
           acc.currency = currency;
           acc.colorId = colorId;
+          acc.icon = icon;
+          sorted.splice(idx, 1);
+          sorted.splice(Math.min(sorted.length, targetOrder - 1), 0, acc);
         }
       } else {
         const initBal = parseFormattedAmount(fd.get('accInitBal'));
-        db.accounts.push({
+        const newAcc = {
           id: 'acc_' + Date.now(),
           name,
           jenis,
           currency,
           colorId,
-          icon: jenis === 'Cash' ? 'wallet' : 'bank',
-          urut: db.accounts.length + 1,
+          icon,
+          urut: targetOrder,
           pockets: [
             { id: 'pkt_' + Date.now(), name: 'Pocket Utama', balance: initBal, urut: 1 }
           ]
-        });
+        };
+        sorted.splice(Math.min(sorted.length, targetOrder - 1), 0, newAcc);
       }
+
+      sorted.forEach((a, i) => { a.urut = i + 1; });
+      db.accounts = sorted;
 
       saveData();
       closeModal();
@@ -2899,10 +3014,42 @@
       render();
     }
 
+    function moveSavingGoalOrder(goalId, delta) {
+      const sorted = [...db.savingsGoals].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
+      const idx = sorted.findIndex(g => g.id === goalId);
+      const targetIdx = idx + delta;
+      if (idx === -1 || targetIdx < 0 || targetIdx >= sorted.length) return;
+      const tmp = sorted[idx];
+      sorted[idx] = sorted[targetIdx];
+      sorted[targetIdx] = tmp;
+      sorted.forEach((g, i) => { g.urut = i + 1; });
+      db.savingsGoals = sorted;
+      saveData();
+      render();
+    }
+
+    function deleteSavingGoal(goalId) {
+      const goal = db.savingsGoals.find(g => g.id === goalId);
+      if (!goal) return;
+      if (!confirm(`Hapus target tabungan "${goal.name}"? (Saldo di pocket akun tetap aman)`)) return;
+      db.savingsGoals = db.savingsGoals.filter(g => g.id !== goalId);
+      db.savingsGoals.sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0)).forEach((g, i) => { g.urut = i + 1; });
+      if (ui.selectedSavingGoalId === goalId) {
+        ui.selectedSavingGoalId = null;
+      }
+      saveData();
+      closeModal();
+      showToast('Target tabungan dihapus');
+      render();
+    }
+
     function openSavingGoalModal(goalId = null) {
       const goal = goalId ? db.savingsGoals.find(g => g.id === goalId) : null;
       const firstAcc = db.accounts.find(a => a.id === goal?.accountId) || db.accounts[0];
       const currentPktBalIDR = goal ? getSavingGoalBalanceIDR(goal) : 0;
+      const sortedGoals = [...db.savingsGoals].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
+      const currentOrder = goal ? (sortedGoals.findIndex(g => g.id === goal.id) + 1) : (sortedGoals.length + 1);
+      const maxOrder = goal ? sortedGoals.length : (sortedGoals.length + 1);
 
       openModal(`
         <div class="space-y-4">
@@ -2911,10 +3058,18 @@
             <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
           </div>
           <form onsubmit="submitSavingGoal(event, '${goal ? goal.id : ''}')" class="space-y-3">
-            <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Nama Target Tabungan</label>
-              <input type="text" name="goalName" value="${goal ? goal.name : ''}" required placeholder="Contoh: Dana Darurat / Beli Rumah"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            <div class="grid grid-cols-3 gap-2.5">
+              <div class="col-span-2">
+                <label class="block text-[11px] text-slate-500 mb-1">Nama Target Tabungan</label>
+                <input type="text" name="goalName" value="${goal ? goal.name : ''}" required placeholder="Contoh: Dana Darurat / Beli Rumah"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Urutan</label>
+                <select name="goalOrder" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                  ${Array.from({ length: maxOrder }, (_, i) => i + 1).map(n => `<option value="${n}" ${n === currentOrder ? 'selected' : ''}>Ke-${n}</option>`).join('')}
+                </select>
+              </div>
             </div>
 
             <div class="bg-[#EFF9F7] border border-[#CBECE6] rounded-2xl p-3 space-y-2.5">
@@ -2995,7 +3150,15 @@
               </div>
             </div>
 
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md">Simpan Tabungan</button>
+            <div class="flex gap-2 pt-1">
+              ${goal ? `
+                <button type="button" onclick="deleteSavingGoal('${goal.id}')"
+                  class="px-4 py-3 rounded-2xl bg-coralLight text-coral text-xs font-medium shrink-0">
+                  Hapus
+                </button>
+              ` : ''}
+              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md">Simpan Tabungan</button>
+            </div>
           </form>
         </div>
       `);
@@ -3058,12 +3221,15 @@
         pocketId = createdPkt.id;
       }
 
+      const targetOrder = Math.max(1, parseInt(fd.get('goalOrder'), 10) || 1);
       const rate = Number(db.exchangeRates?.[acc.currency]) || 1;
       const initInAccCur = initAmountIDR / rate;
+      const sortedGoals = [...db.savingsGoals].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
 
       if (goalId) {
-        const g = db.savingsGoals.find(x => x.id === goalId);
-        if (g) {
+        const idx = sortedGoals.findIndex(x => x.id === goalId);
+        if (idx !== -1) {
+          const g = sortedGoals[idx];
           if (initAmountIDR >= 0) {
             pkt.balance = initInAccCur;
           }
@@ -3076,6 +3242,8 @@
           g.colorId = colorId;
           g.icon = icon;
           g.currentAmount = getSavingGoalBalanceIDR(g);
+          sortedGoals.splice(idx, 1);
+          sortedGoals.splice(Math.min(sortedGoals.length, targetOrder - 1), 0, g);
         }
       } else {
         if (initAmountIDR > 0) {
@@ -3092,6 +3260,7 @@
           colorId,
           icon,
           note,
+          urut: targetOrder,
           history: initAmountIDR > 0 ? [{
             id: 'sh_' + Date.now(),
             type: 'deposit',
@@ -3101,8 +3270,11 @@
           }] : []
         };
         newGoal.currentAmount = getSavingGoalBalanceIDR(newGoal);
-        db.savingsGoals.push(newGoal);
+        sortedGoals.splice(Math.min(sortedGoals.length, targetOrder - 1), 0, newGoal);
       }
+
+      sortedGoals.forEach((g, i) => { g.urut = i + 1; });
+      db.savingsGoals = sortedGoals;
 
       saveData();
       closeModal();
@@ -3110,34 +3282,133 @@
       render();
     }
 
+    function syncSavingsGoalsWithPockets() {
+      db.savingsGoals.forEach(g => {
+        g.currentAmount = getSavingGoalBalanceIDR(g);
+      });
+    }
+
+    function recordTransferToLinkedSavingsGoals(dstAccountId, dstPocketId, amountIDR, date, note, txId) {
+      const linkedGoals = db.savingsGoals.filter(g => g.accountId === dstAccountId && g.pocketId === dstPocketId);
+      if (linkedGoals.length === 0 || amountIDR <= 0) return;
+      linkedGoals.forEach(goal => {
+        goal.history = goal.history || [];
+        const alreadyLogged = txId && goal.history.some(h => h.linkedTxId === txId);
+        if (!alreadyLogged) {
+          goal.history.unshift({
+            id: 'sh_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5),
+            linkedTxId: txId || '',
+            type: 'deposit',
+            amount: amountIDR,
+            date: date || new Date().toISOString().slice(0, 10),
+            note: note || 'Transfer masuk ke pocket tabungan'
+          });
+        }
+        goal.currentAmount = getSavingGoalBalanceIDR(goal);
+      });
+    }
+
     function openSavingFundModal(goalId, mode) {
       const goal = db.savingsGoals.find(g => g.id === goalId);
       if (!goal) return;
+      const isDeposit = mode === 'deposit';
+      const curBalIDR = getSavingGoalBalanceIDR(goal);
+      const goalAcc = db.accounts.find(a => a.id === goal.accountId);
+      const goalPkt = goalAcc?.pockets?.find(p => p.id === goal.pocketId);
+      const today = new Date().toISOString().slice(0, 10);
+
+      // Default counterparty account/pocket: pick first account/pocket different from goal's own pocket if possible
+      let defaultAcc = db.accounts.find(a => a.id !== goal.accountId) || db.accounts[0];
+      let defaultPkt = (defaultAcc?.pockets || []).find(p => !(defaultAcc.id === goal.accountId && p.id === goal.pocketId)) || defaultAcc?.pockets?.[0];
+
       openModal(`
         <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="text-base font-medium uppercase text-ink">${mode === 'deposit' ? 'SETOR DANA TABUNGAN' : 'TARIK DANA TABUNGAN'}</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="text-[11px] font-medium uppercase tracking-wider text-sage">${goal.name}</div>
+              <h3 class="text-base font-medium uppercase text-ink">${isDeposit ? 'SETOR KE TABUNGAN' : 'TARIK DARI TABUNGAN'}</h3>
+            </div>
+            <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-creamSoft text-slate-600 flex items-center justify-center text-xs shrink-0">✕</button>
           </div>
+
+          <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl px-3.5 py-2.5 flex items-center justify-between gap-2">
+            <span class="text-xs text-slate-500">Saldo Tabungan Saat Ini:</span>
+            <div class="text-right">
+              <div class="text-xs font-medium text-ink">${formatCurrency(curBalIDR)}</div>
+              <div class="text-[11px] font-medium text-sage">${goalAcc?.name || '-'} (${goalPkt?.name || '-'})</div>
+            </div>
+          </div>
+
           <form onsubmit="submitSavingFund(event, '${goal.id}', '${mode}')" class="space-y-3">
-            <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Nominal (IDR)</label>
-              <input type="text" id="sav-fund-amt" name="fundAmount" inputmode="numeric" oninput="formatAmountInput(this)" required placeholder="0"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-600 mb-1">Nominal (Rp)</label>
+                <input type="text" id="sav-fund-amt" name="fundAmount" inputmode="numeric" oninput="formatAmountInput(this)" required placeholder="0"
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink focus:outline-none focus:border-peanut" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-600 mb-1">Tanggal</label>
+                <input type="date" name="fundDate" value="${today}" required
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut" />
+              </div>
             </div>
+
             <div class="flex gap-2">
-              <button type="button" onclick="appendQuickZeros('sav-fund-amt', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium">+00</button>
-              <button type="button" onclick="appendQuickZeros('sav-fund-amt', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium">+000</button>
+              <button type="button" onclick="appendQuickZeros('sav-fund-amt', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+00</button>
+              <button type="button" onclick="appendQuickZeros('sav-fund-amt', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+000</button>
             </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-600 mb-1">${isDeposit ? 'Sumber Dana (Akun)' : 'Pindahkan ke Akun'}</label>
+                <select id="sav-counter-acc" name="counterAccountId" onchange="onSavingCounterAccChange('${goal.id}', '${mode}')"
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut">
+                  ${db.accounts.map(a => `<option value="${a.id}" ${a.id === defaultAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-600 mb-1">Pocket</label>
+                <select id="sav-counter-pkt" name="counterPocketId"
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut">
+                  ${(defaultAcc?.pockets || []).map(p => {
+                    const disabled = isDeposit && defaultAcc.id === goal.accountId && p.id === goal.pocketId;
+                    return `<option value="${p.id}" ${p.id === defaultPkt?.id ? 'selected' : ''} ${disabled ? 'disabled' : ''}>${p.name} (${formatCurrency(p.balance, defaultAcc.currency)})</option>`;
+                  }).join('')}
+                </select>
+              </div>
+            </div>
+
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Catatan</label>
-              <input type="text" name="fundNote" placeholder="Catatan mutasi tabungan"
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              <label class="block text-[11px] text-slate-600 mb-1">Catatan</label>
+              <input type="text" name="fundNote" placeholder="${isDeposit ? 'Contoh: Sisihan gaji mingguan' : 'Contoh: Pencairan dana target'}"
+                class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut" />
             </div>
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Konfirmasi</button>
+
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
+              <button type="button" onclick="closeModal()" class="py-3 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-ink text-xs font-medium">Batal</button>
+              <button type="submit" class="py-3 rounded-2xl text-xs font-medium shadow-sm ${isDeposit ? 'bg-sage text-white' : 'bg-ink text-[#FBF6EA]'}">
+                ${isDeposit ? 'Setor Sekarang' : 'Tarik Sekarang'}
+              </button>
+            </div>
           </form>
         </div>
       `);
+    }
+
+    function onSavingCounterAccChange(goalId, mode) {
+      const goal = db.savingsGoals.find(g => g.id === goalId);
+      const accId = document.getElementById('sav-counter-acc')?.value;
+      const pktSel = document.getElementById('sav-counter-pkt');
+      const acc = db.accounts.find(a => a.id === accId);
+      if (!pktSel || !acc) return;
+      const isDeposit = mode === 'deposit';
+      const pockets = acc.pockets || [];
+      const firstValid = pockets.find(p => !(isDeposit && goal && acc.id === goal.accountId && p.id === goal.pocketId)) || pockets[0];
+
+      pktSel.innerHTML = pockets.map(p => {
+        const disabled = isDeposit && goal && acc.id === goal.accountId && p.id === goal.pocketId;
+        return `<option value="${p.id}" ${p.id === firstValid?.id ? 'selected' : ''} ${disabled ? 'disabled' : ''}>${p.name} (${formatCurrency(p.balance, acc.currency)})</option>`;
+      }).join('');
     }
 
     function submitSavingFund(e, goalId, mode) {
@@ -3146,32 +3417,91 @@
       if (!goal) return;
       const fd = new FormData(e.target);
       const amountIDR = parseFormattedAmount(fd.get('fundAmount'));
+      const txDate = fd.get('fundDate') || new Date().toISOString().slice(0, 10);
+      const counterAccId = fd.get('counterAccountId');
+      const counterPktId = fd.get('counterPocketId');
       const note = String(fd.get('fundNote') || '').trim();
-      if (amountIDR <= 0) return;
 
-      const acc = db.accounts.find(a => a.id === goal.accountId);
-      const pkt = acc?.pockets?.find(p => p.id === goal.pocketId);
-      if (acc && pkt) {
-        const rate = Number(db.exchangeRates?.[acc.currency]) || 1;
-        const deltaInCur = amountIDR / rate;
-        pkt.balance = mode === 'deposit'
-          ? (Number(pkt.balance) || 0) + deltaInCur
-          : (Number(pkt.balance) || 0) - deltaInCur;
+      if (amountIDR <= 0) {
+        showToast('Masukkan nominal lebih dari 0', 'error');
+        return;
+      }
+
+      const goalAcc = db.accounts.find(a => a.id === goal.accountId);
+      const goalPkt = goalAcc?.pockets?.find(p => p.id === goal.pocketId);
+      const counterAcc = db.accounts.find(a => a.id === counterAccId);
+      const counterPkt = counterAcc?.pockets?.find(p => p.id === counterPktId);
+
+      if (!goalAcc || !goalPkt || !counterAcc || !counterPkt) {
+        showToast('Akun atau pocket belum lengkap', 'error');
+        return;
+      }
+
+      if (goalAcc.id === counterAcc.id && goalPkt.id === counterPkt.id) {
+        showToast('Pilih pocket yang berbeda dengan pocket tabungan', 'error');
+        return;
+      }
+
+      const goalRate = Number(db.exchangeRates?.[goalAcc.currency]) || 1;
+      const counterRate = Number(db.exchangeRates?.[counterAcc.currency]) || 1;
+      const goalDec = CURRENCY_META[goalAcc.currency]?.decimals || 0;
+      const counterDec = CURRENCY_META[counterAcc.currency]?.decimals || 0;
+
+      const amtInGoalCur = goalAcc.currency === 'IDR' ? amountIDR : Number((amountIDR / goalRate).toFixed(goalDec));
+      const amtInCounterCur = counterAcc.currency === 'IDR' ? amountIDR : Number((amountIDR / counterRate).toFixed(counterDec));
+
+      const newTxId = 'trf_' + Date.now();
+
+      if (mode === 'deposit') {
+        counterPkt.balance = (Number(counterPkt.balance) || 0) - amtInCounterCur;
+        goalPkt.balance = (Number(goalPkt.balance) || 0) + amtInGoalCur;
+
+        db.transactions.unshift({
+          id: newTxId,
+          type: 'transfer',
+          date: txDate,
+          amount: amtInCounterCur,
+          nilaiKe: amtInGoalCur,
+          title: note || `Setor tabungan: ${goal.name}`,
+          accountId: counterAcc.id,
+          pocketId: counterPkt.id,
+          toAccountId: goalAcc.id,
+          toPocketId: goalPkt.id
+        });
+      } else {
+        goalPkt.balance = (Number(goalPkt.balance) || 0) - amtInGoalCur;
+        counterPkt.balance = (Number(counterPkt.balance) || 0) + amtInCounterCur;
+
+        db.transactions.unshift({
+          id: newTxId,
+          type: 'transfer',
+          date: txDate,
+          amount: amtInGoalCur,
+          nilaiKe: amtInCounterCur,
+          title: note || `Tarik tabungan: ${goal.name}`,
+          accountId: goalAcc.id,
+          pocketId: goalPkt.id,
+          toAccountId: counterAcc.id,
+          toPocketId: counterPkt.id
+        });
       }
 
       goal.history = goal.history || [];
       goal.history.unshift({
         id: 'sh_' + Date.now(),
+        linkedTxId: newTxId,
         type: mode,
         amount: amountIDR,
-        date: new Date().toISOString().slice(0, 10),
-        note: note || (mode === 'deposit' ? 'Setor tabungan' : 'Tarik tabungan')
+        date: txDate,
+        note: note || (mode === 'deposit'
+          ? `Dari ${counterAcc.name} (${counterPkt.name})`
+          : `Ke ${counterAcc.name} (${counterPkt.name})`)
       });
-      goal.currentAmount = getSavingGoalBalanceIDR(goal);
 
+      syncSavingsGoalsWithPockets();
       saveData();
       closeModal();
-      showToast(mode === 'deposit' ? 'Dana tabungan ditambahkan' : 'Dana tabungan ditarik');
+      showToast(mode === 'deposit' ? 'Dana disetor & pocket tersinkron' : 'Dana ditarik & dipindahkan ke pocket');
       render();
     }
 
