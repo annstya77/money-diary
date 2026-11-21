@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#B9D5F5" />
+  <meta name="theme-color" content="#f8db91" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Catatan Keuangan" />
@@ -14,7 +15,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -22,22 +23,20 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Nunito', 'sans-serif']
+            sans: ['Fredoka', 'sans-serif']
           },
           colors: {
-            cream: '#F8FAFF',
-            creamCard: '#FFF7F0',
-            creamSoft: '#EEF3F9',
-            butter: '#B9D5F5',
-            peanut: '#8094A6',
-            peanutDark: '#49647D',
-            sage: '#4D8E7A',
-            sageLight: '#E5F5EE',
-            coral: '#C95A72',
-            coralLight: '#FCE7EC',
-            ink: '#49647D',
-            slateMuted: '#8094A6',
-            softBrown: '#6A5B4D'
+            cream: '#FBF6EA',
+            creamCard: '#FFFDF7',
+            creamSoft: '#F5ECDA',
+            butter: '#F6E299',
+            peanut: '#D8A25E',
+            peanutDark: '#B97E3B',
+            sage: '#3E8A75',
+            sageLight: '#E5F2ED',
+            coral: '#E05A5A',
+            coralLight: '#FCE8E8',
+            ink: '#3C3226'
           }
         }
       }
@@ -46,19 +45,19 @@
 
   <style>
     * {
-      font-family: 'Nunito', sans-serif !important;
+      font-family: 'Fredoka', sans-serif !important;
       font-weight: 400;
       -webkit-tap-highlight-color: transparent;
       box-sizing: border-box;
     }
 
     strong, b, .font-medium, .font-semibold, .font-bold {
-      font-weight: 700 !important;
+      font-weight: 500 !important;
     }
 
     body {
-      background-color: #EDF2FA;
-      color: #49647D;
+      background-color: #F3EAD8;
+      color: #3C3226;
       overscroll-behavior-y: none;
     }
 
@@ -79,29 +78,29 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex justify-center bg-[#EDF2FA]">
+<body class="min-h-screen flex justify-center bg-[#F3EAD8]">
 
   <div id="app-shell" class="w-full max-w-md min-h-screen bg-cream relative flex flex-col shadow-xl">
 
     <!-- Toast Notification -->
-    <div id="toast-banner" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-medium tracking-wide bg-ink text-[#F8FAFF] max-w-[90vw] text-center"></div>
+    <div id="toast-banner" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-medium tracking-wide bg-ink text-[#FBF6EA] max-w-[90vw] text-center"></div>
 
     <!-- Lock Screen Overlay -->
     <div id="lock-screen" class="hidden fixed inset-0 z-[80] bg-cream flex flex-col items-center justify-center p-6">
-      <div class="w-full max-w-xs bg-creamCard rounded-3xl p-6 shadow-md border border-[#E6ECF2] text-center space-y-5">
-        <div class="w-16 h-16 mx-auto rounded-2xl bg-[#B9D5F5] flex items-center justify-center shadow-inner">
-          <svg class="w-8 h-8 text-[#49647D]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <div class="w-full max-w-xs bg-creamCard rounded-3xl p-6 shadow-md border border-[#E8DEC5] text-center space-y-5">
+        <div class="w-16 h-16 mx-auto rounded-2xl bg-butter flex items-center justify-center shadow-inner">
+          <svg class="w-8 h-8 text-peanutDark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
         </div>
         <div>
           <h2 class="text-base font-medium uppercase tracking-wider text-ink">KUNCI APLIKASI</h2>
-          <p class="text-xs text-[#8094A6] mt-1">Masukkan 4–6 digit PIN untuk membuka sesi (48 jam)</p>
+          <p class="text-xs text-slate-500 mt-1">Masukkan 4–6 digit PIN untuk membuka sesi (48 jam)</p>
         </div>
         <input id="pin-unlock-input" type="password" inputmode="numeric" maxlength="6" placeholder="••••"
           onkeydown="if(event.key==='Enter') unlockWithPin()"
-          class="w-full text-center tracking-[0.5em] text-lg py-3 rounded-2xl bg-creamSoft border border-[#E6ECF2] focus:outline-none focus:border-[#B9D5F5]" />
-        <button onclick="unlockWithPin()" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium uppercase tracking-wider shadow-sm active:scale-95 transition-all">
+          class="w-full text-center tracking-[0.5em] text-lg py-3 rounded-2xl bg-creamSoft border border-[#E2D4B7] focus:outline-none focus:border-peanut" />
+        <button onclick="unlockWithPin()" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium uppercase tracking-wider shadow-sm active:scale-95 transition-all">
           Buka Aplikasi
         </button>
       </div>
@@ -112,7 +111,7 @@
 
     <!-- Floating Action Button (+ Catat) -->
     <button id="fab-add-tx" onclick="handleFabCatatClick()"
-      class="fixed bottom-24 right-5 z-40 flex items-center gap-2 px-4 py-3.5 rounded-full bg-ink text-[#F8FAFF] shadow-lg hover:opacity-95 active:scale-95 transition-all">
+      class="fixed bottom-24 right-5 z-40 flex items-center gap-2 px-4 py-3.5 rounded-full bg-ink text-[#FBF6EA] shadow-lg hover:opacity-95 active:scale-95 transition-all">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
       </svg>
@@ -120,14 +119,14 @@
     </button>
 
     <!-- Bottom Navigation -->
-    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-40 bg-creamCard/95 backdrop-blur-md border-t border-[#E6ECF2] px-1.5 py-2">
+    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-40 bg-creamCard/95 backdrop-blur-md border-t border-[#E8DEC5] px-1.5 py-2">
       <div id="bottom-nav-items" class="grid grid-cols-6 gap-0.5 text-center"></div>
     </nav>
 
     <!-- Reusable Modal Overlay -->
     <div id="modal-backdrop" onclick="closeModalOnBackdrop(event)"
-      class="hidden fixed inset-0 z-50 bg-[#49647D]/35 backdrop-blur-[2px] items-end sm:items-center justify-center p-0 sm:p-4">
-      <div id="modal-box" class="w-full max-w-md bg-creamCard rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl border border-[#E6ECF2] max-h-[90vh] overflow-y-auto animate-pop"></div>
+      class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] items-end sm:items-center justify-center p-0 sm:p-4">
+      <div id="modal-box" class="w-full max-w-md bg-creamCard rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl border border-[#E8DEC5] max-h-[90vh] overflow-y-auto animate-pop"></div>
     </div>
   </div>
 
@@ -151,17 +150,17 @@
     };
 
     const ACCOUNT_COLORS = [
-      { id: 'emerald', hex: '#83B9A9', bg: '#EBF7F2', border: '#B8DFC3' }, // Mint Green / Fresh Green
-      { id: 'teal',    hex: '#7BA8DB', bg: '#EDF4FD', border: '#B9D5F5' }, // Sky Blue
-      { id: 'amber',   hex: '#E4B85A', bg: '#FFF9E8', border: '#FFE19B' }, // Butter Yellow
-      { id: 'coral',   hex: '#E88B9F', bg: '#FDF0F3', border: '#F5B9D0' }, // Cotton Pink / Sweet Pink
-      { id: 'plum',    hex: '#A690D4', bg: '#F4F0FC', border: '#C9B8EB' }, // Lavender / Dream Purple
-      { id: 'slate',   hex: '#E89B7C', bg: '#FFF3EC', border: '#FFB99F' }  // Peach / Soft Orange
+      { id: 'emerald', hex: '#2B937B', bg: '#E6F4F0', border: '#BDE3D8' },
+      { id: 'teal',    hex: '#318B9E', bg: '#E7F3F6', border: '#BEE0E8' },
+      { id: 'amber',   hex: '#D48A2A', bg: '#FDF3E3', border: '#F4DCB5' },
+      { id: 'coral',   hex: '#DC6363', bg: '#FDEAEA', border: '#F5C4C4' },
+      { id: 'plum',    hex: '#8966B8', bg: '#F2ECFA', border: '#D9C9F0' },
+      { id: 'slate',   hex: '#596E85', bg: '#ECEFF3', border: '#CBD4DF' }
     ];
 
     const PIE_PALETTE = [
-      '#83B9A9', '#F6A7B7', '#B9D5F5', '#C9B8EB', '#FFE19B',
-      '#FFB99F', '#AEE0C6', '#F5B9D0', '#FFD3A5', '#8094A6'
+      '#FF6B6B', '#FF9F43', '#FFC837', '#C6DA77', '#58C4A8',
+      '#77BCDA', '#6C8EEF', '#A478E8', '#F278B6', '#8E9AAF'
     ];
 
     const ICONS = {
@@ -504,7 +503,7 @@
     // 4. PWA MANIFEST & SERVICE WORKER
     // =========================================================================
     function initPWAAssets() {
-      const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="32" fill="#B9D5F5"/><circle cx="64" cy="68" r="34" fill="#FFF7F0"/><path d="M40 44 L48 26 L60 40 Z" fill="#FFF7F0"/><path d="M88 44 L80 26 L68 40 Z" fill="#FFF7F0"/><circle cx="53" cy="66" r="4" fill="#49647D"/><circle cx="75" cy="66" r="4" fill="#49647D"/><path d="M59 75 Q64 80 69 75" stroke="#49647D" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+      const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="32" fill="#f8db91"/><circle cx="64" cy="68" r="34" fill="#FFFDF7"/><path d="M40 44 L48 26 L60 40 Z" fill="#FFFDF7"/><path d="M88 44 L80 26 L68 40 Z" fill="#FFFDF7"/><circle cx="53" cy="66" r="4" fill="#3C3226"/><circle cx="75" cy="66" r="4" fill="#3C3226"/><path d="M59 75 Q64 80 69 75" stroke="#3C3226" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
       const iconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(iconSvg);
       const appleIcon = document.getElementById('apple-touch-icon');
       if (appleIcon) appleIcon.href = iconUrl;
@@ -514,8 +513,8 @@
         short_name: 'Keuangan',
         start_url: './',
         display: 'standalone',
-        background_color: '#F8FAFF',
-        theme_color: '#B9D5F5',
+        background_color: '#FBF6EA',
+        theme_color: '#f8db91',
         icons: [{ src: iconUrl, sizes: '192x192', type: 'image/svg+xml' }]
       };
       const manifestEl = document.getElementById('pwa-manifest');
@@ -634,15 +633,15 @@
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-medium uppercase text-ink">${active ? 'UBAH / NONAKTIFKAN PIN' : 'ATUR PIN KEAMANAN'}</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
           </div>
           <form onsubmit="submitPinSetup(event)" class="space-y-3">
             <div>
-              <label class="block text-[11px] text-[#6A5B4D] mb-1">PIN Baru (4–6 digit angka)</label>
+              <label class="block text-[11px] text-slate-500 mb-1">PIN Baru (4–6 digit angka)</label>
               <input type="password" name="newPin" inputmode="numeric" maxlength="6" placeholder="••••"
-                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-sm tracking-widest text-ink" />
+                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-sm tracking-widest text-ink" />
             </div>
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">Simpan PIN</button>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan PIN</button>
             ${active ? `<button type="button" onclick="disablePinSecurity()" class="w-full py-2.5 rounded-2xl bg-coralLight text-coral text-xs font-medium">Nonaktifkan PIN</button>` : ''}
           </form>
         </div>
@@ -679,7 +678,7 @@
       if (!el) return;
       el.textContent = msg;
       el.className = `fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-medium tracking-wide max-w-[90vw] text-center ${
-        type === 'error' ? 'bg-[#F6A7B7] text-[#49647D]' : 'bg-ink text-[#F8FAFF]'
+        type === 'error' ? 'bg-coral text-white' : 'bg-ink text-[#FBF6EA]'
       }`;
       el.classList.remove('hidden');
       clearTimeout(toastTimer);
@@ -731,7 +730,7 @@
         const active = ui.activeTab === it.id;
         return `
           <button onclick="switchTab('${it.id}')"
-            class="py-1.5 px-1 rounded-2xl transition-all ${active ? 'bg-[#B9D5F5] text-ink font-medium' : 'text-[#8094A6] hover:text-ink'}">
+            class="py-1.5 px-1 rounded-2xl transition-all ${active ? 'bg-butter text-ink font-medium' : 'text-slate-500 hover:text-ink'}">
             ${it.icon}
             <span class="block text-[10px] mt-0.5 truncate">${it.label}</span>
           </button>
@@ -788,7 +787,7 @@
     }
 
     // =========================================================================
-    // 8. VIEW 1: TRANSAKSI
+    // 8. VIEW 1: TRANSAKSI (TANPA JUDUL & TOMBOL BERULANG + PENCARIAN)
     // =========================================================================
     function setTxPeriodMode(m) { ui.txPeriodMode = m; render(); }
     function setTxTypeFilter(f) { ui.txTypeFilter = f; render(); }
@@ -854,15 +853,15 @@
 
       return `
         <div class="p-4 space-y-3.5">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #A2C4EC;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div class="inline-flex rounded-2xl bg-creamCard p-1">
                 <button onclick="setTxPeriodMode('monthly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'monthly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Bulanan
                 </button>
                 <button onclick="setTxPeriodMode('yearly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'yearly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Tahunan
                 </button>
               </div>
@@ -876,15 +875,15 @@
 
             <div class="grid grid-cols-3 gap-2">
               <div class="bg-creamCard rounded-2xl p-2.5">
-                <span class="text-[10px] text-[#6A5B4D] block">Pemasukan</span>
+                <span class="text-[10px] text-slate-500 block">Pemasukan</span>
                 <span class="text-xs font-medium text-sage">+${formatCurrency(totalIn)}</span>
               </div>
               <div class="bg-creamCard rounded-2xl p-2.5">
-                <span class="text-[10px] text-[#6A5B4D] block">Pengeluaran</span>
+                <span class="text-[10px] text-slate-500 block">Pengeluaran</span>
                 <span class="text-xs font-medium text-coral">-${formatCurrency(totalOut)}</span>
               </div>
               <div class="bg-creamCard rounded-2xl p-2.5">
-                <span class="text-[10px] text-[#6A5B4D] block">Selisih</span>
+                <span class="text-[10px] text-slate-500 block">Selisih</span>
                 <span class="text-xs font-medium ${totalNet >= 0 ? 'text-ink' : 'text-coral'}">${totalNet >= 0 ? '+' : '-'}${formatCurrency(Math.abs(totalNet))}</span>
               </div>
             </div>
@@ -892,16 +891,16 @@
 
           <!-- Kolom Pencarian Transaksi -->
           <div class="relative flex items-center">
-            <svg class="w-4 h-4 text-[#8094A6] absolute left-3.5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input id="tx-search-input" type="text" value="${ui.txSearchQuery.replace(/"/g, '&quot;')}"
               oninput="handleTxSearchInput(this.value)"
               placeholder="Cari catatan, kategori, akun, atau pocket..."
-              class="w-full pl-9 pr-8 py-2.5 rounded-2xl bg-creamCard border border-[#E6ECF2] text-xs text-ink placeholder:text-[#8094A6] focus:outline-none focus:border-[#B9D5F5]" />
+              class="w-full pl-9 pr-8 py-2.5 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink placeholder:text-slate-400 focus:outline-none focus:border-peanut" />
             ${ui.txSearchQuery ? `
               <button onclick="clearTxSearch()" title="Hapus pencarian"
-                class="w-6 h-6 rounded-full bg-creamSoft text-[#8094A6] hover:text-ink text-xs flex items-center justify-center absolute right-2.5">
+                class="w-6 h-6 rounded-full bg-creamSoft text-slate-500 hover:text-ink text-xs flex items-center justify-center absolute right-2.5">
                 ✕
               </button>
             ` : ''}
@@ -918,8 +917,8 @@
               <button onclick="setTxTypeFilter('${f.id}')"
                 class="px-3.5 py-1.5 rounded-2xl text-xs font-medium border transition-all shrink-0 ${
                   ui.txTypeFilter === f.id
-                    ? 'bg-ink text-[#F8FAFF] border-ink'
-                    : 'bg-creamCard text-ink border-[#E6ECF2]'
+                    ? 'bg-ink text-[#FBF6EA] border-ink'
+                    : 'bg-creamCard text-ink border-[#E8DEC5]'
                 }">
                 ${f.label}
               </button>
@@ -929,7 +928,7 @@
           <!-- Daftar Transaksi -->
           <div class="space-y-2.5">
             ${filteredList.length === 0 ? `
-              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-[#8094A6] border border-[#E6ECF2]">
+              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-slate-400 border border-[#E8DEC5]">
                 ${q ? `Tidak ada transaksi yang cocok dengan "${ui.txSearchQuery}".` : `Belum ada transaksi pada periode ${periodLabel}.`}
               </div>
             ` : filteredList.map(tx => {
@@ -942,30 +941,30 @@
               const cur = getTxCurrency(tx);
 
               const badgeClass = tx.type === 'income'
-                ? 'bg-[#B8DFC3]/45 text-[#3B7361]'
+                ? 'bg-sageLight text-sage'
                 : tx.type === 'transfer'
-                  ? 'bg-[#B9D5F5]/45 text-[#49647D]'
-                  : 'bg-[#F5B9D0]/45 text-[#B44A64]';
+                  ? 'bg-[#E7F3F6] text-[#2B5B67]'
+                  : 'bg-coralLight text-coral';
               const amountColor = tx.type === 'income'
                 ? 'text-sage'
                 : tx.type === 'transfer'
-                  ? 'text-ink'
+                  ? 'text-[#2B5B67]'
                   : 'text-coral';
               const signPrefix = tx.type === 'income' ? '+' : tx.type === 'transfer' ? '⇄ ' : '-';
 
               return `
-                <div class="bg-creamCard rounded-3xl p-3.5 shadow-sm border border-[#E6ECF2] flex items-center justify-between gap-2.5">
+                <div class="bg-creamCard rounded-3xl p-3.5 shadow-sm border border-[#E8DEC5] flex items-center justify-between gap-2.5">
                   <div class="min-w-0 flex-1">
                     <div class="flex items-center gap-1.5">
                       <span class="px-2 py-0.5 rounded-lg text-[10px] font-medium ${badgeClass}">
                         ${tx.type === 'income' ? 'Masuk' : tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Keluar')}
                       </span>
-                      ${sub ? `<span class="text-[10px] text-[#8094A6] truncate">• ${sub.name}</span>` : ''}
+                      ${sub ? `<span class="text-[10px] text-slate-400 truncate">• ${sub.name}</span>` : ''}
                     </div>
                     <div class="text-xs font-medium text-ink truncate mt-1">
                       ${tx.title || (tx.type === 'transfer' ? `${pkt?.name || 'Asal'} → ${dstPkt?.name || 'Tujuan'}` : (cat?.name || 'Transaksi'))}
                     </div>
-                    <div class="text-[11px] text-[#8094A6] truncate mt-0.5">
+                    <div class="text-[11px] text-slate-400 truncate mt-0.5">
                       ${tx.date} • ${acc?.name || '-'} (${pkt?.name || '-'})
                       ${tx.type === 'transfer' && dstPkt ? ` → ${dstAcc?.name || ''} (${dstPkt.name})` : ''}
                     </div>
@@ -974,10 +973,10 @@
                   <div class="text-right shrink-0 flex items-center gap-2">
                     <div>
                       <div class="text-xs font-medium ${amountColor}">${signPrefix}${formatCurrency(tx.amount, cur)}</div>
-                      ${cur !== 'IDR' ? `<div class="text-[10px] text-[#8094A6]">≈ ${formatCurrency(toIDR(tx.amount, cur))}</div>` : ''}
+                      ${cur !== 'IDR' ? `<div class="text-[10px] text-slate-400">≈ ${formatCurrency(toIDR(tx.amount, cur))}</div>` : ''}
                     </div>
                     <button onclick="deleteTransaction('${tx.id}')" title="Hapus transaksi"
-                      class="w-7 h-7 rounded-xl bg-creamSoft text-[#8094A6] hover:text-coral flex items-center justify-center text-xs">
+                      class="w-7 h-7 rounded-xl bg-creamSoft text-slate-400 hover:text-coral flex items-center justify-center text-xs">
                       ✕
                     </button>
                   </div>
@@ -1073,7 +1072,7 @@
       let svgHtml = '';
       if (totalAmount <= 0 || coloredEntries.length === 0) {
         svgHtml = `
-          <div class="py-10 text-center text-xs text-[#8094A6]">
+          <div class="py-10 text-center text-xs text-slate-400">
             Belum ada data ${pieMode === 'income' ? 'pendapatan' : 'pengeluaran'} pada periode ini.
           </div>
         `;
@@ -1104,7 +1103,7 @@
 
           const showCallout = coloredEntries.length <= 8 || item.pct >= 2.5;
           if (!showCallout) {
-            return `<path d="${pathD}" fill="${item.color}" stroke="#FFF7F0" stroke-width="1.5" />`;
+            return `<path d="${pathD}" fill="${item.color}" stroke="#FFFDF7" stroke-width="1.5" />`;
           }
 
           const shortName = item.name.length > 14 ? item.name.slice(0, 13) + '…' : item.name;
@@ -1112,11 +1111,11 @@
           const textX = isRight ? tipPt.x + 4 : tipPt.x - 4;
 
           return `
-            <path d="${pathD}" fill="${item.color}" stroke="#FFF7F0" stroke-width="1.5" />
+            <path d="${pathD}" fill="${item.color}" stroke="#FFFDF7" stroke-width="1.5" />
             <polyline points="${edgePt.x.toFixed(1)},${edgePt.y.toFixed(1)} ${elbowPt.x.toFixed(1)},${elbowPt.y.toFixed(1)} ${tipPt.x.toFixed(1)},${tipPt.y.toFixed(1)}"
               fill="none" stroke="${item.color}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-            <text x="${textX}" y="${(tipPt.y - 2).toFixed(1)}" text-anchor="${textAnchor}" fill="#49647D" font-size="10.5" font-weight="700">${shortName}</text>
-            <text x="${textX}" y="${(tipPt.y + 10).toFixed(1)}" text-anchor="${textAnchor}" fill="#8094A6" font-size="9.5">${item.pct.toFixed(1)}%</text>
+            <text x="${textX}" y="${(tipPt.y - 2).toFixed(1)}" text-anchor="${textAnchor}" fill="#3C3226" font-size="10.5" font-weight="500">${shortName}</text>
+            <text x="${textX}" y="${(tipPt.y + 10).toFixed(1)}" text-anchor="${textAnchor}" fill="#64748B" font-size="9.5">${item.pct.toFixed(1)}%</text>
           `;
         }).join('');
 
@@ -1128,11 +1127,11 @@
       }
 
       const legendRowsHtml = coloredEntries.length === 0 ? '' : `
-        <div class="divide-y divide-[#E6ECF2] pt-2 border-t border-[#E6ECF2]">
+        <div class="divide-y divide-stone-100 pt-2 border-t border-[#E8DEC5]">
           ${coloredEntries.map(item => `
             <div class="py-2.5 flex items-center justify-between gap-2.5">
               <div class="flex items-center gap-2.5 min-w-0">
-                <span class="px-2 py-0.5 rounded-lg text-[11px] font-medium text-[#49647D] shrink-0" style="background-color: ${item.color};">
+                <span class="px-2 py-0.5 rounded-lg text-[11px] font-medium text-white shrink-0" style="background-color: ${item.color};">
                   ${Math.round(item.pct)}%
                 </span>
                 <span class="text-xs font-medium text-ink truncate">${item.name}</span>
@@ -1144,7 +1143,7 @@
       `;
 
       return `
-        <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2">
+        <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2">
           ${svgHtml}
           ${legendRowsHtml}
         </div>
@@ -1189,15 +1188,15 @@
 
             const subPct = subLimit > 0 ? Math.min(100, (subSpent / subLimit) * 100) : (subSpent > 0 ? 100 : 0);
             const subOverLimit = subLimit > 0 ? subSpent > subLimit : subSpent > 0;
-            const subBarColor = subOverLimit ? '#F6A7B7' : '#C9B8EB';
+            const subBarColor = subOverLimit ? '#E05A5A' : '#77bcda';
 
             return `
-              <div class="pl-3 border-l-2 border-[#E6ECF2] space-y-1">
+              <div class="pl-3 border-l-2 border-[#E8DEC5] space-y-1">
                 <div class="flex items-center justify-between text-xs">
                   <span class="text-ink">${sub.name}</span>
                   <div>
                     <span class="font-medium ${subOverLimit ? 'text-coral' : 'text-ink'}">${formatCurrency(subSpent)}</span>
-                    <span class="text-[#8094A6]"> / ${formatCurrency(subLimit)}</span>
+                    <span class="text-slate-400"> / ${formatCurrency(subLimit)}</span>
                   </div>
                 </div>
                 <div class="w-full h-2 rounded-full bg-creamSoft overflow-hidden">
@@ -1215,25 +1214,25 @@
 
         const catPct = catLimit > 0 ? Math.min(100, (catSpent / catLimit) * 100) : (catSpent > 0 ? 100 : 0);
         const catOverLimit = catLimit > 0 ? catSpent > catLimit : catSpent > 0;
-        const catBarColor = catOverLimit ? '#F6A7B7' : '#83B9A9';
+        const catBarColor = catOverLimit ? '#E05A5A' : '#c6da77';
         const sisaBudget = catLimit - catSpent;
         const isExpanded = ui.expandedBudgetCats[cat.id] !== false;
 
         return `
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2.5">
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2.5">
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0">
                 <span class="text-sm font-medium text-ink truncate">${cat.name}</span>
                 ${hasSubs ? `
                   <button onclick="toggleBudgetCatExpand('${cat.id}')"
-                    class="px-2 py-0.5 rounded-lg bg-creamSoft text-[10px] font-medium text-[#6A5B4D] shrink-0">
+                    class="px-2 py-0.5 rounded-lg bg-creamSoft text-[10px] font-medium text-slate-600 shrink-0">
                     ${isExpanded ? '▲ Sub' : '▼ Sub'}
                   </button>
                 ` : ''}
               </div>
               <div class="text-xs shrink-0">
                 <span class="font-medium ${catOverLimit ? 'text-coral' : 'text-ink'}">${formatCurrency(catSpent)}</span>
-                <span class="text-[#8094A6]"> / ${formatCurrency(catLimit)}</span>
+                <span class="text-slate-400"> / ${formatCurrency(catLimit)}</span>
               </div>
             </div>
 
@@ -1242,7 +1241,7 @@
             </div>
 
             <div class="flex items-center justify-between text-[11px]">
-              <span class="${sisaBudget < 0 ? 'text-coral font-medium' : 'text-[#8094A6]'}">
+              <span class="${sisaBudget < 0 ? 'text-coral font-medium' : 'text-slate-500'}">
                 ${sisaBudget < 0 ? `Melebihi limit ${formatCurrency(Math.abs(sisaBudget))}` : `Sisa budget ${formatCurrency(sisaBudget)}`}
               </span>
               <span class="font-medium ${catOverLimit ? 'text-coral' : 'text-sage'}">
@@ -1257,7 +1256,7 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #A2C4EC;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-1.5 bg-creamCard rounded-2xl px-2 py-1">
                 <button onclick="shiftPeriod('stat', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">‹</button>
@@ -1267,11 +1266,11 @@
 
               <div class="inline-flex rounded-2xl bg-creamCard p-1">
                 <button onclick="setStatPeriodMode('monthly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'monthly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Bulanan
                 </button>
                 <button onclick="setStatPeriodMode('yearly')"
-                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'yearly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Tahunan
                 </button>
               </div>
@@ -1279,29 +1278,27 @@
 
             <div class="grid grid-cols-2 gap-2.5">
               <button onclick="setStatPieMode('income')"
-                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'income' ? 'ring-2 ring-[#49647D]' : 'border-transparent'}"
-                style="background-color: #B8DFC3;">
-                <span class="text-[11px] font-medium block text-[#2D584B]">Pendapatan</span>
-                <span class="text-sm font-medium text-[#24473C] mt-0.5 block">${formatCurrency(totalIncome)}</span>
+                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'income' ? 'ring-2 ring-[#422F0E]' : 'border-transparent'}"
+                style="background-color: #c6da77;">
+                <span class="text-[11px] font-medium block text-[#2E3809]">Pendapatan</span>
+                <span class="text-sm font-medium text-[#1F2605] mt-0.5 block">${formatCurrency(totalIncome)}</span>
               </button>
 
               <button onclick="setStatPieMode('expense')"
-                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'expense' ? 'ring-2 ring-[#49647D]' : 'border-transparent'}"
-                style="background-color: #F6A7B7;">
-                <span class="text-[11px] font-medium block text-[#6E2A3B]">Pengeluaran</span>
-                <span class="text-sm font-medium text-[#571D2C] mt-0.5 block">${formatCurrency(totalExpense)}</span>
+                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'expense' ? 'ring-2 ring-[#422F0E]' : 'border-transparent'}"
+                style="background-color: #da7977;">
+                <span class="text-[11px] font-medium block text-[#3D1211]">Pengeluaran</span>
+                <span class="text-sm font-medium text-[#2A0B0A] mt-0.5 block">${formatCurrency(totalExpense)}</span>
               </button>
             </div>
           </div>
 
-          <!-- Pie Chart Dulu -->
           ${pieSectionHtml}
 
-          <!-- Evaluasi Anggaran di Bawah Pie Chart -->
           <div class="space-y-3 pt-1">
             <div class="flex items-center justify-between px-1">
               <span class="text-xs font-medium uppercase tracking-wider text-ink">Evaluasi Anggaran</span>
-              <button onclick="openBudgetSettingsModal()" class="px-3 py-1.5 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs font-medium text-ink">
+              <button onclick="openBudgetSettingsModal()" class="px-3 py-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink">
                 Atur Limit
               </button>
             </div>
@@ -1408,10 +1405,10 @@
         periodTotal = periodDeposit - periodWithdraw;
 
         if (monthRows.length === 0) {
-          rowsHtml = `<div class="py-10 text-center text-xs text-[#8094A6]">Belum ada mutasi pada pocket ini di ${periodLabel}.</div>`;
+          rowsHtml = `<div class="py-10 text-center text-xs text-slate-400">Belum ada mutasi pada pocket ini di ${periodLabel}.</div>`;
         } else {
           rowsHtml = `
-            <div class="divide-y divide-[#E6ECF2]">
+            <div class="divide-y divide-stone-100">
               ${monthRows.map(r => {
                 const parts = r.date.split('-');
                 const dayNum = parts[2] || '';
@@ -1427,11 +1424,11 @@
                     <div class="flex items-center gap-3 min-w-0">
                       <div class="w-10 text-center shrink-0">
                         <div class="text-sm font-medium text-ink leading-none">${dayNum}</div>
-                        <span class="inline-block mt-1 px-1.5 py-0.5 rounded bg-creamSoft text-[10px] text-[#8094A6]">${dayName}</span>
+                        <span class="inline-block mt-1 px-1.5 py-0.5 rounded bg-creamSoft text-[10px] text-slate-500">${dayName}</span>
                       </div>
                       <div class="min-w-0">
                         <div class="text-xs font-medium text-ink truncate">${titleText}</div>
-                        <div class="text-[11px] text-[#8094A6] truncate">${r.date} • ${r.tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Umum')}</div>
+                        <div class="text-[11px] text-slate-400 truncate">${r.date} • ${r.tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Umum')}</div>
                       </div>
                     </div>
 
@@ -1439,7 +1436,7 @@
                       <div class="text-xs font-medium ${r.flow >= 0 ? 'text-sage' : 'text-coral'}">
                         ${r.flow >= 0 ? '+' : '-'}${formatCurrency(Math.abs(r.flow), cur)}
                       </div>
-                      <div class="text-[10px] text-[#8094A6]">Saldo: ${formatCurrency(r.runningBalance, cur)}</div>
+                      <div class="text-[10px] text-slate-400">Saldo: ${formatCurrency(r.runningBalance, cur)}</div>
                     </div>
                   </div>
                 `;
@@ -1485,7 +1482,7 @@
         periodTotal = periodDeposit - periodWithdraw;
 
         rowsHtml = `
-          <div class="divide-y divide-[#E6ECF2]">
+          <div class="divide-y divide-stone-100">
             ${[...monthBuckets].reverse().map(b => {
               const lastDay = new Date(yr, b.mIdx + 1, 0).getDate();
               const mm = String(b.mIdx + 1).padStart(2, '0');
@@ -1493,7 +1490,7 @@
                 <div class="py-3 flex items-center justify-between gap-2">
                   <div>
                     <div class="text-xs font-medium text-ink">${MONTH_NAMES_ID[b.mIdx]} ${yr}</div>
-                    <div class="text-[10px] text-[#8094A6]">01.${mm} ~ ${String(lastDay).padStart(2, '0')}.${mm}</div>
+                    <div class="text-[10px] text-slate-400">01.${mm} ~ ${String(lastDay).padStart(2, '0')}.${mm}</div>
                   </div>
                   <div class="text-right">
                     <div class="text-xs font-medium text-sage">+${formatCurrency(b.deposit, cur)}</div>
@@ -1501,7 +1498,7 @@
                   </div>
                   <div class="text-right shrink-0">
                     <div class="text-xs font-medium ${b.net >= 0 ? 'text-ink' : 'text-coral'}">${b.net >= 0 ? '+' : '-'}${formatCurrency(Math.abs(b.net), cur)}</div>
-                    <div class="text-[10px] text-[#8094A6]">Saldo ${formatCurrency(b.endBalance, cur)}</div>
+                    <div class="text-[10px] text-slate-400">Saldo ${formatCurrency(b.endBalance, cur)}</div>
                   </div>
                 </div>
               `;
@@ -1540,14 +1537,14 @@
         periodTotal = periodDeposit - periodWithdraw;
 
         rowsHtml = `
-          <div class="divide-y divide-[#E6ECF2]">
+          <div class="divide-y divide-stone-100">
             ${sortedYears.reverse().map(y => {
               const item = yearMap[y];
               return `
                 <div class="py-3 flex items-center justify-between gap-2">
                   <div>
                     <div class="text-xs font-medium text-ink">${y}</div>
-                    <div class="text-[10px] text-[#8094A6]">01.01.${String(y).slice(-2)} ~ 31.12.${String(y).slice(-2)}</div>
+                    <div class="text-[10px] text-slate-400">01.01.${String(y).slice(-2)} ~ 31.12.${String(y).slice(-2)}</div>
                   </div>
                   <div class="text-right">
                     <div class="text-xs font-medium text-sage">+${formatCurrency(item.deposit, cur)}</div>
@@ -1555,7 +1552,7 @@
                   </div>
                   <div class="text-right shrink-0">
                     <div class="text-xs font-medium ${item.net >= 0 ? 'text-ink' : 'text-coral'}">${item.net >= 0 ? '+' : '-'}${formatCurrency(Math.abs(item.net), cur)}</div>
-                    <div class="text-[10px] text-[#8094A6]">Saldo ${formatCurrency(item.endBalance, cur)}</div>
+                    <div class="text-[10px] text-slate-400">Saldo ${formatCurrency(item.endBalance, cur)}</div>
                   </div>
                 </div>
               `;
@@ -1566,7 +1563,7 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #A2C4EC;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <button onclick="closePocketDetail()" class="px-3 py-1.5 rounded-xl bg-creamCard text-ink text-xs font-medium">
                 ← Kembali
@@ -1583,8 +1580,8 @@
 
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium text-[#49647D]">${pkt.name}</h2>
-                <p class="text-xs" style="color: #49647D;">${acc.name} • Saldo Saat Ini: <strong>${formatCurrency(currentBal, cur)}</strong></p>
+                <h2 class="text-base font-medium text-[#422F0E]">${pkt.name}</h2>
+                <p class="text-xs" style="color: #422F0E;">${acc.name} • Saldo Saat Ini: <strong>${formatCurrency(currentBal, cur)}</strong></p>
               </div>
               ${tab !== 'yearly' ? `
                 <div class="flex items-center gap-1 bg-creamCard rounded-2xl px-2 py-1">
@@ -1597,32 +1594,32 @@
 
             <div class="grid grid-cols-3 gap-1 bg-creamCard p-1 rounded-2xl">
               <button onclick="setPocketDetailTab('daily')"
-                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'daily' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
+                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'daily' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                 Harian
               </button>
               <button onclick="setPocketDetailTab('monthly')"
-                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'monthly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
+                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                 Bulanan
               </button>
               <button onclick="setPocketDetailTab('yearly')"
-                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'yearly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
+                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                 Setiap tahun
               </button>
             </div>
           </div>
 
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-3">
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
             <div class="grid grid-cols-3 gap-2 text-center">
               <div class="bg-creamSoft rounded-2xl p-2.5">
-                <span class="text-[10px] text-[#6A5B4D] block">Masuk</span>
+                <span class="text-[10px] text-slate-500 block">Masuk</span>
                 <span class="text-xs font-medium text-sage">+${formatCurrency(periodDeposit, cur)}</span>
               </div>
               <div class="bg-creamSoft rounded-2xl p-2.5">
-                <span class="text-[10px] text-[#6A5B4D] block">Keluar</span>
+                <span class="text-[10px] text-slate-500 block">Keluar</span>
                 <span class="text-xs font-medium text-coral">-${formatCurrency(periodWithdraw, cur)}</span>
               </div>
               <div class="bg-creamSoft rounded-2xl p-2.5">
-                <span class="text-[10px] text-[#6A5B4D] block">Total</span>
+                <span class="text-[10px] text-slate-500 block">Total</span>
                 <span class="text-xs font-medium ${periodTotal >= 0 ? 'text-ink' : 'text-coral'}">${periodTotal >= 0 ? '+' : '-'}${formatCurrency(Math.abs(periodTotal), cur)}</span>
               </div>
             </div>
@@ -1669,22 +1666,22 @@
           <div class="flex items-center justify-between gap-2">
             <div>
               <h3 class="text-base font-medium uppercase text-ink">DETAIL KEKAYAAN (${year})</h3>
-              <p class="text-[11px] text-[#8094A6]">Rincian Januari – Desember • Mode ${ui.akunPeriodMode === 'yearly' ? 'Tahunan' : 'Bulanan'}</p>
+              <p class="text-[11px] text-slate-400">Rincian Januari – Desember • Mode ${ui.akunPeriodMode === 'yearly' ? 'Tahunan' : 'Bulanan'}</p>
             </div>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-[#8094A6]">✕</button>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
           </div>
 
-          <div class="bg-creamSoft rounded-2xl p-3.5 border border-[#E6ECF2] flex items-center justify-between">
+          <div class="bg-creamSoft rounded-2xl p-3.5 border border-[#E8DEC5] flex items-center justify-between">
             <div>
-              <span class="text-[11px] text-[#6A5B4D] block">Total Kekayaan Saat Ini</span>
+              <span class="text-[11px] text-slate-500 block">Total Kekayaan Saat Ini</span>
               <span class="text-base font-medium text-ink">${formatCurrency(currentNetWorthIDR)}</span>
             </div>
-            <span class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E6ECF2] text-[11px] font-medium text-ink">
+            <span class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E8DEC5] text-[11px] font-medium text-ink">
               ${ui.akunPeriodMode === 'yearly' ? `Tahunan ${year}` : `Bulanan ${MONTH_NAMES_ID[ui.akunMonth]} ${year}`}
             </span>
           </div>
 
-          <div class="max-h-72 overflow-y-auto divide-y divide-[#E6ECF2] border border-[#E6ECF2] rounded-2xl bg-creamCard px-3">
+          <div class="max-h-72 overflow-y-auto divide-y divide-stone-100 border border-[#E8DEC5] rounded-2xl bg-creamCard px-3">
             ${monthlyNetFlow.map((row, idx) => {
               const estWealth = monthBalances[idx];
               const netSign = row.net >= 0 ? '+' : '-';
@@ -1692,7 +1689,7 @@
                 <div class="py-2.5 flex items-center justify-between gap-2">
                   <div>
                     <div class="text-xs font-medium text-ink">${MONTH_FULL_NAMES_ID[idx]} ${year}</div>
-                    <div class="text-[10px] text-[#8094A6]">
+                    <div class="text-[10px] text-slate-400">
                       Masuk: +${formatCurrency(row.inc)} • Keluar: -${formatCurrency(row.exp)}
                     </div>
                   </div>
@@ -1707,22 +1704,22 @@
             }).join('')}
           </div>
 
-          <div class="bg-creamSoft rounded-2xl p-3 border border-[#E6ECF2] grid grid-cols-3 gap-2 text-center">
+          <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] grid grid-cols-3 gap-2 text-center">
             <div>
-              <span class="text-[10px] text-[#8094A6] block">Masuk ${year}</span>
+              <span class="text-[10px] text-slate-400 block">Masuk ${year}</span>
               <span class="text-xs font-medium text-sage">+${formatCurrency(totalYearInc)}</span>
             </div>
             <div>
-              <span class="text-[10px] text-[#8094A6] block">Keluar ${year}</span>
+              <span class="text-[10px] text-slate-400 block">Keluar ${year}</span>
               <span class="text-xs font-medium text-coral">-${formatCurrency(totalYearExp)}</span>
             </div>
             <div>
-              <span class="text-[10px] text-[#8094A6] block">Selisih ${year}</span>
+              <span class="text-[10px] text-slate-400 block">Selisih ${year}</span>
               <span class="text-xs font-medium text-ink">${totalYearNet >= 0 ? '+' : '-'}${formatCurrency(Math.abs(totalYearNet))}</span>
             </div>
           </div>
 
-          <button onclick="closeModal()" class="w-full py-3 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">Tutup</button>
+          <button onclick="closeModal()" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Tutup</button>
         </div>
       `);
     }
@@ -1748,7 +1745,7 @@
       const totalNetWorthIDR = getTotalNetWorthIDR();
 
       const syncStatus = db.gasConfig?.status || 'offline';
-      const syncDotColor = syncStatus === 'ok' ? 'bg-[#83B9A9]' : syncStatus === 'syncing' ? 'bg-[#FFE19B]' : syncStatus === 'error' ? 'bg-[#F6A7B7]' : 'bg-[#49647D]';
+      const syncDotColor = syncStatus === 'ok' ? 'bg-emerald-400' : syncStatus === 'syncing' ? 'bg-amber-500' : syncStatus === 'error' ? 'bg-red-500' : 'bg-[#422F0E]';
       const syncText = syncStatus === 'ok'
         ? `Sheets Sync ${db.gasConfig.lastSyncAt || ''}`
         : syncStatus === 'syncing'
@@ -1759,11 +1756,11 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3.5" style="background-color: #B9D5F5; border-color: #A2C4EC;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3.5" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div class="min-w-0">
-                <h1 class="text-base font-medium uppercase tracking-wider text-[#49647D] truncate">AKUN</h1>
-                <button onclick="syncPullFromSheets(false)" class="inline-flex items-center gap-1.5 text-[11px] mt-0.5" style="color: #49647D;">
+                <h1 class="text-base font-medium uppercase tracking-wider text-[#422F0E] truncate">AKUN</h1>
+                <button onclick="syncPullFromSheets(false)" class="inline-flex items-center gap-1.5 text-[11px] mt-0.5" style="color: #422F0E;">
                   <span class="w-2 h-2 rounded-full ${syncDotColor}"></span>
                   <span>${syncText}</span>
                   <span>↻</span>
@@ -1774,20 +1771,20 @@
                 <button onclick="openTransferPocketModal()" class="px-3 py-2 rounded-2xl bg-creamCard text-ink text-xs font-medium shadow-sm active:scale-95 transition-all">
                   ⇄ Transfer
                 </button>
-                <button onclick="openAccountModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all" style="background-color: #49647D; color: #F8FAFF;">
+                <button onclick="openAccountModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all" style="background-color: #422F0E; color: #FFF9EB;">
                   + Akun
                 </button>
               </div>
             </div>
 
-            <div class="flex items-center justify-between gap-2 pt-2 border-t" style="border-color: rgba(73, 100, 125, 0.14);">
+            <div class="flex items-center justify-between gap-2 pt-2 border-t" style="border-color: rgba(66, 47, 14, 0.14);">
               <div class="inline-flex rounded-2xl bg-creamCard p-1">
                 <button onclick="setAkunPeriodMode('monthly')"
-                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'monthly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
+                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Bulanan
                 </button>
                 <button onclick="setAkunPeriodMode('yearly')"
-                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'yearly' ? 'bg-[#49647D] text-[#F8FAFF]' : 'text-ink'}">
+                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Tahunan
                 </button>
               </div>
@@ -1800,16 +1797,16 @@
             </div>
           </div>
 
-          <div class="rounded-3xl p-4 shadow-sm border border-[#F3D185] space-y-3" style="background-color: #FFF4D6;">
+          <div class="rounded-3xl p-4 shadow-sm border border-[#EED9A5] space-y-3" style="background-color: #FFF4D4;">
             <div class="flex items-center justify-between gap-2">
-              <span class="text-[11px] font-medium uppercase tracking-wider text-[#6A5B4D]">TOTAL KEKAYAAN (KONVERSI IDR)</span>
+              <span class="text-[11px] font-medium uppercase tracking-wider text-[#6B4C1E]">TOTAL KEKAYAAN (KONVERSI IDR)</span>
               <div class="flex items-center gap-1.5">
                 <button onclick="fetchLiveExchangeRates(false)"
-                  class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E6ECF2] text-[11px] font-medium text-ink hover:bg-creamSoft">
+                  class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E5D3A3] text-[11px] font-medium text-ink hover:bg-creamSoft">
                   ${isFetchingRates ? '↻ ...' : '↻ Kurs'}
                 </button>
                 <button onclick="openWealthDetailModal()"
-                  class="px-3 py-1 rounded-xl bg-ink text-[#F8FAFF] text-[11px] font-medium hover:opacity-95 active:scale-95 transition-all">
+                  class="px-3 py-1 rounded-xl bg-ink text-[#FBF6EA] text-[11px] font-medium hover:opacity-95 active:scale-95 transition-all">
                   Detail
                 </button>
               </div>
@@ -1819,17 +1816,17 @@
               ${formatCurrency(totalNetWorthIDR)}
             </div>
 
-            <div class="grid grid-cols-3 gap-2 pt-2.5 border-t border-[#EED394]">
+            <div class="grid grid-cols-3 gap-2 pt-2.5 border-t border-[#E6D29E]">
               <div>
-                <span class="text-[11px] text-[#6A5B4D] block">Masuk (${periodLabel})</span>
+                <span class="text-[11px] text-slate-500 block">Masuk (${periodLabel})</span>
                 <span class="text-xs font-medium text-sage">+${formatCurrency(periodIn)}</span>
               </div>
               <div>
-                <span class="text-[11px] text-[#6A5B4D] block">Keluar (${periodLabel})</span>
+                <span class="text-[11px] text-slate-500 block">Keluar (${periodLabel})</span>
                 <span class="text-xs font-medium text-coral">-${formatCurrency(periodOut)}</span>
               </div>
               <div>
-                <span class="text-[11px] text-[#6A5B4D] block">Selisih</span>
+                <span class="text-[11px] text-slate-500 block">Selisih</span>
                 <span class="text-xs font-medium ${periodDiff >= 0 ? 'text-ink' : 'text-coral'}">${periodDiff >= 0 ? '+' : '-'}${formatCurrency(Math.abs(periodDiff))}</span>
               </div>
             </div>
@@ -1851,17 +1848,17 @@
                       </div>
                       <div class="min-w-0">
                         <div class="text-sm font-medium text-ink truncate">${acc.name}</div>
-                        <div class="text-[11px] text-[#8094A6]">${acc.jenis} • ${acc.currency} • ${pockets.length} Pocket</div>
+                        <div class="text-[11px] text-slate-500">${acc.jenis} • ${acc.currency} • ${pockets.length} Pocket</div>
                       </div>
                     </div>
 
                     <div class="flex items-center gap-1 shrink-0">
                       <button onclick="moveAccountOrder('${acc.id}', -1)" ${accIdx === 0 ? 'disabled' : ''} title="Naikkan urutan"
-                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↑</button>
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↑</button>
                       <button onclick="moveAccountOrder('${acc.id}', 1)" ${accIdx === sortedAccs.length - 1 ? 'disabled' : ''} title="Turunkan urutan"
-                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↓</button>
-                      <button onclick="openPocketModal('${acc.id}')" class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E6ECF2] text-[11px] font-medium text-ink">+ Pocket</button>
-                      <button onclick="openAccountModal('${acc.id}')" class="p-1.5 rounded-xl bg-creamCard border border-[#E6ECF2] text-[#8094A6] hover:text-ink" title="Edit Akun">
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↓</button>
+                      <button onclick="openPocketModal('${acc.id}')" class="px-2.5 py-1 rounded-xl bg-creamCard border border-[#E8DEC5] text-[11px] font-medium text-ink">+ Pocket</button>
+                      <button onclick="openAccountModal('${acc.id}')" class="p-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-slate-600 hover:text-ink" title="Edit Akun">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                       </button>
                     </div>
@@ -1869,23 +1866,23 @@
 
                   <div class="flex items-baseline justify-between gap-2">
                     <div class="text-base font-medium text-ink">${formatCurrency(totalBal, acc.currency)}</div>
-                    ${acc.currency !== 'IDR' ? `<div class="text-[11px] text-[#8094A6]">≈ ${formatCurrency(idrEquivalent, 'IDR')}</div>` : ''}
+                    ${acc.currency !== 'IDR' ? `<div class="text-[11px] text-slate-500">≈ ${formatCurrency(idrEquivalent, 'IDR')}</div>` : ''}
                   </div>
 
                   <div class="space-y-1.5 pt-1">
                     ${pockets.map(pkt => `
                       <div onclick="openPocketDetail('${acc.id}', '${pkt.id}')" role="button" tabindex="0"
-                        class="bg-creamCard/95 hover:bg-creamCard rounded-2xl px-3 py-2 flex items-center justify-between gap-2 border border-[#E6ECF2] cursor-pointer transition-all">
+                        class="bg-creamCard/90 hover:bg-creamCard rounded-2xl px-3 py-2 flex items-center justify-between gap-2 border border-[#E8DEC5]/70 cursor-pointer transition-all">
                         <div class="min-w-0 flex-1">
                           <div class="text-xs font-medium text-ink truncate">${pkt.name}</div>
-                          <div class="text-xs text-[#6A5B4D]">${formatCurrency(pkt.balance, acc.currency)}</div>
+                          <div class="text-xs text-slate-600">${formatCurrency(pkt.balance, acc.currency)}</div>
                         </div>
                         <div class="flex items-center gap-1 shrink-0" onclick="event.stopPropagation()">
                           <button onclick="openTransferPocketModal('${acc.id}', '${pkt.id}')" title="Transfer Pocket"
-                            class="px-2 py-1 rounded-xl bg-creamSoft text-[11px] font-medium text-ink hover:bg-[#B9D5F5]/40">
+                            class="px-2 py-1 rounded-xl bg-creamSoft text-[11px] font-medium text-ink hover:bg-butter/40">
                             ⇄
                           </button>
-                          <button onclick="openEditPocketModal('${acc.id}', '${pkt.id}')" class="px-2.5 py-1 rounded-xl bg-creamSoft text-[11px] font-medium text-ink hover:bg-[#B9D5F5]/40">
+                          <button onclick="openEditPocketModal('${acc.id}', '${pkt.id}')" class="px-2.5 py-1 rounded-xl bg-creamSoft text-[11px] font-medium text-ink hover:bg-butter/40">
                             Edit
                           </button>
                         </div>
@@ -1901,7 +1898,7 @@
     }
 
     // =========================================================================
-    // 11. VIEW 4: TABUNGAN TERHUBUNG POCKET
+    // 11. VIEW 4: TABUNGAN TERHUBUNG POCKET (HEADER KUNING #f8db91)
     // =========================================================================
     function openSavingGoalDetail(goalId) { ui.selectedSavingGoalId = goalId; render(); }
     function closeSavingGoalDetail() { ui.selectedSavingGoalId = null; render(); }
@@ -1919,39 +1916,39 @@
 
           return `
             <div class="p-4 space-y-4">
-              <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #A2C4EC;">
+              <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
                 <div class="flex items-center justify-between">
                   <button onclick="closeSavingGoalDetail()" class="px-3 py-1.5 rounded-xl bg-creamCard text-xs font-medium text-ink">← Kembali</button>
                   <button onclick="openSavingGoalModal('${goal.id}')" class="px-3 py-1.5 rounded-xl bg-creamCard text-xs font-medium text-ink">Edit Target</button>
                 </div>
                 <div>
-                  <h2 class="text-base font-medium text-[#49647D]">${goal.name}</h2>
-                  <p class="text-xs" style="color: #49647D;">Pocket: ${acc?.name || '-'} (${pkt?.name || '-'})</p>
+                  <h2 class="text-base font-medium text-[#422F0E]">${goal.name}</h2>
+                  <p class="text-xs" style="color: #422F0E;">Pocket: ${acc?.name || '-'} (${pkt?.name || '-'})</p>
                 </div>
                 <div class="rounded-2xl p-3 space-y-1.5 border" style="background-color: ${col.bg}; border-color: ${col.border};">
                   <div class="flex justify-between text-xs">
                     <span class="font-medium text-ink">${formatCurrency(curBalIDR)}</span>
-                    <span class="text-[#8094A6]">Target ${formatCurrency(goal.targetAmount)} (<span class="font-medium" style="color: ${col.hex};">${pct.toFixed(1)}%</span>)</span>
+                    <span class="text-slate-500">Target ${formatCurrency(goal.targetAmount)} (<span class="font-medium" style="color: ${col.hex};">${pct.toFixed(1)}%</span>)</span>
                   </div>
                   <div class="w-full h-2.5 rounded-full overflow-hidden" style="background-color: ${col.hex}24;">
                     <div class="h-full rounded-full transition-all" style="width: ${pct}%; background-color: ${col.hex};"></div>
                   </div>
                 </div>
                 <div class="grid grid-cols-2 gap-2 pt-0.5">
-                  <button onclick="openSavingFundModal('${goal.id}', 'deposit')" class="py-2.5 rounded-2xl text-xs font-medium shadow-sm" style="background-color: #49647D; color: #F8FAFF;">+ Setor Dana</button>
+                  <button onclick="openSavingFundModal('${goal.id}', 'deposit')" class="py-2.5 rounded-2xl text-xs font-medium shadow-sm" style="background-color: #422F0E; color: #FFF9EB;">+ Setor Dana</button>
                   <button onclick="openSavingFundModal('${goal.id}', 'withdraw')" class="py-2.5 rounded-2xl bg-creamCard text-ink text-xs font-medium">- Tarik Dana</button>
                 </div>
               </div>
 
-              <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2">
+              <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2">
                 <h3 class="text-xs font-medium uppercase tracking-wider text-ink">RIWAYAT TABUNGAN</h3>
-                ${hist.length === 0 ? `<p class="text-xs text-[#8094A6] py-4 text-center">Belum ada riwayat mutasi tabungan.</p>` : `
-                  <div class="divide-y divide-[#E6ECF2]">
+                ${hist.length === 0 ? `<p class="text-xs text-slate-400 py-4 text-center">Belum ada riwayat mutasi tabungan.</p>` : `
+                  <div class="divide-y divide-stone-100">
                     ${hist.map(h => `
                       <div class="py-2.5 flex items-center justify-between text-xs">
                         <div>
                           <div class="font-medium text-ink">${h.type === 'deposit' ? 'Setoran' : 'Penarikan'} • ${h.note || 'Mutasi'}</div>
-                          <div class="text-[10px] text-[#8094A6]">${h.date || '-'}</div>
+                          <div class="text-[10px] text-slate-400">${h.date || '-'}</div>
                         </div>
                         <span class="font-medium ${h.type === 'deposit' ? 'text-sage' : 'text-coral'}">
                           ${h.type === 'deposit' ? '+' : '-'}${formatCurrency(h.amount)}
@@ -1971,13 +1968,13 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #A2C4EC;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium text-[#49647D]">Target tabungan</h2>
-                <p class="text-xs mt-0.5" style="color: #49647D;">Wujudkan rencana finansialmu ✨</p>
+                <h2 class="text-base font-medium text-[#422F0E]">Target tabungan</h2>
+                <p class="text-xs mt-0.5" style="color: #422F0E;">Wujudkan rencana finansialmu ✨</p>
               </div>
-              <button onclick="openSavingGoalModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #49647D; color: #F8FAFF;">+ Target</button>
+              <button onclick="openSavingGoalModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">+ Target</button>
             </div>
             <div class="bg-creamCard rounded-2xl p-3 flex items-center justify-between">
               <div>
@@ -1985,7 +1982,7 @@
                 <span class="text-sm font-medium text-ink">${formatCurrency(totalSavedIDR)}</span>
               </div>
               <div class="text-right">
-                <span class="text-[11px] text-[#6A5B4D] block">Total Target</span>
+                <span class="text-[11px] text-slate-500 block">Total Target</span>
                 <span class="text-sm font-medium text-ink">${formatCurrency(totalTargetIDR)}</span>
               </div>
             </div>
@@ -1993,7 +1990,7 @@
 
           <div class="space-y-3">
             ${db.savingsGoals.length === 0 ? `
-              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-[#8094A6] border border-[#E6ECF2]">Belum ada target tabungan.</div>
+              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-slate-400 border border-[#E8DEC5]">Belum ada target tabungan.</div>
             ` : [...db.savingsGoals].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0)).map((goal, gIdx, sortedGoals) => {
               const curIDR = getSavingGoalBalanceIDR(goal);
               const pct = goal.targetAmount > 0 ? Math.min(100, (curIDR / goal.targetAmount) * 100) : 0;
@@ -2011,16 +2008,16 @@
                       </div>
                       <div class="min-w-0">
                         <div class="text-sm font-medium text-ink truncate">${goal.name}</div>
-                        <div class="text-[11px] text-[#8094A6] truncate">${acc?.name || '-'} (${pkt?.name || '-'}) • ${goal.deadline ? `Target: ${goal.deadline}` : 'Tanpa tenggat'}</div>
+                        <div class="text-[11px] text-slate-500 truncate">${acc?.name || '-'} (${pkt?.name || '-'}) • ${goal.deadline ? `Target: ${goal.deadline}` : 'Tanpa tenggat'}</div>
                       </div>
                     </div>
                     <div class="flex items-center gap-1 shrink-0" onclick="event.stopPropagation()">
                       <button onclick="moveSavingGoalOrder('${goal.id}', -1)" ${gIdx === 0 ? 'disabled' : ''} title="Naikkan urutan"
-                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↑</button>
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↑</button>
                       <button onclick="moveSavingGoalOrder('${goal.id}', 1)" ${gIdx === sortedGoals.length - 1 ? 'disabled' : ''} title="Turunkan urutan"
-                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E6ECF2] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↓</button>
+                        class="w-7 h-7 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink flex items-center justify-center disabled:opacity-35">↓</button>
                       <button onclick="openSavingGoalModal('${goal.id}')" title="Edit Target"
-                        class="p-1.5 rounded-xl bg-creamCard border border-[#E6ECF2] text-[#8094A6] hover:text-ink">
+                        class="p-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-slate-600 hover:text-ink">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                       </button>
                     </div>
@@ -2030,7 +2027,7 @@
                   </div>
                   <div class="flex justify-between text-xs">
                     <span class="font-medium text-ink">${formatCurrency(curIDR)} <span class="font-normal text-[11px]" style="color: ${col.hex};">(${pct.toFixed(0)}%)</span></span>
-                    <span class="text-[#8094A6]">/ ${formatCurrency(goal.targetAmount)}</span>
+                    <span class="text-slate-500">/ ${formatCurrency(goal.targetAmount)}</span>
                   </div>
                 </div>
               `;
@@ -2041,7 +2038,7 @@
     }
 
     // =========================================================================
-    // 12. VIEW 5: HUTANG & PIUTANG
+    // 12. VIEW 5: HUTANG & PIUTANG (HEADER KUNING #f8db91)
     // =========================================================================
     function setDebtFilter(f) { ui.debtFilter = f; render(); }
 
@@ -2056,13 +2053,13 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #A2C4EC;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium uppercase tracking-wider text-[#49647D]">HUTANG &amp; PIUTANG</h2>
-                <p class="text-xs mt-0.5" style="color: #49647D;">Catat pinjaman, talangan &amp; pelunasan</p>
+                <h2 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">HUTANG &amp; PIUTANG</h2>
+                <p class="text-xs mt-0.5" style="color: #422F0E;">Catat pinjaman, talangan &amp; pelunasan</p>
               </div>
-              <button onclick="openDebtModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #49647D; color: #F8FAFF;">+ Catat</button>
+              <button onclick="openDebtModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">+ Catat</button>
             </div>
 
             <div class="flex gap-1.5">
@@ -2072,13 +2069,13 @@
                 { id: 'receivable', label: 'Piutang' }
               ].map(tab => `
                 <button onclick="setDebtFilter('${tab.id}')"
-                  class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.debtFilter === tab.id ? 'bg-[#49647D] text-[#F8FAFF]' : 'bg-creamCard text-ink'}">
+                  class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.debtFilter === tab.id ? 'bg-[#422F0E] text-[#FFF9EB]' : 'bg-creamCard text-ink'}">
                   ${tab.label}
                 </button>
               `).join('')}
             </div>
 
-            <div class="grid grid-cols-2 gap-2.5 pt-1 border-t" style="border-color: rgba(73, 100, 125, 0.14);">
+            <div class="grid grid-cols-2 gap-2.5 pt-1 border-t" style="border-color: rgba(66, 47, 14, 0.14);">
               <div class="bg-creamCard rounded-2xl p-3">
                 <span class="text-[11px] text-coral block">Sisa Hutang</span>
                 <span class="text-sm font-medium text-ink">${formatCurrency(totalHutang)}</span>
@@ -2092,33 +2089,33 @@
 
           <div class="space-y-3">
             ${list.length === 0 ? `
-              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-[#8094A6] border border-[#E6ECF2]">Belum ada catatan hutang/piutang.</div>
+              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-slate-400 border border-[#E8DEC5]">Belum ada catatan hutang/piutang.</div>
             ` : list.map(d => {
               const total = Number(d.totalAmount) || 0;
               const paid = Number(d.paidAmount) || 0;
               const sisa = Math.max(0, total - paid);
               const isPiutang = d.type === 'receivable';
               return `
-                <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2.5">
+                <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2.5">
                   <div class="flex items-start justify-between gap-2">
                     <div>
-                      <span class="px-2 py-0.5 rounded-lg text-[10px] font-medium ${isPiutang ? 'bg-[#B8DFC3]/45 text-[#3B7361]' : 'bg-[#F5B9D0]/45 text-[#B44A64]'}">
+                      <span class="px-2 py-0.5 rounded-lg text-[10px] font-medium ${isPiutang ? 'bg-sageLight text-sage' : 'bg-coralLight text-coral'}">
                         ${isPiutang ? 'Piutang' : 'Hutang'}
                       </span>
                       <div class="text-sm font-medium text-ink mt-1">${d.person}</div>
-                      <div class="text-[11px] text-[#8094A6]">${d.note || 'Tanpa catatan'}${d.dueDate ? ` • Tempo: ${d.dueDate}` : ''}</div>
+                      <div class="text-[11px] text-slate-400">${d.note || 'Tanpa catatan'}${d.dueDate ? ` • Tempo: ${d.dueDate}` : ''}</div>
                     </div>
-                    <button onclick="deleteDebt('${d.id}')" class="text-xs text-[#8094A6] hover:text-coral">✕</button>
+                    <button onclick="deleteDebt('${d.id}')" class="text-xs text-slate-300 hover:text-coral">✕</button>
                   </div>
 
-                  <div class="flex items-center justify-between text-xs pt-1 border-t border-[#E6ECF2]">
+                  <div class="flex items-center justify-between text-xs pt-1 border-t border-stone-100">
                     <div>
-                      <span class="text-[#8094A6]">Sisa: </span>
+                      <span class="text-slate-400">Sisa: </span>
                       <span class="font-medium text-ink">${formatCurrency(sisa)}</span>
-                      <span class="text-[11px] text-[#8094A6]"> / ${formatCurrency(total)}</span>
+                      <span class="text-[11px] text-slate-400"> / ${formatCurrency(total)}</span>
                     </div>
                     ${sisa > 0 ? `
-                      <button onclick="openPayDebtModal('${d.id}')" class="px-3 py-1 rounded-xl bg-ink text-[#F8FAFF] text-[11px] font-medium">
+                      <button onclick="openPayDebtModal('${d.id}')" class="px-3 py-1 rounded-xl bg-ink text-[#FBF6EA] text-[11px] font-medium">
                         Catat Bayar
                       </button>
                     ` : `<span class="text-[11px] font-medium text-sage">Lunas</span>`}
@@ -2132,84 +2129,84 @@
     }
 
     // =========================================================================
-    // 13. VIEW 6: PENGATURAN
+    // 13. VIEW 6: PENGATURAN (HEADER KUNING #f8db91)
     // =========================================================================
     function renderPengaturanView() {
       const pinActive = Boolean(db.security?.enabled && db.security?.pinHash);
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-1.5" style="background-color: #B9D5F5; border-color: #A2C4EC;">
-            <h2 class="text-base font-medium uppercase tracking-wider text-[#49647D]">PENGATURAN</h2>
-            <p class="text-xs" style="color: #49647D;">Sinkronisasi Google Sheets, kurs mata uang, keamanan PIN &amp; cadangan data</p>
+          <div class="rounded-3xl p-4 shadow-sm border space-y-1.5" style="background-color: #f8db91; border-color: #E2C06B;">
+            <h2 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">PENGATURAN</h2>
+            <p class="text-xs" style="color: #422F0E;">Sinkronisasi Google Sheets, kurs mata uang, keamanan PIN &amp; cadangan data</p>
           </div>
 
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-3">
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
             <div class="flex items-center justify-between">
               <h3 class="text-xs font-medium uppercase tracking-wider text-ink">GOOGLE SHEETS (APPS SCRIPT)</h3>
-              <button onclick="syncPullFromSheets(false)" class="px-3 py-1.5 rounded-xl bg-[#83B9A9] text-[#F8FAFF] text-xs font-medium">
+              <button onclick="syncPullFromSheets(false)" class="px-3 py-1.5 rounded-xl bg-sage text-white text-xs font-medium">
                 Sync Sekarang
               </button>
             </div>
             <div class="space-y-2.5">
               <div>
-                <label class="block text-[11px] text-[#6A5B4D] mb-1">Web App URL</label>
+                <label class="block text-[11px] text-slate-500 mb-1">Web App URL</label>
                 <input type="url" id="gas-url-input" value="${db.gasConfig?.url || ''}" placeholder="https://script.google.com/macros/s/.../exec"
-                  class="w-full px-3.5 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
+                  class="w-full px-3.5 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
               </div>
               <div>
-                <label class="block text-[11px] text-[#6A5B4D] mb-1">Kunci Rahasia (Key)</label>
+                <label class="block text-[11px] text-slate-500 mb-1">Kunci Rahasia (Key)</label>
                 <input type="text" id="gas-key-input" value="${db.gasConfig?.key || ''}" placeholder="Kunci rahasia..."
-                  class="w-full px-3.5 py-2 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs text-ink" />
+                  class="w-full px-3.5 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
               </div>
-              <button onclick="saveGasSettings()" class="w-full py-2.5 rounded-2xl bg-ink text-[#F8FAFF] text-xs font-medium">
+              <button onclick="saveGasSettings()" class="w-full py-2.5 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">
                 Simpan Konfigurasi Sheets
               </button>
             </div>
           </div>
 
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-3">
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
             <h3 class="text-xs font-medium uppercase tracking-wider text-ink">KURS &amp; KEAMANAN</h3>
             <div class="flex items-center justify-between py-1">
               <div>
                 <div class="text-xs font-medium text-ink">Perbarui Kurs Mata Uang</div>
-                <div class="text-[11px] text-[#8094A6]">Terakhir: ${db.exchangeRateMeta?.lastUpdated || 'Default Lokal'}</div>
+                <div class="text-[11px] text-slate-400">Terakhir: ${db.exchangeRateMeta?.lastUpdated || 'Default Lokal'}</div>
               </div>
-              <button onclick="fetchLiveExchangeRates(false)" class="px-3 py-1.5 rounded-xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">
+              <button onclick="fetchLiveExchangeRates(false)" class="px-3 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">
                 ↻ Update Kurs
               </button>
             </div>
 
-            <div class="flex items-center justify-between py-2 border-t border-[#E6ECF2]">
+            <div class="flex items-center justify-between py-2 border-t border-stone-100">
               <div>
                 <div class="text-xs font-medium text-ink">Kunci PIN (Sesi 48 Jam)</div>
-                <div class="text-[11px] text-[#8094A6]">Status: ${pinActive ? 'Aktif' : 'Nonaktif'}</div>
+                <div class="text-[11px] text-slate-400">Status: ${pinActive ? 'Aktif' : 'Nonaktif'}</div>
               </div>
               <div class="flex gap-1.5">
                 ${pinActive ? `<button onclick="lockAppNow()" class="px-3 py-1.5 rounded-xl bg-coralLight text-coral text-xs font-medium">Kunci</button>` : ''}
-                <button onclick="openPinSetupModal()" class="px-3 py-1.5 rounded-xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">
+                <button onclick="openPinSetupModal()" class="px-3 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">
                   ${pinActive ? 'Ubah PIN' : 'Atur PIN'}
                 </button>
               </div>
             </div>
 
-            <div class="flex items-center justify-between py-2 border-t border-[#E6ECF2]">
+            <div class="flex items-center justify-between py-2 border-t border-stone-100">
               <div>
                 <div class="text-xs font-medium text-ink">Install ke Layar Utama</div>
-                <div class="text-[11px] text-[#8094A6]">Mode aplikasi PWA</div>
+                <div class="text-[11px] text-slate-400">Mode aplikasi PWA</div>
               </div>
-              <button onclick="triggerInstallApp()" class="px-3 py-1.5 rounded-xl bg-[#B9D5F5] text-ink text-xs font-medium">
+              <button onclick="triggerInstallApp()" class="px-3 py-1.5 rounded-xl bg-butter text-ink text-xs font-medium">
                 Install App
               </button>
             </div>
           </div>
 
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E6ECF2] space-y-2.5">
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2.5">
             <h3 class="text-xs font-medium uppercase tracking-wider text-ink">CADANGAN &amp; PULIHKAN DATA</h3>
             <div class="grid grid-cols-2 gap-2">
-              <button onclick="exportBackupJSON()" class="py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink">
+              <button onclick="exportBackupJSON()" class="py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">
                 Export JSON
               </button>
-              <label class="py-2.5 rounded-2xl bg-creamSoft border border-[#E6ECF2] text-xs font-medium text-ink text-center cursor-pointer">
+              <label class="py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink text-center cursor-pointer">
                 Import JSON
                 <input type="file" accept=".json,application/json" onchange="handleImportJSON(event)" class="hidden" />
               </label>
@@ -2269,4 +2266,1736 @@
     // 14. TRANSAKSI BERULANG (TERJADWAL PER TANGGAL)
     // =========================================================================
     function buildDateFromYearMonthDay(year, monthIndex, dayOfMonth) {
-      const lastDay = new Date(year, monthIndex + 1, 0
+      const lastDay = new Date(year, monthIndex + 1, 0).getDate();
+      const clampedDay = Math.min(Math.max(1, Number(dayOfMonth) || 1), lastDay);
+      return `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(clampedDay).padStart(2, '0')}`;
+    }
+
+    function executeRecurringEntry(rec, dateStr) {
+      const acc = db.accounts.find(a => a.id === rec.accountId) || db.accounts[0];
+      const pkt = acc?.pockets?.find(p => p.id === rec.pocketId) || acc?.pockets?.[0];
+      if (!acc || !pkt || !(Number(rec.amount) > 0)) return false;
+
+      const amount = Number(rec.amount);
+      if (rec.type === 'transfer') {
+        const dstAcc = db.accounts.find(a => a.id === rec.toAccountId) || db.accounts[0];
+        const dstPkt = dstAcc?.pockets?.find(p => p.id === rec.toPocketId) || dstAcc?.pockets?.[0];
+        if (!dstAcc || !dstPkt) return false;
+
+        const fromIDR = toIDR(amount, acc.currency);
+        const toAmount = dstAcc.currency === acc.currency
+          ? amount
+          : Number((fromIDR / (Number(db.exchangeRates?.[dstAcc.currency]) || 1)).toFixed(CURRENCY_META[dstAcc.currency]?.decimals || 2));
+
+        pkt.balance = (Number(pkt.balance) || 0) - amount;
+        dstPkt.balance = (Number(dstPkt.balance) || 0) + toAmount;
+
+        const trfId = 'trf_rec_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5);
+        const trfNote = rec.title || `Transfer berulang ke ${dstPkt.name}`;
+        db.transactions.unshift({
+          id: trfId,
+          type: 'transfer',
+          date: dateStr,
+          amount,
+          nilaiKe: toAmount,
+          title: trfNote,
+          accountId: acc.id,
+          pocketId: pkt.id,
+          toAccountId: dstAcc.id,
+          toPocketId: dstPkt.id,
+          recurringId: rec.id
+        });
+        recordTransferToLinkedSavingsGoals(dstAcc.id, dstPkt.id, fromIDR, dateStr, trfNote, trfId);
+      } else {
+        if (rec.type === 'income') {
+          pkt.balance = (Number(pkt.balance) || 0) + amount;
+        } else {
+          pkt.balance = (Number(pkt.balance) || 0) - amount;
+        }
+        db.transactions.unshift({
+          id: 'tx_rec_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5),
+          type: rec.type,
+          date: dateStr,
+          amount,
+          categoryId: rec.categoryId || '',
+          subcategoryId: rec.subcategoryId || '',
+          title: rec.title || 'Transaksi Berulang',
+          accountId: acc.id,
+          pocketId: pkt.id,
+          recurringId: rec.id
+        });
+      }
+      return true;
+    }
+
+    function processDueRecurringTransactions() {
+      db.recurringTransactions = Array.isArray(db.recurringTransactions) ? db.recurringTransactions : [];
+      if (db.recurringTransactions.length === 0) return false;
+
+      const now = new Date();
+      const todayStr = now.toISOString().slice(0, 10);
+      let createdAny = false;
+
+      db.recurringTransactions.forEach(rec => {
+        if (rec.active === false) return;
+        const startDate = rec.startDate || todayStr;
+        const [sy, sm] = startDate.split('-').map(n => parseInt(n, 10));
+        const dayOfMonth = Math.min(Math.max(1, Number(rec.dayOfMonth) || 1), 31);
+
+        let curYear = sy || now.getFullYear();
+        let curMonthIdx = (sm || (now.getMonth() + 1)) - 1;
+        const endYear = now.getFullYear();
+        const endMonthIdx = now.getMonth();
+
+        while (curYear < endYear || (curYear === endYear && curMonthIdx <= endMonthIdx)) {
+          const runDate = buildDateFromYearMonthDay(curYear, curMonthIdx, dayOfMonth);
+          const monthKey = `${curYear}-${String(curMonthIdx + 1).padStart(2, '0')}`;
+          rec.triggeredMonths = Array.isArray(rec.triggeredMonths) ? rec.triggeredMonths : [];
+
+          if (runDate >= startDate && runDate <= todayStr && !rec.triggeredMonths.includes(monthKey)) {
+            const ok = executeRecurringEntry(rec, runDate);
+            if (ok) {
+              rec.triggeredMonths.push(monthKey);
+              rec.lastRunDate = runDate;
+              createdAny = true;
+            }
+          }
+
+          curMonthIdx += 1;
+          if (curMonthIdx > 11) {
+            curMonthIdx = 0;
+            curYear += 1;
+          }
+        }
+      });
+
+      if (createdAny) saveData();
+      return createdAny;
+    }
+
+    function toggleRecurringScheduleFields() {
+      const checked = Boolean(document.getElementById('tx-is-recurring')?.checked);
+      const box = document.getElementById('tx-recurring-fields');
+      if (box) box.classList.toggle('hidden', !checked);
+    }
+
+    function onTxStartDateChange() {
+      const dateVal = document.getElementById('tx-date-input')?.value;
+      const daySel = document.getElementById('tx-rec-day');
+      if (dateVal && daySel) {
+        const d = parseInt(dateVal.split('-')[2], 10);
+        if (!Number.isNaN(d) && d >= 1 && d <= 31) daySel.value = String(d);
+      }
+    }
+
+    function openRecurringListModal() {
+      const recs = db.recurringTransactions || [];
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-base font-medium uppercase text-ink">TRANSAKSI BERULANG</h3>
+              <p class="text-[11px] text-slate-400">Otomatis tercatat setiap bulan sesuai tanggal pilihan</p>
+            </div>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+
+          <div class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
+            ${recs.length === 0 ? `
+              <div class="bg-creamSoft rounded-2xl p-6 text-center text-xs text-slate-400 border border-[#E8DEC5]">
+                Belum ada jadwal transaksi berulang. Aktifkan opsi <strong>"Transaksi Berulang (Bulanan)"</strong> saat menambah transaksi.
+              </div>
+            ` : recs.map(r => {
+              const acc = db.accounts.find(a => a.id === r.accountId);
+              const pkt = acc?.pockets?.find(p => p.id === r.pocketId);
+              const cur = acc?.currency || 'IDR';
+              return `
+                <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] flex items-center justify-between gap-2">
+                  <div class="min-w-0">
+                    <div class="flex items-center gap-1.5">
+                      <span class="px-2 py-0.5 rounded-md text-[10px] font-medium ${r.type === 'income' ? 'bg-sageLight text-sage' : r.type === 'transfer' ? 'bg-[#EFF7F8] text-[#2B5B67]' : 'bg-coralLight text-coral'}">
+                        ${r.type === 'income' ? 'Masuk' : r.type === 'transfer' ? 'Transfer' : 'Keluar'}
+                      </span>
+                      <span class="text-xs font-medium text-ink truncate">${r.title || 'Transaksi Berulang'}</span>
+                    </div>
+                    <div class="text-[11px] text-slate-500 mt-0.5">
+                      Setiap tanggal <strong>${r.dayOfMonth}</strong> • ${formatCurrency(r.amount, cur)} • ${acc?.name || '-'} (${pkt?.name || '-'})
+                    </div>
+                    <div class="text-[10px] text-slate-400">
+                      Mulai: ${r.startDate || '-'}${r.lastRunDate ? ` • Terakhir jalan: ${r.lastRunDate}` : ''}
+                    </div>
+                  </div>
+                  <button onclick="deleteRecurringRule('${r.id}')" class="px-2.5 py-1.5 rounded-xl bg-coralLight text-coral text-[11px] font-medium shrink-0">
+                    Hapus
+                  </button>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="closeModal(); openTxModal('expense');" class="py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+ Buat Jadwal</button>
+            <button onclick="closeModal()" class="py-2.5 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Tutup</button>
+          </div>
+        </div>
+      `);
+    }
+
+    function deleteRecurringRule(recId) {
+      db.recurringTransactions = (db.recurringTransactions || []).filter(r => r.id !== recId);
+      saveData();
+      showToast('Jadwal transaksi berulang dihapus');
+      openRecurringListModal();
+      render();
+    }
+
+    // =========================================================================
+    // 15. MODAL & AKSI TRANSAKSI / AKUN / POCKET / TRANSFER / TABUNGAN / HUTANG
+    // =========================================================================
+    function openModal(html) {
+      const backdrop = document.getElementById('modal-backdrop');
+      const box = document.getElementById('modal-box');
+      if (!backdrop || !box) return;
+      box.innerHTML = html;
+      backdrop.classList.remove('hidden');
+      backdrop.classList.add('flex');
+    }
+
+    function closeModal() {
+      const backdrop = document.getElementById('modal-backdrop');
+      if (!backdrop) return;
+      backdrop.classList.add('hidden');
+      backdrop.classList.remove('flex');
+    }
+
+    function closeModalOnBackdrop(e) {
+      if (e.target && e.target.id === 'modal-backdrop') closeModal();
+    }
+
+    function appendQuickZeros(inputId, zerosStr) {
+      const inp = document.getElementById(inputId);
+      if (!inp) return;
+      const digits = (inp.value || '').replace(/[^0-9]/g, '');
+      if (!digits) return;
+      const nextNum = Number(digits + zerosStr);
+      if (!Number.isNaN(nextNum)) inp.value = formatNumberID(nextNum);
+    }
+
+    function formatAmountInput(inp) {
+      const digits = (inp.value || '').replace(/[^0-9]/g, '');
+      if (!digits) { inp.value = ''; return; }
+      inp.value = formatNumberID(Number(digits));
+    }
+
+    function parseFormattedAmount(val) {
+      const digits = String(val || '').replace(/[^0-9]/g, '');
+      return digits ? Number(digits) : 0;
+    }
+
+    function openTransferPocketModal(presetFromAccId = null, presetFromPktId = null) {
+      const today = new Date().toISOString().slice(0, 10);
+      const fromAcc = db.accounts.find(a => a.id === presetFromAccId) || db.accounts[0];
+      const fromPkt = fromAcc?.pockets?.find(p => p.id === presetFromPktId) || fromAcc?.pockets?.[0];
+
+      let toAcc = fromAcc;
+      let toPkt = (fromAcc?.pockets || []).find(p => p.id !== fromPkt?.id);
+      if (!toPkt) {
+        toAcc = db.accounts.find(a => a.id !== fromAcc?.id) || fromAcc;
+        toPkt = (toAcc?.pockets || []).find(p => !(toAcc.id === fromAcc?.id && p.id === fromPkt?.id)) || toAcc?.pockets?.[0];
+      }
+
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-medium uppercase text-ink">TRANSFER ANTAR-POCKET</h3>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+          <form onsubmit="submitTransferPocketForm(event)" class="space-y-3">
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Tanggal</label>
+                <input type="date" name="trfDate" value="${today}" required class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Nominal Transfer</label>
+                <input type="text" id="trf-amount-input" name="trfAmount" inputmode="numeric" required oninput="formatAmountInput(this)" placeholder="0"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <button type="button" onclick="appendQuickZeros('trf-amount-input', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+00</button>
+              <button type="button" onclick="appendQuickZeros('trf-amount-input', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+000</button>
+            </div>
+
+            <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl p-3 space-y-2">
+              <div class="text-[11px] font-medium text-ink">Dari Akun &amp; Pocket</div>
+              <div class="grid grid-cols-2 gap-2">
+                <select id="trf-from-acc" name="fromAccountId" onchange="onTrfFromAccChange()" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                  ${db.accounts.map(a => `<option value="${a.id}" ${a.id === fromAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
+                </select>
+                <select id="trf-from-pkt" name="fromPocketId" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                  ${(fromAcc?.pockets || []).map(p => `<option value="${p.id}" ${p.id === fromPkt?.id ? 'selected' : ''}>${p.name} (${formatCurrency(p.balance, fromAcc.currency)})</option>`).join('')}
+                </select>
+              </div>
+            </div>
+
+            <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl p-3 space-y-2">
+              <div class="text-[11px] font-medium text-ink">Ke Akun &amp; Pocket</div>
+              <div class="grid grid-cols-2 gap-2">
+                <select id="trf-to-acc" name="toAccountId" onchange="onTrfToAccChange()" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                  ${db.accounts.map(a => `<option value="${a.id}" ${a.id === toAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
+                </select>
+                <select id="trf-to-pkt" name="toPocketId" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                  ${(toAcc?.pockets || []).map(p => `<option value="${p.id}" ${p.id === toPkt?.id ? 'selected' : ''}>${p.name} (${formatCurrency(p.balance, toAcc.currency)})</option>`).join('')}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Catatan (Opsional)</label>
+              <input type="text" name="trfNote" placeholder="Contoh: Alokasi dana darurat / pindah pocket"
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md">
+              Kirim Transfer Pocket
+            </button>
+          </form>
+        </div>
+      `);
+    }
+
+    function onTrfFromAccChange() {
+      const accId = document.getElementById('trf-from-acc')?.value;
+      const pktSel = document.getElementById('trf-from-pkt');
+      const acc = db.accounts.find(a => a.id === accId);
+      if (pktSel && acc) {
+        pktSel.innerHTML = (acc.pockets || []).map(p => `<option value="${p.id}">${p.name} (${formatCurrency(p.balance, acc.currency)})</option>`).join('');
+      }
+    }
+
+    function onTrfToAccChange() {
+      const accId = document.getElementById('trf-to-acc')?.value;
+      const pktSel = document.getElementById('trf-to-pkt');
+      const acc = db.accounts.find(a => a.id === accId);
+      if (pktSel && acc) {
+        pktSel.innerHTML = (acc.pockets || []).map(p => `<option value="${p.id}">${p.name} (${formatCurrency(p.balance, acc.currency)})</option>`).join('');
+      }
+    }
+
+    function submitTransferPocketForm(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const date = fd.get('trfDate') || new Date().toISOString().slice(0, 10);
+      const amount = parseFormattedAmount(fd.get('trfAmount'));
+      const fromAccId = fd.get('fromAccountId');
+      const fromPktId = fd.get('fromPocketId');
+      const toAccId = fd.get('toAccountId');
+      const toPktId = fd.get('toPocketId');
+      const note = String(fd.get('trfNote') || '').trim();
+
+      if (amount <= 0) {
+        showToast('Masukkan nominal transfer lebih dari 0', 'error');
+        return;
+      }
+      if (fromAccId === toAccId && fromPktId === toPktId) {
+        showToast('Pocket asal dan tujuan tidak boleh sama', 'error');
+        return;
+      }
+
+      const srcAcc = db.accounts.find(a => a.id === fromAccId);
+      const srcPkt = srcAcc?.pockets?.find(p => p.id === fromPktId);
+      const dstAcc = db.accounts.find(a => a.id === toAccId);
+      const dstPkt = dstAcc?.pockets?.find(p => p.id === toPktId);
+
+      if (!srcAcc || !srcPkt || !dstAcc || !dstPkt) {
+        showToast('Pilih pocket asal dan tujuan yang valid', 'error');
+        return;
+      }
+
+      const fromIDR = toIDR(amount, srcAcc.currency);
+      const toAmount = dstAcc.currency === srcAcc.currency
+        ? amount
+        : Number((fromIDR / (Number(db.exchangeRates?.[dstAcc.currency]) || 1)).toFixed(CURRENCY_META[dstAcc.currency]?.decimals || 2));
+
+      srcPkt.balance = (Number(srcPkt.balance) || 0) - amount;
+      dstPkt.balance = (Number(dstPkt.balance) || 0) + toAmount;
+
+      const trfId = 'trf_' + Date.now();
+      const trfTitle = note || `Transfer ke ${dstPkt.name}`;
+      db.transactions.unshift({
+        id: trfId,
+        type: 'transfer',
+        date,
+        amount,
+        nilaiKe: toAmount,
+        title: trfTitle,
+        accountId: srcAcc.id,
+        pocketId: srcPkt.id,
+        toAccountId: dstAcc.id,
+        toPocketId: dstPkt.id
+      });
+
+      recordTransferToLinkedSavingsGoals(dstAcc.id, dstPkt.id, fromIDR, date, trfTitle, trfId);
+      saveData();
+      closeModal();
+      showToast('Transfer antar-pocket berhasil');
+      render();
+    }
+
+    function openTxModal(defaultType = 'expense', presetAccId = null, presetPktId = null) {
+      const today = new Date().toISOString().slice(0, 10);
+      const firstAcc = db.accounts.find(a => a.id === presetAccId) || db.accounts[0];
+      const firstPkt = firstAcc?.pockets?.find(p => p.id === presetPktId) || firstAcc?.pockets?.[0];
+      const expCats = db.categories.filter(c => c.type === 'expense');
+      const incCats = db.categories.filter(c => c.type === 'income');
+
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-medium uppercase text-ink">CATAT TRANSAKSI</h3>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+
+          <form onsubmit="submitTxForm(event)" class="space-y-3">
+            <div class="grid grid-cols-3 gap-1.5 bg-creamSoft p-1 rounded-2xl border border-[#E8DEC5]">
+              ${[
+                { id: 'expense', label: 'Pengeluaran' },
+                { id: 'income', label: 'Pemasukan' },
+                { id: 'transfer', label: 'Transfer' }
+              ].map(t => `
+                <label class="cursor-pointer">
+                  <input type="radio" name="txType" value="${t.id}" ${t.id === defaultType ? 'checked' : ''} onchange="onTxTypeChange(this.value)" class="sr-only peer" />
+                  <span class="block text-center py-1.5 rounded-xl text-xs font-medium text-slate-600 peer-checked:bg-ink peer-checked:text-[#FBF6EA]">${t.label}</span>
+                </label>
+              `).join('')}
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Tanggal</label>
+                <input id="tx-date-input" type="date" name="txDate" value="${today}" onchange="onTxStartDateChange()" required class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Nominal</label>
+                <input type="text" id="tx-amount-input" name="txAmount" inputmode="numeric" required oninput="formatAmountInput(this)" placeholder="0"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <button type="button" onclick="appendQuickZeros('tx-amount-input', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+00</button>
+              <button type="button" onclick="appendQuickZeros('tx-amount-input', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+000</button>
+            </div>
+
+            <div id="tx-category-group" class="space-y-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Kategori</label>
+                <select id="tx-cat-select" name="txCategoryId" onchange="onTxCategoryChange()" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                  ${(defaultType === 'income' ? incCats : expCats).map(c => `<option value="${c.id}">${c.name}</option>`).join('')}
+                </select>
+              </div>
+              <div id="tx-subcat-wrap"></div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Akun</label>
+                <select id="tx-acc-select" name="txAccountId" onchange="onTxAccountChange()" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                  ${db.accounts.map(a => `<option value="${a.id}" ${a.id === firstAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Pocket</label>
+                <select id="tx-pkt-select" name="txPocketId" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                  ${(firstAcc?.pockets || []).map(p => `<option value="${p.id}" ${p.id === firstPkt?.id ? 'selected' : ''}>${p.name}</option>`).join('')}
+                </select>
+              </div>
+            </div>
+
+            <div id="tx-transfer-target" class="hidden grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Ke Akun</label>
+                <select id="tx-to-acc-select" name="txToAccountId" onchange="onTxToAccountChange()" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                  ${db.accounts.map(a => `<option value="${a.id}">${a.name} (${a.currency})</option>`).join('')}
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Ke Pocket</label>
+                <select id="tx-to-pkt-select" name="txToPocketId" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                  ${(firstAcc?.pockets || []).map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Catatan / Keterangan</label>
+              <input type="text" name="txTitle" placeholder="Contoh: Makan siang, Gaji, dll."
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+
+            <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl p-3 space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
+                <label class="inline-flex items-center gap-2 cursor-pointer">
+                  <input id="tx-is-recurring" type="checkbox" name="txIsRecurring" onchange="toggleRecurringScheduleFields()" class="rounded accent-ink w-4 h-4" />
+                  <span class="text-xs font-medium text-ink">Transaksi Berulang (Bulanan)</span>
+                </label>
+                <button type="button" onclick="openRecurringListModal()" class="text-[11px] font-medium text-sage hover:underline">
+                  Jadwal (${(db.recurringTransactions || []).length})
+                </button>
+              </div>
+              <div id="tx-recurring-fields" class="hidden pt-1 border-t border-[#E8DEC5] space-y-2">
+                <div class="grid grid-cols-2 gap-2.5">
+                  <div>
+                    <label class="block text-[10px] text-slate-500 mb-1">Tanggal Tiap Bulan (1–31)</label>
+                    <select id="tx-rec-day" name="txRecDay" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                      ${Array.from({ length: 31 }, (_, i) => i + 1).map(d => `<option value="${d}" ${d === new Date().getDate() ? 'selected' : ''}>Tanggal ${d}</option>`).join('')}
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-[10px] text-slate-500 mb-1">Mulai Berlaku</label>
+                    <input type="date" name="txRecStartDate" value="${today}" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink" />
+                  </div>
+                </div>
+                <p class="text-[10px] text-slate-400">Jika bulan tidak punya tanggal tersebut (mis. 31), otomatis memakai akhir bulan.</p>
+              </div>
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md">
+              Simpan Transaksi
+            </button>
+          </form>
+        </div>
+      `);
+
+      onTxTypeChange(defaultType);
+      onTxToAccountChange();
+    }
+
+    function onTxTypeChange(type) {
+      const catGroup = document.getElementById('tx-category-group');
+      const trfTarget = document.getElementById('tx-transfer-target');
+      const catSelect = document.getElementById('tx-cat-select');
+
+      if (type === 'transfer') {
+        catGroup?.classList.add('hidden');
+        trfTarget?.classList.remove('hidden');
+        return;
+      }
+      catGroup?.classList.remove('hidden');
+      trfTarget?.classList.add('hidden');
+
+      const filtered = db.categories.filter(c => c.type === type);
+      if (catSelect) {
+        catSelect.innerHTML = filtered.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+      }
+      onTxCategoryChange();
+    }
+
+    function onTxCategoryChange() {
+      const catId = document.getElementById('tx-cat-select')?.value;
+      const subWrap = document.getElementById('tx-subcat-wrap');
+      const cat = db.categories.find(c => c.id === catId);
+      if (!subWrap) return;
+
+      if (cat && Array.isArray(cat.subcategories) && cat.subcategories.length > 0) {
+        subWrap.innerHTML = `
+          <label class="block text-[11px] text-slate-500 mb-1">Sub-Kategori</label>
+          <select name="txSubcategoryId" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+            ${cat.subcategories.map(s => `<option value="${s.id}">${s.name}</option>`).join('')}
+          </select>
+        `;
+      } else {
+        subWrap.innerHTML = '';
+      }
+    }
+
+    function onTxAccountChange() {
+      const accId = document.getElementById('tx-acc-select')?.value;
+      const pktSelect = document.getElementById('tx-pkt-select');
+      const acc = db.accounts.find(a => a.id === accId);
+      if (pktSelect && acc) {
+        pktSelect.innerHTML = (acc.pockets || []).map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+      }
+    }
+
+    function onTxToAccountChange() {
+      const accId = document.getElementById('tx-to-acc-select')?.value;
+      const pktSelect = document.getElementById('tx-to-pkt-select');
+      const acc = db.accounts.find(a => a.id === accId);
+      if (pktSelect && acc) {
+        pktSelect.innerHTML = (acc.pockets || []).map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+      }
+    }
+
+    function submitTxForm(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const type = fd.get('txType') || 'expense';
+      const date = fd.get('txDate') || new Date().toISOString().slice(0, 10);
+      const amount = parseFormattedAmount(fd.get('txAmount'));
+      const accountId = fd.get('txAccountId');
+      const pocketId = fd.get('txPocketId');
+      const title = String(fd.get('txTitle') || '').trim();
+
+      if (amount <= 0) {
+        showToast('Masukkan nominal lebih dari 0', 'error');
+        return;
+      }
+
+      const acc = db.accounts.find(a => a.id === accountId);
+      const pkt = acc?.pockets?.find(p => p.id === pocketId);
+      if (!acc || !pkt) {
+        showToast('Pilih akun dan pocket yang valid', 'error');
+        return;
+      }
+
+      if (type === 'transfer') {
+        const toAccountId = fd.get('txToAccountId');
+        const toPocketId = fd.get('txToPocketId');
+        const dstAcc = db.accounts.find(a => a.id === toAccountId);
+        const dstPkt = dstAcc?.pockets?.find(p => p.id === toPocketId);
+        if (!dstAcc || !dstPkt) {
+          showToast('Pilih akun & pocket tujuan', 'error');
+          return;
+        }
+
+        const fromIDR = toIDR(amount, acc.currency);
+        const toAmount = dstAcc.currency === acc.currency
+          ? amount
+          : Number((fromIDR / (Number(db.exchangeRates?.[dstAcc.currency]) || 1)).toFixed(CURRENCY_META[dstAcc.currency]?.decimals || 2));
+
+        pkt.balance = (Number(pkt.balance) || 0) - amount;
+        dstPkt.balance = (Number(dstPkt.balance) || 0) + toAmount;
+
+        const trfId = 'trf_' + Date.now();
+        const trfNote = title || `Transfer ke ${dstPkt.name}`;
+        db.transactions.unshift({
+          id: trfId,
+          type: 'transfer',
+          date,
+          amount,
+          nilaiKe: toAmount,
+          title: trfNote,
+          accountId,
+          pocketId,
+          toAccountId,
+          toPocketId
+        });
+        recordTransferToLinkedSavingsGoals(toAccountId, toPocketId, fromIDR, date, trfNote, trfId);
+      } else {
+        const categoryId = fd.get('txCategoryId') || '';
+        const subcategoryId = fd.get('txSubcategoryId') || '';
+        if (type === 'income') {
+          pkt.balance = (Number(pkt.balance) || 0) + amount;
+        } else {
+          pkt.balance = (Number(pkt.balance) || 0) - amount;
+        }
+
+        db.transactions.unshift({
+          id: 'tx_' + Date.now(),
+          type,
+          date,
+          amount,
+          categoryId,
+          subcategoryId,
+          title,
+          accountId,
+          pocketId
+        });
+      }
+
+      const isRecurring = Boolean(fd.get('txIsRecurring'));
+      if (isRecurring) {
+        const recDay = Math.min(Math.max(1, parseInt(fd.get('txRecDay'), 10) || 1), 31);
+        const recStartDate = fd.get('txRecStartDate') || date;
+        const [ry, rm] = recStartDate.split('-').map(n => parseInt(n, 10));
+        const firstRunDate = buildDateFromYearMonthDay(ry || new Date().getFullYear(), (rm || 1) - 1, recDay);
+        const firstMonthKey = `${ry || new Date().getFullYear()}-${String(rm || 1).padStart(2, '0')}`;
+        const triggeredMonths = firstRunDate <= new Date().toISOString().slice(0, 10) ? [firstMonthKey] : [];
+
+        db.recurringTransactions = db.recurringTransactions || [];
+        db.recurringTransactions.unshift({
+          id: 'rec_' + Date.now(),
+          active: true,
+          type,
+          amount,
+          title: title || (type === 'transfer' ? 'Transfer Berulang' : 'Transaksi Berulang'),
+          categoryId: fd.get('txCategoryId') || '',
+          subcategoryId: fd.get('txSubcategoryId') || '',
+          accountId,
+          pocketId,
+          toAccountId: fd.get('txToAccountId') || '',
+          toPocketId: fd.get('txToPocketId') || '',
+          dayOfMonth: recDay,
+          startDate: recStartDate,
+          lastRunDate: triggeredMonths.length ? firstRunDate : '',
+          triggeredMonths
+        });
+      }
+
+      saveData();
+      closeModal();
+      showToast(isRecurring ? 'Transaksi tersimpan & dijadwalkan berulang' : 'Transaksi tersimpan');
+      render();
+    }
+
+    function deleteTransaction(txId) {
+      const idx = db.transactions.findIndex(t => t.id === txId);
+      if (idx === -1) return;
+      const tx = db.transactions[idx];
+      const acc = db.accounts.find(a => a.id === tx.accountId);
+      const pkt = acc?.pockets?.find(p => p.id === tx.pocketId);
+
+      if (tx.type === 'income' && pkt) {
+        pkt.balance = (Number(pkt.balance) || 0) - (Number(tx.amount) || 0);
+      } else if (tx.type === 'expense' && pkt) {
+        pkt.balance = (Number(pkt.balance) || 0) + (Number(tx.amount) || 0);
+      } else if (tx.type === 'transfer') {
+        const dstAcc = db.accounts.find(a => a.id === tx.toAccountId);
+        const dstPkt = dstAcc?.pockets?.find(p => p.id === tx.toPocketId);
+        if (pkt) pkt.balance = (Number(pkt.balance) || 0) + (Number(tx.amount) || 0);
+        if (dstPkt) dstPkt.balance = (Number(dstPkt.balance) || 0) - (Number(tx.nilaiKe || tx.amount) || 0);
+      }
+
+      if (tx.type === 'transfer' && tx.toAccountId && tx.toPocketId) {
+        db.savingsGoals.forEach(g => {
+          if (g.accountId === tx.toAccountId && g.pocketId === tx.toPocketId && Array.isArray(g.history)) {
+            g.history = g.history.filter(h => h.linkedTxId !== tx.id);
+          }
+        });
+      }
+      db.transactions.splice(idx, 1);
+      syncSavingsGoalsWithPockets();
+      saveData();
+      showToast('Transaksi dihapus');
+      render();
+    }
+
+    function moveAccountOrder(accId, delta) {
+      const sorted = [...db.accounts].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
+      const idx = sorted.findIndex(a => a.id === accId);
+      const targetIdx = idx + delta;
+      if (idx === -1 || targetIdx < 0 || targetIdx >= sorted.length) return;
+      const tmp = sorted[idx];
+      sorted[idx] = sorted[targetIdx];
+      sorted[targetIdx] = tmp;
+      sorted.forEach((a, i) => { a.urut = i + 1; });
+      db.accounts = sorted;
+      saveData();
+      render();
+    }
+
+    function deleteAccount(accId) {
+      if (db.accounts.length <= 1) {
+        showToast('Minimal harus ada 1 akun tersisa', 'error');
+        return;
+      }
+      const acc = db.accounts.find(a => a.id === accId);
+      if (!acc) return;
+      if (!confirm(`Hapus akun "${acc.name}" beserta seluruh pocket di dalamnya?`)) return;
+
+      db.accounts = db.accounts.filter(a => a.id !== accId);
+      db.accounts.sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0)).forEach((a, i) => { a.urut = i + 1; });
+
+      const fallbackAcc = db.accounts[0];
+      const fallbackPkt = fallbackAcc?.pockets?.[0];
+      db.savingsGoals.forEach(g => {
+        if (g.accountId === accId) {
+          g.accountId = fallbackAcc ? fallbackAcc.id : '';
+          g.pocketId = fallbackPkt ? fallbackPkt.id : '';
+        }
+      });
+
+      if (ui.selectedPocketDetail?.accId === accId) ui.selectedPocketDetail = null;
+
+      saveData();
+      closeModal();
+      showToast('Akun dihapus');
+      render();
+    }
+
+    function openAccountModal(accId = null) {
+      const acc = accId ? db.accounts.find(a => a.id === accId) : null;
+      const sortedAccs = [...db.accounts].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
+      const currentOrder = acc ? (sortedAccs.findIndex(a => a.id === acc.id) + 1) : (sortedAccs.length + 1);
+      const maxOrder = acc ? sortedAccs.length : (sortedAccs.length + 1);
+      const defaultIcon = acc?.icon || (acc?.jenis === 'Cash' ? 'wallet' : 'bank');
+
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-medium uppercase text-ink">${acc ? 'EDIT AKUN' : 'TAMBAH AKUN BARU'}</h3>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+          <form onsubmit="submitAccountForm(event, '${acc ? acc.id : ''}')" class="space-y-3">
+            <div class="grid grid-cols-3 gap-2.5">
+              <div class="col-span-2">
+                <label class="block text-[11px] text-slate-500 mb-1">Nama Akun</label>
+                <input type="text" name="accName" value="${acc ? acc.name : ''}" required placeholder="Contoh: Bank BCA / Dompet Baht"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Urutan</label>
+                <select name="accOrder" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                  ${Array.from({ length: maxOrder }, (_, i) => i + 1).map(n => `<option value="${n}" ${n === currentOrder ? 'selected' : ''}>Ke-${n}</option>`).join('')}
+                </select>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Jenis</label>
+                <select name="accJenis" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                  ${['Bank', 'Cash', 'E-Wallet', 'Investasi'].map(j => `<option value="${j}" ${acc?.jenis === j ? 'selected' : ''}>${j}</option>`).join('')}
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Mata Uang</label>
+                <select name="accCurrency" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                  ${Object.keys(CURRENCY_META).map(c => `<option value="${c}" ${acc?.currency === c ? 'selected' : ''}>${c} (${CURRENCY_META[c].symbol})</option>`).join('')}
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1.5">Warna Kartu</label>
+              <div class="flex flex-wrap gap-2.5 py-1">
+                ${ACCOUNT_COLORS.map(col => `
+                  <label class="cursor-pointer">
+                    <input type="radio" name="accColor" value="${col.id}" ${(acc?.colorId || 'emerald') === col.id ? 'checked' : ''} class="sr-only peer" />
+                    <span class="w-8 h-8 rounded-full block border-2 border-white shadow-sm peer-checked:ring-2 peer-checked:ring-ink peer-checked:scale-110 transition-all" style="background-color:${col.hex}"></span>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1.5">Ikon Akun</label>
+              <div class="grid grid-cols-4 gap-2">
+                ${Object.keys(ICONS).map(icKey => `
+                  <label class="cursor-pointer">
+                    <input type="radio" name="accIcon" value="${icKey}" ${defaultIcon === icKey ? 'checked' : ''} class="sr-only peer" />
+                    <div class="py-2 px-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-ink peer-checked:bg-ink peer-checked:text-[#FBF6EA] flex flex-col items-center gap-1 transition-all">
+                      ${ICONS[icKey]}
+                      <span class="text-[10px]">${ICON_LABELS[icKey] || icKey}</span>
+                    </div>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+            ${!acc ? `
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Saldo Awal Pocket Utama</label>
+                <input type="text" id="acc-init-bal" name="accInitBal" inputmode="numeric" oninput="formatAmountInput(this)" placeholder="0"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              </div>
+            ` : ''}
+            <div class="flex gap-2 pt-1">
+              ${acc ? `
+                <button type="button" onclick="deleteAccount('${acc.id}')"
+                  class="px-4 py-3 rounded-2xl bg-coralLight text-coral text-xs font-medium shrink-0">
+                  Hapus
+                </button>
+              ` : ''}
+              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Akun</button>
+            </div>
+          </form>
+        </div>
+      `);
+    }
+
+    function submitAccountForm(e, accId) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const name = String(fd.get('accName') || '').trim();
+      const jenis = fd.get('accJenis') || 'Bank';
+      const currency = fd.get('accCurrency') || 'IDR';
+      const colorId = fd.get('accColor') || 'emerald';
+      const icon = fd.get('accIcon') || (jenis === 'Cash' ? 'wallet' : 'bank');
+      const targetOrder = Math.max(1, parseInt(fd.get('accOrder'), 10) || 1);
+      if (!name) return;
+
+      const sorted = [...db.accounts].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
+
+      if (accId) {
+        const idx = sorted.findIndex(a => a.id === accId);
+        if (idx !== -1) {
+          const acc = sorted[idx];
+          acc.name = name;
+          acc.jenis = jenis;
+          acc.currency = currency;
+          acc.colorId = colorId;
+          acc.icon = icon;
+          sorted.splice(idx, 1);
+          sorted.splice(Math.min(sorted.length, targetOrder - 1), 0, acc);
+        }
+      } else {
+        const initBal = parseFormattedAmount(fd.get('accInitBal'));
+        const newAcc = {
+          id: 'acc_' + Date.now(),
+          name,
+          jenis,
+          currency,
+          colorId,
+          icon,
+          urut: targetOrder,
+          pockets: [
+            { id: 'pkt_' + Date.now(), name: 'Pocket Utama', balance: initBal, urut: 1 }
+          ]
+        };
+        sorted.splice(Math.min(sorted.length, targetOrder - 1), 0, newAcc);
+      }
+
+      sorted.forEach((a, i) => { a.urut = i + 1; });
+      db.accounts = sorted;
+
+      saveData();
+      closeModal();
+      showToast('Akun tersimpan');
+      render();
+    }
+
+    function openPocketModal(accId) {
+      const acc = db.accounts.find(a => a.id === accId);
+      if (!acc) return;
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-medium uppercase text-ink">TAMBAH POCKET (${acc.name})</h3>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+          <form onsubmit="submitNewPocket(event, '${acc.id}')" class="space-y-3">
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Nama Pocket</label>
+              <input type="text" name="pktName" required placeholder="Contoh: Tabungan Liburan"
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Saldo Awal (${acc.currency})</label>
+              <input type="text" name="pktBal" inputmode="numeric" oninput="formatAmountInput(this)" placeholder="0"
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Pocket</button>
+          </form>
+        </div>
+      `);
+    }
+
+    function submitNewPocket(e, accId) {
+      e.preventDefault();
+      const acc = db.accounts.find(a => a.id === accId);
+      if (!acc) return;
+      const fd = new FormData(e.target);
+      const name = String(fd.get('pktName') || '').trim();
+      const balance = parseFormattedAmount(fd.get('pktBal'));
+      if (!name) return;
+
+      acc.pockets = acc.pockets || [];
+      acc.pockets.push({
+        id: 'pkt_' + Date.now(),
+        name,
+        balance,
+        urut: acc.pockets.length + 1
+      });
+      saveData();
+      closeModal();
+      showToast('Pocket ditambahkan');
+      render();
+    }
+
+    function deletePocket(accId, pktId) {
+      const acc = db.accounts.find(a => a.id === accId);
+      if (!acc) return;
+      const pockets = acc.pockets || [];
+      if (pockets.length <= 1) {
+        showToast('Minimal harus ada 1 pocket di dalam akun', 'error');
+        return;
+      }
+      const pkt = pockets.find(p => p.id === pktId);
+      if (!pkt) return;
+      if (!confirm(`Hapus pocket "${pkt.name}" dari ${acc.name}?`)) return;
+
+      acc.pockets = pockets.filter(p => p.id !== pktId);
+      acc.pockets.sort((a, b) => (a.urut || 0) - (b.urut || 0)).forEach((p, idx) => { p.urut = idx + 1; });
+
+      const fallbackPkt = acc.pockets[0];
+      db.savingsGoals.forEach(g => {
+        if (g.accountId === accId && g.pocketId === pktId && fallbackPkt) {
+          g.pocketId = fallbackPkt.id;
+        }
+      });
+
+      if (ui.selectedPocketDetail?.accId === accId && ui.selectedPocketDetail?.pktId === pktId) {
+        ui.selectedPocketDetail = null;
+      }
+
+      saveData();
+      closeModal();
+      showToast('Pocket dihapus');
+      render();
+    }
+
+    function openEditPocketModal(accId, pktId) {
+      const acc = db.accounts.find(a => a.id === accId);
+      const pkt = acc?.pockets?.find(p => p.id === pktId);
+      if (!acc || !pkt) return;
+      const canDelete = (acc.pockets || []).length > 1;
+
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-medium uppercase text-ink">EDIT POCKET</h3>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+          <form onsubmit="submitEditPocket(event, '${acc.id}', '${pkt.id}')" class="space-y-3">
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Nama Pocket</label>
+              <input type="text" name="pktName" value="${pkt.name}" required
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Saldo (${acc.currency})</label>
+              <input type="text" name="pktBal" value="${formatNumberID(pkt.balance)}" inputmode="numeric" oninput="formatAmountInput(this)" required
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+            </div>
+            <div class="flex gap-2 pt-1">
+              ${canDelete ? `
+                <button type="button" onclick="deletePocket('${acc.id}', '${pkt.id}')"
+                  class="px-4 py-3 rounded-2xl bg-coralLight text-coral text-xs font-medium shrink-0">
+                  Hapus
+                </button>
+              ` : ''}
+              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Perubahan</button>
+            </div>
+          </form>
+        </div>
+      `);
+    }
+
+    function submitEditPocket(e, accId, pktId) {
+      e.preventDefault();
+      const acc = db.accounts.find(a => a.id === accId);
+      const pkt = acc?.pockets?.find(p => p.id === pktId);
+      if (!acc || !pkt) return;
+      const fd = new FormData(e.target);
+      const name = String(fd.get('pktName') || '').trim();
+      const balance = parseFormattedAmount(fd.get('pktBal'));
+      if (!name) return;
+      pkt.name = name;
+      pkt.balance = balance;
+      saveData();
+      closeModal();
+      showToast('Saldo pocket diperbarui');
+      render();
+    }
+
+    function openBudgetSettingsModal() {
+      const mBud = ensureMonthBudget(ui.statYear, ui.statMonth);
+      const monthLabel = `${MONTH_NAMES_ID[ui.statMonth]} ${ui.statYear}`;
+      const expCats = db.categories.filter(c => c.type === 'expense');
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-base font-medium uppercase text-ink">ATUR LIMIT BUDGET</h3>
+              <p class="text-[11px] text-slate-400">Khusus periode ${monthLabel}</p>
+            </div>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+          <form onsubmit="submitBudgetSettings(event)" class="space-y-3 max-h-80 overflow-y-auto pr-1">
+            ${expCats.map(cat => {
+              const hasSubs = Array.isArray(cat.subcategories) && cat.subcategories.length > 0;
+              const entry = mBud[cat.id] || { directLimit: cat.directLimit || 0, subs: {} };
+              if (hasSubs) {
+                return `
+                  <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] space-y-2">
+                    <div class="text-xs font-medium text-ink">${cat.name}</div>
+                    ${cat.subcategories.map(sub => {
+                      const val = entry.subs && entry.subs[sub.id] !== undefined ? entry.subs[sub.id] : (sub.limit || 0);
+                      return `
+                        <div class="flex items-center justify-between gap-2">
+                          <span class="text-[11px] text-slate-600 truncate">${sub.name}</span>
+                          <input type="text" name="sub_${cat.id}__${sub.id}" value="${formatNumberID(val)}"
+                            inputmode="numeric" oninput="formatAmountInput(this)"
+                            class="w-32 px-2.5 py-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-right text-ink" />
+                        </div>
+                      `;
+                    }).join('')}
+                  </div>
+                `;
+              }
+              const catVal = entry.directLimit !== undefined ? entry.directLimit : (cat.directLimit || 0);
+              return `
+                <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] flex items-center justify-between gap-2">
+                  <span class="text-xs font-medium text-ink truncate">${cat.name}</span>
+                  <input type="text" name="cat_${cat.id}" value="${formatNumberID(catVal)}"
+                    inputmode="numeric" oninput="formatAmountInput(this)"
+                    class="w-32 px-2.5 py-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-right text-ink" />
+                </div>
+              `;
+            }).join('')}
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium sticky bottom-0">Simpan Budget (${monthLabel})</button>
+          </form>
+        </div>
+      `);
+    }
+
+    function submitBudgetSettings(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const key = getMonthBudgetKey(ui.statYear, ui.statMonth);
+      const monthLabel = `${MONTH_NAMES_ID[ui.statMonth]} ${ui.statYear}`;
+      db.monthlyBudgets = db.monthlyBudgets || {};
+      const nextSnapshot = {};
+
+      db.categories.forEach(cat => {
+        if (cat.type !== 'expense') return;
+        if (Array.isArray(cat.subcategories) && cat.subcategories.length > 0) {
+          const subsMap = {};
+          cat.subcategories.forEach(sub => {
+            const raw = fd.get(`sub_${cat.id}__${sub.id}`);
+            subsMap[sub.id] = raw !== null ? parseFormattedAmount(raw) : (Number(sub.limit) || 0);
+          });
+          nextSnapshot[cat.id] = { directLimit: 0, subs: subsMap };
+        } else {
+          const raw = fd.get(`cat_${cat.id}`);
+          nextSnapshot[cat.id] = {
+            directLimit: raw !== null ? parseFormattedAmount(raw) : (Number(cat.directLimit) || 0),
+            subs: {}
+          };
+        }
+      });
+
+      db.monthlyBudgets[key] = nextSnapshot;
+      saveData();
+      closeModal();
+      showToast(`Limit budget ${monthLabel} diperbarui`);
+      render();
+    }
+
+    function moveSavingGoalOrder(goalId, delta) {
+      const sorted = [...db.savingsGoals].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
+      const idx = sorted.findIndex(g => g.id === goalId);
+      const targetIdx = idx + delta;
+      if (idx === -1 || targetIdx < 0 || targetIdx >= sorted.length) return;
+      const tmp = sorted[idx];
+      sorted[idx] = sorted[targetIdx];
+      sorted[targetIdx] = tmp;
+      sorted.forEach((g, i) => { g.urut = i + 1; });
+      db.savingsGoals = sorted;
+      saveData();
+      render();
+    }
+
+    function deleteSavingGoal(goalId) {
+      const goal = db.savingsGoals.find(g => g.id === goalId);
+      if (!goal) return;
+      if (!confirm(`Hapus target tabungan "${goal.name}"? (Saldo di pocket akun tetap aman)`)) return;
+      db.savingsGoals = db.savingsGoals.filter(g => g.id !== goalId);
+      db.savingsGoals.sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0)).forEach((g, i) => { g.urut = i + 1; });
+      if (ui.selectedSavingGoalId === goalId) ui.selectedSavingGoalId = null;
+      saveData();
+      closeModal();
+      showToast('Target tabungan dihapus');
+      render();
+    }
+
+    function openSavingGoalModal(goalId = null) {
+      const goal = goalId ? db.savingsGoals.find(g => g.id === goalId) : null;
+      const firstAcc = db.accounts.find(a => a.id === goal?.accountId) || db.accounts[0];
+      const currentPktBalIDR = goal ? getSavingGoalBalanceIDR(goal) : 0;
+      const sortedGoals = [...db.savingsGoals].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
+      const currentOrder = goal ? (sortedGoals.findIndex(g => g.id === goal.id) + 1) : (sortedGoals.length + 1);
+      const maxOrder = goal ? sortedGoals.length : (sortedGoals.length + 1);
+
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-medium uppercase text-ink">${goal ? 'EDIT TARGET TABUNGAN' : 'TARGET TABUNGAN BARU'}</h3>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+          <form onsubmit="submitSavingGoal(event, '${goal ? goal.id : ''}')" class="space-y-3">
+            <div class="grid grid-cols-3 gap-2.5">
+              <div class="col-span-2">
+                <label class="block text-[11px] text-slate-500 mb-1">Nama Target Tabungan</label>
+                <input type="text" name="goalName" value="${goal ? goal.name : ''}" required placeholder="Contoh: Dana Darurat / Beli Rumah"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Urutan</label>
+                <select name="goalOrder" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                  ${Array.from({ length: maxOrder }, (_, i) => i + 1).map(n => `<option value="${n}" ${n === currentOrder ? 'selected' : ''}>Ke-${n}</option>`).join('')}
+                </select>
+              </div>
+            </div>
+
+            <div class="bg-[#EFF9F7] border border-[#CBECE6] rounded-2xl p-3 space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-medium text-[#02594F]">Ditaruh di Akun Mana?</span>
+                <span class="text-[10px] font-medium text-sage">Terhitung Total Kekayaan</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2.5">
+                <div>
+                  <label class="block text-[10px] text-slate-500 mb-1">Akun Penyimpanan</label>
+                  <select id="goal-acc-select" name="goalAccountId" onchange="onGoalAccChange()" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                    ${db.accounts.map(a => `<option value="${a.id}" ${a.id === firstAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[10px] text-slate-500 mb-1">Pocket Tabungan</label>
+                  <select id="goal-pkt-select" name="goalPocketId" onchange="onGoalPktChange()" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                    ${((firstAcc?.pockets) || []).map(p => `<option value="${p.id}" ${goal?.pocketId === p.id ? 'selected' : ''}>${p.name}</option>`).join('')}
+                    <option value="__NEW__">+ Buat Pocket Baru</option>
+                  </select>
+                </div>
+              </div>
+              <div id="goal-new-pkt-wrap" class="hidden">
+                <label class="block text-[10px] text-slate-500 mb-1">Nama Pocket Baru</label>
+                <input type="text" id="goal-new-pkt-name" name="goalNewPocketName" placeholder="Contoh: Celengan Liburan"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Target Nominal (IDR)</label>
+                <input type="text" name="goalTarget" value="${goal ? formatNumberID(goal.targetAmount) : ''}" inputmode="numeric" oninput="formatAmountInput(this)" required placeholder="5.000.000"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Tenggat Waktu</label>
+                <input type="date" name="goalDeadline" value="${goal?.deadline || ''}" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">${goal ? 'Saldo Pocket Terkumpul (IDR)' : 'Saldo Awal Masuk Pocket (IDR)'}</label>
+              <input type="text" id="goal-init-bal" name="goalInitAmount" value="${goal ? formatNumberID(Math.round(currentPktBalIDR)) : '0'}" inputmode="numeric" oninput="formatAmountInput(this)"
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Catatan</label>
+              <input type="text" name="goalNote" value="${goal?.note || ''}" placeholder="Contoh: Sisihkan 15% gaji bulanan"
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1.5">Warna Celengan</label>
+              <div class="flex flex-wrap gap-2.5 py-0.5">
+                ${ACCOUNT_COLORS.map(col => `
+                  <label class="cursor-pointer">
+                    <input type="radio" name="goalColor" value="${col.id}" ${(goal?.colorId || 'emerald') === col.id ? 'checked' : ''} class="sr-only peer" />
+                    <span class="w-8 h-8 rounded-full block border-2 border-white shadow-sm peer-checked:ring-2 peer-checked:ring-ink peer-checked:scale-110 transition-all" style="background-color:${col.hex}"></span>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1.5">Ikon Tabungan</label>
+              <div class="grid grid-cols-4 gap-2">
+                ${Object.keys(ICONS).map(icKey => `
+                  <label class="cursor-pointer">
+                    <input type="radio" name="goalIcon" value="${icKey}" ${(goal?.icon || 'celengan') === icKey ? 'checked' : ''} class="sr-only peer" />
+                    <div class="py-2 px-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-ink peer-checked:bg-ink peer-checked:text-[#FBF6EA] flex flex-col items-center gap-1 transition-all">
+                      ${ICONS[icKey]}
+                      <span class="text-[10px]">${ICON_LABELS[icKey] || icKey}</span>
+                    </div>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="flex gap-2 pt-1">
+              ${goal ? `
+                <button type="button" onclick="deleteSavingGoal('${goal.id}')"
+                  class="px-4 py-3 rounded-2xl bg-coralLight text-coral text-xs font-medium shrink-0">
+                  Hapus
+                </button>
+              ` : ''}
+              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md">Simpan Tabungan</button>
+            </div>
+          </form>
+        </div>
+      `);
+      onGoalPktChange();
+    }
+
+    function onGoalAccChange() {
+      const accId = document.getElementById('goal-acc-select')?.value;
+      const pktSel = document.getElementById('goal-pkt-select');
+      const acc = db.accounts.find(a => a.id === accId);
+      if (pktSel && acc) {
+        const opts = (acc.pockets || []).map(p => `<option value="${p.id}">${p.name}</option>`);
+        opts.push(`<option value="__NEW__">+ Buat Pocket Baru</option>`);
+        pktSel.innerHTML = opts.join('');
+      }
+      onGoalPktChange();
+    }
+
+    function onGoalPktChange() {
+      const pktVal = document.getElementById('goal-pkt-select')?.value;
+      const newWrap = document.getElementById('goal-new-pkt-wrap');
+      if (newWrap) newWrap.classList.toggle('hidden', pktVal !== '__NEW__');
+    }
+
+    function submitSavingGoal(e, goalId) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const name = String(fd.get('goalName') || '').trim();
+      const targetAmount = parseFormattedAmount(fd.get('goalTarget'));
+      const accountId = fd.get('goalAccountId');
+      let pocketId = fd.get('goalPocketId');
+      const newPocketName = String(fd.get('goalNewPocketName') || '').trim();
+      const initAmountIDR = parseFormattedAmount(fd.get('goalInitAmount'));
+      const deadline = fd.get('goalDeadline') || '';
+      const note = String(fd.get('goalNote') || '').trim();
+      const colorId = fd.get('goalColor') || 'emerald';
+      const icon = fd.get('goalIcon') || 'celengan';
+
+      if (!name || targetAmount <= 0) {
+        showToast('Lengkapi nama & nominal target tabungan', 'error');
+        return;
+      }
+
+      const acc = db.accounts.find(a => a.id === accountId) || db.accounts[0];
+      if (!acc) return;
+      acc.pockets = acc.pockets || [];
+
+      let pkt = acc.pockets.find(p => p.id === pocketId);
+      if (pocketId === '__NEW__' || !pkt) {
+        const createdPkt = {
+          id: 'pkt_' + Date.now(),
+          name: newPocketName || name,
+          balance: 0,
+          urut: acc.pockets.length + 1
+        };
+        acc.pockets.push(createdPkt);
+        pkt = createdPkt;
+        pocketId = createdPkt.id;
+      }
+
+      const targetOrder = Math.max(1, parseInt(fd.get('goalOrder'), 10) || 1);
+      const rate = Number(db.exchangeRates?.[acc.currency]) || 1;
+      const initInAccCur = initAmountIDR / rate;
+      const sortedGoals = [...db.savingsGoals].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0));
+
+      if (goalId) {
+        const idx = sortedGoals.findIndex(x => x.id === goalId);
+        if (idx !== -1) {
+          const g = sortedGoals[idx];
+          if (initAmountIDR >= 0) pkt.balance = initInAccCur;
+          g.name = name;
+          g.targetAmount = targetAmount;
+          g.accountId = acc.id;
+          g.pocketId = pkt.id;
+          g.deadline = deadline;
+          g.note = note;
+          g.colorId = colorId;
+          g.icon = icon;
+          g.currentAmount = getSavingGoalBalanceIDR(g);
+          sortedGoals.splice(idx, 1);
+          sortedGoals.splice(Math.min(sortedGoals.length, targetOrder - 1), 0, g);
+        }
+      } else {
+        if (initAmountIDR > 0) pkt.balance = (Number(pkt.balance) || 0) + initInAccCur;
+        const newGoal = {
+          id: 'sav_' + Date.now(),
+          name,
+          targetAmount,
+          currentAmount: 0,
+          accountId: acc.id,
+          pocketId: pkt.id,
+          deadline,
+          colorId,
+          icon,
+          note,
+          urut: targetOrder,
+          history: initAmountIDR > 0 ? [{
+            id: 'sh_' + Date.now(),
+            type: 'deposit',
+            amount: initAmountIDR,
+            date: new Date().toISOString().slice(0, 10),
+            note: `Saldo awal masuk ke pocket ${pkt.name}`
+          }] : []
+        };
+        newGoal.currentAmount = getSavingGoalBalanceIDR(newGoal);
+        sortedGoals.splice(Math.min(sortedGoals.length, targetOrder - 1), 0, newGoal);
+      }
+
+      sortedGoals.forEach((g, i) => { g.urut = i + 1; });
+      db.savingsGoals = sortedGoals;
+
+      saveData();
+      closeModal();
+      showToast('Tabungan terhubung ke pocket & kekayaan');
+      render();
+    }
+
+    function syncSavingsGoalsWithPockets() {
+      db.savingsGoals.forEach(g => { g.currentAmount = getSavingGoalBalanceIDR(g); });
+    }
+
+    function recordTransferToLinkedSavingsGoals(dstAccountId, dstPocketId, amountIDR, date, note, txId) {
+      const linkedGoals = db.savingsGoals.filter(g => g.accountId === dstAccountId && g.pocketId === dstPocketId);
+      if (linkedGoals.length === 0 || amountIDR <= 0) return;
+      linkedGoals.forEach(goal => {
+        goal.history = goal.history || [];
+        const alreadyLogged = txId && goal.history.some(h => h.linkedTxId === txId);
+        if (!alreadyLogged) {
+          goal.history.unshift({
+            id: 'sh_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5),
+            linkedTxId: txId || '',
+            type: 'deposit',
+            amount: amountIDR,
+            date: date || new Date().toISOString().slice(0, 10),
+            note: note || 'Transfer masuk ke pocket tabungan'
+          });
+        }
+        goal.currentAmount = getSavingGoalBalanceIDR(goal);
+      });
+    }
+
+    function openSavingFundModal(goalId, mode) {
+      const goal = db.savingsGoals.find(g => g.id === goalId);
+      if (!goal) return;
+      const isDeposit = mode === 'deposit';
+      const curBalIDR = getSavingGoalBalanceIDR(goal);
+      const goalAcc = db.accounts.find(a => a.id === goal.accountId);
+      const goalPkt = goalAcc?.pockets?.find(p => p.id === goal.pocketId);
+      const today = new Date().toISOString().slice(0, 10);
+
+      let defaultAcc = db.accounts.find(a => a.id !== goal.accountId) || db.accounts[0];
+      let defaultPkt = (defaultAcc?.pockets || []).find(p => !(defaultAcc.id === goal.accountId && p.id === goal.pocketId)) || defaultAcc?.pockets?.[0];
+
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="text-[11px] font-medium uppercase tracking-wider text-sage">${goal.name}</div>
+              <h3 class="text-base font-medium uppercase text-ink">${isDeposit ? 'SETOR KE TABUNGAN' : 'TARIK DARI TABUNGAN'}</h3>
+            </div>
+            <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-creamSoft text-slate-600 flex items-center justify-center text-xs shrink-0">✕</button>
+          </div>
+
+          <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl px-3.5 py-2.5 flex items-center justify-between gap-2">
+            <span class="text-xs text-slate-500">Saldo Tabungan Saat Ini:</span>
+            <div class="text-right">
+              <div class="text-xs font-medium text-ink">${formatCurrency(curBalIDR)}</div>
+              <div class="text-[11px] font-medium text-sage">${goalAcc?.name || '-'} (${goalPkt?.name || '-'})</div>
+            </div>
+          </div>
+
+          <form onsubmit="submitSavingFund(event, '${goal.id}', '${mode}')" class="space-y-3">
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-600 mb-1">Nominal (Rp)</label>
+                <input type="text" id="sav-fund-amt" name="fundAmount" inputmode="numeric" oninput="formatAmountInput(this)" required placeholder="0"
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink focus:outline-none focus:border-peanut" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-600 mb-1">Tanggal</label>
+                <input type="date" name="fundDate" value="${today}" required
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut" />
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <button type="button" onclick="appendQuickZeros('sav-fund-amt', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+00</button>
+              <button type="button" onclick="appendQuickZeros('sav-fund-amt', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+000</button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-600 mb-1">${isDeposit ? 'Sumber Dana (Akun)' : 'Pindahkan ke Akun'}</label>
+                <select id="sav-counter-acc" name="counterAccountId" onchange="onSavingCounterAccChange('${goal.id}', '${mode}')"
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut">
+                  ${db.accounts.map(a => `<option value="${a.id}" ${a.id === defaultAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-600 mb-1">Pocket</label>
+                <select id="sav-counter-pkt" name="counterPocketId"
+                  class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut">
+                  ${(defaultAcc?.pockets || []).map(p => {
+                    const disabled = isDeposit && defaultAcc.id === goal.accountId && p.id === goal.pocketId;
+                    return `<option value="${p.id}" ${p.id === defaultPkt?.id ? 'selected' : ''} ${disabled ? 'disabled' : ''}>${p.name} (${formatCurrency(p.balance, defaultAcc.currency)})</option>`;
+                  }).join('')}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] text-slate-600 mb-1">Catatan</label>
+              <input type="text" name="fundNote" placeholder="${isDeposit ? 'Contoh: Sisihan gaji mingguan' : 'Contoh: Pencairan dana target'}"
+                class="w-full px-3 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink focus:outline-none focus:border-peanut" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
+              <button type="button" onclick="closeModal()" class="py-3 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-ink text-xs font-medium">Batal</button>
+              <button type="submit" class="py-3 rounded-2xl text-xs font-medium shadow-sm ${isDeposit ? 'bg-sage text-white' : 'bg-ink text-[#FBF6EA]'}">
+                ${isDeposit ? 'Setor Sekarang' : 'Tarik Sekarang'}
+              </button>
+            </div>
+          </form>
+        </div>
+      `);
+    }
+
+    function onSavingCounterAccChange(goalId, mode) {
+      const goal = db.savingsGoals.find(g => g.id === goalId);
+      const accId = document.getElementById('sav-counter-acc')?.value;
+      const pktSel = document.getElementById('sav-counter-pkt');
+      const acc = db.accounts.find(a => a.id === accId);
+      if (!pktSel || !acc) return;
+      const isDeposit = mode === 'deposit';
+      const pockets = acc.pockets || [];
+      const firstValid = pockets.find(p => !(isDeposit && goal && acc.id === goal.accountId && p.id === goal.pocketId)) || pockets[0];
+
+      pktSel.innerHTML = pockets.map(p => {
+        const disabled = isDeposit && goal && acc.id === goal.accountId && p.id === goal.pocketId;
+        return `<option value="${p.id}" ${p.id === firstValid?.id ? 'selected' : ''} ${disabled ? 'disabled' : ''}>${p.name} (${formatCurrency(p.balance, acc.currency)})</option>`;
+      }).join('');
+    }
+
+    function submitSavingFund(e, goalId, mode) {
+      e.preventDefault();
+      const goal = db.savingsGoals.find(g => g.id === goalId);
+      if (!goal) return;
+      const fd = new FormData(e.target);
+      const amountIDR = parseFormattedAmount(fd.get('fundAmount'));
+      const txDate = fd.get('fundDate') || new Date().toISOString().slice(0, 10);
+      const counterAccId = fd.get('counterAccountId');
+      const counterPktId = fd.get('counterPocketId');
+      const note = String(fd.get('fundNote') || '').trim();
+
+      if (amountIDR <= 0) {
+        showToast('Masukkan nominal lebih dari 0', 'error');
+        return;
+      }
+
+      const goalAcc = db.accounts.find(a => a.id === goal.accountId);
+      const goalPkt = goalAcc?.pockets?.find(p => p.id === goal.pocketId);
+      const counterAcc = db.accounts.find(a => a.id === counterAccId);
+      const counterPkt = counterAcc?.pockets?.find(p => p.id === counterPktId);
+
+      if (!goalAcc || !goalPkt || !counterAcc || !counterPkt) {
+        showToast('Akun atau pocket belum lengkap', 'error');
+        return;
+      }
+
+      if (goalAcc.id === counterAcc.id && goalPkt.id === counterPkt.id) {
+        showToast('Pilih pocket yang berbeda dengan pocket tabungan', 'error');
+        return;
+      }
+
+      const goalRate = Number(db.exchangeRates?.[goalAcc.currency]) || 1;
+      const counterRate = Number(db.exchangeRates?.[counterAcc.currency]) || 1;
+      const goalDec = CURRENCY_META[goalAcc.currency]?.decimals || 0;
+      const counterDec = CURRENCY_META[counterAcc.currency]?.decimals || 0;
+
+      const amtInGoalCur = goalAcc.currency === 'IDR' ? amountIDR : Number((amountIDR / goalRate).toFixed(goalDec));
+      const amtInCounterCur = counterAcc.currency === 'IDR' ? amountIDR : Number((amountIDR / counterRate).toFixed(counterDec));
+
+      const newTxId = 'trf_' + Date.now();
+
+      if (mode === 'deposit') {
+        counterPkt.balance = (Number(counterPkt.balance) || 0) - amtInCounterCur;
+        goalPkt.balance = (Number(goalPkt.balance) || 0) + amtInGoalCur;
+
+        db.transactions.unshift({
+          id: newTxId,
+          type: 'transfer',
+          date: txDate,
+          amount: amtInCounterCur,
+          nilaiKe: amtInGoalCur,
+          title: note || `Setor tabungan: ${goal.name}`,
+          accountId: counterAcc.id,
+          pocketId: counterPkt.id,
+          toAccountId: goalAcc.id,
+          toPocketId: goalPkt.id
+        });
+      } else {
+        goalPkt.balance = (Number(goalPkt.balance) || 0) - amtInGoalCur;
+        counterPkt.balance = (Number(counterPkt.balance) || 0) + amtInCounterCur;
+
+        db.transactions.unshift({
+          id: newTxId,
+          type: 'transfer',
+          date: txDate,
+          amount: amtInGoalCur,
+          nilaiKe: amtInCounterCur,
+          title: note || `Tarik tabungan: ${goal.name}`,
+          accountId: goalAcc.id,
+          pocketId: goalPkt.id,
+          toAccountId: counterAcc.id,
+          toPocketId: counterPkt.id
+        });
+      }
+
+      goal.history = goal.history || [];
+      goal.history.unshift({
+        id: 'sh_' + Date.now(),
+        linkedTxId: newTxId,
+        type: mode,
+        amount: amountIDR,
+        date: txDate,
+        note: note || (mode === 'deposit'
+          ? `Dari ${counterAcc.name} (${counterPkt.name})`
+          : `Ke ${counterAcc.name} (${counterPkt.name})`)
+      });
+
+      syncSavingsGoalsWithPockets();
+      saveData();
+      closeModal();
+      showToast(mode === 'deposit' ? 'Dana disetor & pocket tersinkron' : 'Dana ditarik & dipindahkan ke pocket');
+      render();
+    }
+
+    function openDebtModal() {
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-medium uppercase text-ink">CATAT HUTANG / PIUTANG</h3>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+          <form onsubmit="submitDebtForm(event)" class="space-y-3">
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Jenis</label>
+              <select name="debtType" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
+                <option value="receivable">Piutang (Orang berhutang ke saya)</option>
+                <option value="payable">Hutang (Saya berhutang ke orang)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Nama Pihak</label>
+              <input type="text" name="debtPerson" required placeholder="Nama teman / lembaga"
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Total Nominal (IDR)</label>
+              <input type="text" name="debtTotal" inputmode="numeric" oninput="formatAmountInput(this)" required placeholder="0"
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Jatuh Tempo (Opsional)</label>
+              <input type="date" name="debtDue" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Catatan</label>
+              <input type="text" name="debtNote" placeholder="Keterangan"
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan</button>
+          </form>
+        </div>
+      `);
+    }
+
+    function submitDebtForm(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const type = fd.get('debtType') || 'receivable';
+      const person = String(fd.get('debtPerson') || '').trim();
+      const totalAmount = parseFormattedAmount(fd.get('debtTotal'));
+      const dueDate = fd.get('debtDue') || '';
+      const note = String(fd.get('debtNote') || '').trim();
+      if (!person || totalAmount <= 0) return;
+
+      db.debts.unshift({
+        id: 'debt_' + Date.now(),
+        type,
+        person,
+        totalAmount,
+        paidAmount: 0,
+        dueDate,
+        note
+      });
+      saveData();
+      closeModal();
+      showToast('Catatan hutang/piutang disimpan');
+      render();
+    }
+
+    function openPayDebtModal(debtId) {
+      const d = db.debts.find(x => x.id === debtId);
+      if (!d) return;
+      const sisa = Math.max(0, (Number(d.totalAmount) || 0) - (Number(d.paidAmount) || 0));
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-medium uppercase text-ink">CATAT PEMBAYARAN (${d.person})</h3>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+          <p class="text-xs text-slate-500">Sisa saat ini: <strong class="text-ink">${formatCurrency(sisa)}</strong></p>
+          <form onsubmit="submitPayDebt(event, '${d.id}')" class="space-y-3">
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Nominal Bayar (IDR)</label>
+              <input type="text" name="payAmt" value="${formatNumberID(sisa)}" inputmode="numeric" oninput="formatAmountInput(this)" required
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+            </div>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Pembayaran</button>
+          </form>
+        </div>
+      `);
+    }
+
+    function submitPayDebt(e, debtId) {
+      e.preventDefault();
+      const d = db.debts.find(x => x.id === debtId);
+      if (!d) return;
+      const fd = new FormData(e.target);
+      const amt = parseFormattedAmount(fd.get('payAmt'));
+      if (amt <= 0) return;
+      d.paidAmount = Math.min(Number(d.totalAmount) || 0, (Number(d.paidAmount) || 0) + amt);
+      saveData();
+      closeModal();
+      showToast('Pembayaran tercatat');
+      render();
+    }
+
+    function deleteDebt(debtId) {
+      db.debts = db.debts.filter(d => d.id !== debtId);
+      saveData();
+      showToast('Catatan dihapus');
+      render();
+    }
+
+    // =========================================================================
+    // 16. MAIN RENDER & BOOTSTRAP
+    // =========================================================================
+    function render() {
+      updateLockScreenVisibility();
+      updateFabVisibility();
+      renderBottomNav();
+
+      const mainEl = document.getElementById('main-content');
+      if (!mainEl) return;
+
+      if (ui.activeTab === 'transaksi') {
+        mainEl.innerHTML = renderTransaksiView();
+      } else if (ui.activeTab === 'statistik') {
+        mainEl.innerHTML = renderStatistikView();
+      } else if (ui.activeTab === 'tabungan') {
+        mainEl.innerHTML = renderTabunganView();
+      } else if (ui.activeTab === 'hutang') {
+        mainEl.innerHTML = renderHutangView();
+      } else if (ui.activeTab === 'pengaturan') {
+        mainEl.innerHTML = renderPengaturanView();
+      } else {
+        mainEl.innerHTML = renderAkunView();
+      }
+    }
+
+    (function initApp() {
+      initPWAAssets();
+      processDueRecurringTransactions();
+      render();
+      if (db.gasConfig?.url && db.gasConfig?.key) {
+        syncPullFromSheets(true);
+      }
+      fetchLiveExchangeRates(true);
+    })();
+  </script>
+</body>
+</html>
