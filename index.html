@@ -6,11 +6,11 @@
   <meta name="theme-color" content="#FBF6EA" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Peanut & Butter" />
+  <meta name="apple-mobile-web-app-title" content="Catatan Keuangan" />
   <link id="pwa-manifest" rel="manifest" />
   <link id="pwa-apple-icon" rel="apple-touch-icon" />
   <link id="pwa-favicon" rel="icon" type="image/png" />
-  <title>Peanut &amp; Butter — Catatan Keuangan</title>
+  <title>Catatan Keuangan</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -121,8 +121,8 @@
     <!-- Lock Screen Overlay (PIN / Password Sesi 48 Jam) -->
     <div id="lock-screen" class="fixed inset-0 z-[90] hidden items-center justify-center p-5 bg-[#FBF6EA]/95 backdrop-blur-md">
       <div class="w-full max-w-sm bg-creamCard rounded-3xl p-6 shadow-xl border border-[#E8DEC5] space-y-5 text-center">
-        <div class="w-16 h-16 rounded-2xl mx-auto border-2 border-butter shadow-sm bg-ink overflow-hidden flex items-center justify-center cat-bob">
-          <img id="lock-cat-img" alt="Peanut Cat" class="w-full h-full object-cover cat-blend-screen" />
+        <div class="w-14 h-14 rounded-2xl mx-auto border-2 border-butter shadow-sm bg-creamSoft flex items-center justify-center text-ink">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
         </div>
         <div>
           <h2 class="text-lg font-medium uppercase tracking-wider text-ink">APLIKASI TERKUNCI</h2>
@@ -176,40 +176,8 @@
 
   <script>
     // =========================================================================
-    // 1. ASET KUCING PEANUT & BUTTER (TANPA ILUSTRASI BABI) & KONSTANTA
+    // 1. KONSTANTA & PALET WARNA
     // =========================================================================
-    const PEANUT_IMG = "peanut.jpg";
-    const BUTTER_IMG = "butter.jpg";
-
-    const CAT_SVG_PEANUT = "data:image/svg+xml;utf8," + encodeURIComponent(
-      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-        <rect width="120" height="120" rx="32" fill="#18181B"/>
-        <polygon points="26,52 36,20 56,40" fill="#A89378" stroke="#E5DEC9" stroke-width="3.5" stroke-linejoin="round"/>
-        <polygon points="94,52 84,20 64,40" fill="#A89378" stroke="#E5DEC9" stroke-width="3.5" stroke-linejoin="round"/>
-        <ellipse cx="60" cy="68" rx="34" ry="29" fill="#9A856B" stroke="#E5DEC9" stroke-width="3.5"/>
-        <circle cx="47" cy="64" r="4.5" fill="#FFFDF8"/>
-        <circle cx="73" cy="64" r="4.5" fill="#FFFDF8"/>
-        <polygon points="60,70 55,75 65,75" fill="#E08B8B"/>
-        <path d="M52 79 Q60 85 68 79" fill="none" stroke="#FFFDF8" stroke-width="3.2" stroke-linecap="round"/>
-      </svg>`
-    );
-
-    const CAT_SVG_BUTTER = "data:image/svg+xml;utf8," + encodeURIComponent(
-      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-        <rect width="120" height="120" rx="32" fill="#18181B"/>
-        <polygon points="26,52 36,20 56,40" fill="#9CA3AF" stroke="#E5DEC9" stroke-width="3.5" stroke-linejoin="round"/>
-        <polygon points="94,52 84,20 64,40" fill="#9CA3AF" stroke="#E5DEC9" stroke-width="3.5" stroke-linejoin="round"/>
-        <ellipse cx="60" cy="68" rx="34" ry="29" fill="#8E96A0" stroke="#E5DEC9" stroke-width="3.5"/>
-        <circle cx="47" cy="64" r="4.5" fill="#FFFDF8"/>
-        <circle cx="73" cy="64" r="4.5" fill="#FFFDF8"/>
-        <polygon points="60,70 55,75 65,75" fill="#E08B8B"/>
-        <path d="M52 79 Q60 85 68 79" fill="none" stroke="#FFFDF8" stroke-width="3.2" stroke-linecap="round"/>
-      </svg>`
-    );
-
-    function getPeanutSrc() { return PEANUT_IMG.trim() || CAT_SVG_PEANUT; }
-    function getButterSrc() { return BUTTER_IMG.trim() || CAT_SVG_BUTTER; }
-
     const STORAGE_KEY = 'peanut_butter_codegs_db_v1';
     const SESSION_TIMEOUT_MS = 48 * 60 * 60 * 1000;
     const MONTH_NAMES_ID = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
@@ -243,7 +211,9 @@
       { id: 'amber', name: 'Iced Tang', hex: '#F49625', bg: '#FEF6EC', border: '#FBE0BE', text: '#945307' },
       { id: 'lavender', name: 'Baby Lavender', hex: '#9B6CC7', bg: '#FBF3FC', border: '#EED3F3', text: '#5D3582' },
       { id: 'sky', name: 'Dip Twilight', hex: '#4B8E94', bg: '#F1F8F8', border: '#CFE4E6', text: '#264E52' },
-      { id: 'cocoa', name: 'Chocolate', hex: '#6B4C1E', bg: '#F8F4ED', border: '#E5D9C5', text: '#422F0E' }
+      { id: 'cocoa', name: 'Chocolate', hex: '#6B4C1E', bg: '#F8F4ED', border: '#E5D9C5', text: '#422F0E' },
+      { id: 'navy_bright', name: 'Biru Dongker Terang', hex: '#7594D1', bg: '#F0F4FC', border: '#CBD8F2', text: '#355087' },
+      { id: 'leaf_green', name: 'Hijau Daun', hex: '#C9CE67', bg: '#F9FAEC', border: '#E4E7B0', text: '#61661C' }
     ];
 
     const ICONS = {
@@ -818,7 +788,7 @@
     }
 
     // =========================================================================
-    // 4. PWA ICON KUCING PEANUT & BUTTER + INSTALL APP
+    // 4. PWA ICON & INSTALL APP
     // =========================================================================
     function generateCatIconDataURL(size) {
       const canvas = document.createElement('canvas');
@@ -902,12 +872,9 @@
         if (appleIcon) appleIcon.href = icon192;
         if (favIcon) favIcon.href = icon192;
 
-        const lockImg = document.getElementById('lock-cat-img');
-        if (lockImg) lockImg.src = getPeanutSrc();
-
         const manifestObj = {
-          name: 'Peanut & Butter — Catatan Keuangan',
-          short_name: 'PeanutButter',
+          name: 'Catatan Keuangan',
+          short_name: 'Keuangan',
           description: 'Buku harian keuangan krem pastel dengan sinkronisasi Google Sheets.',
           start_url: window.location.href.split('#')[0],
           scope: './',
@@ -1279,7 +1246,7 @@
     }
 
     // =========================================================================
-    // 8. VIEW 1: RIWAYAT TRANSAKSI (TEMA PEACH)
+    // 8. VIEW 1: RIWAYAT TRANSAKSI (HEADER ORANGE #FF9B71 TANPA TULISAN PEACH)
     // =========================================================================
     function renderTransactionRow(tx) {
       const cat = db.categories.find(c => c.id === tx.categoryId);
@@ -1366,10 +1333,7 @@
           <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <div class="flex items-center gap-2">
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wider bg-creamCard text-[#422F0E]">PEACH</span>
-                  <span class="text-[11px] font-medium uppercase tracking-wider text-[#FFFDF8]">RIWAYAT TRANSAKSI</span>
-                </div>
+                <h1 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8]">RIWAYAT TRANSAKSI</h1>
                 <p class="text-xs mt-1" style="color: #FFF9EB;">Semua pemasukan, pengeluaran &amp; transfer antar-pocket</p>
               </div>
               <button onclick="openTxModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">
@@ -1421,7 +1385,7 @@
     }
 
     // =========================================================================
-    // 9. VIEW 2: STATISTIK & ANGGARAN (PIE CHART BULANAN/TAHUNAN + EVALUASI BUDGET)
+    // 9. VIEW 2: STATISTIK & ANGGARAN (HEADER ORANGE #FF9B71)
     // =========================================================================
     function setStatPeriodMode(mode) { ui.statPeriodMode = mode; render(); }
     function setStatSubTab(tab) { ui.statSubTab = tab; render(); }
@@ -1518,27 +1482,27 @@
 
           return `
             <div class="p-4 space-y-4">
-              <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
+              <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
                 <div class="flex items-center justify-between gap-2">
-                  <button onclick="closeCategoryDrilldown()" class="px-3 py-1.5 rounded-xl bg-creamSoft text-ink text-xs font-medium">
+                  <button onclick="closeCategoryDrilldown()" class="px-3 py-1.5 rounded-xl bg-creamCard text-ink text-xs font-medium">
                     ← Kembali ke Statistik
                   </button>
-                  <span class="text-xs text-slate-500">${periodLabel}</span>
+                  <span class="text-xs font-medium text-[#FFFDF8]">${periodLabel}</span>
                 </div>
                 <div>
-                  <h2 class="text-base font-medium text-ink">${cat.name}</h2>
-                  <p class="text-xs text-slate-500">Total ${cat.type === 'income' ? 'Pendapatan' : 'Pengeluaran'}: <strong class="text-ink">${formatCurrency(totalDrillIDR)}</strong></p>
+                  <h2 class="text-base font-medium text-[#FFFDF8]">${cat.name}</h2>
+                  <p class="text-xs" style="color: #FFF9EB;">Total ${cat.type === 'income' ? 'Pendapatan' : 'Pengeluaran'}: <strong class="text-[#FFFDF8]">${formatCurrency(totalDrillIDR)}</strong></p>
                 </div>
 
                 ${cat.subcategories && cat.subcategories.length > 0 ? `
                   <div class="flex gap-1.5 overflow-x-auto no-scrollbar pt-1">
                     <button onclick="setDrilldownSubcategory('ALL')"
-                      class="px-3 py-1.5 rounded-xl text-xs font-medium shrink-0 ${ui.drilldownSubcategoryId === 'ALL' ? 'bg-ink text-[#FBF6EA]' : 'bg-creamSoft text-slate-600'}">
+                      class="px-3 py-1.5 rounded-xl text-xs font-medium shrink-0 ${ui.drilldownSubcategoryId === 'ALL' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'bg-creamCard text-ink'}">
                       Semua Sub
                     </button>
                     ${cat.subcategories.map(sub => `
                       <button onclick="setDrilldownSubcategory('${sub.id}')"
-                        class="px-3 py-1.5 rounded-xl text-xs font-medium shrink-0 ${ui.drilldownSubcategoryId === sub.id ? 'bg-ink text-[#FBF6EA]' : 'bg-creamSoft text-slate-600'}">
+                        class="px-3 py-1.5 rounded-xl text-xs font-medium shrink-0 ${ui.drilldownSubcategoryId === sub.id ? 'bg-[#422F0E] text-[#FFF9EB]' : 'bg-creamCard text-ink'}">
                         ${sub.name}
                       </button>
                     `).join('')}
@@ -1590,48 +1554,48 @@
         color: PIE_COLORS[idx % PIE_COLORS.length]
       }));
 
-      // Evaluasi Budget (Pengeluaran bulanan/tahunan vs limit)
+      // Evaluasi Budget
       const expenseCats = db.categories.filter(c => c.type === 'expense');
       const totalBudgetLimit = expenseCats.reduce((s, c) => s + getCategoryLimit(c), 0);
       const budgetPctOverall = totalBudgetLimit > 0 ? (totalExpenseIDR / totalBudgetLimit) * 100 : 0;
 
       return `
         <div class="p-4 space-y-4">
-          <!-- Header & Filter Bulanan / Tahunan -->
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
+          <!-- Header Orange & Filter Bulanan / Tahunan -->
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium uppercase text-ink">STATISTIK &amp; ANGGARAN</h2>
-                <p class="text-[11px] text-slate-400">Pie chart pendapatan &amp; pengeluaran + evaluasi budget</p>
+                <h2 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8]">STATISTIK &amp; ANGGARAN</h2>
+                <p class="text-xs mt-0.5" style="color: #FFF9EB;">Pie chart pendapatan &amp; pengeluaran + evaluasi budget</p>
               </div>
-              <div class="inline-flex rounded-2xl bg-creamSoft p-1 border border-[#E8DEC5]">
+              <div class="inline-flex rounded-2xl bg-creamCard p-1 shrink-0">
                 <button onclick="setStatPeriodMode('monthly')"
-                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.statPeriodMode === 'monthly' ? 'bg-ink text-[#FBF6EA]' : 'text-slate-500'}">
+                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.statPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Bulanan
                 </button>
                 <button onclick="setStatPeriodMode('yearly')"
-                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.statPeriodMode === 'yearly' ? 'bg-ink text-[#FBF6EA]' : 'text-slate-500'}">
+                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.statPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Tahunan
                 </button>
               </div>
             </div>
 
-            <div class="flex items-center justify-between bg-creamSoft rounded-2xl px-3 py-2 border border-[#E8DEC5]">
-              <button onclick="shiftPeriod('stat', -1)" class="w-8 h-8 rounded-xl bg-creamCard flex items-center justify-center text-ink shadow-sm active:scale-95">‹</button>
+            <div class="flex items-center justify-between bg-creamCard rounded-2xl px-3 py-2">
+              <button onclick="shiftPeriod('stat', -1)" class="w-8 h-8 rounded-xl bg-creamSoft flex items-center justify-center text-ink active:scale-95">‹</button>
               <span class="text-xs font-medium text-ink">${periodLabel}</span>
-              <button onclick="shiftPeriod('stat', 1)" class="w-8 h-8 rounded-xl bg-creamCard flex items-center justify-center text-ink shadow-sm active:scale-95">›</button>
+              <button onclick="shiftPeriod('stat', 1)" class="w-8 h-8 rounded-xl bg-creamSoft flex items-center justify-center text-ink active:scale-95">›</button>
             </div>
 
             <!-- Switch Tab Pendapatan vs Pengeluaran -->
-            <div class="grid grid-cols-2 gap-2 pt-1">
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
               <button onclick="setStatChartType('income')"
-                class="p-2.5 rounded-2xl text-left border transition-all ${activeChartType === 'income' ? 'bg-sageLight border-sage/40' : 'bg-creamSoft border-[#E8DEC5] opacity-80'}">
-                <div class="text-[11px] font-medium ${activeChartType === 'income' ? 'text-sage' : 'text-slate-500'}">Pendapatan</div>
+                class="p-3 rounded-2xl text-left transition-all ${activeChartType === 'income' ? 'bg-creamCard ring-2 ring-[#422F0E]' : 'bg-creamCard/85 opacity-85'}">
+                <div class="text-[11px] font-medium text-sage">Pendapatan</div>
                 <div class="text-xs font-medium text-ink mt-0.5">${formatCurrency(totalIncomeIDR)}</div>
               </button>
               <button onclick="setStatChartType('expense')"
-                class="p-2.5 rounded-2xl text-left border transition-all ${activeChartType === 'expense' ? 'bg-coralLight border-coral/40' : 'bg-creamSoft border-[#E8DEC5] opacity-80'}">
-                <div class="text-[11px] font-medium ${activeChartType === 'expense' ? 'text-coral' : 'text-slate-500'}">Pengeluaran</div>
+                class="p-3 rounded-2xl text-left transition-all ${activeChartType === 'expense' ? 'bg-creamCard ring-2 ring-[#422F0E]' : 'bg-creamCard/85 opacity-85'}">
+                <div class="text-[11px] font-medium text-coral">Pengeluaran</div>
                 <div class="text-xs font-medium text-ink mt-0.5">${formatCurrency(totalExpenseIDR)}</div>
               </button>
             </div>
@@ -1673,7 +1637,7 @@
             `}
           </div>
 
-          <!-- Evaluasi Budget (Tetap Dipertahankan) -->
+          <!-- Evaluasi Budget -->
           <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3.5">
             <div class="flex items-center justify-between gap-2">
               <div>
@@ -1770,13 +1734,12 @@
     }
 
     // =========================================================================
-    // 10. VIEW 3: AKUN, POCKET & TOTAL KEKAYAAN (JAN-DES DETAIL, FORMAT ###.###.###)
+    // 10. VIEW 3: AKUN, POCKET & TOTAL KEKAYAAN (HEADER ORANGE #FF9B71)
     // =========================================================================
     function openWealthDetailModal() {
       const year = ui.akunYear || 2026;
       const currentNetWorthIDR = getTotalNetWorthIDR();
 
-      // Hitung pergerakan kas per bulan Jan-Des di tahun terpilih
       const monthlyNetFlow = Array.from({ length: 12 }, (_, mIdx) => {
         const mTxs = filterTransactionsByPeriod(db.transactions, 'monthly', year, mIdx);
         let inc = 0;
@@ -1793,7 +1756,6 @@
       const totalYearExp = monthlyNetFlow.reduce((s, x) => s + x.exp, 0);
       const totalYearNet = totalYearInc - totalYearExp;
 
-      // Hitung estimasi kekayaan akhir tiap bulan (Jan - Des) berbasis posisi saat ini
       const activeMonthIdx = ui.akunPeriodMode === 'monthly' ? ui.akunMonth : 11;
       const monthBalances = Array(12).fill(0);
       monthBalances[activeMonthIdx] = currentNetWorthIDR;
@@ -1885,7 +1847,7 @@
       const totalNetWorthIDR = getTotalNetWorthIDR();
 
       const syncStatus = db.gasConfig?.status || 'offline';
-      const syncDotColor = syncStatus === 'ok' ? 'bg-sage' : syncStatus === 'syncing' ? 'bg-butter' : syncStatus === 'error' ? 'bg-coral' : 'bg-amber-400';
+      const syncDotColor = syncStatus === 'ok' ? 'bg-emerald-300' : syncStatus === 'syncing' ? 'bg-amber-200' : syncStatus === 'error' ? 'bg-red-200' : 'bg-[#FFF9EB]';
       const syncText = syncStatus === 'ok'
         ? `Sheets Sync ${db.gasConfig.lastSyncAt || ''}`
         : syncStatus === 'syncing'
@@ -1896,54 +1858,44 @@
 
       return `
         <div class="p-4 space-y-4">
-          <!-- Header Peanut & Butter + 2 Kucing Baru -->
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3.5">
+          <!-- Header Akun (Orange #FF9B71) -->
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3.5" style="background-color: #FF9B71; border-color: #EB8458;">
             <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center gap-3 min-w-0">
-                <div class="flex items-center -space-x-2 shrink-0">
-                  <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-peanut bg-[#141414] shadow-sm cat-peanut">
-                    <img src="${getPeanutSrc()}" alt="Peanut" class="w-full h-full object-cover" />
-                  </div>
-                  <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-butter bg-[#141414] shadow-sm cat-butter">
-                    <img src="${getButterSrc()}" alt="Butter" class="w-full h-full object-cover" />
-                  </div>
-                </div>
-                <div class="min-w-0">
-                  <h1 class="text-base font-medium text-ink truncate">Peanut &amp; Butter</h1>
-                  <button onclick="syncPullFromSheets(false)" class="inline-flex items-center gap-1.5 text-[11px] text-slate-500 hover:text-ink">
-                    <span class="w-2 h-2 rounded-full ${syncDotColor}"></span>
-                    <span>${syncText}</span>
-                    <span>↻</span>
-                  </button>
-                </div>
+              <div class="min-w-0">
+                <h1 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8] truncate">AKUN</h1>
+                <button onclick="syncPullFromSheets(false)" class="inline-flex items-center gap-1.5 text-[11px] mt-0.5" style="color: #FFF9EB;">
+                  <span class="w-2 h-2 rounded-full ${syncDotColor}"></span>
+                  <span>${syncText}</span>
+                  <span>↻</span>
+                </button>
               </div>
 
-              <button onclick="openAccountModal()" class="px-3.5 py-2 rounded-2xl bg-butter text-ink text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0">
+              <button onclick="openAccountModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">
                 + Akun
               </button>
             </div>
 
-            <div class="flex items-center justify-between gap-2 pt-1 border-t border-[#EFE7D4]">
-              <div class="inline-flex rounded-2xl bg-creamSoft p-1 border border-[#E8DEC5]">
+            <div class="flex items-center justify-between gap-2 pt-2 border-t" style="border-color: rgba(255, 253, 248, 0.45);">
+              <div class="inline-flex rounded-2xl bg-creamCard p-1">
                 <button onclick="setAkunPeriodMode('monthly')"
-                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'monthly' ? 'bg-ink text-[#FBF6EA]' : 'text-slate-500'}">
+                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Bulanan
                 </button>
                 <button onclick="setAkunPeriodMode('yearly')"
-                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'yearly' ? 'bg-ink text-[#FBF6EA]' : 'text-slate-500'}">
+                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Tahunan
                 </button>
               </div>
 
-              <div class="flex items-center gap-1.5 bg-creamSoft rounded-2xl px-2 py-1 border border-[#E8DEC5]">
-                <button onclick="shiftPeriod('akun', -1)" class="w-7 h-7 rounded-xl bg-creamCard flex items-center justify-center text-xs text-ink shadow-sm">‹</button>
+              <div class="flex items-center gap-1.5 bg-creamCard rounded-2xl px-2 py-1">
+                <button onclick="shiftPeriod('akun', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">‹</button>
                 <span class="text-xs font-medium text-ink px-1">${periodLabel}</span>
-                <button onclick="shiftPeriod('akun', 1)" class="w-7 h-7 rounded-xl bg-creamCard flex items-center justify-center text-xs text-ink shadow-sm">›</button>
+                <button onclick="shiftPeriod('akun', 1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">›</button>
               </div>
             </div>
           </div>
 
-          <!-- Kartu Total Kekayaan (Tanpa 1 THB = ..., Ada Tombol Detail Jan-Des, Format ###.###.###) -->
+          <!-- Kartu Total Kekayaan -->
           <div class="rounded-3xl p-4 shadow-sm border border-[#EED9A5] space-y-3" style="background-color: #FFF4D4;">
             <div class="flex items-center justify-between gap-2">
               <span class="text-[11px] font-medium uppercase tracking-wider text-[#6B4C1E]">TOTAL KEKAYAAN (KONVERSI IDR)</span>
@@ -2035,7 +1987,7 @@
     }
 
     // =========================================================================
-    // 11. VIEW 4: TABUNGAN TERHUBUNG POCKET
+    // 11. VIEW 4: TABUNGAN TERHUBUNG POCKET (HEADER ORANGE #FF9B71)
     // =========================================================================
     function openSavingGoalDetail(goalId) { ui.selectedSavingGoalId = goalId; render(); }
     function closeSavingGoalDetail() { ui.selectedSavingGoalId = null; render(); }
@@ -2052,16 +2004,16 @@
 
           return `
             <div class="p-4 space-y-4">
-              <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
+              <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
                 <div class="flex items-center justify-between">
-                  <button onclick="closeSavingGoalDetail()" class="px-3 py-1.5 rounded-xl bg-creamSoft text-xs font-medium text-ink">← Kembali</button>
-                  <button onclick="openSavingGoalModal('${goal.id}')" class="px-3 py-1.5 rounded-xl bg-creamSoft text-xs font-medium text-ink">Edit Target</button>
+                  <button onclick="closeSavingGoalDetail()" class="px-3 py-1.5 rounded-xl bg-creamCard text-xs font-medium text-ink">← Kembali</button>
+                  <button onclick="openSavingGoalModal('${goal.id}')" class="px-3 py-1.5 rounded-xl bg-creamCard text-xs font-medium text-ink">Edit Target</button>
                 </div>
                 <div>
-                  <h2 class="text-base font-medium text-ink">${goal.name}</h2>
-                  <p class="text-[11px] text-slate-400">Pocket: ${acc?.name || '-'} (${pkt?.name || '-'})</p>
+                  <h2 class="text-base font-medium text-[#FFFDF8]">${goal.name}</h2>
+                  <p class="text-xs" style="color: #FFF9EB;">Pocket: ${acc?.name || '-'} (${pkt?.name || '-'})</p>
                 </div>
-                <div class="space-y-1">
+                <div class="bg-creamCard rounded-2xl p-3 space-y-1.5">
                   <div class="flex justify-between text-xs">
                     <span class="font-medium text-ink">${formatCurrency(curBalIDR)}</span>
                     <span class="text-slate-400">Target ${formatCurrency(goal.targetAmount)} (${pct.toFixed(1)}%)</span>
@@ -2070,9 +2022,9 @@
                     <div class="h-full rounded-full bg-sage" style="width: ${pct}%;"></div>
                   </div>
                 </div>
-                <div class="grid grid-cols-2 gap-2 pt-1">
-                  <button onclick="openSavingFundModal('${goal.id}', 'deposit')" class="py-2.5 rounded-2xl bg-sage text-white text-xs font-medium">+ Setor Dana</button>
-                  <button onclick="openSavingFundModal('${goal.id}', 'withdraw')" class="py-2.5 rounded-2xl bg-creamSoft text-ink text-xs font-medium border border-[#E8DEC5]">- Tarik Dana</button>
+                <div class="grid grid-cols-2 gap-2 pt-0.5">
+                  <button onclick="openSavingFundModal('${goal.id}', 'deposit')" class="py-2.5 rounded-2xl text-xs font-medium shadow-sm" style="background-color: #422F0E; color: #FFF9EB;">+ Setor Dana</button>
+                  <button onclick="openSavingFundModal('${goal.id}', 'withdraw')" class="py-2.5 rounded-2xl bg-creamCard text-ink text-xs font-medium">- Tarik Dana</button>
                 </div>
               </div>
 
@@ -2104,17 +2056,17 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium uppercase text-ink">TARGET TABUNGAN</h2>
-                <p class="text-[11px] text-slate-400">Terhubung langsung ke pocket akun</p>
+                <h2 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8]">TARGET TABUNGAN</h2>
+                <p class="text-xs mt-0.5" style="color: #FFF9EB;">Terhubung langsung ke pocket akun &amp; kekayaan</p>
               </div>
-              <button onclick="openSavingGoalModal()" class="px-3.5 py-2 rounded-2xl bg-butter text-ink text-xs font-medium shadow-sm">+ Target</button>
+              <button onclick="openSavingGoalModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">+ Target</button>
             </div>
-            <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] flex items-center justify-between">
+            <div class="bg-creamCard rounded-2xl p-3 flex items-center justify-between">
               <div>
-                <span class="text-[11px] text-slate-500 block">Terkumpul</span>
+                <span class="text-[11px] text-sage block">Terkumpul</span>
                 <span class="text-sm font-medium text-ink">${formatCurrency(totalSavedIDR)}</span>
               </div>
               <div class="text-right">
@@ -2131,6 +2083,8 @@
               const curIDR = getSavingGoalBalanceIDR(goal);
               const pct = goal.targetAmount > 0 ? Math.min(100, (curIDR / goal.targetAmount) * 100) : 0;
               const col = getColorObj(goal.colorId);
+              const acc = db.accounts.find(a => a.id === goal.accountId);
+              const pkt = acc?.pockets?.find(p => p.id === goal.pocketId);
               return `
                 <button onclick="openSavingGoalDetail('${goal.id}')"
                   class="w-full text-left bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2.5 hover:border-peanut transition-colors">
@@ -2141,7 +2095,7 @@
                       </div>
                       <div class="min-w-0">
                         <div class="text-sm font-medium text-ink truncate">${goal.name}</div>
-                        <div class="text-[11px] text-slate-400">${goal.deadline ? `Target: ${goal.deadline}` : 'Tanpa tenggat'}</div>
+                        <div class="text-[11px] text-slate-400 truncate">${acc?.name || '-'} (${pkt?.name || '-'}) • ${goal.deadline ? `Target: ${goal.deadline}` : 'Tanpa tenggat'}</div>
                       </div>
                     </div>
                     <span class="text-xs font-medium text-sage shrink-0">${pct.toFixed(0)}%</span>
@@ -2162,7 +2116,7 @@
     }
 
     // =========================================================================
-    // 12. VIEW 5: HUTANG & PIUTANG
+    // 12. VIEW 5: HUTANG & PIUTANG (HEADER ORANGE #FF9B71)
     // =========================================================================
     function setDebtFilter(f) { ui.debtFilter = f; render(); }
 
@@ -2177,24 +2131,13 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium uppercase text-ink">HUTANG &amp; PIUTANG</h2>
-                <p class="text-[11px] text-slate-400">Catat pinjaman, talangan &amp; pelunasan</p>
+                <h2 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8]">HUTANG &amp; PIUTANG</h2>
+                <p class="text-xs mt-0.5" style="color: #FFF9EB;">Catat pinjaman, talangan &amp; pelunasan</p>
               </div>
-              <button onclick="openDebtModal()" class="px-3.5 py-2 rounded-2xl bg-butter text-ink text-xs font-medium shadow-sm">+ Catat</button>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2.5">
-              <div class="bg-coralLight rounded-2xl p-3 border border-coral/20">
-                <span class="text-[11px] text-coral block">Sisa Hutang</span>
-                <span class="text-xs font-medium text-ink">${formatCurrency(totalHutang)}</span>
-              </div>
-              <div class="bg-sageLight rounded-2xl p-3 border border-sage/20">
-                <span class="text-[11px] text-sage block">Sisa Piutang</span>
-                <span class="text-xs font-medium text-ink">${formatCurrency(totalPiutang)}</span>
-              </div>
+              <button onclick="openDebtModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">+ Catat</button>
             </div>
 
             <div class="flex gap-1.5">
@@ -2204,10 +2147,21 @@
                 { id: 'receivable', label: 'Piutang' }
               ].map(tab => `
                 <button onclick="setDebtFilter('${tab.id}')"
-                  class="px-3 py-1.5 rounded-xl text-xs font-medium ${ui.debtFilter === tab.id ? 'bg-ink text-[#FBF6EA]' : 'bg-creamSoft text-slate-600'}">
+                  class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.debtFilter === tab.id ? 'bg-[#422F0E] text-[#FFF9EB]' : 'bg-creamCard text-ink'}">
                   ${tab.label}
                 </button>
               `).join('')}
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5 pt-1 border-t" style="border-color: rgba(255, 253, 248, 0.45);">
+              <div class="bg-creamCard rounded-2xl p-3">
+                <span class="text-[11px] text-coral block">Sisa Hutang</span>
+                <span class="text-sm font-medium text-ink">${formatCurrency(totalHutang)}</span>
+              </div>
+              <div class="bg-creamCard rounded-2xl p-3">
+                <span class="text-[11px] text-sage block">Sisa Piutang</span>
+                <span class="text-sm font-medium text-ink">${formatCurrency(totalPiutang)}</span>
+              </div>
             </div>
           </div>
 
@@ -2253,15 +2207,15 @@
     }
 
     // =========================================================================
-    // 13. VIEW 6: PENGATURAN (SHEETS SYNC, KURS, PIN 48 JAM, BACKUP/RESTORE)
+    // 13. VIEW 6: PENGATURAN (HEADER ORANGE #FF9B71)
     // =========================================================================
     function renderPengaturanView() {
       const pinActive = Boolean(db.security?.enabled && db.security?.pinHash);
       return `
         <div class="p-4 space-y-4">
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2">
-            <h2 class="text-base font-medium uppercase text-ink">PENGATURAN</h2>
-            <p class="text-[11px] text-slate-400">Sinkronisasi Google Sheets, kurs mata uang, keamanan PIN &amp; cadangan data</p>
+          <div class="rounded-3xl p-4 shadow-sm border space-y-1.5" style="background-color: #FF9B71; border-color: #EB8458;">
+            <h2 class="text-base font-medium uppercase tracking-wider text-[#FFFDF8]">PENGATURAN</h2>
+            <p class="text-xs" style="color: #FFF9EB;">Sinkronisasi Google Sheets, kurs mata uang, keamanan PIN &amp; cadangan data</p>
           </div>
 
           <!-- Koneksi Google Apps Script -->
@@ -2356,7 +2310,7 @@
       const blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = `peanut-butter-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.download = `catatan-keuangan-backup-${new Date().toISOString().slice(0, 10)}.json`;
       a.click();
       URL.revokeObjectURL(a.href);
       showToast('File backup JSON berhasil diunduh');
@@ -2728,15 +2682,12 @@
               </div>
             </div>
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Warna Kartu</label>
-              <div class="grid grid-cols-4 gap-2">
+              <label class="block text-[11px] text-slate-500 mb-1.5">Warna Kartu</label>
+              <div class="flex flex-wrap gap-2.5 py-1">
                 ${ACCOUNT_COLORS.map(col => `
                   <label class="cursor-pointer">
                     <input type="radio" name="accColor" value="${col.id}" ${(acc?.colorId || 'emerald') === col.id ? 'checked' : ''} class="sr-only peer" />
-                    <div class="p-2 rounded-xl border border-[#E8DEC5] peer-checked:ring-2 peer-checked:ring-ink flex items-center gap-1.5 bg-creamSoft">
-                      <span class="w-3.5 h-3.5 rounded-full shrink-0" style="background-color:${col.hex}"></span>
-                      <span class="text-[10px] text-ink truncate">${col.name}</span>
-                    </div>
+                    <span class="w-8 h-8 rounded-full block border-2 border-white shadow-sm peer-checked:ring-2 peer-checked:ring-ink peer-checked:scale-110 transition-all" style="background-color:${col.hex}"></span>
                   </label>
                 `).join('')}
               </div>
@@ -2950,7 +2901,9 @@
 
     function openSavingGoalModal(goalId = null) {
       const goal = goalId ? db.savingsGoals.find(g => g.id === goalId) : null;
-      const firstAcc = db.accounts[0];
+      const firstAcc = db.accounts.find(a => a.id === goal?.accountId) || db.accounts[0];
+      const currentPktBalIDR = goal ? getSavingGoalBalanceIDR(goal) : 0;
+
       openModal(`
         <div class="space-y-4">
           <div class="flex items-center justify-between">
@@ -2959,37 +2912,94 @@
           </div>
           <form onsubmit="submitSavingGoal(event, '${goal ? goal.id : ''}')" class="space-y-3">
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Nama Target</label>
-              <input type="text" name="goalName" value="${goal ? goal.name : ''}" required placeholder="Contoh: Liburan Jepang"
+              <label class="block text-[11px] text-slate-500 mb-1">Nama Target Tabungan</label>
+              <input type="text" name="goalName" value="${goal ? goal.name : ''}" required placeholder="Contoh: Dana Darurat / Beli Rumah"
                 class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
             </div>
-            <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Nominal Target (IDR)</label>
-              <input type="text" name="goalTarget" value="${goal ? formatNumberID(goal.targetAmount) : ''}" inputmode="numeric" oninput="formatAmountInput(this)" required
-                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+
+            <div class="bg-[#EFF9F7] border border-[#CBECE6] rounded-2xl p-3 space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-medium text-[#02594F]">Ditaruh di Akun Mana?</span>
+                <span class="text-[10px] font-medium text-sage">Terhitung Total Kekayaan</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2.5">
+                <div>
+                  <label class="block text-[10px] text-slate-500 mb-1">Akun Penyimpanan</label>
+                  <select id="goal-acc-select" name="goalAccountId" onchange="onGoalAccChange()" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                    ${db.accounts.map(a => `<option value="${a.id}" ${a.id === firstAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[10px] text-slate-500 mb-1">Pocket Tabungan</label>
+                  <select id="goal-pkt-select" name="goalPocketId" onchange="onGoalPktChange()" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                    ${((firstAcc?.pockets) || []).map(p => `<option value="${p.id}" ${goal?.pocketId === p.id ? 'selected' : ''}>${p.name}</option>`).join('')}
+                    <option value="__NEW__">+ Buat Pocket Baru</option>
+                  </select>
+                </div>
+              </div>
+              <div id="goal-new-pkt-wrap" class="hidden">
+                <label class="block text-[10px] text-slate-500 mb-1">Nama Pocket Baru</label>
+                <input type="text" id="goal-new-pkt-name" name="goalNewPocketName" placeholder="Contoh: Celengan Liburan"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink" />
+              </div>
             </div>
+
             <div class="grid grid-cols-2 gap-2.5">
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Akun</label>
-                <select id="goal-acc-select" name="goalAccountId" onchange="onGoalAccChange()" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
-                  ${db.accounts.map(a => `<option value="${a.id}" ${(goal?.accountId || firstAcc?.id) === a.id ? 'selected' : ''}>${a.name}</option>`).join('')}
-                </select>
+                <label class="block text-[11px] text-slate-500 mb-1">Target Nominal (IDR)</label>
+                <input type="text" name="goalTarget" value="${goal ? formatNumberID(goal.targetAmount) : ''}" inputmode="numeric" oninput="formatAmountInput(this)" required placeholder="5.000.000"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
               </div>
               <div>
-                <label class="block text-[11px] text-slate-500 mb-1">Pocket Terhubung</label>
-                <select id="goal-pkt-select" name="goalPocketId" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink">
-                  ${((db.accounts.find(a => a.id === (goal?.accountId || firstAcc?.id)) || firstAcc)?.pockets || []).map(p => `<option value="${p.id}" ${goal?.pocketId === p.id ? 'selected' : ''}>${p.name}</option>`).join('')}
-                </select>
+                <label class="block text-[11px] text-slate-500 mb-1">Tenggat Waktu</label>
+                <input type="date" name="goalDeadline" value="${goal?.deadline || ''}" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
               </div>
             </div>
+
             <div>
-              <label class="block text-[11px] text-slate-500 mb-1">Tanggal Tenggat (Opsional)</label>
-              <input type="date" name="goalDeadline" value="${goal?.deadline || ''}" class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              <label class="block text-[11px] text-slate-500 mb-1">${goal ? 'Saldo Pocket Terkumpul (IDR)' : 'Saldo Awal Masuk Pocket (IDR)'}</label>
+              <input type="text" id="goal-init-bal" name="goalInitAmount" value="${goal ? formatNumberID(Math.round(currentPktBalIDR)) : '0'}" inputmode="numeric" oninput="formatAmountInput(this)"
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
             </div>
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Target</button>
+
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Catatan</label>
+              <input type="text" name="goalNote" value="${goal?.note || ''}" placeholder="Contoh: Sisihkan 15% gaji bulanan"
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1.5">Warna Celengan</label>
+              <div class="flex flex-wrap gap-2.5 py-0.5">
+                ${ACCOUNT_COLORS.map(col => `
+                  <label class="cursor-pointer">
+                    <input type="radio" name="goalColor" value="${col.id}" ${(goal?.colorId || 'emerald') === col.id ? 'checked' : ''} class="sr-only peer" />
+                    <span class="w-8 h-8 rounded-full block border-2 border-white shadow-sm peer-checked:ring-2 peer-checked:ring-ink peer-checked:scale-110 transition-all" style="background-color:${col.hex}"></span>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1.5">Ikon Tabungan</label>
+              <div class="grid grid-cols-4 gap-2">
+                ${Object.keys(ICONS).map(icKey => `
+                  <label class="cursor-pointer">
+                    <input type="radio" name="goalIcon" value="${icKey}" ${(goal?.icon || 'celengan') === icKey ? 'checked' : ''} class="sr-only peer" />
+                    <div class="py-2 px-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-ink peer-checked:bg-ink peer-checked:text-[#FBF6EA] flex flex-col items-center gap-1 transition-all">
+                      ${ICONS[icKey]}
+                      <span class="text-[10px]">${ICON_LABELS[icKey] || icKey}</span>
+                    </div>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md">Simpan Tabungan</button>
           </form>
         </div>
       `);
+      onGoalPktChange();
     }
 
     function onGoalAccChange() {
@@ -2997,7 +3007,18 @@
       const pktSel = document.getElementById('goal-pkt-select');
       const acc = db.accounts.find(a => a.id === accId);
       if (pktSel && acc) {
-        pktSel.innerHTML = (acc.pockets || []).map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+        const opts = (acc.pockets || []).map(p => `<option value="${p.id}">${p.name}</option>`);
+        opts.push(`<option value="__NEW__">+ Buat Pocket Baru</option>`);
+        pktSel.innerHTML = opts.join('');
+      }
+      onGoalPktChange();
+    }
+
+    function onGoalPktChange() {
+      const pktVal = document.getElementById('goal-pkt-select')?.value;
+      const newWrap = document.getElementById('goal-new-pkt-wrap');
+      if (newWrap) {
+        newWrap.classList.toggle('hidden', pktVal !== '__NEW__');
       }
     }
 
@@ -3007,42 +3028,85 @@
       const name = String(fd.get('goalName') || '').trim();
       const targetAmount = parseFormattedAmount(fd.get('goalTarget'));
       const accountId = fd.get('goalAccountId');
-      const pocketId = fd.get('goalPocketId');
+      let pocketId = fd.get('goalPocketId');
+      const newPocketName = String(fd.get('goalNewPocketName') || '').trim();
+      const initAmountIDR = parseFormattedAmount(fd.get('goalInitAmount'));
       const deadline = fd.get('goalDeadline') || '';
-      if (!name || targetAmount <= 0) return;
+      const note = String(fd.get('goalNote') || '').trim();
+      const colorId = fd.get('goalColor') || 'emerald';
+      const icon = fd.get('goalIcon') || 'celengan';
 
-      const acc = db.accounts.find(a => a.id === accountId);
-      const pkt = acc?.pockets?.find(p => p.id === pocketId);
-      const curIDR = pkt ? toIDR(pkt.balance, acc.currency) : 0;
+      if (!name || targetAmount <= 0) {
+        showToast('Lengkapi nama & nominal target tabungan', 'error');
+        return;
+      }
+
+      const acc = db.accounts.find(a => a.id === accountId) || db.accounts[0];
+      if (!acc) return;
+      acc.pockets = acc.pockets || [];
+
+      let pkt = acc.pockets.find(p => p.id === pocketId);
+      if (pocketId === '__NEW__' || !pkt) {
+        const createdPkt = {
+          id: 'pkt_' + Date.now(),
+          name: newPocketName || name,
+          balance: 0,
+          urut: acc.pockets.length + 1
+        };
+        acc.pockets.push(createdPkt);
+        pkt = createdPkt;
+        pocketId = createdPkt.id;
+      }
+
+      const rate = Number(db.exchangeRates?.[acc.currency]) || 1;
+      const initInAccCur = initAmountIDR / rate;
 
       if (goalId) {
         const g = db.savingsGoals.find(x => x.id === goalId);
         if (g) {
+          if (initAmountIDR >= 0) {
+            pkt.balance = initInAccCur;
+          }
           g.name = name;
           g.targetAmount = targetAmount;
-          g.accountId = accountId;
-          g.pocketId = pocketId;
+          g.accountId = acc.id;
+          g.pocketId = pkt.id;
           g.deadline = deadline;
-          g.currentAmount = curIDR;
+          g.note = note;
+          g.colorId = colorId;
+          g.icon = icon;
+          g.currentAmount = getSavingGoalBalanceIDR(g);
         }
       } else {
-        db.savingsGoals.push({
+        if (initAmountIDR > 0) {
+          pkt.balance = (Number(pkt.balance) || 0) + initInAccCur;
+        }
+        const newGoal = {
           id: 'sav_' + Date.now(),
           name,
           targetAmount,
-          currentAmount: curIDR,
-          accountId,
-          pocketId,
+          currentAmount: 0,
+          accountId: acc.id,
+          pocketId: pkt.id,
           deadline,
-          colorId: 'emerald',
-          icon: 'celengan',
-          note: '',
-          history: []
-        });
+          colorId,
+          icon,
+          note,
+          history: initAmountIDR > 0 ? [{
+            id: 'sh_' + Date.now(),
+            type: 'deposit',
+            amount: initAmountIDR,
+            date: new Date().toISOString().slice(0, 10),
+            note: `Saldo awal masuk ke pocket ${pkt.name}`
+          }] : []
+        };
+        newGoal.currentAmount = getSavingGoalBalanceIDR(newGoal);
+        db.savingsGoals.push(newGoal);
       }
+
       saveData();
       closeModal();
-      showToast('Target tabungan tersimpan');
+      showToast('Tabungan terhubung ke pocket & kekayaan');
       render();
     }
 
