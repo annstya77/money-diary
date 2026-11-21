@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#f8db91" />
+  <meta name="theme-color" content="#B9D5F5" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -503,7 +503,7 @@
     // 4. PWA MANIFEST & SERVICE WORKER
     // =========================================================================
     function initPWAAssets() {
-      const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="32" fill="#f8db91"/><circle cx="64" cy="68" r="34" fill="#FFFDF7"/><path d="M40 44 L48 26 L60 40 Z" fill="#FFFDF7"/><path d="M88 44 L80 26 L68 40 Z" fill="#FFFDF7"/><circle cx="53" cy="66" r="4" fill="#3C3226"/><circle cx="75" cy="66" r="4" fill="#3C3226"/><path d="M59 75 Q64 80 69 75" stroke="#3C3226" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+      const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="32" fill="#B9D5F5"/><circle cx="64" cy="68" r="34" fill="#FFFDF7"/><path d="M40 44 L48 26 L60 40 Z" fill="#FFFDF7"/><path d="M88 44 L80 26 L68 40 Z" fill="#FFFDF7"/><circle cx="53" cy="66" r="4" fill="#3C3226"/><circle cx="75" cy="66" r="4" fill="#3C3226"/><path d="M59 75 Q64 80 69 75" stroke="#3C3226" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
       const iconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(iconSvg);
       const appleIcon = document.getElementById('apple-touch-icon');
       if (appleIcon) appleIcon.href = iconUrl;
@@ -514,7 +514,7 @@
         start_url: './',
         display: 'standalone',
         background_color: '#FBF6EA',
-        theme_color: '#f8db91',
+        theme_color: '#B9D5F5',
         icons: [{ src: iconUrl, sizes: '192x192', type: 'image/svg+xml' }]
       };
       const manifestEl = document.getElementById('pwa-manifest');
@@ -853,7 +853,7 @@
 
       return `
         <div class="p-4 space-y-3.5">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div class="inline-flex rounded-2xl bg-creamCard p-1">
                 <button onclick="setTxPeriodMode('monthly')"
@@ -1256,7 +1256,7 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-1.5 bg-creamCard rounded-2xl px-2 py-1">
                 <button onclick="shiftPeriod('stat', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">‹</button>
@@ -1563,7 +1563,7 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <button onclick="closePocketDetail()" class="px-3 py-1.5 rounded-xl bg-creamCard text-ink text-xs font-medium">
                 ← Kembali
@@ -1756,7 +1756,7 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3.5" style="background-color: #f8db91; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3.5" style="background-color: #B9D5F5; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div class="min-w-0">
                 <h1 class="text-base font-medium uppercase tracking-wider text-[#422F0E] truncate">AKUN</h1>
@@ -1898,7 +1898,7 @@
     }
 
     // =========================================================================
-    // 11. VIEW 4: TABUNGAN TERHUBUNG POCKET (HEADER KUNING #f8db91)
+    // 11. VIEW 4: TABUNGAN TERHUBUNG POCKET (HEADER BIRU #B9D5F5)
     // =========================================================================
     function openSavingGoalDetail(goalId) { ui.selectedSavingGoalId = goalId; render(); }
     function closeSavingGoalDetail() { ui.selectedSavingGoalId = null; render(); }
@@ -1916,7 +1916,7 @@
 
           return `
             <div class="p-4 space-y-4">
-              <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
+              <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
                 <div class="flex items-center justify-between">
                   <button onclick="closeSavingGoalDetail()" class="px-3 py-1.5 rounded-xl bg-creamCard text-xs font-medium text-ink">← Kembali</button>
                   <button onclick="openSavingGoalModal('${goal.id}')" class="px-3 py-1.5 rounded-xl bg-creamCard text-xs font-medium text-ink">Edit Target</button>
@@ -1968,7 +1968,7 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div>
                 <h2 class="text-base font-medium text-[#422F0E]">Target tabungan</h2>
@@ -2038,7 +2038,7 @@
     }
 
     // =========================================================================
-    // 12. VIEW 5: HUTANG & PIUTANG (HEADER KUNING #f8db91)
+    // 12. VIEW 5: HUTANG & PIUTANG (HEADER BIRU #B9D5F5)
     // =========================================================================
     function setDebtFilter(f) { ui.debtFilter = f; render(); }
 
@@ -2053,7 +2053,7 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #B9D5F5; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div>
                 <h2 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">HUTANG &amp; PIUTANG</h2>
@@ -2129,13 +2129,13 @@
     }
 
     // =========================================================================
-    // 13. VIEW 6: PENGATURAN (HEADER KUNING #f8db91)
+    // 13. VIEW 6: PENGATURAN (HEADER BIRU #B9D5F5)
     // =========================================================================
     function renderPengaturanView() {
       const pinActive = Boolean(db.security?.enabled && db.security?.pinHash);
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-1.5" style="background-color: #f8db91; border-color: #E2C06B;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-1.5" style="background-color: #B9D5F5; border-color: #E2C06B;">
             <h2 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">PENGATURAN</h2>
             <p class="text-xs" style="color: #422F0E;">Sinkronisasi Google Sheets, kurs mata uang, keamanan PIN &amp; cadangan data</p>
           </div>
