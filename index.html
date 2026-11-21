@@ -3,75 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#FBF6EA" />
-  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#f8db91" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Catatan Keuangan" />
-  <link id="pwa-manifest" rel="manifest" />
-  <link id="pwa-apple-icon" rel="apple-touch-icon" />
-  <link id="pwa-favicon" rel="icon" type="image/png" />
-  <title>Catatan Keuangan</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Catatan Keuangan — Personal Finance Tracker</title>
+
+  <link id="pwa-manifest" rel="manifest" href="" />
+  <link id="apple-touch-icon" rel="apple-touch-icon" href="" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Fredoka"', 'sans-serif'],
+            sans: ['Fredoka', 'sans-serif']
           },
           colors: {
             cream: '#FBF6EA',
-            creamCard: '#FFFDF8',
-            creamSoft: '#F5EEDB',
-            sage: '#037F71',
-            sageLight: '#E8F7F4',
-            coral: '#EF6545',
-            coralLight: '#FDEEEB',
-            peach: '#FF9B71',
-            butter: '#F4C95D',
-            peanut: '#C88A4B',
-            ink: '#422F0E',
+            creamCard: '#FFFDF7',
+            creamSoft: '#F5ECDA',
+            butter: '#F6E299',
+            peanut: '#D8A25E',
+            peanutDark: '#B97E3B',
+            sage: '#3E8A75',
+            sageLight: '#E5F2ED',
+            coral: '#E05A5A',
+            coralLight: '#FCE8E8',
+            ink: '#3C3226'
           }
         }
       }
     };
   </script>
+
   <style>
     * {
+      font-family: 'Fredoka', sans-serif !important;
+      font-weight: 400;
       -webkit-tap-highlight-color: transparent;
       box-sizing: border-box;
-      letter-spacing: 0.015em;
     }
-    body {
-      background-color: #F3ECDC;
-      color: #422F0E;
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 400;
-      margin: 0;
-      padding: 0;
-    }
-    .font-extrabold, .font-bold {
+
+    strong, b, .font-medium, .font-semibold, .font-bold {
       font-weight: 500 !important;
-      letter-spacing: 0.02em;
     }
-    .font-semibold {
-      font-weight: 400 !important;
-      letter-spacing: 0.015em;
+
+    body {
+      background-color: #FBF6EA;
+      color: #3C3226;
+      overscroll-behavior-y: none;
     }
-    ::-webkit-scrollbar {
-      width: 4px;
-      height: 4px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(66, 47, 14, 0.16);
-      border-radius: 999px;
-    }
+
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -79,280 +67,147 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-    @keyframes slideUp {
-      from { transform: translateY(24px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+
+    @keyframes popIn {
+      0% { transform: scale(0.95) translateY(8px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
     }
-    .animate-slide-up {
-      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .animate-fade-in {
-      animation: fadeIn 0.2s ease-out forwards;
-    }
-    @keyframes catSway {
-      0%, 100% { transform: rotate(-4deg) translateY(0); }
-      50% { transform: rotate(4deg) translateY(-3px); }
-    }
-    @keyframes catSwayR {
-      0%, 100% { transform: rotate(4deg) translateY(0); }
-      50% { transform: rotate(-4deg) translateY(-3px); }
-    }
-    @keyframes catBob {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-3px) scale(1.04); }
-    }
-    .cat-peanut { animation: catSway 3.4s ease-in-out infinite; }
-    .cat-butter { animation: catSwayR 3.4s ease-in-out infinite; }
-    .cat-bob { animation: catBob 2.6s ease-in-out infinite; }
-    .cat-blend-screen {
-      mix-blend-mode: screen;
+    .animate-pop {
+      animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
   </style>
 </head>
-<body class="min-h-screen flex justify-center">
+<body class="min-h-screen flex justify-center bg-[#F3EAD8]">
 
-  <!-- Mobile-First App Container -->
-  <div id="app" class="w-full max-w-md bg-cream min-h-screen relative shadow-2xl flex flex-col pb-24 overflow-x-hidden">
-
-    <!-- Lock Screen Overlay (PIN / Password Sesi 48 Jam) -->
-    <div id="lock-screen" class="fixed inset-0 z-[90] hidden items-center justify-center p-5 bg-[#FBF6EA]/95 backdrop-blur-md">
-      <div class="w-full max-w-sm bg-creamCard rounded-3xl p-6 shadow-xl border border-[#E8DEC5] space-y-5 text-center">
-        <div class="w-14 h-14 rounded-2xl mx-auto border-2 border-butter shadow-sm bg-creamSoft flex items-center justify-center text-ink">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-        </div>
-        <div>
-          <h2 class="text-lg font-medium uppercase tracking-wider text-ink">APLIKASI TERKUNCI</h2>
-          <p class="text-xs text-slate-500 mt-1">Masukkan PIN / password Anda untuk membuka buku harian keuangan</p>
-        </div>
-
-        <form onsubmit="submitUnlockApp(event)" class="space-y-3.5 text-left">
-          <div>
-            <label class="block text-xs font-medium text-slate-600 mb-1">PIN / Password</label>
-            <input type="password" id="lock-pin-input" inputmode="numeric" autocomplete="current-password" required
-              placeholder="Masukkan PIN / password..."
-              class="w-full px-4 py-3 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-center text-base font-medium tracking-widest text-ink focus:outline-none focus:border-peanut" />
-            <p id="lock-error-msg" class="text-[11px] font-medium text-coral mt-1.5 hidden">PIN / password salah, silakan coba lagi.</p>
-          </div>
-          <button type="submit"
-            class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md hover:opacity-95 active:scale-95 transition-all">
-            Buka Aplikasi
-          </button>
-        </form>
-      </div>
-    </div>
+  <div id="app-shell" class="w-full max-w-md min-h-screen bg-cream relative flex flex-col shadow-xl">
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] hidden max-w-[90vw]">
-      <div id="toast-inner" class="bg-ink text-[#FBF6EA] text-xs font-normal px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2.5">
-        <span id="toast-icon"></span>
-        <span id="toast-msg">Tersimpan</span>
+    <div id="toast-banner" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-medium tracking-wide bg-ink text-[#FBF6EA] max-w-[90vw] text-center"></div>
+
+    <!-- Lock Screen Overlay -->
+    <div id="lock-screen" class="hidden fixed inset-0 z-[80] bg-cream flex flex-col items-center justify-center p-6">
+      <div class="w-full max-w-xs bg-creamCard rounded-3xl p-6 shadow-md border border-[#E8DEC5] text-center space-y-5">
+        <div class="w-16 h-16 mx-auto rounded-2xl bg-butter flex items-center justify-center shadow-inner">
+          <svg class="w-8 h-8 text-peanutDark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-base font-medium uppercase tracking-wider text-ink">KUNCI APLIKASI</h2>
+          <p class="text-xs text-slate-500 mt-1">Masukkan 4–6 digit PIN untuk membuka sesi (48 jam)</p>
+        </div>
+        <input id="pin-unlock-input" type="password" inputmode="numeric" maxlength="6" placeholder="••••"
+          onkeydown="if(event.key==='Enter') unlockWithPin()"
+          class="w-full text-center tracking-[0.5em] text-lg py-3 rounded-2xl bg-creamSoft border border-[#E2D4B7] focus:outline-none focus:border-peanut" />
+        <button onclick="unlockWithPin()" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium uppercase tracking-wider shadow-sm active:scale-95 transition-all">
+          Buka Aplikasi
+        </button>
       </div>
     </div>
 
-    <!-- Main Dynamic View Area -->
-    <main id="main-content" class="flex-1 w-full"></main>
+    <!-- Main Content Container -->
+    <main id="main-content" class="flex-1 pb-28 overflow-y-auto no-scrollbar"></main>
 
-    <!-- Floating Action Button (+ Catat — Hanya muncul di menu Transaksi & Akun) -->
-    <button id="fab-catat-btn" onclick="openTxModal()" aria-label="Tambah Transaksi"
-      class="fixed bottom-20 right-4 sm:right-[calc(50%-210px)] z-40 h-12 px-5 rounded-full bg-butter text-ink shadow-xl hover:opacity-95 active:scale-95 transition-all flex items-center justify-center border-2 border-peanut">
-      <span class="text-xs font-medium">+ Catat</span>
+    <!-- Floating Action Button (+ Catat) -->
+    <button id="fab-add-tx" onclick="handleFabCatatClick()"
+      class="fixed bottom-24 right-5 z-40 flex items-center gap-2 px-4 py-3.5 rounded-full bg-ink text-[#FBF6EA] shadow-lg hover:opacity-95 active:scale-95 transition-all">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+      </svg>
+      <span class="text-xs font-medium tracking-wide">Catat</span>
     </button>
 
-    <!-- Bottom Navigation Bar (6 Menu) -->
-    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-creamCard/95 backdrop-blur-md border-t border-[#E8DEC5] z-30 px-1.5 py-1.5 shadow-[0_-4px_20px_rgba(66,47,14,0.05)]">
-      <div class="grid grid-cols-6 items-center text-center" id="bottom-nav"></div>
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-40 bg-creamCard/95 backdrop-blur-md border-t border-[#E8DEC5] px-1.5 py-2">
+      <div id="bottom-nav-items" class="grid grid-cols-6 gap-0.5 text-center"></div>
     </nav>
 
-    <!-- Universal Modal / Bottom Sheet Container -->
-    <div id="modal-backdrop" class="fixed inset-0 bg-black/45 backdrop-blur-[2px] z-50 hidden items-end sm:items-center justify-center p-0 sm:p-4 animate-fade-in" onclick="closeModalOnBackdrop(event)">
-      <div id="modal-box" class="bg-creamCard w-full max-w-md rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl animate-slide-up p-5 relative border border-[#E8DEC5]"></div>
+    <!-- Reusable Modal Overlay -->
+    <div id="modal-backdrop" onclick="closeModalOnBackdrop(event)"
+      class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] items-end sm:items-center justify-center p-0 sm:p-4">
+      <div id="modal-box" class="w-full max-w-md bg-creamCard rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl border border-[#E8DEC5] max-h-[90vh] overflow-y-auto animate-pop"></div>
     </div>
-
   </div>
 
   <script>
     // =========================================================================
-    // 1. KONSTANTA & PALET WARNA
+    // 1. KONSTANTA, MATA UANG, PALET WARNA & IKON
     // =========================================================================
-    const STORAGE_KEY = 'peanut_butter_codegs_db_v1';
-    const SESSION_TIMEOUT_MS = 48 * 60 * 60 * 1000;
+    const STORAGE_KEY = 'catatan_keuangan_pwa_v1';
+    const PIN_SESSION_KEY = 'catatan_keuangan_pin_session_until';
     const MONTH_NAMES_ID = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-    const MONTH_FULL_NAMES_ID = [
-      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-    ];
-
-    const PIE_COLORS = [
-      '#FF6B57', '#FF9F43', '#FFC837', '#A3D947', '#38D399',
-      '#2EC4B6', '#4EA8DE', '#7B61FF', '#D966FF', '#F472B6',
-      '#94A3B8', '#C88A4B'
-    ];
+    const MONTH_FULL_NAMES_ID = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
     const CURRENCY_META = {
-      IDR: { symbol: 'Rp', name: 'Rupiah Indonesia', decimals: 0 },
+      IDR: { symbol: 'Rp', name: 'Rupiah', decimals: 0 },
       THB: { symbol: '฿', name: 'Baht Thailand', decimals: 2 },
-      USD: { symbol: '$', name: 'Dolar Amerika', decimals: 2 },
-      SGD: { symbol: 'S$', name: 'Dolar Singapura', decimals: 2 },
-      EUR: { symbol: '€', name: 'Euro', decimals: 2 },
-      JPY: { symbol: '¥', name: 'Yen Jepang', decimals: 0 },
+      USD: { symbol: '$', name: 'US Dollar', decimals: 2 },
+      SGD: { symbol: 'S$', name: 'Singapore Dollar', decimals: 2 },
       MYR: { symbol: 'RM', name: 'Ringgit Malaysia', decimals: 2 },
-      AUD: { symbol: 'A$', name: 'Dolar Australia', decimals: 2 }
+      JPY: { symbol: '¥', name: 'Yen Jepang', decimals: 0 },
+      EUR: { symbol: '€', name: 'Euro', decimals: 2 }
     };
 
     const ACCOUNT_COLORS = [
-      { id: 'emerald', name: 'Bali Pool', hex: '#037F71', bg: '#EFF9F7', border: '#CBECE6', text: '#02594F' },
-      { id: 'teal', name: 'Bahamas Beach', hex: '#57B1A8', bg: '#F0F9F8', border: '#CCE9E6', text: '#26615B' },
-      { id: 'rose', name: 'Baby Shower', hex: '#EA5E86', bg: '#FDF1F5', border: '#F8D0DC', text: '#9E294B' },
-      { id: 'coral', name: 'Canned Tomato', hex: '#EF6545', bg: '#FEF2EF', border: '#FAD4CB', text: '#9E331B' },
-      { id: 'amber', name: 'Iced Tang', hex: '#F49625', bg: '#FEF6EC', border: '#FBE0BE', text: '#945307' },
-      { id: 'lavender', name: 'Baby Lavender', hex: '#9B6CC7', bg: '#FBF3FC', border: '#EED3F3', text: '#5D3582' },
-      { id: 'sky', name: 'Dip Twilight', hex: '#4B8E94', bg: '#F1F8F8', border: '#CFE4E6', text: '#264E52' },
-      { id: 'cocoa', name: 'Chocolate', hex: '#6B4C1E', bg: '#F8F4ED', border: '#E5D9C5', text: '#422F0E' },
-      { id: 'navy_bright', name: 'Biru Dongker Terang', hex: '#7594D1', bg: '#F0F4FC', border: '#CBD8F2', text: '#355087' },
-      { id: 'leaf_green', name: 'Hijau Daun', hex: '#C9CE67', bg: '#F9FAEC', border: '#E4E7B0', text: '#61661C' }
+      { id: 'emerald', hex: '#2B937B', bg: '#E6F4F0', border: '#BDE3D8' },
+      { id: 'teal',    hex: '#318B9E', bg: '#E7F3F6', border: '#BEE0E8' },
+      { id: 'amber',   hex: '#D48A2A', bg: '#FDF3E3', border: '#F4DCB5' },
+      { id: 'coral',   hex: '#DC6363', bg: '#FDEAEA', border: '#F5C4C4' },
+      { id: 'plum',    hex: '#8966B8', bg: '#F2ECFA', border: '#D9C9F0' },
+      { id: 'slate',   hex: '#596E85', bg: '#ECEFF3', border: '#CBD4DF' }
     ];
 
     const ICONS = {
-      celengan: `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6m-4 0v2m-2 0h6a3 3 0 013 3v10a3 3 0 01-3 3H9a3 3 0 01-3-3V8a3 3 0 013-3zm1 4h4m-2 4a2 2 0 100 4 2 2 0 000-4z"/></svg>`,
-      bank: `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 10v8m4-8v8m6-8v8m4-8v8M2 18h20M12 3L2 8h20L12 3z"/></svg>`,
-      wallet: `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2v-5zm0 0h-4a2 2 0 100 4h4"/></svg>`,
-      card: `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h4m-8 4h18a2 2 0 002-2V7a2 2 0 00-2-2H3a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`,
-      globe: `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0c2.5 0 4.5-4.03 4.5-9S14.5 3 12 3m0 18c-2.5 0-4.5-4.03-4.5-9S9.5 3 12 3m-8.5 6h17m-17 6h17"/></svg>`,
-      home: `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3v-6h6v6h3a1 1 0 001-1V10"/></svg>`,
-      plane: `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>`,
-      shield: `<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 4v5c0 5-3.5 8.5-7 9-3.5-.5-7-4-7-9V7l7-4z"/></svg>`
+      wallet: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7zm14 5h.01" /></svg>`,
+      bank: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 10v8m4-8v8m6-8v8m4-8v8M2 18h20M12 3l10 5H2l10-5z" /></svg>`,
+      card: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8h18M3 12h18M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z" /></svg>`,
+      celengan: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-3.3 0-6 2.2-6 5s2.7 5 6 5 6-2.2 6-5-2.7-5-6-5zm0-3v3m-3 5h6" /></svg>`,
+      coin: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v8m-2-6h4m-4 4h4" /></svg>`,
+      shield: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 4v5c0 4.5-3 8.4-7 9-4-.6-7-4.5-7-9V7l7-4z" /></svg>`,
+      plane: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 14l9-3 9-7-4 14-5-3-4 4v-5l-5 0z" /></svg>`,
+      home: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9z" /></svg>`
     };
 
     const ICON_LABELS = {
-      celengan: 'Celengan',
-      bank: 'Bank',
       wallet: 'Dompet',
+      bank: 'Bank',
       card: 'Kartu',
-      globe: 'Valas',
-      home: 'Rumah',
+      celengan: 'Celengan',
+      coin: 'Koin',
+      shield: 'Darurat',
       plane: 'Liburan',
-      shield: 'Darurat'
+      home: 'Rumah'
     };
 
-    function getColorObj(colorId) {
-      return ACCOUNT_COLORS.find(c => c.id === colorId) || ACCOUNT_COLORS[0];
-    }
-
     // =========================================================================
-    // 2. DATA LOKAL + KONEKSI GAS API (Code.gs) + ANTREAN OFFLINE OPTIMISTIC UI
+    // 2. DATA DEFAULT & STATE PERSISTENCE (LOCALSTORAGE)
     // =========================================================================
     function getDefaultData() {
+      const today = new Date().toISOString().slice(0, 10);
       return {
-        gasConfig: {
-          url: '',
-          key: 'Modiary55',
-          lastSyncAt: '',
-          status: 'offline'
-        },
-        pendingQueue: [],
-        security: {
-          enabled: false,
-          pinHash: '',
-          lastActiveAt: Date.now(),
-          lockedNow: false
-        },
         exchangeRates: {
           IDR: 1,
           THB: 475,
-          USD: 16250,
-          SGD: 12100,
-          EUR: 17550,
-          JPY: 108,
-          MYR: 3680,
-          AUD: 10550
+          USD: 15850,
+          SGD: 11800,
+          MYR: 3550,
+          JPY: 105,
+          EUR: 17100
         },
         exchangeRateMeta: {
-          source: 'default',
-          lastUpdated: 'Default Lokal'
+          lastUpdated: '',
+          source: 'Default'
         },
-        categories: [
-          {
-            id: 'cat_makan',
-            name: 'Makanan dan minuman',
-            type: 'expense',
-            grup: 'Sehari-hari',
-            directLimit: 0,
-            subcategories: [
-              { id: 'sub_makan_jadi', name: 'Makanan jadi', limit: 600000 },
-              { id: 'sub_jajan', name: 'Jajan', limit: 250000 },
-              { id: 'sub_bahan', name: 'Bahan makanan', limit: 400000 },
-              { id: 'sub_minuman', name: 'Minuman', limit: 200000 }
-            ]
-          },
-          {
-            id: 'cat_transport',
-            name: 'Transportasi',
-            type: 'expense',
-            grup: 'Sehari-hari',
-            directLimit: 500000,
-            subcategories: []
-          },
-          {
-            id: 'cat_rumah',
-            name: 'Rumah Tangga',
-            type: 'expense',
-            grup: 'Rumah',
-            directLimit: 0,
-            subcategories: [
-              { id: 'sub_bulanan', name: 'Belanja Bulanan', limit: 500000 },
-              { id: 'sub_perlengkapan', name: 'Perlengkapan', limit: 200000 }
-            ]
-          },
-          {
-            id: 'cat_tagihan',
-            name: 'Tagihan',
-            type: 'expense',
-            grup: 'Rumah',
-            directLimit: 0,
-            subcategories: [
-              { id: 'sub_wifi', name: 'Hp dan Wifi', limit: 350000 },
-              { id: 'sub_listrik', name: 'Listrik', limit: 300000 }
-            ]
-          },
-          {
-            id: 'cat_kucing',
-            name: 'Kucing',
-            type: 'expense',
-            grup: 'Waktu luang',
-            directLimit: 400000,
-            subcategories: []
-          },
-          {
-            id: 'cat_lainnya_out',
-            name: 'Lainnya',
-            type: 'expense',
-            grup: 'Lainnya',
-            directLimit: 250000,
-            subcategories: [
-              { id: 'sub_lain_out', name: 'Lainnya', limit: 250000 }
-            ]
-          },
-          {
-            id: 'cat_gaji',
-            name: 'Gaji',
-            type: 'income',
-            grup: 'Sumber pemasukan',
-            directLimit: 0,
-            subcategories: []
-          },
-          {
-            id: 'cat_lainnya_in',
-            name: 'Lainnya',
-            type: 'income',
-            grup: 'Sumber pemasukan',
-            directLimit: 0,
-            subcategories: []
-          }
-        ],
+        gasConfig: {
+          url: '',
+          key: '',
+          lastSyncAt: '',
+          status: 'offline'
+        },
+        security: {
+          enabled: false,
+          pinHash: ''
+        },
         accounts: [
           {
             id: 'acc_bca',
@@ -363,20 +218,20 @@
             icon: 'bank',
             urut: 1,
             pockets: [
-              { id: 'pkt_bca_main', name: 'Rekening Utama', balance: 6450000, urut: 1 },
-              { id: 'pkt_bca_darurat', name: 'Dana Darurat', balance: 15250000, urut: 2 }
+              { id: 'pkt_bca_main', name: 'Pocket Utama', balance: 4500000, urut: 1 },
+              { id: 'pkt_bca_darurat', name: 'Dana Darurat', balance: 3000000, urut: 2 }
             ]
           },
           {
             id: 'acc_cash',
-            name: 'Cash',
+            name: 'Dompet Tunai',
             jenis: 'Cash',
             currency: 'IDR',
             colorId: 'amber',
             icon: 'wallet',
             urut: 2,
             pockets: [
-              { id: 'pkt_cash_main', name: 'Dompet Harian', balance: 1150000, urut: 1 }
+              { id: 'pkt_cash_harian', name: 'Kas Harian', balance: 650000, urut: 1 }
             ]
           },
           {
@@ -384,89 +239,111 @@
             name: 'Dompet Baht',
             jenis: 'Cash',
             currency: 'THB',
-            colorId: 'sky',
-            icon: 'globe',
+            colorId: 'teal',
+            icon: 'wallet',
             urut: 3,
             pockets: [
-              { id: 'pkt_thb_main', name: 'Kas Bangkok', balance: 12500, urut: 1 }
+              { id: 'pkt_thb_travel', name: 'Travel Thailand', balance: 4200, urut: 1 }
             ]
           }
         ],
+        categories: [
+          {
+            id: 'cat_makan',
+            name: 'Makan & Minum',
+            type: 'expense',
+            colorId: 'amber',
+            directLimit: 1500000,
+            subcategories: [
+              { id: 'sub_makan_harian', name: 'Makan Harian', limit: 1000000 },
+              { id: 'sub_kopi', name: 'Kopi & Jajan', limit: 500000 }
+            ]
+          },
+          {
+            id: 'cat_transport',
+            name: 'Transportasi',
+            type: 'expense',
+            colorId: 'teal',
+            directLimit: 600000,
+            subcategories: []
+          },
+          {
+            id: 'cat_tagihan',
+            name: 'Tagihan',
+            type: 'expense',
+            colorId: 'coral',
+            directLimit: 650000,
+            subcategories: [
+              { id: 'sub_hp_wifi', name: 'Hp dan Wifi', limit: 350000 },
+              { id: 'sub_listrik', name: 'Listrik', limit: 300000 }
+            ]
+          },
+          {
+            id: 'cat_gaji',
+            name: 'Gaji & Bonus',
+            type: 'income',
+            colorId: 'emerald',
+            directLimit: 0,
+            subcategories: []
+          }
+        ],
+        monthlyBudgets: {},
         transactions: [
           {
-            id: 'tx_1',
-            type: 'income',
-            date: '2026-11-20',
-            amount: 8500000,
-            categoryId: 'cat_gaji',
-            subcategoryId: '',
-            title: 'Gaji Bulanan November',
-            accountId: 'acc_bca',
-            pocketId: 'pkt_bca_main'
-          },
-          {
-            id: 'tx_2',
+            id: 'tx_init_1',
             type: 'expense',
-            date: '2026-11-20',
-            amount: 45000,
-            categoryId: 'cat_makan',
-            subcategoryId: 'sub_minuman',
-            title: 'Kopi Susu & Roti Pagi',
-            accountId: 'acc_cash',
-            pocketId: 'pkt_cash_main'
-          },
-          {
-            id: 'tx_3',
-            type: 'expense',
-            date: '2026-11-18',
+            date: today,
             amount: 320000,
             categoryId: 'cat_tagihan',
-            subcategoryId: 'sub_wifi',
+            subcategoryId: 'sub_hp_wifi',
             title: 'Paket Internet & Wifi',
             accountId: 'acc_bca',
             pocketId: 'pkt_bca_main'
-          }
-        ],
-        debts: [
+          },
           {
-            id: 'debt_1',
-            type: 'receivable',
-            person: 'Rina (Teman Kantor)',
-            totalAmount: 500000,
-            paidAmount: 200000,
-            dueDate: '2026-12-05',
-            note: 'Talangan tiket',
+            id: 'tx_init_2',
+            type: 'expense',
+            date: today,
+            amount: 45000,
+            categoryId: 'cat_makan',
+            subcategoryId: 'sub_makan_harian',
+            title: 'Makan Siang',
+            accountId: 'acc_cash',
+            pocketId: 'pkt_cash_harian'
+          },
+          {
+            id: 'tx_init_3',
+            type: 'income',
+            date: today,
+            amount: 5000000,
+            categoryId: 'cat_gaji',
+            subcategoryId: '',
+            title: 'Gaji Bulanan',
             accountId: 'acc_bca',
-            pocketId: 'pkt_bca_main',
-            createdAt: '2026-11-10'
+            pocketId: 'pkt_bca_main'
           }
         ],
         recurringTransactions: [],
         savingsGoals: [
           {
-            id: 'sav_1',
+            id: 'sav_darurat',
             name: 'Dana Darurat',
-            targetAmount: 25000000,
-            currentAmount: 15250000,
+            targetAmount: 10000000,
+            currentAmount: 3000000,
             accountId: 'acc_bca',
             pocketId: 'pkt_bca_darurat',
-            deadline: '2027-08-31',
+            deadline: '',
             colorId: 'emerald',
             icon: 'shield',
-            note: 'Target 6x pengeluaran bulanan',
+            note: 'Cadangan 6 bulan biaya hidup',
+            urut: 1,
             history: [
-              {
-                id: 'sh_1',
-                type: 'deposit',
-                amount: 15250000,
-                date: '2026-11-01',
-                accountId: 'acc_bca',
-                pocketId: 'pkt_bca_main',
-                note: 'Saldo tabungan awal'
-              }
+              { id: 'sh_1', type: 'deposit', amount: 3000000, date: today, note: 'Saldo awal pocket Dana Darurat' }
             ]
           }
-        ]
+        ],
+        debts: [],
+        pendingQueue: []
       };
     }
 
@@ -477,18 +354,14 @@
         const parsed = JSON.parse(raw);
         const def = getDefaultData();
         return {
-          gasConfig: { ...def.gasConfig, ...(parsed.gasConfig || {}) },
-          pendingQueue: Array.isArray(parsed.pendingQueue) ? parsed.pendingQueue : [],
-          security: { ...def.security, ...(parsed.security || {}) },
+          ...def,
+          ...parsed,
           exchangeRates: { ...def.exchangeRates, ...(parsed.exchangeRates || {}) },
-          exchangeRateMeta: parsed.exchangeRateMeta || def.exchangeRateMeta,
-          categories: Array.isArray(parsed.categories) && parsed.categories.length ? parsed.categories : def.categories,
-          accounts: Array.isArray(parsed.accounts) && parsed.accounts.length ? parsed.accounts : def.accounts,
-          transactions: Array.isArray(parsed.transactions) ? parsed.transactions : def.transactions,
-          monthlyBudgets: (parsed.monthlyBudgets && typeof parsed.monthlyBudgets === 'object') ? parsed.monthlyBudgets : {},
-          recurringTransactions: Array.isArray(parsed.recurringTransactions) ? parsed.recurringTransactions : [],
-          debts: Array.isArray(parsed.debts) ? parsed.debts : [],
-          savingsGoals: Array.isArray(parsed.savingsGoals) ? parsed.savingsGoals : []
+          exchangeRateMeta: { ...def.exchangeRateMeta, ...(parsed.exchangeRateMeta || {}) },
+          gasConfig: { ...def.gasConfig, ...(parsed.gasConfig || {}) },
+          security: { ...def.security, ...(parsed.security || {}) },
+          monthlyBudgets: parsed.monthlyBudgets || {},
+          recurringTransactions: Array.isArray(parsed.recurringTransactions) ? parsed.recurringTransactions : []
         };
       } catch (e) {
         return getDefaultData();
@@ -497,606 +370,62 @@
 
     let db = loadData();
     let isFetchingRates = false;
-    let isSyncingGas = false;
-    let deferredInstallPrompt = null;
 
+    const nowInit = new Date();
     const ui = {
       activeTab: 'akun',
-      txFilterType: 'ALL',
-      txSearch: '',
+      txPeriodMode: 'monthly',
+      txYear: nowInit.getFullYear(),
+      txMonth: nowInit.getMonth(),
+      txTypeFilter: 'ALL',
       statPeriodMode: 'monthly',
-      statYear: 2026,
-      statMonth: 10,
-      statSubTab: 'anggaran',
-      statChartType: 'expense',
+      statYear: nowInit.getFullYear(),
+      statMonth: nowInit.getMonth(),
       expandedBudgetCats: {},
-      drilldownCategoryId: null,
-      drilldownSubcategoryId: 'ALL',
       akunPeriodMode: 'monthly',
-      akunYear: 2026,
-      akunMonth: 10,
-      selectedPocketDetail: null,
+      akunYear: nowInit.getFullYear(),
+      akunMonth: nowInit.getMonth(),
+      selectedPocketDetail: null, // { accId, pktId }
+      pocketDetailTab: 'daily', // 'daily' | 'monthly' | 'yearly'
+      pocketDetailYear: nowInit.getFullYear(),
+      pocketDetailMonth: nowInit.getMonth(),
       selectedSavingGoalId: null,
-      debtFilter: 'ALL',
-      pendingRestoreData: null
+      debtFilter: 'ALL'
     };
 
     function saveData() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
       } catch (e) {
-        console.warn('Gagal menyimpan lokal:', e);
-      }
-    }
-
-    function updateFabVisibility() {
-      const fab = document.getElementById('fab-catat-btn');
-      if (!fab) return;
-      const showFab = ui.activeTab === 'transaksi' || ui.activeTab === 'akun';
-      fab.classList.toggle('hidden', !showFab);
-    }
-
-    // =========================================================================
-    // 3. BRIDGE KOMUNIKASI LANGSUNG KE GOOGLE APPS SCRIPT (Code.gs)
-    // =========================================================================
-    async function callGasApi(fn, args = []) {
-      const url = (db.gasConfig?.url || '').trim();
-      const key = (db.gasConfig?.key || '').trim();
-      if (!url || !key) {
-        throw new Error('URL Web App atau Kunci Rahasia belum diisi');
-      }
-
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ key, fn, args })
-      });
-
-      const json = await res.json();
-      if (!json || !json.ok) {
-        throw new Error(json?.error || 'Respons API gagal');
-      }
-      return json.data;
-    }
-
-    function enqueueGasCall(fn, args = []) {
-      if (!db.gasConfig?.url || !db.gasConfig?.key) return;
-      db.pendingQueue.push({ id: 'q_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6), fn, args });
-      saveData();
-      flushGasQueue(true);
-    }
-
-    async function flushGasQueue(silent = true) {
-      if (isSyncingGas) return;
-      if (!db.gasConfig?.url || !db.gasConfig?.key) return;
-      if (!db.pendingQueue || db.pendingQueue.length === 0) return;
-
-      isSyncingGas = true;
-      db.gasConfig.status = 'syncing';
-      if (!silent) render();
-
-      try {
-        while (db.pendingQueue.length > 0) {
-          const job = db.pendingQueue[0];
-          await callGasApi(job.fn, job.args);
-          db.pendingQueue.shift();
-          saveData();
-        }
-        const now = new Date();
-        db.gasConfig.lastSyncAt = `${String(now.getHours()).padStart(2, '0')}.${String(now.getMinutes()).padStart(2, '0')}`;
-        db.gasConfig.status = 'ok';
-        saveData();
-        if (!silent) showToast('Semua perubahan tersinkron ke Google Sheets');
-      } catch (err) {
-        db.gasConfig.status = 'error';
-        saveData();
-        if (!silent) showToast('Sync tertunda: ' + err.message, 'error');
-      } finally {
-        isSyncingGas = false;
-        render();
-      }
-    }
-
-    async function syncPullFromSheets(silent = false) {
-      if (isSyncingGas) return;
-      if (!db.gasConfig?.url || !db.gasConfig?.key) {
-        if (!silent) showToast('Isi URL Web App & Kunci Rahasia di Pengaturan', 'error');
-        return;
-      }
-
-      if (db.pendingQueue.length > 0) {
-        await flushGasQueue(true);
-      }
-
-      isSyncingGas = true;
-      db.gasConfig.status = 'syncing';
-      if (!silent) render();
-
-      try {
-        const remote = await callGasApi('load', []);
-        if (remote) {
-          applyRemoteSheetsData(remote);
-        }
-        const now = new Date();
-        db.gasConfig.lastSyncAt = `${String(now.getHours()).padStart(2, '0')}.${String(now.getMinutes()).padStart(2, '0')}`;
-        db.gasConfig.status = 'ok';
-        saveData();
-        if (!silent) showToast('Data berhasil dimuat dari Google Sheets!');
-      } catch (err) {
-        db.gasConfig.status = 'error';
-        saveData();
-        if (!silent) showToast('Gagal sync Sheets: ' + err.message, 'error');
-      } finally {
-        isSyncingGas = false;
-        render();
-      }
-    }
-
-    function applyRemoteSheetsData(remote) {
-      if (Array.isArray(remote.akun) && remote.akun.length > 0) {
-        const remotePos = Array.isArray(remote.pos) ? remote.pos : [];
-        db.accounts = remote.akun
-          .sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0))
-          .map((a, idx) => {
-            const oldAcc = db.accounts.find(x => x.id === a.id || x.name === a.nama);
-            const matchedPos = remotePos
-              .filter(p => p.akun === a.nama)
-              .sort((x, y) => (Number(x.urut) || 0) - (Number(y.urut) || 0));
-
-            const pockets = matchedPos.length > 0
-              ? matchedPos.map((p, pi) => ({
-                  id: p.id || ('pkt_' + a.id + '_' + pi),
-                  name: p.nama,
-                  balance: Number(p.saldo) || 0,
-                  urut: Number(p.urut) || (pi + 1)
-                }))
-              : [{ id: 'pkt_' + a.id + '_0', name: 'Pocket Utama', balance: Number(a.saldo) || 0, urut: 1 }];
-
-            return {
-              id: a.id || ('acc_' + idx),
-              name: a.nama,
-              jenis: a.jenis || 'Bank',
-              currency: a.cur || 'IDR',
-              colorId: a.warna || oldAcc?.colorId || ACCOUNT_COLORS[idx % ACCOUNT_COLORS.length].id,
-              icon: oldAcc?.icon || (String(a.jenis).toLowerCase() === 'cash' ? 'wallet' : 'bank'),
-              urut: Number(a.urut) || (idx + 1),
-              pockets
-            };
-          });
-      }
-
-      if (Array.isArray(remote.kat) && remote.kat.length > 0) {
-        const remoteAng = Array.isArray(remote.ang) ? remote.ang : [];
-        db.categories = remote.kat
-          .sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0))
-          .map(k => {
-            const type = k.type === 'in' ? 'income' : 'expense';
-            const subNames = String(k.subs || '').split('|').map(s => s.trim()).filter(Boolean);
-            const catBudgetRow = remoteAng.find(r => r.kat === k.nama && !r.sub);
-
-            const subcategories = subNames.map((sn, si) => {
-              const subBudgetRow = remoteAng.find(r => r.kat === k.nama && r.sub === sn);
-              return {
-                id: `sub_${k.id}_${si}`,
-                name: sn,
-                limit: subBudgetRow ? Number(subBudgetRow.nilai) || 0 : 0
-              };
-            });
-
-            return {
-              id: k.id,
-              name: k.nama,
-              type,
-              grup: k.grup || 'Lainnya',
-              directLimit: subcategories.length === 0 && catBudgetRow ? (Number(catBudgetRow.nilai) || 0) : 0,
-              subcategories
-            };
-          });
-      }
-
-      const mergedTx = [];
-      if (Array.isArray(remote.tx)) {
-        remote.tx.forEach((t, idx) => {
-          const type = t.type === 'in' ? 'income' : 'expense';
-          const acc = db.accounts.find(a => a.name === t.akun) || db.accounts[0];
-          const pkt = acc?.pockets?.find(p => p.name === t.pos) || acc?.pockets?.[0];
-          const cat = db.categories.find(c => c.type === type && c.name === t.kat) || db.categories.find(c => c.type === type);
-          const sub = cat?.subcategories?.find(s => s.name === t.sub);
-
-          mergedTx.push({
-            id: `tx_r_${t.type}_${t.row || idx}`,
-            row: t.row,
-            sig: t.sig,
-            type,
-            date: t.date,
-            amount: Number(t.nilai) || 0,
-            categoryId: cat ? cat.id : '',
-            subcategoryId: sub ? sub.id : '',
-            title: t.cat || '',
-            accountId: acc ? acc.id : '',
-            pocketId: pkt ? pkt.id : ''
-          });
-        });
-      }
-
-      if (Array.isArray(remote.trf)) {
-        remote.trf.forEach(tr => {
-          const srcAcc = db.accounts.find(a => a.name === tr.dariAkun) || db.accounts[0];
-          const srcPkt = srcAcc?.pockets?.find(p => p.name === tr.dariPos) || srcAcc?.pockets?.[0];
-          const dstAcc = db.accounts.find(a => a.name === tr.keAkun) || db.accounts[0];
-          const dstPkt = dstAcc?.pockets?.find(p => p.name === tr.kePos) || dstAcc?.pockets?.[0];
-
-          mergedTx.push({
-            id: tr.id || ('trf_' + Date.now()),
-            type: 'transfer',
-            date: tr.tanggal,
-            amount: Number(tr.nilai) || 0,
-            nilaiKe: Number(tr.nilaiKe) || Number(tr.nilai) || 0,
-            categoryId: '',
-            subcategoryId: '',
-            title: tr.catatan || `Transfer ke ${tr.kePos || tr.keAkun}`,
-            accountId: srcAcc ? srcAcc.id : '',
-            pocketId: srcPkt ? srcPkt.id : '',
-            toAccountId: dstAcc ? dstAcc.id : '',
-            toPocketId: dstPkt ? dstPkt.id : ''
-          });
-        });
-      }
-
-      if (mergedTx.length > 0) {
-        db.transactions = mergedTx;
-      }
-
-      if (Array.isArray(remote.target)) {
-        db.savingsGoals = remote.target.map((tg, idx) => {
-          const oldGoal = db.savingsGoals.find(x => x.id === tg.id);
-          const acc = db.accounts.find(a => a.name === tg.akun) || db.accounts[0];
-          const pkt = acc?.pockets?.find(p => p.name === tg.pos) || acc?.pockets?.[0];
-          const balIDR = pkt ? toIDR(pkt.balance, acc.currency) : 0;
-
-          return {
-            id: tg.id,
-            name: tg.nama,
-            targetAmount: Number(tg.target) || 0,
-            currentAmount: balIDR,
-            accountId: acc ? acc.id : '',
-            pocketId: pkt ? pkt.id : '',
-            deadline: tg.tenggat || '',
-            colorId: oldGoal?.colorId || ACCOUNT_COLORS[idx % ACCOUNT_COLORS.length].id,
-            icon: oldGoal?.icon || 'celengan',
-            note: oldGoal?.note || 'Terhubung ke Google Sheets',
-            history: oldGoal?.history || []
-          };
-        });
-      }
-
-      if (Array.isArray(remote.hutang)) {
-        db.debts = remote.hutang.map(h => {
-          const isPiutang = String(h.jenis).toLowerCase() === 'piutang';
-          const total = Number(h.total) || 0;
-          const sisa = Number(h.sisa) || 0;
-          return {
-            id: h.id,
-            type: isPiutang ? 'receivable' : 'payable',
-            person: h.pihak,
-            totalAmount: total,
-            paidAmount: Math.max(0, total - sisa),
-            dueDate: h.tempo || '',
-            note: h.catatan || '',
-            accountId: db.accounts[0]?.id || '',
-            pocketId: db.accounts[0]?.pockets?.[0]?.id || ''
-          };
-        });
+        console.warn('Gagal menyimpan localStorage:', e);
       }
     }
 
     // =========================================================================
-    // 4. PWA ICON & INSTALL APP
+    // 3. FORMAT ANGKA (###.###.###) & KONVERSI MATA UANG
     // =========================================================================
-    function generateCatIconDataURL(size) {
-      const canvas = document.createElement('canvas');
-      canvas.width = size;
-      canvas.height = size;
-      const ctx = canvas.getContext('2d');
-
-      ctx.fillStyle = '#FBF6EA';
-      ctx.fillRect(0, 0, size, size);
-
-      const cx = size / 2;
-      const cy = size * 0.56;
-      const r = size * 0.30;
-
-      ctx.fillStyle = '#F6D57A';
-      ctx.strokeStyle = '#422F0E';
-      ctx.lineWidth = Math.max(3, size * 0.03);
-      ctx.lineJoin = 'round';
-
-      ctx.beginPath();
-      ctx.moveTo(cx - r * 0.85, cy - r * 0.35);
-      ctx.lineTo(cx - r * 0.58, cy - r * 1.25);
-      ctx.lineTo(cx - r * 0.12, cy - r * 0.72);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(cx + r * 0.85, cy - r * 0.35);
-      ctx.lineTo(cx + r * 0.58, cy - r * 1.25);
-      ctx.lineTo(cx + r * 0.12, cy - r * 0.72);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.fillStyle = '#FCE39C';
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, r * 1.05, r * 0.88, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.fillStyle = '#422F0E';
-      ctx.beginPath();
-      ctx.arc(cx - r * 0.38, cy - r * 0.08, r * 0.11, 0, Math.PI * 2);
-      ctx.arc(cx + r * 0.38, cy - r * 0.08, r * 0.11, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = '#EF6545';
-      ctx.beginPath();
-      ctx.moveTo(cx, cy + r * 0.08);
-      ctx.lineTo(cx - r * 0.12, cy + r * 0.22);
-      ctx.lineTo(cx + r * 0.12, cy + r * 0.22);
-      ctx.closePath();
-      ctx.fill();
-
-      const coinR = size * 0.14;
-      const coinX = cx + r * 0.82;
-      const coinY = cy + r * 0.68;
-      ctx.fillStyle = '#F4C95D';
-      ctx.beginPath();
-      ctx.arc(coinX, coinY, coinR, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.fillStyle = '#422F0E';
-      ctx.font = `600 ${Math.round(coinR * 1.05)}px "Fredoka", sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('Rp', coinX, coinY + 1);
-
-      return canvas.toDataURL('image/png');
-    }
-
-    function initPWAAssets() {
-      try {
-        const icon192 = generateCatIconDataURL(192);
-        const icon512 = generateCatIconDataURL(512);
-
-        const appleIcon = document.getElementById('pwa-apple-icon');
-        const favIcon = document.getElementById('pwa-favicon');
-        if (appleIcon) appleIcon.href = icon192;
-        if (favIcon) favIcon.href = icon192;
-
-        const manifestObj = {
-          name: 'Catatan Keuangan',
-          short_name: 'Keuangan',
-          description: 'Buku harian keuangan krem pastel dengan sinkronisasi Google Sheets.',
-          start_url: window.location.href.split('#')[0],
-          scope: './',
-          display: 'standalone',
-          orientation: 'portrait',
-          background_color: '#FBF6EA',
-          theme_color: '#FBF6EA',
-          icons: [
-            { src: icon192, sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
-            { src: icon512, sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
-          ]
-        };
-
-        const manifestDataUri = 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(JSON.stringify(manifestObj));
-        const manifestLink = document.getElementById('pwa-manifest');
-        if (manifestLink) manifestLink.href = manifestDataUri;
-      } catch (err) {
-        console.warn('PWA assets init skipped:', err);
-      }
-    }
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredInstallPrompt = e;
-    });
-
-    async function triggerInstallApp() {
-      if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        const choice = await deferredInstallPrompt.userChoice;
-        if (choice.outcome === 'accepted') {
-          showToast('Aplikasi mulai dipasang ke layar utama!');
-        }
-        deferredInstallPrompt = null;
-        return;
-      }
-
-      openModal(`
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="text-base font-medium uppercase text-ink">INSTALL APLIKASI KE HP</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
-          </div>
-          <div class="bg-[#FFF8E6] border border-[#EED9A5] rounded-2xl p-3.5 text-xs space-y-2 text-ink">
-            <p class="font-medium">Pasang sebagai aplikasi layar penuh:</p>
-            <ol class="list-decimal pl-4 space-y-1.5">
-              <li>Buka link GitHub Pages aplikasi ini langsung di browser <strong>Google Chrome</strong> (Android) atau <strong>Safari</strong> (iPhone).</li>
-              <li>Di Chrome Android, ketuk <strong>⋮ (titik tiga kanan atas)</strong> lalu pilih <strong>"Install aplikasi"</strong>.</li>
-              <li>Di Safari iPhone, ketuk ikon <strong>Bagikan (Share)</strong> lalu pilih <strong>"Tambah ke Layar Utama"</strong>.</li>
-            </ol>
-          </div>
-          <button onclick="closeModal()" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Mengerti</button>
-        </div>
-      `);
-    }
-
-    // =========================================================================
-    // 5. KEAMANAN PIN / PASSWORD & SESI 48 JAM
-    // =========================================================================
-    function simpleHashPin(pin) {
-      let hash = 0;
-      const str = String(pin || '');
-      for (let i = 0; i < str.length; i++) {
-        hash = ((hash << 5) - hash) + str.charCodeAt(i);
-        hash |= 0;
-      }
-      return 'pin_' + Math.abs(hash).toString(36) + '_' + str.length;
-    }
-
-    function isSessionExpired() {
-      if (!db.security?.enabled || !db.security?.pinHash) return false;
-      if (db.security.lockedNow) return true;
-      const last = Number(db.security.lastActiveAt) || 0;
-      return (Date.now() - last) > SESSION_TIMEOUT_MS;
-    }
-
-    function touchSessionActivity() {
-      if (!db.security) return;
-      db.security.lastActiveAt = Date.now();
-      saveData();
-    }
-
-    function updateLockScreenVisibility() {
-      const lockEl = document.getElementById('lock-screen');
-      if (!lockEl) return;
-      if (isSessionExpired()) {
-        lockEl.classList.remove('hidden');
-        lockEl.classList.add('flex');
-      } else {
-        lockEl.classList.add('hidden');
-        lockEl.classList.remove('flex');
-        if (db.security?.enabled) {
-          db.security.lastActiveAt = Date.now();
-          saveData();
-        }
-      }
-    }
-
-    function submitUnlockApp(e) {
-      e.preventDefault();
-      const input = document.getElementById('lock-pin-input');
-      const errMsg = document.getElementById('lock-error-msg');
-      const entered = input?.value || '';
-
-      if (simpleHashPin(entered) === db.security?.pinHash) {
-        db.security.lockedNow = false;
-        db.security.lastActiveAt = Date.now();
-        saveData();
-        if (input) input.value = '';
-        if (errMsg) errMsg.classList.add('hidden');
-        updateLockScreenVisibility();
-        showToast('Aplikasi terbuka');
-      } else {
-        if (errMsg) errMsg.classList.remove('hidden');
-      }
-    }
-
-    function lockAppNow() {
-      if (!db.security?.enabled || !db.security?.pinHash) {
-        openPinSetupModal();
-        return;
-      }
-      db.security.lockedNow = true;
-      saveData();
-      updateLockScreenVisibility();
-    }
-
-    function openPinSetupModal() {
-      const isEnabled = Boolean(db.security?.enabled && db.security?.pinHash);
-      openModal(`
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="text-base font-medium uppercase text-ink">${isEnabled ? 'UBAH / MATIKAN PIN' : 'ATUR PIN KUNCI APLIKASI'}</h3>
-            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
-          </div>
-          <p class="text-xs text-slate-500">
-            Selama aplikasi rutin dibuka, sesi tetap aktif. Jika lebih dari <strong>48 jam</strong> tidak dibuka, aplikasi akan meminta PIN kembali.
-          </p>
-          <form onsubmit="submitPinSetup(event)" class="space-y-3.5">
-            <div>
-              <label class="block text-xs font-medium text-slate-600 mb-1">PIN / Password Baru (min. 4 karakter)</label>
-              <input type="password" id="setup-pin-new" minlength="4" required placeholder="Masukkan PIN baru..."
-                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-sm font-medium text-ink" />
-            </div>
-            <div class="flex gap-2 pt-2">
-              ${isEnabled ? `<button type="button" onclick="disableAppPin()" class="px-3.5 py-3 rounded-2xl bg-coralLight text-coral text-xs font-medium">Matikan PIN</button>` : ''}
-              <button type="button" onclick="closeModal()" class="flex-1 py-3 rounded-2xl bg-creamSoft text-slate-600 text-xs font-medium">Batal</button>
-              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan PIN</button>
-            </div>
-          </form>
-        </div>
-      `);
-    }
-
-    function submitPinSetup(e) {
-      e.preventDefault();
-      const val = document.getElementById('setup-pin-new')?.value || '';
-      if (val.length < 4) {
-        showToast('PIN minimal 4 karakter', 'error');
-        return;
-      }
-      db.security = { enabled: true, pinHash: simpleHashPin(val), lastActiveAt: Date.now(), lockedNow: false };
-      saveData();
-      closeModal();
-      showToast('PIN kunci aplikasi aktif');
-      render();
-    }
-
-    function disableAppPin() {
-      db.security = { enabled: false, pinHash: '', lastActiveAt: Date.now(), lockedNow: false };
-      saveData();
-      closeModal();
-      showToast('Kunci PIN dimatikan');
-      render();
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        processDueRecurringTransactions();
-        updateLockScreenVisibility();
-        render();
-      }
-    });
-
-    // =========================================================================
-    // 6. HELPER FORMAT ###.###.###, KONVERSI MATA UANG & KURS LIVE
-    // =========================================================================
-    function showToast(msg, type = 'success') {
-      const toast = document.getElementById('toast');
-      const inner = document.getElementById('toast-inner');
-      const icon = document.getElementById('toast-icon');
-      const msgEl = document.getElementById('toast-msg');
-      if (!toast || !msgEl) return;
-
-      inner.className = type === 'error'
-        ? 'bg-coral text-white text-xs font-normal px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2'
-        : 'bg-ink text-[#FBF6EA] text-xs font-normal px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2';
-      icon.textContent = type === 'error' ? '⚠️' : '✓';
-      msgEl.textContent = msg;
-
-      toast.classList.remove('hidden');
-      clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => toast.classList.add('hidden'), 2600);
-    }
-
-    function formatNumberID(num, decimals = 0) {
-      const n = Number(num) || 0;
-      return n.toLocaleString('id-ID', {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals
-      });
+    function formatNumberID(num) {
+      const val = Math.round(Number(num) || 0);
+      const sign = val < 0 ? '-' : '';
+      const absStr = Math.abs(val).toString();
+      return sign + absStr.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     }
 
     function formatCurrency(amount, currency = 'IDR') {
-      const meta = CURRENCY_META[currency] || CURRENCY_META.IDR;
-      const n = Number(amount) || 0;
-      const absStr = formatNumberID(Math.abs(n), meta.decimals);
-      const sign = n < 0 ? '-' : '';
-      return currency === 'IDR' ? `${sign}Rp ${absStr}` : `${sign}${meta.symbol} ${absStr}`;
+      const meta = CURRENCY_META[currency] || { symbol: currency + ' ', decimals: 0 };
+      const num = Number(amount) || 0;
+      const sign = num < 0 ? '-' : '';
+      const absVal = Math.abs(num);
+
+      if (meta.decimals === 0 || Number.isInteger(absVal)) {
+        const formatted = Math.round(absVal).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        return `${sign}${meta.symbol} ${formatted}`;
+      }
+
+      const fixed = absVal.toFixed(meta.decimals);
+      const [intPart, decPart] = fixed.split('.');
+      const intFormatted = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      return `${sign}${meta.symbol} ${intFormatted},${decPart}`;
     }
 
     function toIDR(amount, currency = 'IDR') {
@@ -1105,8 +434,13 @@
     }
 
     function getTxCurrency(tx) {
+      if (tx.currency) return tx.currency;
       const acc = db.accounts.find(a => a.id === tx.accountId);
-      return acc ? acc.currency : 'IDR';
+      return acc?.currency || 'IDR';
+    }
+
+    function getColorObj(colorId) {
+      return ACCOUNT_COLORS.find(c => c.id === colorId) || ACCOUNT_COLORS[0];
     }
 
     function getAccountTotalBalance(acc) {
@@ -1117,82 +451,13 @@
       return db.accounts.reduce((sum, acc) => sum + toIDR(getAccountTotalBalance(acc), acc.currency), 0);
     }
 
-    function getMonthBudgetKey(year = ui.statYear, month = ui.statMonth) {
-      return `${year}-${String((Number(month) || 0) + 1).padStart(2, '0')}`;
-    }
-
-    function ensureMonthBudget(year = ui.statYear, month = ui.statMonth) {
-      const key = getMonthBudgetKey(year, month);
-      db.monthlyBudgets = db.monthlyBudgets || {};
-      if (db.monthlyBudgets[key]) return db.monthlyBudgets[key];
-
-      // Cari bulan terbaru sebelumnya yang sudah tersimpan, jika tidak ada pakai nilai default kategori/subkategori
-      const keys = Object.keys(db.monthlyBudgets).sort();
-      const prevKey = [...keys].reverse().find(k => k < key);
-      const snapshot = {};
-
-      db.categories.forEach(cat => {
-        if (cat.type !== 'expense') return;
-        const prevCat = prevKey ? db.monthlyBudgets[prevKey]?.[cat.id] : null;
-        if (Array.isArray(cat.subcategories) && cat.subcategories.length > 0) {
-          const subsMap = {};
-          cat.subcategories.forEach(sub => {
-            if (prevCat && prevCat.subs && prevCat.subs[sub.id] !== undefined) {
-              subsMap[sub.id] = Number(prevCat.subs[sub.id]) || 0;
-            } else {
-              subsMap[sub.id] = Number(sub.limit) || 0;
-            }
-          });
-          snapshot[cat.id] = { directLimit: 0, subs: subsMap };
-        } else {
-          const val = (prevCat && prevCat.directLimit !== undefined)
-            ? (Number(prevCat.directLimit) || 0)
-            : (Number(cat.directLimit) || 0);
-          snapshot[cat.id] = { directLimit: val, subs: {} };
-        }
-      });
-
-      db.monthlyBudgets[key] = snapshot;
-      saveData();
-      return snapshot;
-    }
-
-    function getSubcategoryLimit(cat, sub, year = ui.statYear, month = ui.statMonth) {
-      const mBud = ensureMonthBudget(year, month);
-      const entry = mBud[cat.id];
-      if (entry && entry.subs && entry.subs[sub.id] !== undefined) {
-        return Number(entry.subs[sub.id]) || 0;
-      }
-      return Number(sub.limit) || 0;
-    }
-
-    function getCategoryLimit(cat, year = ui.statYear, month = ui.statMonth) {
-      const mBud = ensureMonthBudget(year, month);
-      const entry = mBud[cat.id];
-      if (cat.subcategories && cat.subcategories.length > 0) {
-        return cat.subcategories.reduce((s, sub) => s + getSubcategoryLimit(cat, sub, year, month), 0);
-      }
-      if (entry && entry.directLimit !== undefined) {
-        return Number(entry.directLimit) || 0;
-      }
-      return Number(cat.directLimit) || 0;
-    }
-
     function getSavingGoalBalanceIDR(goal) {
       const acc = db.accounts.find(a => a.id === goal.accountId);
       const pkt = acc?.pockets?.find(p => p.id === goal.pocketId);
-      if (acc && pkt) return Math.max(0, toIDR(pkt.balance, acc.currency));
-      return Math.max(0, Number(goal.currentAmount) || 0);
-    }
-
-    function filterTransactionsByPeriod(txs, mode, year, month) {
-      return txs.filter(t => {
-        if (!t.date) return false;
-        const parts = t.date.split('-');
-        const y = parseInt(parts[0], 10);
-        const m = parseInt(parts[1], 10) - 1;
-        return mode === 'yearly' ? y === year : (y === year && m === month);
-      });
+      if (acc && pkt) {
+        return toIDR(Number(pkt.balance) || 0, acc.currency);
+      }
+      return Number(goal.currentAmount) || 0;
     }
 
     async function fetchLiveExchangeRates(silent = false) {
@@ -1201,580 +466,961 @@
       if (!silent) render();
       try {
         const res = await fetch('https://open.er-api.com/v6/latest/IDR');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
-        if (data && data.result === 'success' && data.rates) {
+        if (data && data.rates) {
           Object.keys(CURRENCY_META).forEach(code => {
-            if (code !== 'IDR' && data.rates[code] > 0) {
-              const idrPerUnit = 1 / data.rates[code];
-              db.exchangeRates[code] = code === 'JPY' ? Number(idrPerUnit.toFixed(2)) : Math.round(idrPerUnit);
+            if (code === 'IDR') {
+              db.exchangeRates.IDR = 1;
+            } else if (data.rates[code]) {
+              db.exchangeRates[code] = Number((1 / data.rates[code]).toFixed(2));
             }
           });
-          const now = new Date();
-          const label = `${now.getDate()} ${MONTH_NAMES_ID[now.getMonth()]} ${now.getFullYear()}, ${String(now.getHours()).padStart(2, '0')}.${String(now.getMinutes()).padStart(2, '0')}`;
-          db.exchangeRateMeta = { source: 'live', lastUpdated: label };
+          db.exchangeRateMeta = {
+            lastUpdated: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+            source: 'Live API'
+          };
           saveData();
-          if (!silent) showToast('Kurs live (termasuk THB Baht) berhasil disinkronkan');
+          if (!silent) showToast('Kurs mata uang diperbarui');
         }
       } catch (e) {
-        if (!silent) showToast('Menggunakan kurs tersimpan lokal', 'error');
+        if (!silent) showToast('Gagal memperbarui kurs (pakai kurs tersimpan)', 'error');
       } finally {
         isFetchingRates = false;
         render();
       }
     }
 
-    function shiftPeriod(target, delta) {
-      if (target === 'akun') {
-        if (ui.akunPeriodMode === 'yearly') ui.akunYear += delta;
-        else {
-          ui.akunMonth += delta;
-          if (ui.akunMonth < 0) { ui.akunMonth = 11; ui.akunYear -= 1; }
-          if (ui.akunMonth > 11) { ui.akunMonth = 0; ui.akunYear += 1; }
+    // =========================================================================
+    // 4. PWA MANIFEST & SERVICE WORKER
+    // =========================================================================
+    function initPWAAssets() {
+      const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="32" fill="#f8db91"/><circle cx="64" cy="68" r="34" fill="#FFFDF7"/><path d="M40 44 L48 26 L60 40 Z" fill="#FFFDF7"/><path d="M88 44 L80 26 L68 40 Z" fill="#FFFDF7"/><circle cx="53" cy="66" r="4" fill="#3C3226"/><circle cx="75" cy="66" r="4" fill="#3C3226"/><path d="M59 75 Q64 80 69 75" stroke="#3C3226" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`;
+      const iconUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(iconSvg);
+      const appleIcon = document.getElementById('apple-touch-icon');
+      if (appleIcon) appleIcon.href = iconUrl;
+
+      const manifest = {
+        name: 'Catatan Keuangan',
+        short_name: 'Keuangan',
+        start_url: './',
+        display: 'standalone',
+        background_color: '#FBF6EA',
+        theme_color: '#f8db91',
+        icons: [{ src: iconUrl, sizes: '192x192', type: 'image/svg+xml' }]
+      };
+      const manifestEl = document.getElementById('pwa-manifest');
+      if (manifestEl) {
+        manifestEl.href = 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(JSON.stringify(manifest));
+      }
+
+      if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      }
+    }
+
+    let deferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+
+    function triggerInstallApp() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.finally(() => { deferredPrompt = null; });
+      } else {
+        showToast('Gunakan menu browser "Add to Home Screen" untuk install');
+      }
+    }
+
+    // =========================================================================
+    // 5. GOOGLE SHEETS SYNC (APPS SCRIPT)
+    // =========================================================================
+    async function syncPullFromSheets(silent = false) {
+      const url = db.gasConfig?.url;
+      const key = db.gasConfig?.key;
+      if (!url || !key) {
+        if (!silent) showToast('Isi URL & Kunci Google Apps Script di Pengaturan', 'error');
+        return;
+      }
+
+      db.gasConfig.status = 'syncing';
+      if (!silent) render();
+
+      try {
+        const res = await fetch(`${url}?key=${encodeURIComponent(key)}&action=pull`);
+        const json = await res.json();
+        if (json && json.status === 'ok' && json.data) {
+          const remote = json.data;
+          if (Array.isArray(remote.accounts) && remote.accounts.length) db.accounts = remote.accounts;
+          if (Array.isArray(remote.categories) && remote.categories.length) db.categories = remote.categories;
+          if (Array.isArray(remote.transactions)) db.transactions = remote.transactions;
+          if (Array.isArray(remote.savingsGoals)) db.savingsGoals = remote.savingsGoals;
+          if (Array.isArray(remote.debts)) db.debts = remote.debts;
+          if (remote.monthlyBudgets) db.monthlyBudgets = remote.monthlyBudgets;
+          if (Array.isArray(remote.recurringTransactions)) db.recurringTransactions = remote.recurringTransactions;
         }
-      } else if (target === 'stat') {
-        if (ui.statPeriodMode === 'yearly') ui.statYear += delta;
-        else {
-          ui.statMonth += delta;
-          if (ui.statMonth < 0) { ui.statMonth = 11; ui.statYear -= 1; }
-          if (ui.statMonth > 11) { ui.statMonth = 0; ui.statYear += 1; }
-        }
+        db.gasConfig.status = 'ok';
+        db.gasConfig.lastSyncAt = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        saveData();
+        if (!silent) showToast('Sinkronisasi Sheets berhasil');
+      } catch (e) {
+        db.gasConfig.status = 'error';
+        saveData();
+        if (!silent) showToast('Gagal terhubung ke Google Sheets', 'error');
       }
       render();
     }
 
-    function setAkunPeriodMode(mode) { ui.akunPeriodMode = mode; render(); }
+    // =========================================================================
+    // 6. KEAMANAN PIN & TOAST
+    // =========================================================================
+    function simpleHashPin(pin) {
+      let h = 2166136261;
+      for (let i = 0; i < pin.length; i++) {
+        h ^= pin.charCodeAt(i);
+        h += (h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24);
+      }
+      return (h >>> 0).toString(16);
+    }
 
-    function switchTab(tabId) {
-      ui.activeTab = tabId;
-      ui.selectedPocketDetail = null;
-      ui.selectedSavingGoalId = null;
-      ui.drilldownCategoryId = null;
-      touchSessionActivity();
+    function isAppLocked() {
+      if (!db.security?.enabled || !db.security?.pinHash) return false;
+      const until = Number(localStorage.getItem(PIN_SESSION_KEY) || 0);
+      return Date.now() > until;
+    }
+
+    function updateLockScreenVisibility() {
+      const lockEl = document.getElementById('lock-screen');
+      if (!lockEl) return;
+      if (isAppLocked()) {
+        lockEl.classList.remove('hidden');
+      } else {
+        lockEl.classList.add('hidden');
+      }
+    }
+
+    function unlockWithPin() {
+      const inp = document.getElementById('pin-unlock-input');
+      const val = (inp?.value || '').trim();
+      if (simpleHashPin(val) === db.security.pinHash) {
+        localStorage.setItem(PIN_SESSION_KEY, String(Date.now() + 48 * 3600 * 1000));
+        if (inp) inp.value = '';
+        updateLockScreenVisibility();
+        showToast('Aplikasi terbuka');
+      } else {
+        showToast('PIN salah', 'error');
+      }
+    }
+
+    function lockAppNow() {
+      localStorage.removeItem(PIN_SESSION_KEY);
+      updateLockScreenVisibility();
+    }
+
+    function openPinSetupModal() {
+      const active = Boolean(db.security?.enabled && db.security?.pinHash);
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-medium uppercase text-ink">${active ? 'UBAH / NONAKTIFKAN PIN' : 'ATUR PIN KEAMANAN'}</h3>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+          <form onsubmit="submitPinSetup(event)" class="space-y-3">
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">PIN Baru (4–6 digit angka)</label>
+              <input type="password" name="newPin" inputmode="numeric" maxlength="6" placeholder="••••"
+                class="w-full px-3.5 py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-sm tracking-widest text-ink" />
+            </div>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan PIN</button>
+            ${active ? `<button type="button" onclick="disablePinSecurity()" class="w-full py-2.5 rounded-2xl bg-coralLight text-coral text-xs font-medium">Nonaktifkan PIN</button>` : ''}
+          </form>
+        </div>
+      `);
+    }
+
+    function submitPinSetup(e) {
+      e.preventDefault();
+      const pin = String(new FormData(e.target).get('newPin') || '').trim();
+      if (!/^\d{4,6}$/.test(pin)) {
+        showToast('PIN harus 4–6 digit angka', 'error');
+        return;
+      }
+      db.security = { enabled: true, pinHash: simpleHashPin(pin) };
+      localStorage.setItem(PIN_SESSION_KEY, String(Date.now() + 48 * 3600 * 1000));
+      saveData();
+      closeModal();
+      showToast('PIN keamanan diaktifkan');
       render();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function disablePinSecurity() {
+      db.security = { enabled: false, pinHash: '' };
+      localStorage.removeItem(PIN_SESSION_KEY);
+      saveData();
+      closeModal();
+      showToast('PIN dinonaktifkan');
+      render();
+    }
+
+    let toastTimer = null;
+    function showToast(msg, type = 'ok') {
+      const el = document.getElementById('toast-banner');
+      if (!el) return;
+      el.textContent = msg;
+      el.className = `fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-2xl shadow-lg text-xs font-medium tracking-wide max-w-[90vw] text-center ${
+        type === 'error' ? 'bg-coral text-white' : 'bg-ink text-[#FBF6EA]'
+      }`;
+      el.classList.remove('hidden');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.add('hidden'), 2600);
     }
 
     // =========================================================================
-    // 7. BOTTOM NAVIGATION BAR (6 MENU)
+    // 7. NAVIGASI, PERIOD FILTER & FAB CONTEXT-AWARE
     // =========================================================================
+    function switchTab(tabId) {
+      ui.activeTab = tabId;
+      if (tabId !== 'akun') ui.selectedPocketDetail = null;
+      if (tabId !== 'tabungan') ui.selectedSavingGoalId = null;
+      render();
+    }
+
+    function handleFabCatatClick() {
+      if (ui.activeTab === 'akun' && ui.selectedPocketDetail) {
+        openTxModal('expense', ui.selectedPocketDetail.accId, ui.selectedPocketDetail.pktId);
+        return;
+      }
+      openTxModal('expense');
+    }
+
+    function updateFabVisibility() {
+      const fab = document.getElementById('fab-add-tx');
+      if (!fab) return;
+      const hideOn = ['pengaturan', 'hutang', 'tabungan'];
+      if (hideOn.includes(ui.activeTab)) {
+        fab.classList.add('hidden');
+      } else {
+        fab.classList.remove('hidden');
+      }
+    }
+
     function renderBottomNav() {
-      const navItems = [
-        {
-          id: 'transaksi',
-          label: 'Transaksi',
-          svg: `<svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>`
-        },
-        {
-          id: 'statistik',
-          label: 'Statistik',
-          svg: `<svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`
-        },
-        {
-          id: 'akun',
-          label: 'Akun',
-          svg: `<svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2v-5zm0 0h-4a2 2 0 100 4h4"/></svg>`
-        },
-        {
-          id: 'tabungan',
-          label: 'Tabungan',
-          svg: `<svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6m-4 0v2m-2 0h6a3 3 0 013 3v10a3 3 0 01-3 3H9a3 3 0 01-3-3V8a3 3 0 013-3zm1 4h4m-2 4a2 2 0 100 4 2 2 0 000-4z"/></svg>`
-        },
-        {
-          id: 'hutang',
-          label: 'Hutang',
-          svg: `<svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>`
-        },
-        {
-          id: 'pengaturan',
-          label: 'Pengaturan',
-          svg: `<svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`
-        }
+      const navEl = document.getElementById('bottom-nav-items');
+      if (!navEl) return;
+      const items = [
+        { id: 'transaksi', label: 'Transaksi', icon: `<svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>` },
+        { id: 'statistik', label: 'Statistik', icon: `<svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>` },
+        { id: 'akun', label: 'Akun', icon: `<svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7zm14 5h.01"/></svg>` },
+        { id: 'tabungan', label: 'Tabungan', icon: `<svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-3.3 0-6 2.2-6 5s2.7 5 6 5 6-2.2 6-5-2.7-5-6-5zm0-3v3"/></svg>` },
+        { id: 'hutang', label: 'Hutang', icon: `<svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>` },
+        { id: 'pengaturan', label: 'Atur', icon: `<svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>` }
       ];
 
-      const navEl = document.getElementById('bottom-nav');
-      if (!navEl) return;
-      navEl.innerHTML = navItems.map(item => {
-        const active = ui.activeTab === item.id;
+      navEl.innerHTML = items.map(it => {
+        const active = ui.activeTab === it.id;
         return `
-          <button onclick="switchTab('${item.id}')" class="py-1 px-1 rounded-2xl flex flex-col items-center justify-center gap-0.5 transition-all ${active ? 'text-ink' : 'text-slate-400 hover:text-ink'}">
-            <div class="p-1 rounded-xl ${active ? 'bg-butter/65' : ''}">${item.svg}</div>
-            <span class="text-[10px] font-medium">${item.label}</span>
+          <button onclick="switchTab('${it.id}')"
+            class="py-1.5 px-1 rounded-2xl transition-all ${active ? 'bg-butter text-ink font-medium' : 'text-slate-500 hover:text-ink'}">
+            ${it.icon}
+            <span class="block text-[10px] mt-0.5 truncate">${it.label}</span>
           </button>
         `;
       }).join('');
     }
 
-    // =========================================================================
-    // 8. VIEW 1: RIWAYAT TRANSAKSI (HEADER ORANGE #FF9B71 TANPA TULISAN PEACH)
-    // =========================================================================
-    function renderTransactionRow(tx) {
-      const cat = db.categories.find(c => c.id === tx.categoryId);
-      const sub = cat?.subcategories?.find(s => s.id === tx.subcategoryId);
-      const acc = db.accounts.find(a => a.id === tx.accountId);
-      const pkt = acc?.pockets?.find(p => p.id === tx.pocketId);
-      const cur = acc ? acc.currency : 'IDR';
-
-      const isIncome = tx.type === 'income';
-      const isTransfer = tx.type === 'transfer';
-
-      const titleColor = isIncome ? 'text-[#03695D]' : isTransfer ? 'text-[#2B5B67]' : 'text-[#C83E2B]';
-      const badgeBg = isIncome ? 'bg-sageLight text-sage' : isTransfer ? 'bg-[#EFF7F8] text-[#2B5B67]' : 'bg-coralLight text-coral';
-      const amountColor = isIncome ? 'text-sage' : isTransfer ? 'text-[#2B5B67]' : 'text-coral';
-      const sign = isIncome ? '+' : isTransfer ? '⇄ ' : '-';
-      const displayTitle = tx.title || (sub ? sub.name : cat?.name) || 'Transaksi';
-
-      return `
-        <div class="py-3 flex items-center justify-between gap-2.5 group">
-          <div class="flex items-center gap-3 min-w-0 flex-1">
-            <div class="w-9 h-9 rounded-2xl ${badgeBg} flex items-center justify-center text-xs shrink-0">
-              ${isIncome ? '↓' : isTransfer ? '⇄' : '↑'}
-            </div>
-            <div class="min-w-0 flex-1">
-              <div class="text-sm font-normal ${titleColor} truncate">${displayTitle}</div>
-              <div class="text-[11px] text-slate-400 truncate">
-                ${isTransfer ? 'Transfer Antar-Pocket' : `${cat?.name || 'Umum'}${sub ? ` • ${sub.name}` : ''}`} • ${acc?.name || '-'} (${pkt?.name || '-'})
-              </div>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2 shrink-0">
-            <div class="text-right">
-              <div class="text-sm font-medium ${amountColor}">${sign}${formatCurrency(tx.amount, cur)}</div>
-              <div class="text-[10px] text-slate-400">${tx.date}</div>
-            </div>
-            <button onclick="deleteTransaction('${tx.id}')" title="Hapus Transaksi"
-              class="p-1.5 rounded-xl text-slate-300 hover:text-coral hover:bg-coralLight transition-colors">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-            </button>
-          </div>
-        </div>
-      `;
+    function filterTransactionsByPeriod(txs, mode, year, month) {
+      return txs.filter(tx => {
+        if (!tx.date) return false;
+        const parts = tx.date.split('-');
+        const y = parseInt(parts[0], 10);
+        const m = parseInt(parts[1], 10) - 1;
+        if (mode === 'yearly') return y === year;
+        return y === year && m === month;
+      });
     }
 
-    function setTxFilterType(type) { ui.txFilterType = type; render(); }
-
-    function setTxSearch(val) {
-      ui.txSearch = val;
-      render();
-      const inp = document.getElementById('tx-search-input');
-      if (inp) {
-        inp.focus();
-        inp.setSelectionRange(val.length, val.length);
+    function shiftPeriod(scope, delta) {
+      if (scope === 'tx') {
+        if (ui.txPeriodMode === 'yearly') {
+          ui.txYear += delta;
+        } else {
+          ui.txMonth += delta;
+          if (ui.txMonth < 0) { ui.txMonth = 11; ui.txYear--; }
+          if (ui.txMonth > 11) { ui.txMonth = 0; ui.txYear++; }
+        }
+      } else if (scope === 'stat') {
+        if (ui.statPeriodMode === 'yearly') {
+          ui.statYear += delta;
+        } else {
+          ui.statMonth += delta;
+          if (ui.statMonth < 0) { ui.statMonth = 11; ui.statYear--; }
+          if (ui.statMonth > 11) { ui.statMonth = 0; ui.statYear++; }
+        }
+      } else if (scope === 'akun') {
+        if (ui.akunPeriodMode === 'yearly') {
+          ui.akunYear += delta;
+        } else {
+          ui.akunMonth += delta;
+          if (ui.akunMonth < 0) { ui.akunMonth = 11; ui.akunYear--; }
+          if (ui.akunMonth > 11) { ui.akunMonth = 0; ui.akunYear++; }
+        }
+      } else if (scope === 'pocket') {
+        if (ui.pocketDetailTab === 'monthly') {
+          ui.pocketDetailYear += delta;
+        } else if (ui.pocketDetailTab === 'daily') {
+          ui.pocketDetailMonth += delta;
+          if (ui.pocketDetailMonth < 0) { ui.pocketDetailMonth = 11; ui.pocketDetailYear--; }
+          if (ui.pocketDetailMonth > 11) { ui.pocketDetailMonth = 0; ui.pocketDetailYear++; }
+        }
       }
+      render();
     }
+
+    // =========================================================================
+    // 8. VIEW 1: TRANSAKSI (HEADER KUNING #f8db91)
+    // =========================================================================
+    function setTxPeriodMode(m) { ui.txPeriodMode = m; render(); }
+    function setTxTypeFilter(f) { ui.txTypeFilter = f; render(); }
 
     function renderTransaksiView() {
-      const q = (ui.txSearch || '').toLowerCase().trim();
-      let list = [...db.transactions];
-
-      if (ui.txFilterType !== 'ALL') list = list.filter(t => t.type === ui.txFilterType);
-      if (q) {
-        list = list.filter(t => {
-          const cat = db.categories.find(c => c.id === t.categoryId);
-          const acc = db.accounts.find(a => a.id === t.accountId);
-          const pkt = acc?.pockets?.find(p => p.id === t.pocketId);
-          const hay = `${t.title || ''} ${cat?.name || ''} ${acc?.name || ''} ${pkt?.name || ''} ${t.date || ''}`.toLowerCase();
-          return hay.includes(q);
-        });
-      }
-      list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+      const periodTxs = filterTransactionsByPeriod(db.transactions, ui.txPeriodMode, ui.txYear, ui.txMonth);
+      const periodLabel = ui.txPeriodMode === 'yearly' ? `${ui.txYear}` : `${MONTH_NAMES_ID[ui.txMonth]} ${ui.txYear}`;
 
       let totalIn = 0;
       let totalOut = 0;
-      list.forEach(t => {
-        const cur = getTxCurrency(t);
-        if (t.type === 'income') totalIn += toIDR(t.amount, cur);
-        if (t.type === 'expense') totalOut += toIDR(t.amount, cur);
+      periodTxs.forEach(t => {
+        const val = toIDR(t.amount, getTxCurrency(t));
+        if (t.type === 'income') totalIn += val;
+        if (t.type === 'expense') totalOut += val;
       });
+      const totalNet = totalIn - totalOut;
+
+      const filteredList = periodTxs
+        .filter(t => ui.txTypeFilter === 'ALL' ? true : t.type === ui.txTypeFilter)
+        .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
-            <input id="tx-search-input" type="text" value="${ui.txSearch || ''}" oninput="setTxSearch(this.value)"
-              placeholder="Cari transaksi, kategori, atau nama pocket..."
-              class="w-full px-4 py-2.5 rounded-2xl bg-creamCard text-xs text-ink placeholder:text-slate-400 focus:outline-none" />
-
-            <div class="flex gap-1.5 overflow-x-auto no-scrollbar">
-              ${[
-                { id: 'ALL', label: 'Semua' },
-                { id: 'expense', label: 'Pengeluaran' },
-                { id: 'income', label: 'Pemasukan' },
-                { id: 'transfer', label: 'Transfer' }
-              ].map(tab => `
-                <button onclick="setTxFilterType('${tab.id}')"
-                  class="px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all shrink-0 ${ui.txFilterType === tab.id ? 'bg-[#422F0E] text-[#FFF9EB]' : 'bg-creamCard text-ink'}">
-                  ${tab.label}
-                </button>
-              `).join('')}
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <h1 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">TRANSAKSI</h1>
+                <p class="text-[11px]" style="color: #422F0E;">Catatan pemasukan, pengeluaran &amp; transfer</p>
+              </div>
+              <button onclick="openRecurringListModal()" class="px-3 py-1.5 rounded-2xl bg-creamCard text-ink text-xs font-medium shadow-sm">
+                ↻ Berulang (${(db.recurringTransactions || []).length})
+              </button>
             </div>
 
-            <div class="grid grid-cols-2 gap-2.5 pt-2 border-t" style="border-color: rgba(255, 253, 248, 0.45);">
-              <div class="bg-creamCard rounded-2xl p-3">
-                <span class="text-[11px] text-sage block">Total Pemasukan</span>
-                <span class="text-sm font-medium text-ink">+${formatCurrency(totalIn)}</span>
+            <div class="flex items-center justify-between gap-2 pt-2 border-t" style="border-color: rgba(66, 47, 14, 0.14);">
+              <div class="inline-flex rounded-2xl bg-creamCard p-1">
+                <button onclick="setTxPeriodMode('monthly')"
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  Bulanan
+                </button>
+                <button onclick="setTxPeriodMode('yearly')"
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  Tahunan
+                </button>
               </div>
-              <div class="bg-creamCard rounded-2xl p-3">
-                <span class="text-[11px] text-coral block">Total Pengeluaran</span>
-                <span class="text-sm font-medium text-ink">-${formatCurrency(totalOut)}</span>
+
+              <div class="flex items-center gap-1.5 bg-creamCard rounded-2xl px-2 py-1">
+                <button onclick="shiftPeriod('tx', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">‹</button>
+                <span class="text-xs font-medium text-ink px-1">${periodLabel}</span>
+                <button onclick="shiftPeriod('tx', 1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">›</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2">
+              <div class="bg-creamCard rounded-2xl p-2.5">
+                <span class="text-[10px] text-slate-500 block">Pemasukan</span>
+                <span class="text-xs font-medium text-sage">+${formatCurrency(totalIn)}</span>
+              </div>
+              <div class="bg-creamCard rounded-2xl p-2.5">
+                <span class="text-[10px] text-slate-500 block">Pengeluaran</span>
+                <span class="text-xs font-medium text-coral">-${formatCurrency(totalOut)}</span>
+              </div>
+              <div class="bg-creamCard rounded-2xl p-2.5">
+                <span class="text-[10px] text-slate-500 block">Selisih</span>
+                <span class="text-xs font-medium ${totalNet >= 0 ? 'text-ink' : 'text-coral'}">${totalNet >= 0 ? '+' : '-'}${formatCurrency(Math.abs(totalNet))}</span>
               </div>
             </div>
           </div>
 
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5]">
-            ${list.length === 0 ? `
-              <div class="py-10 text-center text-xs text-slate-400">Belum ada transaksi yang sesuai filter.</div>
-            ` : `
-              <div class="divide-y divide-stone-100">
-                ${list.map(tx => renderTransactionRow(tx)).join('')}
+          <!-- Filter Jenis -->
+          <div class="flex gap-1.5 overflow-x-auto no-scrollbar">
+            ${[
+              { id: 'ALL', label: 'Semua' },
+              { id: 'expense', label: 'Pengeluaran' },
+              { id: 'income', label: 'Pemasukan' },
+              { id: 'transfer', label: 'Transfer' }
+            ].map(f => `
+              <button onclick="setTxTypeFilter('${f.id}')"
+                class="px-3.5 py-1.5 rounded-2xl text-xs font-medium border transition-all shrink-0 ${
+                  ui.txTypeFilter === f.id
+                    ? 'bg-ink text-[#FBF6EA] border-ink'
+                    : 'bg-creamCard text-ink border-[#E8DEC5]'
+                }">
+                ${f.label}
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- Daftar Transaksi -->
+          <div class="space-y-2.5">
+            ${filteredList.length === 0 ? `
+              <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-slate-400 border border-[#E8DEC5]">
+                Belum ada transaksi pada periode ${periodLabel}.
               </div>
-            `}
+            ` : filteredList.map(tx => {
+              const acc = db.accounts.find(a => a.id === tx.accountId);
+              const pkt = acc?.pockets?.find(p => p.id === tx.pocketId);
+              const dstAcc = tx.type === 'transfer' ? db.accounts.find(a => a.id === tx.toAccountId) : null;
+              const dstPkt = dstAcc?.pockets?.find(p => p.id === tx.toPocketId);
+              const cat = db.categories.find(c => c.id === tx.categoryId);
+              const sub = cat?.subcategories?.find(s => s.id === tx.subcategoryId);
+              const cur = getTxCurrency(tx);
+
+              const badgeClass = tx.type === 'income'
+                ? 'bg-sageLight text-sage'
+                : tx.type === 'transfer'
+                  ? 'bg-[#E7F3F6] text-[#2B5B67]'
+                  : 'bg-coralLight text-coral';
+              const amountColor = tx.type === 'income'
+                ? 'text-sage'
+                : tx.type === 'transfer'
+                  ? 'text-[#2B5B67]'
+                  : 'text-coral';
+              const signPrefix = tx.type === 'income' ? '+' : tx.type === 'transfer' ? '⇄ ' : '-';
+
+              return `
+                <div class="bg-creamCard rounded-3xl p-3.5 shadow-sm border border-[#E8DEC5] flex items-center justify-between gap-2.5">
+                  <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                      <span class="px-2 py-0.5 rounded-lg text-[10px] font-medium ${badgeClass}">
+                        ${tx.type === 'income' ? 'Masuk' : tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Keluar')}
+                      </span>
+                      ${sub ? `<span class="text-[10px] text-slate-400 truncate">• ${sub.name}</span>` : ''}
+                    </div>
+                    <div class="text-xs font-medium text-ink truncate mt-1">
+                      ${tx.title || (tx.type === 'transfer' ? `${pkt?.name || 'Asal'} → ${dstPkt?.name || 'Tujuan'}` : (cat?.name || 'Transaksi'))}
+                    </div>
+                    <div class="text-[11px] text-slate-400 truncate mt-0.5">
+                      ${tx.date} • ${acc?.name || '-'} (${pkt?.name || '-'})
+                      ${tx.type === 'transfer' && dstPkt ? ` → ${dstAcc?.name || ''} (${dstPkt.name})` : ''}
+                    </div>
+                  </div>
+
+                  <div class="text-right shrink-0 flex items-center gap-2">
+                    <div>
+                      <div class="text-xs font-medium ${amountColor}">${signPrefix}${formatCurrency(tx.amount, cur)}</div>
+                      ${cur !== 'IDR' ? `<div class="text-[10px] text-slate-400">≈ ${formatCurrency(toIDR(tx.amount, cur))}</div>` : ''}
+                    </div>
+                    <button onclick="deleteTransaction('${tx.id}')" title="Hapus transaksi"
+                      class="w-7 h-7 rounded-xl bg-creamSoft text-slate-400 hover:text-coral flex items-center justify-center text-xs">
+                      ✕
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('')}
           </div>
         </div>
       `;
     }
 
     // =========================================================================
-    // 9. VIEW 2: STATISTIK & ANGGARAN (HEADER ORANGE #FF9B71)
+    // 9. VIEW 2: STATISTIK & EVALUASI ANGGARAN
+    //    - Progress kategori: hijau #c6da77 (merah #E05A5A jika melewati limit)
+    //    - Progress sub-kategori: biru #77bcda (merah #E05A5A jika melewati limit)
+    //    - Header kuning #f8db91
     // =========================================================================
-    function setStatPeriodMode(mode) { ui.statPeriodMode = mode; render(); }
-    function setStatSubTab(tab) { ui.statSubTab = tab; render(); }
-    function setStatChartType(type) { ui.statChartType = type; render(); }
-    function toggleBudgetCatExpand(catId) { ui.expandedBudgetCats[catId] = !ui.expandedBudgetCats[catId]; render(); }
-    function openCategoryDrilldown(catId) { ui.drilldownCategoryId = catId; ui.drilldownSubcategoryId = 'ALL'; render(); }
-    function closeCategoryDrilldown() { ui.drilldownCategoryId = null; ui.drilldownSubcategoryId = 'ALL'; render(); }
-    function setDrilldownSubcategory(subId) { ui.drilldownSubcategoryId = subId; render(); }
+    function setStatPeriodMode(m) { ui.statPeriodMode = m; render(); }
 
-    function buildPieChartSvg(slices) {
-      if (!slices || slices.length === 0) {
-        return `
-          <div class="w-48 h-48 mx-auto rounded-full bg-creamSoft border border-dashed border-[#DFD2B4] flex items-center justify-center text-center p-4">
-            <span class="text-xs text-slate-400">Belum ada data pada periode ini</span>
-          </div>
-        `;
-      }
+    function toggleBudgetCatExpand(catId) {
+      ui.expandedBudgetCats[catId] = !ui.expandedBudgetCats[catId];
+      render();
+    }
 
-      const cx = 180;
-      const cy = 115;
-      const r = 68;
-      let startAngle = -Math.PI / 2;
+    function getMonthBudgetKey(year, month) {
+      return `${year}-${String(month + 1).padStart(2, '0')}`;
+    }
 
-      const paths = [];
-      const callouts = [];
+    function ensureMonthBudget(year, month) {
+      db.monthlyBudgets = db.monthlyBudgets || {};
+      const key = getMonthBudgetKey(year, month);
+      if (db.monthlyBudgets[key]) return db.monthlyBudgets[key];
 
-      slices.forEach((s, idx) => {
-        const pct = s.pct || 0;
-        const angle = (pct / 100) * Math.PI * 2;
-        const endAngle = startAngle + angle;
-        const midAngle = startAngle + angle / 2;
-
-        const x1 = cx + r * Math.cos(startAngle);
-        const y1 = cy + r * Math.sin(startAngle);
-        const x2 = cx + r * Math.cos(endAngle);
-        const y2 = cy + r * Math.sin(endAngle);
-        const largeArc = angle > Math.PI ? 1 : 0;
-
-        if (slices.length === 1 || pct >= 99.95) {
-          paths.push(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${s.color}" stroke="#FFFDF8" stroke-width="2" />`);
-        } else {
-          paths.push(
-            `<path d="M ${cx} ${cy} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z" fill="${s.color}" stroke="#FFFDF8" stroke-width="1.8" />`
-          );
-        }
-
-        if (idx < 7 && pct >= 0.1) {
-          const lx1 = cx + (r + 3) * Math.cos(midAngle);
-          const ly1 = cy + (r + 3) * Math.sin(midAngle);
-          const lx2 = cx + (r + 16) * Math.cos(midAngle);
-          const ly2 = cy + (r + 16) * Math.sin(midAngle);
-          const isRight = Math.cos(midAngle) >= 0;
-          const labelX = isRight ? Math.min(352, lx2 + 8) : Math.max(8, lx2 - 8);
-          const anchor = isRight ? 'start' : 'end';
-          const shortName = s.name.length > 14 ? s.name.slice(0, 13) + '…' : s.name;
-
-          callouts.push(`
-            <polyline points="${lx1.toFixed(1)},${ly1.toFixed(1)} ${lx2.toFixed(1)},${ly2.toFixed(1)} ${labelX.toFixed(1)},${ly2.toFixed(1)}"
-              fill="none" stroke="${s.color}" stroke-width="1.3" />
-            <text x="${labelX.toFixed(1)}" y="${(ly2 - 3).toFixed(1)}" text-anchor="${anchor}"
-              class="fill-ink text-[10px]" style="font-family:'Fredoka',sans-serif;font-weight:500;">${shortName}</text>
-            <text x="${labelX.toFixed(1)}" y="${(ly2 + 9).toFixed(1)}" text-anchor="${anchor}"
-              class="fill-slate-500 text-[9.5px]" style="font-family:'Fredoka',sans-serif;">${pct.toFixed(1)}%</text>
-          `);
-        }
-
-        startAngle = endAngle;
+      const snapshot = {};
+      db.categories.forEach(cat => {
+        if (cat.type !== 'expense') return;
+        const subsMap = {};
+        (cat.subcategories || []).forEach(s => { subsMap[s.id] = Number(s.limit) || 0; });
+        snapshot[cat.id] = {
+          directLimit: Number(cat.directLimit) || 0,
+          subs: subsMap
+        };
       });
-
-      return `
-        <svg viewBox="0 0 360 230" class="w-full max-w-[360px] mx-auto overflow-visible">
-          ${paths.join('')}
-          ${callouts.join('')}
-        </svg>
-      `;
+      db.monthlyBudgets[key] = snapshot;
+      return snapshot;
     }
 
     function renderStatistikView() {
       const periodTxs = filterTransactionsByPeriod(db.transactions, ui.statPeriodMode, ui.statYear, ui.statMonth);
-      const periodLabel = ui.statPeriodMode === 'yearly'
-        ? `${ui.statYear}`
-        : `${MONTH_NAMES_ID[ui.statMonth]} ${ui.statYear}`;
+      const periodLabel = ui.statPeriodMode === 'yearly' ? `${ui.statYear}` : `${MONTH_NAMES_ID[ui.statMonth]} ${ui.statYear}`;
+      const mBud = ensureMonthBudget(ui.statYear, ui.statMonth);
+      const multiplier = ui.statPeriodMode === 'yearly' ? 12 : 1;
 
-      // Drilldown per kategori
-      if (ui.drilldownCategoryId) {
-        const cat = db.categories.find(c => c.id === ui.drilldownCategoryId);
-        if (cat) {
-          let catTxs = periodTxs.filter(t => t.type === cat.type && t.categoryId === cat.id);
-          if (ui.drilldownSubcategoryId !== 'ALL') {
-            catTxs = catTxs.filter(t => t.subcategoryId === ui.drilldownSubcategoryId);
-          }
-          catTxs.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-          const totalDrillIDR = catTxs.reduce((s, t) => s + toIDR(t.amount, getTxCurrency(t)), 0);
+      const expCats = db.categories.filter(c => c.type === 'expense');
 
-          return `
-            <div class="p-4 space-y-4">
-              <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
-                <div class="flex items-center justify-between gap-2">
-                  <button onclick="closeCategoryDrilldown()" class="px-3 py-1.5 rounded-xl bg-creamCard text-ink text-xs font-medium">
-                    ← Kembali ke Statistik
-                  </button>
-                  <span class="text-xs font-medium text-[#4B2D16]">${periodLabel}</span>
-                </div>
-                <div>
-                  <h2 class="text-base font-medium text-[#4B2D16]">${cat.name}</h2>
-                  <p class="text-xs" style="color: #4B2D16;">Total ${cat.type === 'income' ? 'Pendapatan' : 'Pengeluaran'}: <strong class="text-[#4B2D16]">${formatCurrency(totalDrillIDR)}</strong></p>
-                </div>
+      const budgetCards = expCats.map(cat => {
+        const hasSubs = Array.isArray(cat.subcategories) && cat.subcategories.length > 0;
+        const entry = mBud[cat.id] || { directLimit: cat.directLimit || 0, subs: {} };
 
-                ${cat.subcategories && cat.subcategories.length > 0 ? `
-                  <div class="flex gap-1.5 overflow-x-auto no-scrollbar pt-1">
-                    <button onclick="setDrilldownSubcategory('ALL')"
-                      class="px-3 py-1.5 rounded-xl text-xs font-medium shrink-0 ${ui.drilldownSubcategoryId === 'ALL' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'bg-creamCard text-ink'}">
-                      Semua Sub
-                    </button>
-                    ${cat.subcategories.map(sub => `
-                      <button onclick="setDrilldownSubcategory('${sub.id}')"
-                        class="px-3 py-1.5 rounded-xl text-xs font-medium shrink-0 ${ui.drilldownSubcategoryId === sub.id ? 'bg-[#422F0E] text-[#FFF9EB]' : 'bg-creamCard text-ink'}">
-                        ${sub.name}
-                      </button>
-                    `).join('')}
+        let catSpent = 0;
+        let catLimit = 0;
+        let subRowsHtml = '';
+
+        if (hasSubs) {
+          subRowsHtml = cat.subcategories.map(sub => {
+            const subLimit = ((entry.subs && entry.subs[sub.id] !== undefined) ? Number(entry.subs[sub.id]) : (Number(sub.limit) || 0)) * multiplier;
+            const subSpent = periodTxs
+              .filter(t => t.type === 'expense' && t.categoryId === cat.id && t.subcategoryId === sub.id)
+              .reduce((s, t) => s + toIDR(t.amount, getTxCurrency(t)), 0);
+
+            catLimit += subLimit;
+            catSpent += subSpent;
+
+            const subPct = subLimit > 0 ? Math.min(100, (subSpent / subLimit) * 100) : (subSpent > 0 ? 100 : 0);
+            const subOverLimit = subLimit > 0 ? subSpent > subLimit : subSpent > 0;
+            const subBarColor = subOverLimit ? '#E05A5A' : '#77bcda';
+
+            return `
+              <div class="pl-3 border-l-2 border-[#E8DEC5] space-y-1">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-ink">${sub.name}</span>
+                  <div>
+                    <span class="font-medium ${subOverLimit ? 'text-coral' : 'text-ink'}">${formatCurrency(subSpent)}</span>
+                    <span class="text-slate-400"> / ${formatCurrency(subLimit)}</span>
                   </div>
+                </div>
+                <div class="w-full h-2 rounded-full bg-creamSoft overflow-hidden">
+                  <div class="h-full rounded-full transition-all" style="width: ${subPct}%; background-color: ${subBarColor};"></div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        } else {
+          catLimit = (entry.directLimit !== undefined ? Number(entry.directLimit) : (Number(cat.directLimit) || 0)) * multiplier;
+          catSpent = periodTxs
+            .filter(t => t.type === 'expense' && t.categoryId === cat.id)
+            .reduce((s, t) => s + toIDR(t.amount, getTxCurrency(t)), 0);
+        }
+
+        const catPct = catLimit > 0 ? Math.min(100, (catSpent / catLimit) * 100) : (catSpent > 0 ? 100 : 0);
+        const catOverLimit = catLimit > 0 ? catSpent > catLimit : catSpent > 0;
+        const catBarColor = catOverLimit ? '#E05A5A' : '#c6da77';
+        const sisaBudget = catLimit - catSpent;
+        const isExpanded = ui.expandedBudgetCats[cat.id] !== false;
+
+        return `
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2.5">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="text-sm font-medium text-ink truncate">${cat.name}</span>
+                ${hasSubs ? `
+                  <button onclick="toggleBudgetCatExpand('${cat.id}')"
+                    class="px-2 py-0.5 rounded-lg bg-creamSoft text-[10px] font-medium text-slate-600 shrink-0">
+                    ${isExpanded ? '▲ Sub' : '▼ Sub'}
+                  </button>
                 ` : ''}
               </div>
-
-              <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5]">
-                ${catTxs.length === 0 ? `
-                  <div class="py-8 text-center text-xs text-slate-400">Belum ada transaksi pada kategori ini di periode ${periodLabel}.</div>
-                ` : `
-                  <div class="divide-y divide-stone-100">
-                    ${catTxs.map(tx => renderTransactionRow(tx)).join('')}
-                  </div>
-                `}
+              <div class="text-xs shrink-0">
+                <span class="font-medium ${catOverLimit ? 'text-coral' : 'text-ink'}">${formatCurrency(catSpent)}</span>
+                <span class="text-slate-400"> / ${formatCurrency(catLimit)}</span>
               </div>
             </div>
-          `;
-        }
-      }
 
-      // Hitung total pendapatan & pengeluaran periode terpilih
-      let totalIncomeIDR = 0;
-      let totalExpenseIDR = 0;
-      periodTxs.forEach(t => {
-        const valIDR = toIDR(t.amount, getTxCurrency(t));
-        if (t.type === 'income') totalIncomeIDR += valIDR;
-        if (t.type === 'expense') totalExpenseIDR += valIDR;
-      });
+            <div class="w-full h-2.5 rounded-full bg-creamSoft overflow-hidden">
+              <div class="h-full rounded-full transition-all" style="width: ${catPct}%; background-color: ${catBarColor};"></div>
+            </div>
 
-      const activeChartType = ui.statChartType || 'expense';
-      const activeTotalIDR = activeChartType === 'income' ? totalIncomeIDR : totalExpenseIDR;
+            <div class="flex items-center justify-between text-[11px]">
+              <span class="${sisaBudget < 0 ? 'text-coral font-medium' : 'text-slate-500'}">
+                ${sisaBudget < 0 ? `Melebihi limit ${formatCurrency(Math.abs(sisaBudget))}` : `Sisa budget ${formatCurrency(sisaBudget)}`}
+              </span>
+              <span class="font-medium ${catOverLimit ? 'text-coral' : 'text-sage'}">
+                ${catLimit > 0 ? ((catSpent / catLimit) * 100).toFixed(0) + '%' : '-'}
+              </span>
+            </div>
 
-      const chartCats = db.categories.filter(c => c.type === activeChartType);
-      const pieSlicesRaw = chartCats.map(cat => {
-        const val = periodTxs
-          .filter(t => t.type === activeChartType && t.categoryId === cat.id)
-          .reduce((sum, t) => sum + toIDR(t.amount, getTxCurrency(t)), 0);
-        return {
-          id: cat.id,
-          name: cat.name,
-          amount: val,
-          pct: activeTotalIDR > 0 ? (val / activeTotalIDR) * 100 : 0
-        };
-      }).filter(item => item.amount > 0).sort((a, b) => b.amount - a.amount);
-
-      const pieSlices = pieSlicesRaw.map((item, idx) => ({
-        ...item,
-        color: PIE_COLORS[idx % PIE_COLORS.length]
-      }));
-
-      // Evaluasi Budget
-      const expenseCats = db.categories.filter(c => c.type === 'expense');
-      const totalBudgetLimit = expenseCats.reduce((s, c) => s + getCategoryLimit(c), 0);
-      const budgetPctOverall = totalBudgetLimit > 0 ? (totalExpenseIDR / totalBudgetLimit) * 100 : 0;
+            ${hasSubs && isExpanded ? `<div class="pt-2 space-y-2.5">${subRowsHtml}</div>` : ''}
+          </div>
+        `;
+      }).join('');
 
       return `
         <div class="p-4 space-y-4">
-          <!-- Header Orange & Filter Bulanan / Tahunan -->
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
-            <div class="flex items-center justify-center">
-              <div class="inline-flex rounded-2xl bg-creamCard p-1 shrink-0">
-                <button onclick="setStatPeriodMode('monthly')"
-                  class="px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.statPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
-                  Bulanan
-                </button>
-                <button onclick="setStatPeriodMode('yearly')"
-                  class="px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.statPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
-                  Tahunan
-                </button>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between bg-creamCard rounded-2xl px-3 py-2">
-              <button onclick="shiftPeriod('stat', -1)" class="w-8 h-8 rounded-xl bg-creamSoft flex items-center justify-center text-ink active:scale-95">‹</button>
-              <span class="text-xs font-medium text-ink">${periodLabel}</span>
-              <button onclick="shiftPeriod('stat', 1)" class="w-8 h-8 rounded-xl bg-creamSoft flex items-center justify-center text-ink active:scale-95">›</button>
-            </div>
-
-            <!-- Switch Tab Pendapatan vs Pengeluaran -->
-            <div class="grid grid-cols-2 gap-2.5 pt-1">
-              <button onclick="setStatChartType('income')"
-                class="p-3 rounded-2xl text-left transition-all ${activeChartType === 'income' ? 'bg-creamCard ring-2 ring-[#422F0E]' : 'bg-creamCard/85 opacity-85'}">
-                <div class="text-[11px] font-medium text-sage">Pendapatan</div>
-                <div class="text-xs font-medium text-ink mt-0.5">${formatCurrency(totalIncomeIDR)}</div>
-              </button>
-              <button onclick="setStatChartType('expense')"
-                class="p-3 rounded-2xl text-left transition-all ${activeChartType === 'expense' ? 'bg-creamCard ring-2 ring-[#422F0E]' : 'bg-creamCard/85 opacity-85'}">
-                <div class="text-[11px] font-medium text-coral">Pengeluaran</div>
-                <div class="text-xs font-medium text-ink mt-0.5">${formatCurrency(totalExpenseIDR)}</div>
-              </button>
-            </div>
-          </div>
-
-          <!-- Kartu Pie Chart + Daftar Kategori -->
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-4">
-
-            <div class="py-1">
-              ${buildPieChartSvg(pieSlices)}
-            </div>
-
-            ${pieSlices.length === 0 ? `
-              <div class="text-center py-4 text-xs text-slate-400">Tidak ada transaksi ${activeChartType === 'income' ? 'pendapatan' : 'pengeluaran'} pada periode ${periodLabel}.</div>
-            ` : `
-              <div class="divide-y divide-stone-100">
-                ${pieSlices.map(item => {
-                  const badgePct = Math.round(item.pct);
-                  return `
-                    <button onclick="openCategoryDrilldown('${item.id}')"
-                      class="w-full py-2.5 flex items-center justify-between gap-3 text-left hover:bg-creamSoft/60 px-1.5 rounded-xl transition-colors">
-                      <div class="flex items-center gap-3 min-w-0">
-                        <span class="px-2 py-1 rounded-lg text-[11px] font-medium text-white shrink-0 w-12 text-center" style="background-color: ${item.color};">
-                          ${badgePct}%
-                        </span>
-                        <span class="text-sm text-ink truncate">${item.name}</span>
-                      </div>
-                      <span class="text-sm font-medium text-ink shrink-0">${formatCurrency(item.amount)}</span>
-                    </button>
-                  `;
-                }).join('')}
-              </div>
-            `}
-          </div>
-
-          <!-- Evaluasi Budget -->
-          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3.5">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h3 class="text-xs font-medium uppercase tracking-wider text-ink">EVALUASI BUDGET</h3>
-                <p class="text-[11px] text-slate-400">
-                  Terpakai <strong class="text-ink">${formatCurrency(totalExpenseIDR)}</strong> dari <strong class="text-ink">${formatCurrency(totalBudgetLimit)}</strong>
-                </p>
+                <h1 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">EVALUASI ANGGARAN</h1>
+                <p class="text-[11px]" style="color: #422F0E;">Pantau batas pengeluaran kategori &amp; sub-kategori</p>
               </div>
-              <button onclick="openBudgetSettingsModal()" class="px-3 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink hover:bg-butter/40">
+              <button onclick="openBudgetSettingsModal()" class="px-3 py-1.5 rounded-2xl text-xs font-medium shadow-sm" style="background-color: #422F0E; color: #FFF9EB;">
                 Atur Limit
               </button>
             </div>
 
-            <div class="space-y-1">
-              <div class="flex justify-between text-[11px] text-slate-500">
-                <span>Pemakaian Keseluruhan</span>
-                <span class="font-medium ${budgetPctOverall > 100 ? 'text-coral' : 'text-ink'}">${budgetPctOverall.toFixed(1)}%</span>
+            <div class="flex items-center justify-between gap-2 pt-2 border-t" style="border-color: rgba(66, 47, 14, 0.14);">
+              <div class="inline-flex rounded-2xl bg-creamCard p-1">
+                <button onclick="setStatPeriodMode('monthly')"
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  Bulanan
+                </button>
+                <button onclick="setStatPeriodMode('yearly')"
+                  class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  Tahunan
+                </button>
               </div>
-              <div class="w-full h-2.5 rounded-full bg-creamSoft overflow-hidden">
-                <div class="h-full rounded-full transition-all ${budgetPctOverall > 100 ? 'bg-coral' : budgetPctOverall > 80 ? 'bg-butter' : 'bg-sage'}"
-                  style="width: ${Math.min(100, budgetPctOverall)}%;"></div>
+
+              <div class="flex items-center gap-1.5 bg-creamCard rounded-2xl px-2 py-1">
+                <button onclick="shiftPeriod('stat', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">‹</button>
+                <span class="text-xs font-medium text-ink px-1">${periodLabel}</span>
+                <button onclick="shiftPeriod('stat', 1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">›</button>
               </div>
-            </div>
-
-            <div class="divide-y divide-stone-100 pt-1">
-              ${expenseCats.map(cat => {
-                const limit = getCategoryLimit(cat);
-                const spent = periodTxs
-                  .filter(t => t.type === 'expense' && t.categoryId === cat.id)
-                  .reduce((s, t) => s + toIDR(t.amount, getTxCurrency(t)), 0);
-                const pct = limit > 0 ? (spent / limit) * 100 : (spent > 0 ? 100 : 0);
-                const isOver = limit > 0 && spent > limit;
-                const isExpanded = Boolean(ui.expandedBudgetCats[cat.id]);
-                const hasSubs = Array.isArray(cat.subcategories) && cat.subcategories.length > 0;
-
-                return `
-                  <div class="py-3 space-y-2">
-                    <div class="flex items-center justify-between gap-2">
-                      <button onclick="${hasSubs ? `toggleBudgetCatExpand('${cat.id}')` : `openCategoryDrilldown('${cat.id}')`}" class="flex items-center gap-2 text-left min-w-0">
-                        <span class="text-xs font-medium text-ink truncate">${cat.name}</span>
-                        ${hasSubs ? `<span class="text-[10px] px-1.5 py-0.5 rounded-md bg-creamSoft text-slate-500">${isExpanded ? '▲' : '▼'} Sub</span>` : ''}
-                      </button>
-                      <div class="text-right shrink-0">
-                        <span class="text-xs font-medium ${isOver ? 'text-coral' : 'text-ink'}">${formatCurrency(spent)}</span>
-                        <span class="text-[11px] text-slate-400"> / ${formatCurrency(limit)}</span>
-                      </div>
-                    </div>
-
-                    <div class="w-full h-2 rounded-full bg-creamSoft overflow-hidden">
-                      <div class="h-full rounded-full ${isOver ? 'bg-coral' : pct > 80 ? 'bg-butter' : 'bg-sage'}"
-                        style="width: ${Math.min(100, pct)}%;"></div>
-                    </div>
-
-                    <div class="flex items-center justify-between text-[11px]">
-                      <span class="${isOver ? 'text-coral font-medium' : 'text-slate-400'}">
-                        ${limit > 0
-                          ? (isOver
-                              ? `Melebihi budget ${formatCurrency(spent - limit)}`
-                              : `Sisa budget ${formatCurrency(limit - spent)}`)
-                          : 'Belum ada batas limit'}
-                      </span>
-                      <button onclick="openCategoryDrilldown('${cat.id}')" class="text-sage font-medium hover:underline">Lihat detail ›</button>
-                    </div>
-
-                    ${hasSubs && isExpanded ? `
-                      <div class="mt-2 pl-3 border-l-2 border-[#E8DEC5] space-y-2">
-                        ${cat.subcategories.map(sub => {
-                          const subSpent = periodTxs
-                            .filter(t => t.type === 'expense' && t.categoryId === cat.id && t.subcategoryId === sub.id)
-                            .reduce((s, t) => s + toIDR(t.amount, getTxCurrency(t)), 0);
-                          const subLimit = getSubcategoryLimit(cat, sub, ui.statYear, ui.statMonth);
-                          const subPct = subLimit > 0 ? Math.min(100, (subSpent / subLimit) * 100) : (subSpent > 0 ? 100 : 0);
-                          return `
-                            <div class="space-y-1">
-                              <div class="flex justify-between text-[11px]">
-                                <span class="text-slate-600">${sub.name}</span>
-                                <span class="text-ink font-medium">${formatCurrency(subSpent)} <span class="text-slate-400 font-normal">/ ${formatCurrency(subLimit)}</span></span>
-                              </div>
-                              <div class="w-full h-1.5 rounded-full bg-creamSoft overflow-hidden">
-                                <div class="h-full rounded-full ${subLimit > 0 && subSpent > subLimit ? 'bg-coral' : 'bg-peanut'}" style="width: ${subPct}%;"></div>
-                              </div>
-                            </div>
-                          `;
-                        }).join('')}
-                      </div>
-                    ` : ''}
-                  </div>
-                `;
-              }).join('')}
             </div>
           </div>
+
+          <div class="space-y-3">${budgetCards}</div>
         </div>
       `;
     }
 
     // =========================================================================
-    // 10. VIEW 3: AKUN, POCKET & TOTAL KEKAYAAN (HEADER ORANGE #FF9B71)
+    // 10. VIEW 3: AKUN, DETAIL POCKET (HARIAN/BULANAN/SETIAP TAHUN) & TRANSFER POCKET
     // =========================================================================
+    function setAkunPeriodMode(m) { ui.akunPeriodMode = m; render(); }
+
+    function openPocketDetail(accId, pktId) {
+      ui.selectedPocketDetail = { accId, pktId };
+      ui.pocketDetailTab = 'daily';
+      render();
+    }
+
+    function closePocketDetail() {
+      ui.selectedPocketDetail = null;
+      render();
+    }
+
+    function setPocketDetailTab(tab) {
+      ui.pocketDetailTab = tab;
+      render();
+    }
+
+    function getPocketFlowOnTx(tx, accId, pktId) {
+      const amt = Number(tx.amount) || 0;
+      if (tx.type === 'income' && tx.accountId === accId && tx.pocketId === pktId) {
+        return amt;
+      }
+      if (tx.type === 'expense' && tx.accountId === accId && tx.pocketId === pktId) {
+        return -amt;
+      }
+      if (tx.type === 'transfer') {
+        let delta = 0;
+        if (tx.accountId === accId && tx.pocketId === pktId) {
+          delta -= amt;
+        }
+        if (tx.toAccountId === accId && tx.toPocketId === pktId) {
+          delta += (Number(tx.nilaiKe ?? tx.amount) || 0);
+        }
+        return delta;
+      }
+      return 0;
+    }
+
+    function renderPocketDetailView() {
+      const ref = ui.selectedPocketDetail;
+      const acc = db.accounts.find(a => a.id === ref?.accId);
+      const pkt = acc?.pockets?.find(p => p.id === ref?.pktId);
+      if (!acc || !pkt) {
+        ui.selectedPocketDetail = null;
+        return renderAkunView();
+      }
+
+      const cur = acc.currency || 'IDR';
+      const currentBal = Number(pkt.balance) || 0;
+      const tab = ui.pocketDetailTab || 'daily';
+      const yr = ui.pocketDetailYear;
+      const mo = ui.pocketDetailMonth;
+
+      const pocketEvents = [];
+      db.transactions.forEach(tx => {
+        const flow = getPocketFlowOnTx(tx, acc.id, pkt.id);
+        if (flow !== 0 && tx.date) {
+          pocketEvents.push({
+            id: tx.id,
+            date: tx.date,
+            flow,
+            deposit: flow > 0 ? flow : 0,
+            withdraw: flow < 0 ? Math.abs(flow) : 0,
+            tx
+          });
+        }
+      });
+
+      const totalAllFlow = pocketEvents.reduce((s, e) => s + e.flow, 0);
+      const baselineBeforeEvents = currentBal - totalAllFlow;
+
+      let rowsHtml = '';
+      let periodDeposit = 0;
+      let periodWithdraw = 0;
+      let periodTotal = 0;
+      let periodLabel = '';
+
+      if (tab === 'daily') {
+        periodLabel = `${MONTH_NAMES_ID[mo]} ${yr}`;
+        const monthPrefix = `${yr}-${String(mo + 1).padStart(2, '0')}`;
+        const allSorted = [...pocketEvents].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+        let running = baselineBeforeEvents;
+        const withRunning = allSorted.map(ev => {
+          running += ev.flow;
+          return { ...ev, runningBalance: running };
+        });
+
+        const monthRows = withRunning.filter(r => r.date.startsWith(monthPrefix)).reverse();
+        periodDeposit = monthRows.reduce((s, r) => s + r.deposit, 0);
+        periodWithdraw = monthRows.reduce((s, r) => s + r.withdraw, 0);
+        periodTotal = periodDeposit - periodWithdraw;
+
+        if (monthRows.length === 0) {
+          rowsHtml = `<div class="py-10 text-center text-xs text-slate-400">Belum ada mutasi pada pocket ini di ${periodLabel}.</div>`;
+        } else {
+          rowsHtml = `
+            <div class="divide-y divide-stone-100">
+              ${monthRows.map(r => {
+                const parts = r.date.split('-');
+                const dayNum = parts[2] || '';
+                const dayNames = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+                const dtObj = new Date(Number(parts[0]), (Number(parts[1]) || 1) - 1, Number(parts[2]) || 1);
+                const dayName = dayNames[dtObj.getDay()] || '';
+                const cat = db.categories.find(c => c.id === r.tx.categoryId);
+                const sub = cat?.subcategories?.find(s => s.id === r.tx.subcategoryId);
+                const titleText = r.tx.title || (r.tx.type === 'transfer' ? 'Transfer Antar-Pocket' : (sub?.name || cat?.name || 'Transaksi'));
+
+                return `
+                  <div class="py-3 flex items-center justify-between gap-2.5">
+                    <div class="flex items-center gap-3 min-w-0">
+                      <div class="w-10 text-center shrink-0">
+                        <div class="text-sm font-medium text-ink leading-none">${dayNum}</div>
+                        <span class="inline-block mt-1 px-1.5 py-0.5 rounded bg-creamSoft text-[10px] text-slate-500">${dayName}</span>
+                      </div>
+                      <div class="min-w-0">
+                        <div class="text-xs font-medium text-ink truncate">${titleText}</div>
+                        <div class="text-[11px] text-slate-400 truncate">${r.date} • ${r.tx.type === 'transfer' ? 'Transfer' : (cat?.name || 'Umum')}</div>
+                      </div>
+                    </div>
+
+                    <div class="text-right shrink-0">
+                      <div class="text-xs font-medium ${r.flow >= 0 ? 'text-sage' : 'text-coral'}">
+                        ${r.flow >= 0 ? '+' : '-'}${formatCurrency(Math.abs(r.flow), cur)}
+                      </div>
+                      <div class="text-[10px] text-slate-400">Saldo: ${formatCurrency(r.runningBalance, cur)}</div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        }
+      } else if (tab === 'monthly') {
+        periodLabel = `${yr}`;
+        const allSorted = [...pocketEvents].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+        const monthBuckets = Array.from({ length: 12 }, (_, mIdx) => ({
+          mIdx,
+          deposit: 0,
+          withdraw: 0,
+          net: 0,
+          endBalance: baselineBeforeEvents
+        }));
+
+        allSorted.forEach(ev => {
+          const parts = ev.date.split('-');
+          const eYr = parseInt(parts[0], 10);
+          const eMo = parseInt(parts[1], 10) - 1;
+          if (eYr === yr && eMo >= 0 && eMo < 12) {
+            monthBuckets[eMo].deposit += ev.deposit;
+            monthBuckets[eMo].withdraw += ev.withdraw;
+            monthBuckets[eMo].net += ev.flow;
+          }
+        });
+
+        let accBeforeYr = baselineBeforeEvents;
+        allSorted.forEach(ev => {
+          const eYr = parseInt(ev.date.split('-')[0], 10);
+          if (eYr < yr) accBeforeYr += ev.flow;
+        });
+        let runYr = accBeforeYr;
+        for (let m = 0; m < 12; m++) {
+          runYr += monthBuckets[m].net;
+          monthBuckets[m].endBalance = runYr;
+        }
+
+        periodDeposit = monthBuckets.reduce((s, b) => s + b.deposit, 0);
+        periodWithdraw = monthBuckets.reduce((s, b) => s + b.withdraw, 0);
+        periodTotal = periodDeposit - periodWithdraw;
+
+        rowsHtml = `
+          <div class="divide-y divide-stone-100">
+            ${[...monthBuckets].reverse().map(b => {
+              const lastDay = new Date(yr, b.mIdx + 1, 0).getDate();
+              const mm = String(b.mIdx + 1).padStart(2, '0');
+              return `
+                <div class="py-3 flex items-center justify-between gap-2">
+                  <div>
+                    <div class="text-xs font-medium text-ink">${MONTH_NAMES_ID[b.mIdx]} ${yr}</div>
+                    <div class="text-[10px] text-slate-400">01.${mm} ~ ${String(lastDay).padStart(2, '0')}.${mm}</div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs font-medium text-sage">+${formatCurrency(b.deposit, cur)}</div>
+                    <div class="text-[11px] text-coral">-${formatCurrency(b.withdraw, cur)}</div>
+                  </div>
+                  <div class="text-right shrink-0">
+                    <div class="text-xs font-medium ${b.net >= 0 ? 'text-ink' : 'text-coral'}">${b.net >= 0 ? '+' : '-'}${formatCurrency(Math.abs(b.net), cur)}</div>
+                    <div class="text-[10px] text-slate-400">Saldo ${formatCurrency(b.endBalance, cur)}</div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      } else {
+        periodLabel = 'Setiap Tahun';
+        const yearsSet = new Set([yr]);
+        pocketEvents.forEach(ev => {
+          const eYr = parseInt(ev.date.split('-')[0], 10);
+          if (!Number.isNaN(eYr)) yearsSet.add(eYr);
+        });
+        const sortedYears = [...yearsSet].sort((a, b) => a - b);
+        const allSorted = [...pocketEvents].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+        let running = baselineBeforeEvents;
+        const yearMap = {};
+        sortedYears.forEach(y => {
+          yearMap[y] = { year: y, deposit: 0, withdraw: 0, net: 0, endBalance: running };
+        });
+
+        allSorted.forEach(ev => {
+          const eYr = parseInt(ev.date.split('-')[0], 10);
+          running += ev.flow;
+          if (yearMap[eYr]) {
+            yearMap[eYr].deposit += ev.deposit;
+            yearMap[eYr].withdraw += ev.withdraw;
+            yearMap[eYr].net += ev.flow;
+            yearMap[eYr].endBalance = running;
+          }
+        });
+
+        periodDeposit = Object.values(yearMap).reduce((s, y) => s + y.deposit, 0);
+        periodWithdraw = Object.values(yearMap).reduce((s, y) => s + y.withdraw, 0);
+        periodTotal = periodDeposit - periodWithdraw;
+
+        rowsHtml = `
+          <div class="divide-y divide-stone-100">
+            ${sortedYears.reverse().map(y => {
+              const item = yearMap[y];
+              return `
+                <div class="py-3 flex items-center justify-between gap-2">
+                  <div>
+                    <div class="text-xs font-medium text-ink">${y}</div>
+                    <div class="text-[10px] text-slate-400">01.01.${String(y).slice(-2)} ~ 31.12.${String(y).slice(-2)}</div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs font-medium text-sage">+${formatCurrency(item.deposit, cur)}</div>
+                    <div class="text-[11px] text-coral">-${formatCurrency(item.withdraw, cur)}</div>
+                  </div>
+                  <div class="text-right shrink-0">
+                    <div class="text-xs font-medium ${item.net >= 0 ? 'text-ink' : 'text-coral'}">${item.net >= 0 ? '+' : '-'}${formatCurrency(Math.abs(item.net), cur)}</div>
+                    <div class="text-[10px] text-slate-400">Saldo ${formatCurrency(item.endBalance, cur)}</div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+
+      return `
+        <div class="p-4 space-y-4">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
+            <div class="flex items-center justify-between gap-2">
+              <button onclick="closePocketDetail()" class="px-3 py-1.5 rounded-xl bg-creamCard text-ink text-xs font-medium">
+                ← Kembali
+              </button>
+              <div class="flex items-center gap-1.5">
+                <button onclick="openTransferPocketModal('${acc.id}', '${pkt.id}')" class="px-2.5 py-1.5 rounded-xl bg-creamCard text-ink text-xs font-medium">
+                  ⇄ Transfer
+                </button>
+                <button onclick="openEditPocketModal('${acc.id}', '${pkt.id}')" class="px-2.5 py-1.5 rounded-xl bg-creamCard text-ink text-xs font-medium">
+                  Edit / Hapus
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <h2 class="text-base font-medium text-[#422F0E]">${pkt.name}</h2>
+                <p class="text-xs" style="color: #422F0E;">${acc.name} • Saldo Saat Ini: <strong>${formatCurrency(currentBal, cur)}</strong></p>
+              </div>
+              ${tab !== 'yearly' ? `
+                <div class="flex items-center gap-1 bg-creamCard rounded-2xl px-2 py-1">
+                  <button onclick="shiftPeriod('pocket', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">‹</button>
+                  <span class="text-xs font-medium text-ink px-1">${periodLabel}</span>
+                  <button onclick="shiftPeriod('pocket', 1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">›</button>
+                </div>
+              ` : ''}
+            </div>
+
+            <div class="grid grid-cols-3 gap-1 bg-creamCard p-1 rounded-2xl">
+              <button onclick="setPocketDetailTab('daily')"
+                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'daily' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                Harian
+              </button>
+              <button onclick="setPocketDetailTab('monthly')"
+                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                Bulanan
+              </button>
+              <button onclick="setPocketDetailTab('yearly')"
+                class="py-1.5 rounded-xl text-xs font-medium transition-all ${tab === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                Setiap tahun
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div class="bg-creamSoft rounded-2xl p-2.5">
+                <span class="text-[10px] text-slate-500 block">Masuk</span>
+                <span class="text-xs font-medium text-sage">+${formatCurrency(periodDeposit, cur)}</span>
+              </div>
+              <div class="bg-creamSoft rounded-2xl p-2.5">
+                <span class="text-[10px] text-slate-500 block">Keluar</span>
+                <span class="text-xs font-medium text-coral">-${formatCurrency(periodWithdraw, cur)}</span>
+              </div>
+              <div class="bg-creamSoft rounded-2xl p-2.5">
+                <span class="text-[10px] text-slate-500 block">Total</span>
+                <span class="text-xs font-medium ${periodTotal >= 0 ? 'text-ink' : 'text-coral'}">${periodTotal >= 0 ? '+' : '-'}${formatCurrency(Math.abs(periodTotal), cur)}</span>
+              </div>
+            </div>
+
+            ${rowsHtml}
+          </div>
+        </div>
+      `;
+    }
+
     function openWealthDetailModal() {
       const year = ui.akunYear || 2026;
       const currentNetWorthIDR = getTotalNetWorthIDR();
@@ -1870,6 +1516,10 @@
     }
 
     function renderAkunView() {
+      if (ui.selectedPocketDetail) {
+        return renderPocketDetailView();
+      }
+
       const periodTxs = filterTransactionsByPeriod(db.transactions, ui.akunPeriodMode, ui.akunYear, ui.akunMonth);
       const periodLabel = ui.akunPeriodMode === 'yearly'
         ? `${ui.akunYear}`
@@ -1886,7 +1536,7 @@
       const totalNetWorthIDR = getTotalNetWorthIDR();
 
       const syncStatus = db.gasConfig?.status || 'offline';
-      const syncDotColor = syncStatus === 'ok' ? 'bg-emerald-300' : syncStatus === 'syncing' ? 'bg-amber-200' : syncStatus === 'error' ? 'bg-red-200' : 'bg-[#FFF9EB]';
+      const syncDotColor = syncStatus === 'ok' ? 'bg-emerald-400' : syncStatus === 'syncing' ? 'bg-amber-500' : syncStatus === 'error' ? 'bg-red-500' : 'bg-[#422F0E]';
       const syncText = syncStatus === 'ok'
         ? `Sheets Sync ${db.gasConfig.lastSyncAt || ''}`
         : syncStatus === 'syncing'
@@ -1897,24 +1547,28 @@
 
       return `
         <div class="p-4 space-y-4">
-          <!-- Header Akun (Orange #FF9B71) -->
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3.5" style="background-color: #FF9B71; border-color: #EB8458;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3.5" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div class="min-w-0">
-                <h1 class="text-base font-medium uppercase tracking-wider text-[#4B2D16] truncate">AKUN</h1>
-                <button onclick="syncPullFromSheets(false)" class="inline-flex items-center gap-1.5 text-[11px] mt-0.5" style="color: #4B2D16;">
+                <h1 class="text-base font-medium uppercase tracking-wider text-[#422F0E] truncate">AKUN</h1>
+                <button onclick="syncPullFromSheets(false)" class="inline-flex items-center gap-1.5 text-[11px] mt-0.5" style="color: #422F0E;">
                   <span class="w-2 h-2 rounded-full ${syncDotColor}"></span>
                   <span>${syncText}</span>
                   <span>↻</span>
                 </button>
               </div>
 
-              <button onclick="openAccountModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">
-                + Akun
-              </button>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button onclick="openTransferPocketModal()" class="px-3 py-2 rounded-2xl bg-creamCard text-ink text-xs font-medium shadow-sm active:scale-95 transition-all">
+                  ⇄ Transfer
+                </button>
+                <button onclick="openAccountModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all" style="background-color: #422F0E; color: #FFF9EB;">
+                  + Akun
+                </button>
+              </div>
             </div>
 
-            <div class="flex items-center justify-between gap-2 pt-2 border-t" style="border-color: rgba(255, 253, 248, 0.45);">
+            <div class="flex items-center justify-between gap-2 pt-2 border-t" style="border-color: rgba(66, 47, 14, 0.14);">
               <div class="inline-flex rounded-2xl bg-creamCard p-1">
                 <button onclick="setAkunPeriodMode('monthly')"
                   class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.akunPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
@@ -1934,7 +1588,6 @@
             </div>
           </div>
 
-          <!-- Kartu Total Kekayaan -->
           <div class="rounded-3xl p-4 shadow-sm border border-[#EED9A5] space-y-3" style="background-color: #FFF4D4;">
             <div class="flex items-center justify-between gap-2">
               <span class="text-[11px] font-medium uppercase tracking-wider text-[#6B4C1E]">TOTAL KEKAYAAN (KONVERSI IDR)</span>
@@ -1970,7 +1623,6 @@
             </div>
           </div>
 
-          <!-- Daftar Akun & Pocket -->
           <div class="space-y-3">
             ${[...db.accounts].sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0)).map((acc, accIdx, sortedAccs) => {
               const col = getColorObj(acc.colorId);
@@ -2010,14 +1662,21 @@
 
                   <div class="space-y-1.5 pt-1">
                     ${pockets.map(pkt => `
-                      <div class="bg-creamCard/90 rounded-2xl px-3 py-2 flex items-center justify-between gap-2 border border-[#E8DEC5]/70">
-                        <div class="min-w-0">
+                      <div onclick="openPocketDetail('${acc.id}', '${pkt.id}')" role="button" tabindex="0"
+                        class="bg-creamCard/90 hover:bg-creamCard rounded-2xl px-3 py-2 flex items-center justify-between gap-2 border border-[#E8DEC5]/70 cursor-pointer transition-all">
+                        <div class="min-w-0 flex-1">
                           <div class="text-xs font-medium text-ink truncate">${pkt.name}</div>
                           <div class="text-xs text-slate-600">${formatCurrency(pkt.balance, acc.currency)}</div>
                         </div>
-                        <button onclick="openEditPocketModal('${acc.id}', '${pkt.id}')" class="px-2.5 py-1 rounded-xl bg-creamSoft text-[11px] font-medium text-ink hover:bg-butter/40 shrink-0">
-                          Edit
-                        </button>
+                        <div class="flex items-center gap-1 shrink-0" onclick="event.stopPropagation()">
+                          <button onclick="openTransferPocketModal('${acc.id}', '${pkt.id}')" title="Transfer Pocket"
+                            class="px-2 py-1 rounded-xl bg-creamSoft text-[11px] font-medium text-ink hover:bg-butter/40">
+                            ⇄
+                          </button>
+                          <button onclick="openEditPocketModal('${acc.id}', '${pkt.id}')" class="px-2.5 py-1 rounded-xl bg-creamSoft text-[11px] font-medium text-ink hover:bg-butter/40">
+                            Edit
+                          </button>
+                        </div>
                       </div>
                     `).join('')}
                   </div>
@@ -2030,7 +1689,7 @@
     }
 
     // =========================================================================
-    // 11. VIEW 4: TABUNGAN TERHUBUNG POCKET (HEADER ORANGE #FF9B71)
+    // 11. VIEW 4: TABUNGAN TERHUBUNG POCKET (HEADER KUNING #f8db91)
     // =========================================================================
     function openSavingGoalDetail(goalId) { ui.selectedSavingGoalId = goalId; render(); }
     function closeSavingGoalDetail() { ui.selectedSavingGoalId = null; render(); }
@@ -2048,14 +1707,14 @@
 
           return `
             <div class="p-4 space-y-4">
-              <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
+              <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
                 <div class="flex items-center justify-between">
                   <button onclick="closeSavingGoalDetail()" class="px-3 py-1.5 rounded-xl bg-creamCard text-xs font-medium text-ink">← Kembali</button>
                   <button onclick="openSavingGoalModal('${goal.id}')" class="px-3 py-1.5 rounded-xl bg-creamCard text-xs font-medium text-ink">Edit Target</button>
                 </div>
                 <div>
-                  <h2 class="text-base font-medium text-[#4B2D16]">${goal.name}</h2>
-                  <p class="text-xs" style="color: #4B2D16;">Pocket: ${acc?.name || '-'} (${pkt?.name || '-'})</p>
+                  <h2 class="text-base font-medium text-[#422F0E]">${goal.name}</h2>
+                  <p class="text-xs" style="color: #422F0E;">Pocket: ${acc?.name || '-'} (${pkt?.name || '-'})</p>
                 </div>
                 <div class="rounded-2xl p-3 space-y-1.5 border" style="background-color: ${col.bg}; border-color: ${col.border};">
                   <div class="flex justify-between text-xs">
@@ -2100,11 +1759,11 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium text-[#4B2D16]">Target tabungan</h2>
-                <p class="text-xs mt-0.5" style="color: #4B2D16;">Wujudkan rencana finansialmu ✨</p>
+                <h2 class="text-base font-medium text-[#422F0E]">Target tabungan</h2>
+                <p class="text-xs mt-0.5" style="color: #422F0E;">Wujudkan rencana finansialmu ✨</p>
               </div>
               <button onclick="openSavingGoalModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">+ Target</button>
             </div>
@@ -2170,7 +1829,7 @@
     }
 
     // =========================================================================
-    // 12. VIEW 5: HUTANG & PIUTANG (HEADER ORANGE #FF9B71)
+    // 12. VIEW 5: HUTANG & PIUTANG (HEADER KUNING #f8db91)
     // =========================================================================
     function setDebtFilter(f) { ui.debtFilter = f; render(); }
 
@@ -2185,11 +1844,11 @@
 
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
+          <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium uppercase tracking-wider text-[#4B2D16]">HUTANG &amp; PIUTANG</h2>
-                <p class="text-xs mt-0.5" style="color: #4B2D16;">Catat pinjaman, talangan &amp; pelunasan</p>
+                <h2 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">HUTANG &amp; PIUTANG</h2>
+                <p class="text-xs mt-0.5" style="color: #422F0E;">Catat pinjaman, talangan &amp; pelunasan</p>
               </div>
               <button onclick="openDebtModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">+ Catat</button>
             </div>
@@ -2207,7 +1866,7 @@
               `).join('')}
             </div>
 
-            <div class="grid grid-cols-2 gap-2.5 pt-1 border-t" style="border-color: rgba(255, 253, 248, 0.45);">
+            <div class="grid grid-cols-2 gap-2.5 pt-1 border-t" style="border-color: rgba(66, 47, 14, 0.14);">
               <div class="bg-creamCard rounded-2xl p-3">
                 <span class="text-[11px] text-coral block">Sisa Hutang</span>
                 <span class="text-sm font-medium text-ink">${formatCurrency(totalHutang)}</span>
@@ -2261,18 +1920,17 @@
     }
 
     // =========================================================================
-    // 13. VIEW 6: PENGATURAN (HEADER ORANGE #FF9B71)
+    // 13. VIEW 6: PENGATURAN (HEADER KUNING #f8db91)
     // =========================================================================
     function renderPengaturanView() {
       const pinActive = Boolean(db.security?.enabled && db.security?.pinHash);
       return `
         <div class="p-4 space-y-4">
-          <div class="rounded-3xl p-4 shadow-sm border space-y-1.5" style="background-color: #FF9B71; border-color: #EB8458;">
-            <h2 class="text-base font-medium uppercase tracking-wider text-[#4B2D16]">PENGATURAN</h2>
-            <p class="text-xs" style="color: #4B2D16;">Sinkronisasi Google Sheets, kurs mata uang, keamanan PIN &amp; cadangan data</p>
+          <div class="rounded-3xl p-4 shadow-sm border space-y-1.5" style="background-color: #f8db91; border-color: #E2C06B;">
+            <h2 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">PENGATURAN</h2>
+            <p class="text-xs" style="color: #422F0E;">Sinkronisasi Google Sheets, kurs mata uang, keamanan PIN &amp; cadangan data</p>
           </div>
 
-          <!-- Koneksi Google Apps Script -->
           <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
             <div class="flex items-center justify-between">
               <h3 class="text-xs font-medium uppercase tracking-wider text-ink">GOOGLE SHEETS (APPS SCRIPT)</h3>
@@ -2297,7 +1955,6 @@
             </div>
           </div>
 
-          <!-- Kurs & Keamanan PIN -->
           <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-3">
             <h3 class="text-xs font-medium uppercase tracking-wider text-ink">KURS &amp; KEAMANAN</h3>
             <div class="flex items-center justify-between py-1">
@@ -2334,7 +1991,6 @@
             </div>
           </div>
 
-          <!-- Backup & Restore JSON -->
           <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2.5">
             <h3 class="text-xs font-medium uppercase tracking-wider text-ink">CADANGAN &amp; PULIHKAN DATA</h3>
             <div class="grid grid-cols-2 gap-2">
@@ -2397,9 +2053,8 @@
       e.target.value = '';
     }
 
-    
     // =========================================================================
-    // TRANSAKSI BERULANG (TERJADWAL PER TANGGAL)
+    // 14. TRANSAKSI BERULANG (TERJADWAL PER TANGGAL)
     // =========================================================================
     function buildDateFromYearMonthDay(year, monthIndex, dayOfMonth) {
       const lastDay = new Date(year, monthIndex + 1, 0).getDate();
@@ -2505,9 +2160,7 @@
         }
       });
 
-      if (createdAny) {
-        saveData();
-      }
+      if (createdAny) saveData();
       return createdAny;
     }
 
@@ -2522,9 +2175,7 @@
       const daySel = document.getElementById('tx-rec-day');
       if (dateVal && daySel) {
         const d = parseInt(dateVal.split('-')[2], 10);
-        if (!Number.isNaN(d) && d >= 1 && d <= 31) {
-          daySel.value = String(d);
-        }
+        if (!Number.isNaN(d) && d >= 1 && d <= 31) daySel.value = String(d);
       }
     }
 
@@ -2543,7 +2194,7 @@
           <div class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
             ${recs.length === 0 ? `
               <div class="bg-creamSoft rounded-2xl p-6 text-center text-xs text-slate-400 border border-[#E8DEC5]">
-                Belum ada jadwal transaksi berulang. Aktifkan opsi <strong>"Jadikan Transaksi Berulang"</strong> saat menambah transaksi.
+                Belum ada jadwal transaksi berulang. Aktifkan opsi <strong>"Transaksi Berulang (Bulanan)"</strong> saat menambah transaksi.
               </div>
             ` : recs.map(r => {
               const acc = db.accounts.find(a => a.id === r.accountId);
@@ -2589,8 +2240,8 @@
       render();
     }
 
-// =========================================================================
-    // 14. MODAL & AKSI TRANSAKSI / AKUN / POCKET / TABUNGAN / HUTANG
+    // =========================================================================
+    // 15. MODAL & AKSI TRANSAKSI / AKUN / POCKET / TRANSFER / TABUNGAN / HUTANG
     // =========================================================================
     function openModal(html) {
       const backdrop = document.getElementById('modal-backdrop');
@@ -2618,17 +2269,12 @@
       const digits = (inp.value || '').replace(/[^0-9]/g, '');
       if (!digits) return;
       const nextNum = Number(digits + zerosStr);
-      if (!Number.isNaN(nextNum)) {
-        inp.value = formatNumberID(nextNum);
-      }
+      if (!Number.isNaN(nextNum)) inp.value = formatNumberID(nextNum);
     }
 
     function formatAmountInput(inp) {
       const digits = (inp.value || '').replace(/[^0-9]/g, '');
-      if (!digits) {
-        inp.value = '';
-        return;
-      }
+      if (!digits) { inp.value = ''; return; }
       inp.value = formatNumberID(Number(digits));
     }
 
@@ -2637,10 +2283,162 @@
       return digits ? Number(digits) : 0;
     }
 
-    function openTxModal(defaultType = 'expense') {
+    function openTransferPocketModal(presetFromAccId = null, presetFromPktId = null) {
       const today = new Date().toISOString().slice(0, 10);
-      const firstAcc = db.accounts[0];
-      const firstPkt = firstAcc?.pockets?.[0];
+      const fromAcc = db.accounts.find(a => a.id === presetFromAccId) || db.accounts[0];
+      const fromPkt = fromAcc?.pockets?.find(p => p.id === presetFromPktId) || fromAcc?.pockets?.[0];
+
+      let toAcc = fromAcc;
+      let toPkt = (fromAcc?.pockets || []).find(p => p.id !== fromPkt?.id);
+      if (!toPkt) {
+        toAcc = db.accounts.find(a => a.id !== fromAcc?.id) || fromAcc;
+        toPkt = (toAcc?.pockets || []).find(p => !(toAcc.id === fromAcc?.id && p.id === fromPkt?.id)) || toAcc?.pockets?.[0];
+      }
+
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-medium uppercase text-ink">TRANSFER ANTAR-POCKET</h3>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+          <form onsubmit="submitTransferPocketForm(event)" class="space-y-3">
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Tanggal</label>
+                <input type="date" name="trfDate" value="${today}" required class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-500 mb-1">Nominal Transfer</label>
+                <input type="text" id="trf-amount-input" name="trfAmount" inputmode="numeric" required oninput="formatAmountInput(this)" placeholder="0"
+                  class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <button type="button" onclick="appendQuickZeros('trf-amount-input', '00')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+00</button>
+              <button type="button" onclick="appendQuickZeros('trf-amount-input', '000')" class="flex-1 py-1.5 rounded-xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+000</button>
+            </div>
+
+            <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl p-3 space-y-2">
+              <div class="text-[11px] font-medium text-ink">Dari Akun &amp; Pocket</div>
+              <div class="grid grid-cols-2 gap-2">
+                <select id="trf-from-acc" name="fromAccountId" onchange="onTrfFromAccChange()" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                  ${db.accounts.map(a => `<option value="${a.id}" ${a.id === fromAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
+                </select>
+                <select id="trf-from-pkt" name="fromPocketId" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                  ${(fromAcc?.pockets || []).map(p => `<option value="${p.id}" ${p.id === fromPkt?.id ? 'selected' : ''}>${p.name} (${formatCurrency(p.balance, fromAcc.currency)})</option>`).join('')}
+                </select>
+              </div>
+            </div>
+
+            <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl p-3 space-y-2">
+              <div class="text-[11px] font-medium text-ink">Ke Akun &amp; Pocket</div>
+              <div class="grid grid-cols-2 gap-2">
+                <select id="trf-to-acc" name="toAccountId" onchange="onTrfToAccChange()" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                  ${db.accounts.map(a => `<option value="${a.id}" ${a.id === toAcc?.id ? 'selected' : ''}>${a.name} (${a.currency})</option>`).join('')}
+                </select>
+                <select id="trf-to-pkt" name="toPocketId" class="w-full px-2.5 py-2 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                  ${(toAcc?.pockets || []).map(p => `<option value="${p.id}" ${p.id === toPkt?.id ? 'selected' : ''}>${p.name} (${formatCurrency(p.balance, toAcc.currency)})</option>`).join('')}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Catatan (Opsional)</label>
+              <input type="text" name="trfNote" placeholder="Contoh: Alokasi dana darurat / pindah pocket"
+                class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md">
+              Kirim Transfer Pocket
+            </button>
+          </form>
+        </div>
+      `);
+    }
+
+    function onTrfFromAccChange() {
+      const accId = document.getElementById('trf-from-acc')?.value;
+      const pktSel = document.getElementById('trf-from-pkt');
+      const acc = db.accounts.find(a => a.id === accId);
+      if (pktSel && acc) {
+        pktSel.innerHTML = (acc.pockets || []).map(p => `<option value="${p.id}">${p.name} (${formatCurrency(p.balance, acc.currency)})</option>`).join('');
+      }
+    }
+
+    function onTrfToAccChange() {
+      const accId = document.getElementById('trf-to-acc')?.value;
+      const pktSel = document.getElementById('trf-to-pkt');
+      const acc = db.accounts.find(a => a.id === accId);
+      if (pktSel && acc) {
+        pktSel.innerHTML = (acc.pockets || []).map(p => `<option value="${p.id}">${p.name} (${formatCurrency(p.balance, acc.currency)})</option>`).join('');
+      }
+    }
+
+    function submitTransferPocketForm(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const date = fd.get('trfDate') || new Date().toISOString().slice(0, 10);
+      const amount = parseFormattedAmount(fd.get('trfAmount'));
+      const fromAccId = fd.get('fromAccountId');
+      const fromPktId = fd.get('fromPocketId');
+      const toAccId = fd.get('toAccountId');
+      const toPktId = fd.get('toPocketId');
+      const note = String(fd.get('trfNote') || '').trim();
+
+      if (amount <= 0) {
+        showToast('Masukkan nominal transfer lebih dari 0', 'error');
+        return;
+      }
+      if (fromAccId === toAccId && fromPktId === toPktId) {
+        showToast('Pocket asal dan tujuan tidak boleh sama', 'error');
+        return;
+      }
+
+      const srcAcc = db.accounts.find(a => a.id === fromAccId);
+      const srcPkt = srcAcc?.pockets?.find(p => p.id === fromPktId);
+      const dstAcc = db.accounts.find(a => a.id === toAccId);
+      const dstPkt = dstAcc?.pockets?.find(p => p.id === toPktId);
+
+      if (!srcAcc || !srcPkt || !dstAcc || !dstPkt) {
+        showToast('Pilih pocket asal dan tujuan yang valid', 'error');
+        return;
+      }
+
+      const fromIDR = toIDR(amount, srcAcc.currency);
+      const toAmount = dstAcc.currency === srcAcc.currency
+        ? amount
+        : Number((fromIDR / (Number(db.exchangeRates?.[dstAcc.currency]) || 1)).toFixed(CURRENCY_META[dstAcc.currency]?.decimals || 2));
+
+      srcPkt.balance = (Number(srcPkt.balance) || 0) - amount;
+      dstPkt.balance = (Number(dstPkt.balance) || 0) + toAmount;
+
+      const trfId = 'trf_' + Date.now();
+      const trfTitle = note || `Transfer ke ${dstPkt.name}`;
+      db.transactions.unshift({
+        id: trfId,
+        type: 'transfer',
+        date,
+        amount,
+        nilaiKe: toAmount,
+        title: trfTitle,
+        accountId: srcAcc.id,
+        pocketId: srcPkt.id,
+        toAccountId: dstAcc.id,
+        toPocketId: dstPkt.id
+      });
+
+      recordTransferToLinkedSavingsGoals(dstAcc.id, dstPkt.id, fromIDR, date, trfTitle, trfId);
+      saveData();
+      closeModal();
+      showToast('Transfer antar-pocket berhasil');
+      render();
+    }
+
+    function openTxModal(defaultType = 'expense', presetAccId = null, presetPktId = null) {
+      const today = new Date().toISOString().slice(0, 10);
+      const firstAcc = db.accounts.find(a => a.id === presetAccId) || db.accounts[0];
+      const firstPkt = firstAcc?.pockets?.find(p => p.id === presetPktId) || firstAcc?.pockets?.[0];
       const expCats = db.categories.filter(c => c.type === 'expense');
       const incCats = db.categories.filter(c => c.type === 'income');
 
@@ -2992,7 +2790,6 @@
       db.accounts = db.accounts.filter(a => a.id !== accId);
       db.accounts.sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0)).forEach((a, i) => { a.urut = i + 1; });
 
-      // Lepas tautan tabungan jika mengarah ke akun yang dihapus
       const fallbackAcc = db.accounts[0];
       const fallbackPkt = fallbackAcc?.pockets?.[0];
       db.savingsGoals.forEach(g => {
@@ -3001,6 +2798,8 @@
           g.pocketId = fallbackPkt ? fallbackPkt.id : '';
         }
       });
+
+      if (ui.selectedPocketDetail?.accId === accId) ui.selectedPocketDetail = null;
 
       saveData();
       closeModal();
@@ -3194,10 +2993,43 @@
       render();
     }
 
+    function deletePocket(accId, pktId) {
+      const acc = db.accounts.find(a => a.id === accId);
+      if (!acc) return;
+      const pockets = acc.pockets || [];
+      if (pockets.length <= 1) {
+        showToast('Minimal harus ada 1 pocket di dalam akun', 'error');
+        return;
+      }
+      const pkt = pockets.find(p => p.id === pktId);
+      if (!pkt) return;
+      if (!confirm(`Hapus pocket "${pkt.name}" dari ${acc.name}?`)) return;
+
+      acc.pockets = pockets.filter(p => p.id !== pktId);
+      acc.pockets.sort((a, b) => (a.urut || 0) - (b.urut || 0)).forEach((p, idx) => { p.urut = idx + 1; });
+
+      const fallbackPkt = acc.pockets[0];
+      db.savingsGoals.forEach(g => {
+        if (g.accountId === accId && g.pocketId === pktId && fallbackPkt) {
+          g.pocketId = fallbackPkt.id;
+        }
+      });
+
+      if (ui.selectedPocketDetail?.accId === accId && ui.selectedPocketDetail?.pktId === pktId) {
+        ui.selectedPocketDetail = null;
+      }
+
+      saveData();
+      closeModal();
+      showToast('Pocket dihapus');
+      render();
+    }
+
     function openEditPocketModal(accId, pktId) {
       const acc = db.accounts.find(a => a.id === accId);
       const pkt = acc?.pockets?.find(p => p.id === pktId);
       if (!acc || !pkt) return;
+      const canDelete = (acc.pockets || []).length > 1;
 
       openModal(`
         <div class="space-y-4">
@@ -3216,7 +3048,15 @@
               <input type="text" name="pktBal" value="${formatNumberID(pkt.balance)}" inputmode="numeric" oninput="formatAmountInput(this)" required
                 class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink" />
             </div>
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Perubahan</button>
+            <div class="flex gap-2 pt-1">
+              ${canDelete ? `
+                <button type="button" onclick="deletePocket('${acc.id}', '${pkt.id}')"
+                  class="px-4 py-3 rounded-2xl bg-coralLight text-coral text-xs font-medium shrink-0">
+                  Hapus
+                </button>
+              ` : ''}
+              <button type="submit" class="flex-1 py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Simpan Perubahan</button>
+            </div>
           </form>
         </div>
       `);
@@ -3248,7 +3088,7 @@
           <div class="flex items-center justify-between">
             <div>
               <h3 class="text-base font-medium uppercase text-ink">ATUR LIMIT BUDGET</h3>
-              <p class="text-[11px] text-slate-400">Khusus periode ${monthLabel} (otomatis menyalin bulan sebelumnya)</p>
+              <p class="text-[11px] text-slate-400">Khusus periode ${monthLabel}</p>
             </div>
             <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
           </div>
@@ -3343,9 +3183,7 @@
       if (!confirm(`Hapus target tabungan "${goal.name}"? (Saldo di pocket akun tetap aman)`)) return;
       db.savingsGoals = db.savingsGoals.filter(g => g.id !== goalId);
       db.savingsGoals.sort((a, b) => (Number(a.urut) || 0) - (Number(b.urut) || 0)).forEach((g, i) => { g.urut = i + 1; });
-      if (ui.selectedSavingGoalId === goalId) {
-        ui.selectedSavingGoalId = null;
-      }
+      if (ui.selectedSavingGoalId === goalId) ui.selectedSavingGoalId = null;
       saveData();
       closeModal();
       showToast('Target tabungan dihapus');
@@ -3489,9 +3327,7 @@
     function onGoalPktChange() {
       const pktVal = document.getElementById('goal-pkt-select')?.value;
       const newWrap = document.getElementById('goal-new-pkt-wrap');
-      if (newWrap) {
-        newWrap.classList.toggle('hidden', pktVal !== '__NEW__');
-      }
+      if (newWrap) newWrap.classList.toggle('hidden', pktVal !== '__NEW__');
     }
 
     function submitSavingGoal(e, goalId) {
@@ -3539,9 +3375,7 @@
         const idx = sortedGoals.findIndex(x => x.id === goalId);
         if (idx !== -1) {
           const g = sortedGoals[idx];
-          if (initAmountIDR >= 0) {
-            pkt.balance = initInAccCur;
-          }
+          if (initAmountIDR >= 0) pkt.balance = initInAccCur;
           g.name = name;
           g.targetAmount = targetAmount;
           g.accountId = acc.id;
@@ -3555,9 +3389,7 @@
           sortedGoals.splice(Math.min(sortedGoals.length, targetOrder - 1), 0, g);
         }
       } else {
-        if (initAmountIDR > 0) {
-          pkt.balance = (Number(pkt.balance) || 0) + initInAccCur;
-        }
+        if (initAmountIDR > 0) pkt.balance = (Number(pkt.balance) || 0) + initInAccCur;
         const newGoal = {
           id: 'sav_' + Date.now(),
           name,
@@ -3592,9 +3424,7 @@
     }
 
     function syncSavingsGoalsWithPockets() {
-      db.savingsGoals.forEach(g => {
-        g.currentAmount = getSavingGoalBalanceIDR(g);
-      });
+      db.savingsGoals.forEach(g => { g.currentAmount = getSavingGoalBalanceIDR(g); });
     }
 
     function recordTransferToLinkedSavingsGoals(dstAccountId, dstPocketId, amountIDR, date, note, txId) {
@@ -3626,7 +3456,6 @@
       const goalPkt = goalAcc?.pockets?.find(p => p.id === goal.pocketId);
       const today = new Date().toISOString().slice(0, 10);
 
-      // Default counterparty account/pocket: pick first account/pocket different from goal's own pocket if possible
       let defaultAcc = db.accounts.find(a => a.id !== goal.accountId) || db.accounts[0];
       let defaultPkt = (defaultAcc?.pockets || []).find(p => !(defaultAcc.id === goal.accountId && p.id === goal.pocketId)) || defaultAcc?.pockets?.[0];
 
@@ -3924,7 +3753,7 @@
     }
 
     // =========================================================================
-    // 15. MAIN RENDER & BOOTSTRAP
+    // 16. MAIN RENDER & BOOTSTRAP
     // =========================================================================
     function render() {
       updateLockScreenVisibility();
