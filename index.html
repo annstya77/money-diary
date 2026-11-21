@@ -157,6 +157,11 @@
       { id: 'slate',   hex: '#596E85', bg: '#ECEFF3', border: '#CBD4DF' }
     ];
 
+    const PIE_PALETTE = [
+      '#FF6B6B', '#FF9F43', '#FFC837', '#C6DA77', '#58C4A8',
+      '#77BCDA', '#6C8EEF', '#A478E8', '#F278B6', '#8E9AAF'
+    ];
+
     const ICONS = {
       wallet: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7zm14 5h.01" /></svg>`,
       bank: `<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M5 10v8m4-8v8m6-8v8m4-8v8M2 18h20M12 3l10 5H2l10-5z" /></svg>`,
@@ -378,15 +383,17 @@
       txYear: nowInit.getFullYear(),
       txMonth: nowInit.getMonth(),
       txTypeFilter: 'ALL',
+      txSearchQuery: '',
       statPeriodMode: 'monthly',
       statYear: nowInit.getFullYear(),
       statMonth: nowInit.getMonth(),
+      statPieMode: 'expense', // 'income' | 'expense'
       expandedBudgetCats: {},
       akunPeriodMode: 'monthly',
       akunYear: nowInit.getFullYear(),
       akunMonth: nowInit.getMonth(),
-      selectedPocketDetail: null, // { accId, pktId }
-      pocketDetailTab: 'daily', // 'daily' | 'monthly' | 'yearly'
+      selectedPocketDetail: null,
+      pocketDetailTab: 'daily',
       pocketDetailYear: nowInit.getFullYear(),
       pocketDetailMonth: nowInit.getMonth(),
       selectedSavingGoalId: null,
@@ -779,10 +786,28 @@
     }
 
     // =========================================================================
-    // 8. VIEW 1: TRANSAKSI (HEADER KUNING #f8db91)
+    // 8. VIEW 1: TRANSAKSI (TANPA JUDUL & TOMBOL BERULANG + PENCARIAN)
     // =========================================================================
     function setTxPeriodMode(m) { ui.txPeriodMode = m; render(); }
     function setTxTypeFilter(f) { ui.txTypeFilter = f; render(); }
+
+    function handleTxSearchInput(val) {
+      ui.txSearchQuery = val;
+      render();
+      requestAnimationFrame(() => {
+        const inp = document.getElementById('tx-search-input');
+        if (inp && document.activeElement !== inp) {
+          inp.focus();
+          const len = inp.value.length;
+          inp.setSelectionRange(len, len);
+        }
+      });
+    }
+
+    function clearTxSearch() {
+      ui.txSearchQuery = '';
+      render();
+    }
 
     function renderTransaksiView() {
       const periodTxs = filterTransactionsByPeriod(db.transactions, ui.txPeriodMode, ui.txYear, ui.txMonth);
@@ -797,24 +822,38 @@
       });
       const totalNet = totalIn - totalOut;
 
+      const q = (ui.txSearchQuery || '').trim().toLowerCase();
+
       const filteredList = periodTxs
         .filter(t => ui.txTypeFilter === 'ALL' ? true : t.type === ui.txTypeFilter)
+        .filter(t => {
+          if (!q) return true;
+          const acc = db.accounts.find(a => a.id === t.accountId);
+          const pkt = acc?.pockets?.find(p => p.id === t.pocketId);
+          const dstAcc = t.type === 'transfer' ? db.accounts.find(a => a.id === t.toAccountId) : null;
+          const dstPkt = dstAcc?.pockets?.find(p => p.id === t.toPocketId);
+          const cat = db.categories.find(c => c.id === t.categoryId);
+          const sub = cat?.subcategories?.find(s => s.id === t.subcategoryId);
+
+          const haystack = [
+            t.title || '',
+            t.date || '',
+            cat?.name || '',
+            sub?.name || '',
+            acc?.name || '',
+            pkt?.name || '',
+            dstAcc?.name || '',
+            dstPkt?.name || ''
+          ].join(' ').toLowerCase();
+
+          return haystack.includes(q);
+        })
         .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
       return `
-        <div class="p-4 space-y-4">
+        <div class="p-4 space-y-3.5">
           <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
-              <div>
-                <h1 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">TRANSAKSI</h1>
-                <p class="text-[11px]" style="color: #422F0E;">Catatan pemasukan, pengeluaran &amp; transfer</p>
-              </div>
-              <button onclick="openRecurringListModal()" class="px-3 py-1.5 rounded-2xl bg-creamCard text-ink text-xs font-medium shadow-sm">
-                ↻ Berulang (${(db.recurringTransactions || []).length})
-              </button>
-            </div>
-
-            <div class="flex items-center justify-between gap-2 pt-2 border-t" style="border-color: rgba(66, 47, 14, 0.14);">
               <div class="inline-flex rounded-2xl bg-creamCard p-1">
                 <button onclick="setTxPeriodMode('monthly')"
                   class="px-3 py-1 rounded-xl text-xs font-medium ${ui.txPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
@@ -849,6 +888,23 @@
             </div>
           </div>
 
+          <!-- Kolom Pencarian Transaksi -->
+          <div class="relative flex items-center">
+            <svg class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input id="tx-search-input" type="text" value="${ui.txSearchQuery.replace(/"/g, '&quot;')}"
+              oninput="handleTxSearchInput(this.value)"
+              placeholder="Cari catatan, kategori, akun, atau pocket..."
+              class="w-full pl-9 pr-8 py-2.5 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink placeholder:text-slate-400 focus:outline-none focus:border-peanut" />
+            ${ui.txSearchQuery ? `
+              <button onclick="clearTxSearch()" title="Hapus pencarian"
+                class="w-6 h-6 rounded-full bg-creamSoft text-slate-500 hover:text-ink text-xs flex items-center justify-center absolute right-2.5">
+                ✕
+              </button>
+            ` : ''}
+          </div>
+
           <!-- Filter Jenis -->
           <div class="flex gap-1.5 overflow-x-auto no-scrollbar">
             ${[
@@ -872,7 +928,7 @@
           <div class="space-y-2.5">
             ${filteredList.length === 0 ? `
               <div class="bg-creamCard rounded-3xl p-8 text-center text-xs text-slate-400 border border-[#E8DEC5]">
-                Belum ada transaksi pada periode ${periodLabel}.
+                ${q ? `Tidak ada transaksi yang cocok dengan "${ui.txSearchQuery}".` : `Belum ada transaksi pada periode ${periodLabel}.`}
               </div>
             ` : filteredList.map(tx => {
               const acc = db.accounts.find(a => a.id === tx.accountId);
@@ -932,12 +988,14 @@
     }
 
     // =========================================================================
-    // 9. VIEW 2: STATISTIK & EVALUASI ANGGARAN
-    //    - Progress kategori: hijau #c6da77 (merah #E05A5A jika melewati limit)
-    //    - Progress sub-kategori: biru #77bcda (merah #E05A5A jika melewati limit)
-    //    - Header kuning #f8db91
+    // 9. VIEW 2: STATISTIK (PIE CHART DULU + EVALUASI ANGGARAN)
+    //    - Tanpa judul header & tanpa judul grafik
+    //    - Pendapatan: #c6da77 | Pengeluaran: #da7977
+    //    - Progress kategori: hijau #c6da77 (merah #E05A5A jika > limit)
+    //    - Progress sub-kategori: biru #77bcda (merah #E05A5A jika > limit)
     // =========================================================================
     function setStatPeriodMode(m) { ui.statPeriodMode = m; render(); }
+    function setStatPieMode(m) { ui.statPieMode = m; render(); }
 
     function toggleBudgetCatExpand(catId) {
       ui.expandedBudgetCats[catId] = !ui.expandedBudgetCats[catId];
@@ -967,14 +1025,152 @@
       return snapshot;
     }
 
+    function polarToCartesian(cx, cy, r, angleInDegrees) {
+      const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
+      return {
+        x: cx + r * Math.cos(angleInRadians),
+        y: cy + r * Math.sin(angleInRadians)
+      };
+    }
+
+    function describePieSlice(cx, cy, r, startAngle, endAngle) {
+      if (endAngle - startAngle >= 359.99) {
+        return `M ${cx} ${cy - r} A ${r} ${r} 0 1 0 ${cx - 0.01} ${cy - r} Z`;
+      }
+      const start = polarToCartesian(cx, cy, r, endAngle);
+      const end = polarToCartesian(cx, cy, r, startAngle);
+      const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
+      return [
+        'M', cx, cy,
+        'L', start.x.toFixed(2), start.y.toFixed(2),
+        'A', r, r, 0, largeArcFlag, 0, end.x.toFixed(2), end.y.toFixed(2),
+        'Z'
+      ].join(' ');
+    }
+
+    function renderPieChartSection(periodTxs) {
+      const pieMode = ui.statPieMode === 'income' ? 'income' : 'expense';
+      const matchingTxs = periodTxs.filter(t => t.type === pieMode);
+
+      const totalsByCat = {};
+      matchingTxs.forEach(t => {
+        const val = toIDR(t.amount, getTxCurrency(t));
+        if (val <= 0) return;
+        const cat = db.categories.find(c => c.id === t.categoryId);
+        const label = cat?.name || (pieMode === 'income' ? 'Pemasukan Lainnya' : 'Pengeluaran Lainnya');
+        totalsByCat[label] = (totalsByCat[label] || 0) + val;
+      });
+
+      const entries = Object.entries(totalsByCat)
+        .map(([name, amount]) => ({ name, amount }))
+        .sort((a, b) => b.amount - a.amount);
+
+      const totalAmount = entries.reduce((s, e) => s + e.amount, 0);
+      const coloredEntries = entries.map((e, idx) => ({
+        ...e,
+        color: PIE_PALETTE[idx % PIE_PALETTE.length],
+        pct: totalAmount > 0 ? (e.amount / totalAmount) * 100 : 0
+      }));
+
+      let svgHtml = '';
+      if (totalAmount <= 0 || coloredEntries.length === 0) {
+        svgHtml = `
+          <div class="py-10 text-center text-xs text-slate-400">
+            Belum ada data ${pieMode === 'income' ? 'pendapatan' : 'pengeluaran'} pada periode ini.
+          </div>
+        `;
+      } else {
+        const cx = 200;
+        const cy = 128;
+        const r = 74;
+        let currentAngle = 0;
+
+        const slicesAndCallouts = coloredEntries.map((item, idx) => {
+          const sweep = (item.amount / totalAmount) * 360;
+          const startAngle = currentAngle;
+          const endAngle = idx === coloredEntries.length - 1 ? 360 : currentAngle + sweep;
+          const midAngle = startAngle + (endAngle - startAngle) / 2;
+          currentAngle = endAngle;
+
+          const pathD = describePieSlice(cx, cy, r, startAngle, endAngle);
+          const edgePt = polarToCartesian(cx, cy, r + 3, midAngle);
+          const isRight = Math.cos(((midAngle - 90) * Math.PI) / 180) >= 0;
+          const elbowPt = {
+            x: edgePt.x + (isRight ? 12 : -12),
+            y: edgePt.y
+          };
+          const tipPt = {
+            x: isRight ? 305 : 95,
+            y: elbowPt.y
+          };
+
+          const showCallout = coloredEntries.length <= 8 || item.pct >= 2.5;
+          if (!showCallout) {
+            return `<path d="${pathD}" fill="${item.color}" stroke="#FFFDF7" stroke-width="1.5" />`;
+          }
+
+          const shortName = item.name.length > 14 ? item.name.slice(0, 13) + '…' : item.name;
+          const textAnchor = isRight ? 'start' : 'end';
+          const textX = isRight ? tipPt.x + 4 : tipPt.x - 4;
+
+          return `
+            <path d="${pathD}" fill="${item.color}" stroke="#FFFDF7" stroke-width="1.5" />
+            <polyline points="${edgePt.x.toFixed(1)},${edgePt.y.toFixed(1)} ${elbowPt.x.toFixed(1)},${elbowPt.y.toFixed(1)} ${tipPt.x.toFixed(1)},${tipPt.y.toFixed(1)}"
+              fill="none" stroke="${item.color}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+            <text x="${textX}" y="${(tipPt.y - 2).toFixed(1)}" text-anchor="${textAnchor}" fill="#3C3226" font-size="10.5" font-weight="500">${shortName}</text>
+            <text x="${textX}" y="${(tipPt.y + 10).toFixed(1)}" text-anchor="${textAnchor}" fill="#64748B" font-size="9.5">${item.pct.toFixed(1)}%</text>
+          `;
+        }).join('');
+
+        svgHtml = `
+          <svg viewBox="0 0 400 256" class="w-full h-auto overflow-visible">
+            ${slicesAndCallouts}
+          </svg>
+        `;
+      }
+
+      const legendRowsHtml = coloredEntries.length === 0 ? '' : `
+        <div class="divide-y divide-stone-100 pt-2 border-t border-[#E8DEC5]">
+          ${coloredEntries.map(item => `
+            <div class="py-2.5 flex items-center justify-between gap-2.5">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="px-2 py-0.5 rounded-lg text-[11px] font-medium text-white shrink-0" style="background-color: ${item.color};">
+                  ${Math.round(item.pct)}%
+                </span>
+                <span class="text-xs font-medium text-ink truncate">${item.name}</span>
+              </div>
+              <span class="text-xs font-medium text-ink shrink-0">${formatCurrency(item.amount)}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      return `
+        <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-2">
+          ${svgHtml}
+          ${legendRowsHtml}
+        </div>
+      `;
+    }
+
     function renderStatistikView() {
       const periodTxs = filterTransactionsByPeriod(db.transactions, ui.statPeriodMode, ui.statYear, ui.statMonth);
       const periodLabel = ui.statPeriodMode === 'yearly' ? `${ui.statYear}` : `${MONTH_NAMES_ID[ui.statMonth]} ${ui.statYear}`;
       const mBud = ensureMonthBudget(ui.statYear, ui.statMonth);
       const multiplier = ui.statPeriodMode === 'yearly' ? 12 : 1;
 
-      const expCats = db.categories.filter(c => c.type === 'expense');
+      let totalIncome = 0;
+      let totalExpense = 0;
+      periodTxs.forEach(t => {
+        const val = toIDR(t.amount, getTxCurrency(t));
+        if (t.type === 'income') totalIncome += val;
+        if (t.type === 'expense') totalExpense += val;
+      });
 
+      const pieMode = ui.statPieMode === 'income' ? 'income' : 'expense';
+      const pieSectionHtml = renderPieChartSection(periodTxs);
+
+      const expCats = db.categories.filter(c => c.type === 'expense');
       const budgetCards = expCats.map(cat => {
         const hasSubs = Array.isArray(cat.subcategories) && cat.subcategories.length > 0;
         const entry = mBud[cat.id] || { directLimit: cat.directLimit || 0, subs: {} };
@@ -1063,18 +1259,15 @@
 
       return `
         <div class="p-4 space-y-4">
+          <!-- Header Statistik (tanpa judul header, langsung bulan/tahun + Pendapatan/Pengeluaran) -->
           <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #f8db91; border-color: #E2C06B;">
             <div class="flex items-center justify-between gap-2">
-              <div>
-                <h1 class="text-base font-medium uppercase tracking-wider text-[#422F0E]">EVALUASI ANGGARAN</h1>
-                <p class="text-[11px]" style="color: #422F0E;">Pantau batas pengeluaran kategori &amp; sub-kategori</p>
+              <div class="flex items-center gap-1.5 bg-creamCard rounded-2xl px-2 py-1">
+                <button onclick="shiftPeriod('stat', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">‹</button>
+                <span class="text-xs font-medium text-ink px-1">${periodLabel}</span>
+                <button onclick="shiftPeriod('stat', 1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">›</button>
               </div>
-              <button onclick="openBudgetSettingsModal()" class="px-3 py-1.5 rounded-2xl text-xs font-medium shadow-sm" style="background-color: #422F0E; color: #FFF9EB;">
-                Atur Limit
-              </button>
-            </div>
 
-            <div class="flex items-center justify-between gap-2 pt-2 border-t" style="border-color: rgba(66, 47, 14, 0.14);">
               <div class="inline-flex rounded-2xl bg-creamCard p-1">
                 <button onclick="setStatPeriodMode('monthly')"
                   class="px-3 py-1 rounded-xl text-xs font-medium ${ui.statPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
@@ -1085,16 +1278,38 @@
                   Tahunan
                 </button>
               </div>
+            </div>
 
-              <div class="flex items-center gap-1.5 bg-creamCard rounded-2xl px-2 py-1">
-                <button onclick="shiftPeriod('stat', -1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">‹</button>
-                <span class="text-xs font-medium text-ink px-1">${periodLabel}</span>
-                <button onclick="shiftPeriod('stat', 1)" class="w-7 h-7 rounded-xl bg-creamSoft flex items-center justify-center text-xs text-ink">›</button>
-              </div>
+            <div class="grid grid-cols-2 gap-2.5">
+              <button onclick="setStatPieMode('income')"
+                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'income' ? 'ring-2 ring-[#422F0E]' : 'border-transparent'}"
+                style="background-color: #c6da77;">
+                <span class="text-[11px] font-medium block text-[#2E3809]">Pendapatan</span>
+                <span class="text-sm font-medium text-[#1F2605] mt-0.5 block">${formatCurrency(totalIncome)}</span>
+              </button>
+
+              <button onclick="setStatPieMode('expense')"
+                class="text-left rounded-2xl p-3 transition-all border ${pieMode === 'expense' ? 'ring-2 ring-[#422F0E]' : 'border-transparent'}"
+                style="background-color: #da7977;">
+                <span class="text-[11px] font-medium block text-[#3D1211]">Pengeluaran</span>
+                <span class="text-sm font-medium text-[#2A0B0A] mt-0.5 block">${formatCurrency(totalExpense)}</span>
+              </button>
             </div>
           </div>
 
-          <div class="space-y-3">${budgetCards}</div>
+          <!-- Pie Chart Dulu -->
+          ${pieSectionHtml}
+
+          <!-- Evaluasi Anggaran di Bawah Pie Chart -->
+          <div class="space-y-3 pt-1">
+            <div class="flex items-center justify-between px-1">
+              <span class="text-xs font-medium uppercase tracking-wider text-ink">Evaluasi Anggaran</span>
+              <button onclick="openBudgetSettingsModal()" class="px-3 py-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs font-medium text-ink">
+                Atur Limit
+              </button>
+            </div>
+            ${budgetCards}
+          </div>
         </div>
       `;
     }
