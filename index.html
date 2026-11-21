@@ -441,6 +441,7 @@
             createdAt: '2026-11-10'
           }
         ],
+        recurringTransactions: [],
         savingsGoals: [
           {
             id: 'sav_1',
@@ -484,6 +485,8 @@
           categories: Array.isArray(parsed.categories) && parsed.categories.length ? parsed.categories : def.categories,
           accounts: Array.isArray(parsed.accounts) && parsed.accounts.length ? parsed.accounts : def.accounts,
           transactions: Array.isArray(parsed.transactions) ? parsed.transactions : def.transactions,
+          monthlyBudgets: (parsed.monthlyBudgets && typeof parsed.monthlyBudgets === 'object') ? parsed.monthlyBudgets : {},
+          recurringTransactions: Array.isArray(parsed.recurringTransactions) ? parsed.recurringTransactions : [],
           debts: Array.isArray(parsed.debts) ? parsed.debts : [],
           savingsGoals: Array.isArray(parsed.savingsGoals) ? parsed.savingsGoals : []
         };
@@ -1053,7 +1056,9 @@
 
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
+        processDueRecurringTransactions();
         updateLockScreenVisibility();
+        render();
       }
     });
 
@@ -1112,9 +1117,63 @@
       return db.accounts.reduce((sum, acc) => sum + toIDR(getAccountTotalBalance(acc), acc.currency), 0);
     }
 
-    function getCategoryLimit(cat) {
+    function getMonthBudgetKey(year = ui.statYear, month = ui.statMonth) {
+      return `${year}-${String((Number(month) || 0) + 1).padStart(2, '0')}`;
+    }
+
+    function ensureMonthBudget(year = ui.statYear, month = ui.statMonth) {
+      const key = getMonthBudgetKey(year, month);
+      db.monthlyBudgets = db.monthlyBudgets || {};
+      if (db.monthlyBudgets[key]) return db.monthlyBudgets[key];
+
+      // Cari bulan terbaru sebelumnya yang sudah tersimpan, jika tidak ada pakai nilai default kategori/subkategori
+      const keys = Object.keys(db.monthlyBudgets).sort();
+      const prevKey = [...keys].reverse().find(k => k < key);
+      const snapshot = {};
+
+      db.categories.forEach(cat => {
+        if (cat.type !== 'expense') return;
+        const prevCat = prevKey ? db.monthlyBudgets[prevKey]?.[cat.id] : null;
+        if (Array.isArray(cat.subcategories) && cat.subcategories.length > 0) {
+          const subsMap = {};
+          cat.subcategories.forEach(sub => {
+            if (prevCat && prevCat.subs && prevCat.subs[sub.id] !== undefined) {
+              subsMap[sub.id] = Number(prevCat.subs[sub.id]) || 0;
+            } else {
+              subsMap[sub.id] = Number(sub.limit) || 0;
+            }
+          });
+          snapshot[cat.id] = { directLimit: 0, subs: subsMap };
+        } else {
+          const val = (prevCat && prevCat.directLimit !== undefined)
+            ? (Number(prevCat.directLimit) || 0)
+            : (Number(cat.directLimit) || 0);
+          snapshot[cat.id] = { directLimit: val, subs: {} };
+        }
+      });
+
+      db.monthlyBudgets[key] = snapshot;
+      saveData();
+      return snapshot;
+    }
+
+    function getSubcategoryLimit(cat, sub, year = ui.statYear, month = ui.statMonth) {
+      const mBud = ensureMonthBudget(year, month);
+      const entry = mBud[cat.id];
+      if (entry && entry.subs && entry.subs[sub.id] !== undefined) {
+        return Number(entry.subs[sub.id]) || 0;
+      }
+      return Number(sub.limit) || 0;
+    }
+
+    function getCategoryLimit(cat, year = ui.statYear, month = ui.statMonth) {
+      const mBud = ensureMonthBudget(year, month);
+      const entry = mBud[cat.id];
       if (cat.subcategories && cat.subcategories.length > 0) {
-        return cat.subcategories.reduce((s, sub) => s + (Number(sub.limit) || 0), 0);
+        return cat.subcategories.reduce((s, sub) => s + getSubcategoryLimit(cat, sub, year, month), 0);
+      }
+      if (entry && entry.directLimit !== undefined) {
+        return Number(entry.directLimit) || 0;
       }
       return Number(cat.directLimit) || 0;
     }
@@ -1331,16 +1390,6 @@
       return `
         <div class="p-4 space-y-4">
           <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
-            <div class="flex items-center justify-between gap-2">
-              <div>
-                <h1 class="text-base font-medium uppercase tracking-wider text-[#4B2D16]">RIWAYAT TRANSAKSI</h1>
-                <p class="text-xs mt-1" style="color: #4B2D16;">Semua pemasukan, pengeluaran &amp; transfer antar-pocket</p>
-              </div>
-              <button onclick="openTxModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">
-                + Catat
-              </button>
-            </div>
-
             <input id="tx-search-input" type="text" value="${ui.txSearch || ''}" oninput="setTxSearch(this.value)"
               placeholder="Cari transaksi, kategori, atau nama pocket..."
               class="w-full px-4 py-2.5 rounded-2xl bg-creamCard text-xs text-ink placeholder:text-slate-400 focus:outline-none" />
@@ -1563,18 +1612,14 @@
         <div class="p-4 space-y-4">
           <!-- Header Orange & Filter Bulanan / Tahunan -->
           <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
-            <div class="flex items-center justify-between gap-2">
-              <div>
-                <h2 class="text-base font-medium uppercase tracking-wider text-[#4B2D16]">STATISTIK &amp; ANGGARAN</h2>
-                <p class="text-xs mt-0.5" style="color: #4B2D16;">Pie chart pendapatan &amp; pengeluaran + evaluasi budget</p>
-              </div>
+            <div class="flex items-center justify-center">
               <div class="inline-flex rounded-2xl bg-creamCard p-1 shrink-0">
                 <button onclick="setStatPeriodMode('monthly')"
-                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.statPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  class="px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.statPeriodMode === 'monthly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Bulanan
                 </button>
                 <button onclick="setStatPeriodMode('yearly')"
-                  class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.statPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
+                  class="px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${ui.statPeriodMode === 'yearly' ? 'bg-[#422F0E] text-[#FFF9EB]' : 'text-ink'}">
                   Tahunan
                 </button>
               </div>
@@ -1603,12 +1648,6 @@
 
           <!-- Kartu Pie Chart + Daftar Kategori -->
           <div class="bg-creamCard rounded-3xl p-4 shadow-sm border border-[#E8DEC5] space-y-4">
-            <div class="flex items-center justify-between">
-              <h3 class="text-xs font-medium uppercase tracking-wider text-ink">
-                PIE CHART ${activeChartType === 'income' ? 'PENDAPATAN' : 'PENGELUARAN'} (${periodLabel})
-              </h3>
-              <span class="text-xs font-medium text-ink">${formatCurrency(activeTotalIDR)}</span>
-            </div>
 
             <div class="py-1">
               ${buildPieChartSvg(pieSlices)}
@@ -1708,7 +1747,7 @@
                           const subSpent = periodTxs
                             .filter(t => t.type === 'expense' && t.categoryId === cat.id && t.subcategoryId === sub.id)
                             .reduce((s, t) => s + toIDR(t.amount, getTxCurrency(t)), 0);
-                          const subLimit = Number(sub.limit) || 0;
+                          const subLimit = getSubcategoryLimit(cat, sub, ui.statYear, ui.statMonth);
                           const subPct = subLimit > 0 ? Math.min(100, (subSpent / subLimit) * 100) : (subSpent > 0 ? 100 : 0);
                           return `
                             <div class="space-y-1">
@@ -2064,8 +2103,8 @@
           <div class="rounded-3xl p-4 shadow-sm border space-y-3" style="background-color: #FF9B71; border-color: #EB8458;">
             <div class="flex items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-medium uppercase tracking-wider text-[#4B2D16]">TARGET TABUNGAN</h2>
-                <p class="text-xs mt-0.5" style="color: #4B2D16;">Terhubung langsung ke pocket akun &amp; kekayaan</p>
+                <h2 class="text-base font-medium text-[#4B2D16]">Target tabungan</h2>
+                <p class="text-xs mt-0.5" style="color: #4B2D16;">Wujudkan rencana finansialmu ✨</p>
               </div>
               <button onclick="openSavingGoalModal()" class="px-3.5 py-2 rounded-2xl text-xs font-medium shadow-sm active:scale-95 transition-all shrink-0" style="background-color: #422F0E; color: #FFF9EB;">+ Target</button>
             </div>
@@ -2358,7 +2397,199 @@
       e.target.value = '';
     }
 
+    
     // =========================================================================
+    // TRANSAKSI BERULANG (TERJADWAL PER TANGGAL)
+    // =========================================================================
+    function buildDateFromYearMonthDay(year, monthIndex, dayOfMonth) {
+      const lastDay = new Date(year, monthIndex + 1, 0).getDate();
+      const clampedDay = Math.min(Math.max(1, Number(dayOfMonth) || 1), lastDay);
+      return `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(clampedDay).padStart(2, '0')}`;
+    }
+
+    function executeRecurringEntry(rec, dateStr) {
+      const acc = db.accounts.find(a => a.id === rec.accountId) || db.accounts[0];
+      const pkt = acc?.pockets?.find(p => p.id === rec.pocketId) || acc?.pockets?.[0];
+      if (!acc || !pkt || !(Number(rec.amount) > 0)) return false;
+
+      const amount = Number(rec.amount);
+      if (rec.type === 'transfer') {
+        const dstAcc = db.accounts.find(a => a.id === rec.toAccountId) || db.accounts[0];
+        const dstPkt = dstAcc?.pockets?.find(p => p.id === rec.toPocketId) || dstAcc?.pockets?.[0];
+        if (!dstAcc || !dstPkt) return false;
+
+        const fromIDR = toIDR(amount, acc.currency);
+        const toAmount = dstAcc.currency === acc.currency
+          ? amount
+          : Number((fromIDR / (Number(db.exchangeRates?.[dstAcc.currency]) || 1)).toFixed(CURRENCY_META[dstAcc.currency]?.decimals || 2));
+
+        pkt.balance = (Number(pkt.balance) || 0) - amount;
+        dstPkt.balance = (Number(dstPkt.balance) || 0) + toAmount;
+
+        const trfId = 'trf_rec_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5);
+        const trfNote = rec.title || `Transfer berulang ke ${dstPkt.name}`;
+        db.transactions.unshift({
+          id: trfId,
+          type: 'transfer',
+          date: dateStr,
+          amount,
+          nilaiKe: toAmount,
+          title: trfNote,
+          accountId: acc.id,
+          pocketId: pkt.id,
+          toAccountId: dstAcc.id,
+          toPocketId: dstPkt.id,
+          recurringId: rec.id
+        });
+        recordTransferToLinkedSavingsGoals(dstAcc.id, dstPkt.id, fromIDR, dateStr, trfNote, trfId);
+      } else {
+        if (rec.type === 'income') {
+          pkt.balance = (Number(pkt.balance) || 0) + amount;
+        } else {
+          pkt.balance = (Number(pkt.balance) || 0) - amount;
+        }
+        db.transactions.unshift({
+          id: 'tx_rec_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5),
+          type: rec.type,
+          date: dateStr,
+          amount,
+          categoryId: rec.categoryId || '',
+          subcategoryId: rec.subcategoryId || '',
+          title: rec.title || 'Transaksi Berulang',
+          accountId: acc.id,
+          pocketId: pkt.id,
+          recurringId: rec.id
+        });
+      }
+      return true;
+    }
+
+    function processDueRecurringTransactions() {
+      db.recurringTransactions = Array.isArray(db.recurringTransactions) ? db.recurringTransactions : [];
+      if (db.recurringTransactions.length === 0) return false;
+
+      const now = new Date();
+      const todayStr = now.toISOString().slice(0, 10);
+      let createdAny = false;
+
+      db.recurringTransactions.forEach(rec => {
+        if (rec.active === false) return;
+        const startDate = rec.startDate || todayStr;
+        const [sy, sm] = startDate.split('-').map(n => parseInt(n, 10));
+        const dayOfMonth = Math.min(Math.max(1, Number(rec.dayOfMonth) || 1), 31);
+
+        let curYear = sy || now.getFullYear();
+        let curMonthIdx = (sm || (now.getMonth() + 1)) - 1;
+        const endYear = now.getFullYear();
+        const endMonthIdx = now.getMonth();
+
+        while (curYear < endYear || (curYear === endYear && curMonthIdx <= endMonthIdx)) {
+          const runDate = buildDateFromYearMonthDay(curYear, curMonthIdx, dayOfMonth);
+          const monthKey = `${curYear}-${String(curMonthIdx + 1).padStart(2, '0')}`;
+          rec.triggeredMonths = Array.isArray(rec.triggeredMonths) ? rec.triggeredMonths : [];
+
+          if (runDate >= startDate && runDate <= todayStr && !rec.triggeredMonths.includes(monthKey)) {
+            const ok = executeRecurringEntry(rec, runDate);
+            if (ok) {
+              rec.triggeredMonths.push(monthKey);
+              rec.lastRunDate = runDate;
+              createdAny = true;
+            }
+          }
+
+          curMonthIdx += 1;
+          if (curMonthIdx > 11) {
+            curMonthIdx = 0;
+            curYear += 1;
+          }
+        }
+      });
+
+      if (createdAny) {
+        saveData();
+      }
+      return createdAny;
+    }
+
+    function toggleRecurringScheduleFields() {
+      const checked = Boolean(document.getElementById('tx-is-recurring')?.checked);
+      const box = document.getElementById('tx-recurring-fields');
+      if (box) box.classList.toggle('hidden', !checked);
+    }
+
+    function onTxStartDateChange() {
+      const dateVal = document.getElementById('tx-date-input')?.value;
+      const daySel = document.getElementById('tx-rec-day');
+      if (dateVal && daySel) {
+        const d = parseInt(dateVal.split('-')[2], 10);
+        if (!Number.isNaN(d) && d >= 1 && d <= 31) {
+          daySel.value = String(d);
+        }
+      }
+    }
+
+    function openRecurringListModal() {
+      const recs = db.recurringTransactions || [];
+      openModal(`
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-base font-medium uppercase text-ink">TRANSAKSI BERULANG</h3>
+              <p class="text-[11px] text-slate-400">Otomatis tercatat setiap bulan sesuai tanggal pilihan</p>
+            </div>
+            <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
+          </div>
+
+          <div class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
+            ${recs.length === 0 ? `
+              <div class="bg-creamSoft rounded-2xl p-6 text-center text-xs text-slate-400 border border-[#E8DEC5]">
+                Belum ada jadwal transaksi berulang. Aktifkan opsi <strong>"Jadikan Transaksi Berulang"</strong> saat menambah transaksi.
+              </div>
+            ` : recs.map(r => {
+              const acc = db.accounts.find(a => a.id === r.accountId);
+              const pkt = acc?.pockets?.find(p => p.id === r.pocketId);
+              const cur = acc?.currency || 'IDR';
+              return `
+                <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] flex items-center justify-between gap-2">
+                  <div class="min-w-0">
+                    <div class="flex items-center gap-1.5">
+                      <span class="px-2 py-0.5 rounded-md text-[10px] font-medium ${r.type === 'income' ? 'bg-sageLight text-sage' : r.type === 'transfer' ? 'bg-[#EFF7F8] text-[#2B5B67]' : 'bg-coralLight text-coral'}">
+                        ${r.type === 'income' ? 'Masuk' : r.type === 'transfer' ? 'Transfer' : 'Keluar'}
+                      </span>
+                      <span class="text-xs font-medium text-ink truncate">${r.title || 'Transaksi Berulang'}</span>
+                    </div>
+                    <div class="text-[11px] text-slate-500 mt-0.5">
+                      Setiap tanggal <strong>${r.dayOfMonth}</strong> • ${formatCurrency(r.amount, cur)} • ${acc?.name || '-'} (${pkt?.name || '-'})
+                    </div>
+                    <div class="text-[10px] text-slate-400">
+                      Mulai: ${r.startDate || '-'}${r.lastRunDate ? ` • Terakhir jalan: ${r.lastRunDate}` : ''}
+                    </div>
+                  </div>
+                  <button onclick="deleteRecurringRule('${r.id}')" class="px-2.5 py-1.5 rounded-xl bg-coralLight text-coral text-[11px] font-medium shrink-0">
+                    Hapus
+                  </button>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="closeModal(); openTxModal('expense');" class="py-2.5 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs font-medium text-ink">+ Buat Jadwal</button>
+            <button onclick="closeModal()" class="py-2.5 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium">Tutup</button>
+          </div>
+        </div>
+      `);
+    }
+
+    function deleteRecurringRule(recId) {
+      db.recurringTransactions = (db.recurringTransactions || []).filter(r => r.id !== recId);
+      saveData();
+      showToast('Jadwal transaksi berulang dihapus');
+      openRecurringListModal();
+      render();
+    }
+
+// =========================================================================
     // 14. MODAL & AKSI TRANSAKSI / AKUN / POCKET / TABUNGAN / HUTANG
     // =========================================================================
     function openModal(html) {
@@ -2437,7 +2668,7 @@
             <div class="grid grid-cols-2 gap-2.5">
               <div>
                 <label class="block text-[11px] text-slate-500 mb-1">Tanggal</label>
-                <input type="date" name="txDate" value="${today}" required class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+                <input id="tx-date-input" type="date" name="txDate" value="${today}" onchange="onTxStartDateChange()" required class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
               </div>
               <div>
                 <label class="block text-[11px] text-slate-500 mb-1">Nominal</label>
@@ -2495,6 +2726,33 @@
               <label class="block text-[11px] text-slate-500 mb-1">Catatan / Keterangan</label>
               <input type="text" name="txTitle" placeholder="Contoh: Makan siang, Gaji, dll."
                 class="w-full px-3 py-2 rounded-2xl bg-creamSoft border border-[#E8DEC5] text-xs text-ink" />
+            </div>
+
+            <div class="bg-creamSoft border border-[#E8DEC5] rounded-2xl p-3 space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
+                <label class="inline-flex items-center gap-2 cursor-pointer">
+                  <input id="tx-is-recurring" type="checkbox" name="txIsRecurring" onchange="toggleRecurringScheduleFields()" class="rounded accent-ink w-4 h-4" />
+                  <span class="text-xs font-medium text-ink">Transaksi Berulang (Bulanan)</span>
+                </label>
+                <button type="button" onclick="openRecurringListModal()" class="text-[11px] font-medium text-sage hover:underline">
+                  Jadwal (${(db.recurringTransactions || []).length})
+                </button>
+              </div>
+              <div id="tx-recurring-fields" class="hidden pt-1 border-t border-[#E8DEC5] space-y-2">
+                <div class="grid grid-cols-2 gap-2.5">
+                  <div>
+                    <label class="block text-[10px] text-slate-500 mb-1">Tanggal Tiap Bulan (1–31)</label>
+                    <select id="tx-rec-day" name="txRecDay" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink">
+                      ${Array.from({ length: 31 }, (_, i) => i + 1).map(d => `<option value="${d}" ${d === new Date().getDate() ? 'selected' : ''}>Tanggal ${d}</option>`).join('')}
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-[10px] text-slate-500 mb-1">Mulai Berlaku</label>
+                    <input type="date" name="txRecStartDate" value="${today}" class="w-full px-3 py-2 rounded-2xl bg-creamCard border border-[#E8DEC5] text-xs text-ink" />
+                  </div>
+                </div>
+                <p class="text-[10px] text-slate-400">Jika bulan tidak punya tanggal tersebut (mis. 31), otomatis memakai akhir bulan.</p>
+              </div>
             </div>
 
             <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium shadow-md">
@@ -2641,9 +2899,38 @@
         });
       }
 
+      const isRecurring = Boolean(fd.get('txIsRecurring'));
+      if (isRecurring) {
+        const recDay = Math.min(Math.max(1, parseInt(fd.get('txRecDay'), 10) || 1), 31);
+        const recStartDate = fd.get('txRecStartDate') || date;
+        const [ry, rm] = recStartDate.split('-').map(n => parseInt(n, 10));
+        const firstRunDate = buildDateFromYearMonthDay(ry || new Date().getFullYear(), (rm || 1) - 1, recDay);
+        const firstMonthKey = `${ry || new Date().getFullYear()}-${String(rm || 1).padStart(2, '0')}`;
+        const triggeredMonths = firstRunDate <= new Date().toISOString().slice(0, 10) ? [firstMonthKey] : [];
+
+        db.recurringTransactions = db.recurringTransactions || [];
+        db.recurringTransactions.unshift({
+          id: 'rec_' + Date.now(),
+          active: true,
+          type,
+          amount,
+          title: title || (type === 'transfer' ? 'Transfer Berulang' : 'Transaksi Berulang'),
+          categoryId: fd.get('txCategoryId') || '',
+          subcategoryId: fd.get('txSubcategoryId') || '',
+          accountId,
+          pocketId,
+          toAccountId: fd.get('txToAccountId') || '',
+          toPocketId: fd.get('txToPocketId') || '',
+          dayOfMonth: recDay,
+          startDate: recStartDate,
+          lastRunDate: triggeredMonths.length ? firstRunDate : '',
+          triggeredMonths
+        });
+      }
+
       saveData();
       closeModal();
-      showToast('Transaksi tersimpan');
+      showToast(isRecurring ? 'Transaksi tersimpan & dijadwalkan berulang' : 'Transaksi tersimpan');
       render();
     }
 
@@ -2953,41 +3240,51 @@
     }
 
     function openBudgetSettingsModal() {
+      const mBud = ensureMonthBudget(ui.statYear, ui.statMonth);
+      const monthLabel = `${MONTH_NAMES_ID[ui.statMonth]} ${ui.statYear}`;
       const expCats = db.categories.filter(c => c.type === 'expense');
       openModal(`
         <div class="space-y-4">
           <div class="flex items-center justify-between">
-            <h3 class="text-base font-medium uppercase text-ink">ATUR LIMIT BUDGET</h3>
+            <div>
+              <h3 class="text-base font-medium uppercase text-ink">ATUR LIMIT BUDGET</h3>
+              <p class="text-[11px] text-slate-400">Khusus periode ${monthLabel} (otomatis menyalin bulan sebelumnya)</p>
+            </div>
             <button onclick="closeModal()" class="p-1.5 rounded-full bg-creamSoft text-slate-500">✕</button>
           </div>
           <form onsubmit="submitBudgetSettings(event)" class="space-y-3 max-h-80 overflow-y-auto pr-1">
             ${expCats.map(cat => {
               const hasSubs = Array.isArray(cat.subcategories) && cat.subcategories.length > 0;
+              const entry = mBud[cat.id] || { directLimit: cat.directLimit || 0, subs: {} };
               if (hasSubs) {
                 return `
                   <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] space-y-2">
                     <div class="text-xs font-medium text-ink">${cat.name}</div>
-                    ${cat.subcategories.map(sub => `
-                      <div class="flex items-center justify-between gap-2">
-                        <span class="text-[11px] text-slate-600 truncate">${sub.name}</span>
-                        <input type="text" name="sub_${cat.id}__${sub.id}" value="${formatNumberID(sub.limit || 0)}"
-                          inputmode="numeric" oninput="formatAmountInput(this)"
-                          class="w-32 px-2.5 py-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-right text-ink" />
-                      </div>
-                    `).join('')}
+                    ${cat.subcategories.map(sub => {
+                      const val = entry.subs && entry.subs[sub.id] !== undefined ? entry.subs[sub.id] : (sub.limit || 0);
+                      return `
+                        <div class="flex items-center justify-between gap-2">
+                          <span class="text-[11px] text-slate-600 truncate">${sub.name}</span>
+                          <input type="text" name="sub_${cat.id}__${sub.id}" value="${formatNumberID(val)}"
+                            inputmode="numeric" oninput="formatAmountInput(this)"
+                            class="w-32 px-2.5 py-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-right text-ink" />
+                        </div>
+                      `;
+                    }).join('')}
                   </div>
                 `;
               }
+              const catVal = entry.directLimit !== undefined ? entry.directLimit : (cat.directLimit || 0);
               return `
                 <div class="bg-creamSoft rounded-2xl p-3 border border-[#E8DEC5] flex items-center justify-between gap-2">
                   <span class="text-xs font-medium text-ink truncate">${cat.name}</span>
-                  <input type="text" name="cat_${cat.id}" value="${formatNumberID(cat.directLimit || 0)}"
+                  <input type="text" name="cat_${cat.id}" value="${formatNumberID(catVal)}"
                     inputmode="numeric" oninput="formatAmountInput(this)"
                     class="w-32 px-2.5 py-1.5 rounded-xl bg-creamCard border border-[#E8DEC5] text-xs text-right text-ink" />
                 </div>
               `;
             }).join('')}
-            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium sticky bottom-0">Simpan Budget</button>
+            <button type="submit" class="w-full py-3 rounded-2xl bg-ink text-[#FBF6EA] text-xs font-medium sticky bottom-0">Simpan Budget (${monthLabel})</button>
           </form>
         </div>
       `);
@@ -2996,21 +3293,33 @@
     function submitBudgetSettings(e) {
       e.preventDefault();
       const fd = new FormData(e.target);
+      const key = getMonthBudgetKey(ui.statYear, ui.statMonth);
+      const monthLabel = `${MONTH_NAMES_ID[ui.statMonth]} ${ui.statYear}`;
+      db.monthlyBudgets = db.monthlyBudgets || {};
+      const nextSnapshot = {};
+
       db.categories.forEach(cat => {
         if (cat.type !== 'expense') return;
         if (Array.isArray(cat.subcategories) && cat.subcategories.length > 0) {
+          const subsMap = {};
           cat.subcategories.forEach(sub => {
             const raw = fd.get(`sub_${cat.id}__${sub.id}`);
-            if (raw !== null) sub.limit = parseFormattedAmount(raw);
+            subsMap[sub.id] = raw !== null ? parseFormattedAmount(raw) : (Number(sub.limit) || 0);
           });
+          nextSnapshot[cat.id] = { directLimit: 0, subs: subsMap };
         } else {
           const raw = fd.get(`cat_${cat.id}`);
-          if (raw !== null) cat.directLimit = parseFormattedAmount(raw);
+          nextSnapshot[cat.id] = {
+            directLimit: raw !== null ? parseFormattedAmount(raw) : (Number(cat.directLimit) || 0),
+            subs: {}
+          };
         }
       });
+
+      db.monthlyBudgets[key] = nextSnapshot;
       saveData();
       closeModal();
-      showToast('Limit budget diperbarui');
+      showToast(`Limit budget ${monthLabel} diperbarui`);
       render();
     }
 
@@ -3642,6 +3951,7 @@
 
     (function initApp() {
       initPWAAssets();
+      processDueRecurringTransactions();
       render();
       if (db.gasConfig?.url && db.gasConfig?.key) {
         syncPullFromSheets(true);
