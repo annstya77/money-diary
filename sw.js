@@ -1,6 +1,6 @@
 // Service worker: menyimpan tampilan aplikasi di HP agar terbuka cepat dan bisa dibuka tanpa internet.
 // Data keuangan TIDAK disimpan di sini; permintaan ke Apps Script selalu lewat jaringan.
-const V = 'ck-v12';
+const V = 'ck-v13';
 const SHELL = ['./', 'index.html', 'manifest.json', 'icon-192.png', 'icon-512.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
